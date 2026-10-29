@@ -17,6 +17,17 @@ export const colors = {
   peach: "#FFF6EB",
   mint: "#ECFDF3",
   amberBg: "#FEF6EE",
+  /** Palette Stitch (M13 / M20) */
+  stitchSurface: "#F9F9FF",
+  stitchNavy: "#141B2C",
+  stitchOrange: "#FE9821",
+  stitchGreenGlow: "#70FDA7",
+  stitchGreen: "#009756",
+  stitchPeach: "#FFDCBF",
+  stitchBlueLow: "#F0F3FF",
+  stitchBlue: "#E8EEFF",
+  stitchBlueHigh: "#DFE8FF",
+  stitchOnVariant: "#45474C",
 } as const;
 
 export const spacing = brandSpacing;

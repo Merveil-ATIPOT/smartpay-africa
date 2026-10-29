@@ -1,6 +1,7 @@
+import Constants from "expo-constants";
 import { Platform } from "react-native";
 
-import { defaultApiUrl } from "../lib/env";
+import { defaultApiUrl, rewriteLoopbackToLan } from "../lib/env";
 import { ApiError, messageFromBody } from "./errors";
 import { STORAGE_KEYS, storageDelete, storageGet, storageSet } from "./storage";
 
@@ -15,12 +16,16 @@ export function createApiClient(deps: {
   const fetchImpl = deps.fetchImpl ?? fetch;
   let refreshPromise: Promise<string | null> | null = null;
 
+  function metroHost(): string | undefined {
+    return Constants.expoGoConfig?.debuggerHost ?? Constants.expoConfig?.hostUri ?? undefined;
+  }
+
   async function getBaseUrl(): Promise<string> {
     const override = await storageGet(STORAGE_KEYS.apiBase);
     if (override) {
       return override.replace(/\/$/, "");
     }
-    return defaultApiUrl(deps.platform ?? "ios");
+    return rewriteLoopbackToLan(defaultApiUrl(deps.platform ?? "ios"), metroHost());
   }
 
   async function setApiBaseUrl(url: string): Promise<void> {
@@ -108,13 +113,26 @@ export function createApiClient(deps: {
     }
     let response: Response;
     try {
-      response = await fetchImpl(`${base}${path}`, {
-        method: options.method ?? "GET",
-        headers,
-        body: options.body !== undefined ? JSON.stringify(options.body) : undefined,
-      });
-    } catch {
-      throw new ApiError(0, "Réseau injoignable. Vérifiez l'adresse API et que Django écoute.");
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), 12_000);
+      try {
+        response = await fetchImpl(`${base}${path}`, {
+          method: options.method ?? "GET",
+          headers,
+          body: options.body !== undefined ? JSON.stringify(options.body) : undefined,
+          signal: controller.signal,
+        });
+      } finally {
+        clearTimeout(timer);
+      }
+    } catch (error) {
+      const aborted = error instanceof Error && error.name === "AbortError";
+      throw new ApiError(
+        0,
+        aborted
+          ? `Délai dépassé vers ${base}. Sur un téléphone, l'API doit être http://IP_LAN:8000 (pas localhost).`
+          : `Réseau injoignable vers ${base}. Vérifiez Django, le Wi-Fi et le pare-feu (port 8000).`,
+      );
     }
 
     if (response.status === 401 && options.auth !== false && options.retry !== false) {

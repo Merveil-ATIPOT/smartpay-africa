@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   KeyboardAvoidingView,
   Platform,
@@ -11,6 +11,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import { BrandMark, ErrorBanner, PrimaryButton } from "../components/ui";
 import { useAuth } from "../hooks/useAuth";
+import { api } from "../services/api";
 import { ApiError } from "../services/errors";
 import { colors, radius, spacing } from "../theme";
 
@@ -18,13 +19,21 @@ export function LoginScreen() {
   const { login } = useAuth();
   const [email, setEmail] = useState("user@smartpay.local");
   const [password, setPassword] = useState("");
+  const [apiUrl, setApiUrl] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    void api.getBaseUrl().then(setApiUrl);
+  }, []);
 
   async function onSubmit() {
     setError(null);
     setLoading(true);
     try {
+      if (apiUrl.trim()) {
+        await api.setApiBaseUrl(apiUrl);
+      }
       await login(email, password);
     } catch (err) {
       setError(
@@ -64,11 +73,24 @@ export function LoginScreen() {
             value={password}
             onChangeText={setPassword}
             style={styles.input}
-            placeholder="Mot de passe local"
+            placeholder="changeme-local-only"
+            placeholderTextColor={colors.muted}
+          />
+          <Text style={styles.label}>Adresse API</Text>
+          <TextInput
+            autoCapitalize="none"
+            autoCorrect={false}
+            value={apiUrl}
+            onChangeText={setApiUrl}
+            style={styles.input}
+            placeholder="http://192.168.x.x:8000"
             placeholderTextColor={colors.muted}
           />
           <PrimaryButton label="Entrer" onPress={onSubmit} loading={loading} disabled={!email || !password} />
-          <Text style={styles.hint}>Compte seed P01 : user@smartpay.local (voir .env local, jamais en production).</Text>
+          <Text style={styles.hint}>
+            Compte seed : user@smartpay.local / changeme-local-only. Sur un téléphone, localhost ne fonctionne pas :
+            utilisez l'IP LAN du PC (celle du QR Expo), port 8000.
+          </Text>
         </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
