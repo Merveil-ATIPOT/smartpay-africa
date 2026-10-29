@@ -1,0 +1,23 @@
+{
+  "name": "smartpay-africa",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Monorepo SmartPay Africa — paiements Bitcoin Lightning (MVP hackathon, Regtest uniquement)",
+  "workspaces": [
+    "apps/mobile",
+    "apps/admin-web",
+    "packages/contracts",
+    "packages/design-tokens"
+  ],
+  "scripts": {
+    "dev:admin": "npm run dev -w @smartpay/admin-web",
+    "dev:mobile": "npm run start -w @smartpay/mobile",
+    "build:admin": "npm run build -w @smartpay/admin-web",
+    "typecheck": "npm run typecheck --workspaces --if-present"
+  },
+  "engines": {
+    "node": ">=20",
+    "npm": ">=10"
+  },
+  "packageManager": "npm@11.13.0"
+}

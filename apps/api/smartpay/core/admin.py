@@ -1,0 +1,1 @@
+# Aucun modèle dans core.

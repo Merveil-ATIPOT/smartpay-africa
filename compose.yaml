@@ -1,0 +1,69 @@
+name: smartpay-africa
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: smartpay-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-smartpay}
+      POSTGRES_USER: ${POSTGRES_USER:-smartpay}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change-me-local-only}
+    ports:
+      # 5433 sur l'hôte pour éviter le conflit avec PostgreSQL local (port 5432).
+      - "5433:5432"
+    volumes:
+      - smartpay_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-smartpay} -d ${POSTGRES_DB:-smartpay}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - smartpay
+
+  api:
+    build:
+      context: ./apps/api
+      dockerfile: Dockerfile.dev
+    container_name: smartpay-api
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      DJANGO_SETTINGS_MODULE: config.settings.development
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: "5432"
+      POSTGRES_DB: ${POSTGRES_DB:-smartpay}
+      POSTGRES_USER: ${POSTGRES_USER:-smartpay}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change-me-local-only}
+      PAYMENT_PROVIDER: mock
+      BITCOIN_NETWORK: regtest
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./apps/api:/app
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/v1/health/')",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+    networks:
+      - smartpay
+
+volumes:
+  smartpay_pgdata:
+
+networks:
+  smartpay:
+    driver: bridge

@@ -1,0 +1,26 @@
+# Bitcoin Core + LND Regtest — NON démarré en phase P01.
+# Conservé pour une phase ultérieure. Ne pas fusionner avec le compose racine.
+
+name: smartpay-lightning-regtest
+
+services:
+  bitcoind:
+    image: lightninglabs/bitcoin-core:latest
+    profiles: ["future"]
+    restart: "no"
+    command: ["-regtest", "-server"]
+    networks:
+      - lightning
+
+  lnd:
+    image: lightninglabs/lnd:latest
+    profiles: ["future"]
+    restart: "no"
+    depends_on:
+      - bitcoind
+    networks:
+      - lightning
+
+networks:
+  lightning:
+    driver: bridge

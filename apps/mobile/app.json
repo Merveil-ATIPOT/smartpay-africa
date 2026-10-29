@@ -1,0 +1,17 @@
+{
+  "expo": {
+    "name": "SmartPay Africa",
+    "slug": "smartpay-africa",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "africa.smartpay.mobile"
+    },
+    "android": {
+      "package": "africa.smartpay.mobile"
+    },
+    "plugins": []
+  }
+}
