@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+
+<html lang="fr"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Outfit:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "tertiary-container": "#00210e", "surface": "#f9f9ff", "on-primary-fixed": "#141b2c", "secondary-container": "#fe9821", "secondary-fixed": "#ffdcbf", "on-error": "#ffffff", "on-tertiary-fixed": "#00210e", "on-tertiary": "#ffffff", "outline": "#76777d", "on-tertiary-container": "#009756", "tertiary-fixed-dim": "#51df8e", "inverse-on-surface": "#ecf0ff", "error": "#ba1a1a", "on-background": "#111c2d", "surface-container-low": "#f0f3ff", "secondary": "#8c4f00", "on-secondary-fixed-variant": "#6b3b00", "on-error-container": "#93000a", "tertiary-fixed": "#70fda7", "surface-variant": "#d9e3fb", "surface-container-high": "#dfe8ff", "on-secondary-container": "#663800", "surface-tint": "#565e71", "surface-dim": "#d0daf2", "on-primary-fixed-variant": "#3f4759", "background": "#f9f9ff", "outline-variant": "#c6c6cd", "on-primary": "#ffffff", "on-secondary": "#ffffff", "primary-container": "#141b2c", "secondary-fixed-dim": "#ffb874", "primary": "#000000", "on-tertiary-fixed-variant": "#00522c", "primary-fixed": "#dbe2f9", "surface-bright": "#f9f9ff", "tertiary": "#000000", "on-surface": "#111c2d", "primary-fixed-dim": "#bfc6dc", "surface-container-lowest": "#ffffff", "surface-container": "#e8eeff", "inverse-surface": "#273143", "on-secondary-fixed": "#2d1600", "on-primary-container": "#7c8498", "error-container": "#ffdad6", "surface-container-highest": "#d9e3fb", "inverse-primary": "#bfc6dc", "on-surface-variant": "#45474c" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "space-sm": "0.5rem", "space-xs": "0.25rem", "margin": "1rem", "space-xl": "2rem", "space-lg": "1.5rem", "space-md": "1rem", "gutter": "1rem" }, fontFamily: { "balance-num-lg": ["Inter"], "display-hero": ["Inter"], "headline-lg": ["Outfit"], "label-badge": ["Inter"], "headline-md": ["Outfit"], "body-md": ["Inter"], "headline-sm": ["Outfit"], "balance-num-md": ["Inter"], "display-hero-mobile": ["Inter"], "mono-crypto": ["Inter"], "body-sm": ["Inter"], "body-lg": ["Inter"], "label-nav": ["Inter"] }, fontSize: { "balance-num-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "display-hero": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "headline-lg": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700" }], "label-badge": ["11px", { "lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "600" }], "headline-md": ["22px", { "lineHeight": "30px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "headline-sm": ["18px", { "lineHeight": "26px", "fontWeight": "600" }], "balance-num-md": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "700" }], "display-hero-mobile": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "mono-crypto": ["13px", { "lineHeight": "18px", "fontWeight": "500" }], "body-sm": ["12px", { "lineHeight": "18px", "fontWeight": "400" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "500" }], "label-nav": ["10px", { "lineHeight": "12px", "letterSpacing": "0.06em", "fontWeight": "600" }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-body-md text-on-surface flex flex-col min-h-screen"><header class="fixed top-0 inset-x-0 z-50 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] pt-safe"><div class="h-16 px-margin flex items-center justify-between"><div class="flex items-center gap-space-sm"><button class="w-11 h-11 flex items-center justify-center text-on-surface rounded-full hover:bg-surface-container transition-colors" onclick="history.back()"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><img alt="Logo_SmartPay_Africa__Bitcoin_au_cœur_de_l_Afrique.png" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1XTOh46Imw-1FrBDI88dPJaJeE3fa6seaGs9UXy8QFQE0_UawuCviVLhHahGQXTDDNMLLHkyh_bMXy75MmN_S3GrLjwRj_aOAhe1SMjLZR8fpEruebQ0ealr12ktNtza1M8SjvevO3V6P-JpFdxcd47m-zyc0ChOuPekniW5tro-YNkue91qeqRjo5yq6nCG5yGJmlBjzqKnF_OrVvMeqw-Vcf-L4fYgeq8pZyBFp7yHDS7BkEqb87zPFk"/><h1 class="font-headline-sm text-headline-sm text-on-surface tracking-tight leading-none">Émission De Facture</h1></div><div class="flex items-center gap-space-sm"><span class="inline-flex items-center px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-badge text-label-badge leading-none">Regtest</span><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex flex-col relative w-full pt-16 pb-safe px-margin bg-surface flex-grow"><div class="flex flex-col w-full pb-8 space-y-4">
+<!-- Progress Header Indicator (Étape 4/4) -->
+<div class="flex flex-col gap-2 pt-2">
+<div class="flex items-center justify-between">
+<span class="font-label-badge text-label-badge text-on-surface-variant uppercase tracking-wider">Étape 4 sur 4</span>
+<span class="inline-flex items-center gap-1 font-body-sm text-body-sm text-secondary font-semibold">
+<span class="material-symbols-outlined text-[16px]">verified_user</span>
+        Vérification Finale
+      </span>
+</div>
+<div class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden flex">
+<div class="bg-secondary-container h-full w-full rounded-full transition-all duration-500"></div>
+</div>
+</div>
+<!-- Regtest Security & Demo Banner -->
+<div class="bg-secondary-fixed/50 text-on-secondary-fixed rounded-xl p-3.5 shadow-sm flex items-start gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary-container/20 flex-shrink-0 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">terminal</span>
+</div>
+<div class="flex flex-col gap-0.5">
+<div class="flex items-center gap-1.5">
+<span class="font-headline-sm text-body-sm uppercase tracking-wide font-bold text-on-secondary-fixed">Mode Démonstration · Regtest</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-secondary-fixed leading-snug opacity-90">
+        Ceci est une simulation de transfert international. Aucun fonds réel en monnaie fiduciaire ou Bitcoin Mainnet ne sera prélevé.
+      </p>
+</div>
+</div>
+<!-- Fintech Transfer Ticket / Card -->
+<div class="relative bg-surface-container-lowest rounded-2xl shadow-sm overflow-hidden flex flex-col">
+<!-- Visual Top Header with Ambient Gradient -->
+<div class="bg-primary-container text-on-primary p-4 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-tertiary-fixed-dim animate-pulse"></span>
+<span class="font-body-sm text-body-sm text-on-primary-container font-medium">Réseau Lightning Démonstrateur</span>
+</div>
+<span class="font-mono-crypto text-mono-crypto text-primary-fixed bg-surface-variant/20 px-2 py-0.5 rounded">SIM-LND-AFR-89421</span>
+</div>
+<!-- Sender -> Receiver Visual Journey -->
+<div class="p-4 space-y-4">
+<!-- Sender Entity -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-11 h-11 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant font-bold text-body-lg">
+            AD
+          </div>
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Expéditeur (Débit)</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Amadou Diallo</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
+<span>Dakar, Sénégal</span>
+<span class="text-base leading-none">🇸🇳</span>
+</span>
+</div>
+</div>
+<div class="text-right">
+<span class="font-balance-num-md text-balance-num-md text-on-surface tracking-tight">115 471</span>
+<span class="block font-label-badge text-label-badge text-secondary font-bold">SATS</span>
+</div>
+</div>
+<!-- Connector & Lightning Pulse Node -->
+<div class="relative flex items-center justify-center my-1">
+<div class="w-full bg-surface-container h-0.5"></div>
+<div class="absolute bg-secondary-container text-on-primary w-9 h-9 rounded-full flex items-center justify-center shadow-md">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">bolt</span>
+</div>
+</div>
+<!-- Recipient Entity -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-11 h-11 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant font-bold text-body-lg">
+            AK
+          </div>
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Destinataire (Crédité)</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Awa Koné</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
+<span>Abidjan, Côte d'Ivoire</span>
+<span class="text-base leading-none">🇨🇮</span>
+</span>
+</div>
+</div>
+<div class="text-right">
+<span class="font-balance-num-md text-balance-num-md text-on-tertiary-container tracking-tight">50 000</span>
+<span class="block font-label-badge text-label-badge text-on-surface-variant font-bold">FCFA</span>
+</div>
+</div>
+<!-- Payout Destination Badge -->
+<div class="bg-surface-container-low rounded-xl p-3 flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<div class="w-7 h-7 rounded-lg bg-surface-variant flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[18px]">account_balance_wallet</span>
+</div>
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">Wave Mobile Money</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">+225 07 45 89 12</span>
+</div>
+</div>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-surface-container-highest text-on-surface-variant font-label-badge text-label-badge">
+          Canal Direct
+        </span>
+</div>
+</div>
+</div>
+<!-- Detailed Transaction Summary Specs -->
+<div class="bg-surface-container-lowest rounded-2xl p-4 shadow-sm space-y-3">
+<div class="flex items-center justify-between pb-1">
+<span class="font-headline-sm text-body-lg text-on-surface font-semibold">Conditions du Transfert</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">info</span>
+</div>
+<div class="space-y-2.5">
+<!-- Frais Lightning -->
+<div class="flex items-center justify-between py-1">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-secondary">flash_on</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Frais Lightning Network</span>
+</div>
+<div class="text-right">
+<span class="font-body-md text-body-md font-semibold text-on-surface">1 sat</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant block">(&lt; 0,5 FCFA)</span>
+</div>
+</div>
+<div class="w-full bg-surface-container-low h-px"></div>
+<!-- Frais de conversion -->
+<div class="flex items-center justify-between py-1">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">currency_exchange</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Frais de conversion &amp; change</span>
+</div>
+<span class="font-body-md text-body-md font-semibold text-on-tertiary-container">0 FCFA (Gratuit)</span>
+</div>
+<div class="w-full bg-surface-container-low h-px"></div>
+<!-- Délai -->
+<div class="flex items-center justify-between py-1">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">schedule</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Délai estimé</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface font-semibold font-body-md text-body-md">
+<span class="material-symbols-outlined text-[16px] text-tertiary-fixed-dim">speed</span>
+<span>Instantané (&lt; 3s)</span>
+</div>
+</div>
+<div class="w-full bg-surface-container-low h-px"></div>
+<!-- Motif -->
+<div class="flex items-center justify-between py-1">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">receipt_long</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Motif</span>
+</div>
+<span class="font-body-md text-body-md font-medium text-on-surface">Soutien familial</span>
+</div>
+<div class="w-full bg-surface-container-low h-px"></div>
+<!-- Total Débit Global -->
+<div class="flex items-center justify-between pt-1">
+<span class="font-body-lg text-body-lg font-bold text-on-surface">Total à débiter</span>
+<div class="text-right">
+<span class="font-balance-num-md text-balance-num-md text-on-surface">115 471 sats</span>
+<span class="block font-body-sm text-body-sm text-on-surface-variant">≈ 50 000 FCFA + 1 sat</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Micro-interactive Action Panel -->
+<div class="flex flex-col gap-2.5 pt-2">
+<!-- Primary Confirmation Trigger -->
+<button class="w-full bg-secondary-container text-on-primary h-[54px] rounded-xl font-headline-sm text-headline-sm flex items-center justify-center gap-2 shadow-lg shadow-secondary-container/25 active:scale-[0.98] transition-all" id="btn-execute-simulation">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">bolt</span>
+<span>Lancer la simulation (115 471 sats)</span>
+</button>
+<!-- Secondary Edit Action -->
+<button class="w-full bg-surface-container text-on-surface h-[48px] rounded-xl font-body-lg text-body-lg font-medium flex items-center justify-center gap-2 active:bg-surface-container-high transition-colors" onclick="history.back()">
+<span class="material-symbols-outlined text-[20px]">edit_note</span>
+<span>Modifier les informations</span>
+</button>
+</div>
+<!-- Interactive Simulation Modal Backdrop (Hidden by default) -->
+<div class="hidden fixed inset-0 z-50 bg-inverse-surface/60 backdrop-blur-sm flex items-end sm:items-center justify-center p-4" id="simulation-modal">
+<div class="bg-surface-container-lowest w-full max-w-sm rounded-3xl p-6 flex flex-col items-center text-center space-y-4 shadow-2xl">
+<div class="w-16 h-16 rounded-full bg-secondary-fixed/40 flex items-center justify-center text-secondary relative" id="modal-spinner">
+<span class="material-symbols-outlined text-[36px] animate-spin">sync</span>
+</div>
+<div class="flex flex-col space-y-1">
+<h2 class="font-headline-md text-headline-md text-on-surface" id="modal-title">Exécution du Routage...</h2>
+<p class="font-body-md text-body-md text-on-surface-variant" id="modal-description">
+          Paiement du nœud Lightning vers Wave Mobile Money CI en cours.
+        </p>
+</div>
+<div class="w-full bg-surface-container-low rounded-xl p-3 text-left space-y-1">
+<div class="flex justify-between font-mono-crypto text-mono-crypto text-on-surface-variant">
+<span>Hash HODL Invoice :</span>
+<span class="font-bold text-on-surface">d98a...4b12</span>
+</div>
+<div class="flex justify-between font-mono-crypto text-mono-crypto text-on-surface-variant">
+<span>Canal de liquidité :</span>
+<span class="text-on-tertiary-container font-semibold">Connecté</span>
+</div>
+</div>
+<button class="hidden w-full bg-primary text-on-primary h-12 rounded-xl font-headline-sm text-body-lg" id="modal-close-btn">
+        Terminer et voir le reçu
+      </button>
+</div>
+</div>
+</div>
+<script>
+  (function() {
+    const triggerBtn = document.getElementById('btn-execute-simulation');
+    const modal = document.getElementById('simulation-modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalDescription = document.getElementById('modal-description');
+    const modalSpinner = document.getElementById('modal-spinner');
+    const closeBtn = document.getElementById('modal-close-btn');
+
+    if (!triggerBtn || !modal) return;
+
+    triggerBtn.addEventListener('click', function() {
+      modal.classList.remove('hidden');
+
+      setTimeout(function() {
+        modalSpinner.innerHTML = '<span class="material-symbols-outlined text-[36px] text-on-tertiary-container" style="font-variation-settings: \'FILL\' 1;">check_circle</span>';
+        modalSpinner.className = 'w-16 h-16 rounded-full bg-surface-container-low flex items-center justify-center';
+        modalTitle.innerText = 'Transfert Simulé Réussi !';
+        modalDescription.innerText = '115 471 sats routés instantanément. 50 000 FCFA crédités sur Wave CI.';
+        closeBtn.classList.remove('hidden');
+      }, 2200);
+    });
+
+    closeBtn.addEventListener('click', function() {
+      modal.classList.add('hidden');
+    });
+  })();
+</script></main></body></html>
