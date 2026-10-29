@@ -14,6 +14,7 @@ from smartpay.payments.serializers import (
     PaymentSerializer,
     PreviewPaymentSerializer,
 )
+from smartpay.payments.reconciliation import reconcile_payment
 from smartpay.payments.services import create_invoice, create_outgoing_payment, resolve_idempotency_key
 
 
@@ -40,6 +41,8 @@ class PaymentListCreateView(APIView):
                 raise ValidationError({"merchant_id": "Commerçant introuvable."}) from exc
             if merchant.owner_id != request.user.id and not request.user.is_admin_role:
                 raise PermissionDenied("Ce commerçant ne vous appartient pas.")
+        if data.get("confirm") is False:
+            raise ValidationError({"confirm": "Un paiement LND exige une confirmation explicite (confirm=true)."})
         idempotency_key = resolve_idempotency_key(request, data.get("idempotency_key", ""))
         payment, created = create_outgoing_payment(
             user=request.user,
@@ -47,6 +50,7 @@ class PaymentListCreateView(APIView):
             description=data.get("description", ""),
             merchant=merchant,
             idempotency_key=idempotency_key,
+            encoded_invoice=data.get("encoded_invoice", ""),
             request=request,
         )
         return Response(
@@ -64,6 +68,7 @@ class PaymentDetailView(APIView):
         except Payment.DoesNotExist as exc:
             raise NotFound("Paiement introuvable.") from exc
         self.check_object_permissions(request, payment)
+        payment = reconcile_payment(payment)
         return Response(PaymentSerializer(payment).data)
 
 
@@ -90,7 +95,11 @@ class PaymentPreviewView(APIView):
     def post(self, request):
         serializer = PreviewPaymentSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        preview = get_payment_provider().preview(amount_sats=serializer.validated_data["amount_sats"])
+        data = serializer.validated_data
+        preview = get_payment_provider().preview(
+            amount_sats=data["amount_sats"],
+            encoded_invoice=data.get("encoded_invoice", ""),
+        )
         return Response(
             {
                 "amount_sats": preview.amount_sats,
@@ -98,6 +107,8 @@ class PaymentPreviewView(APIView):
                 "settlement_mode": preview.settlement_mode,
                 "network": preview.network,
                 "is_lightning_settled": preview.is_lightning_settled,
+                "encoded_invoice": preview.encoded_invoice,
+                "payment_hash": preview.payment_hash,
                 "warnings": preview.warnings,
             }
         )

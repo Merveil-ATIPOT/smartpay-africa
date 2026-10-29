@@ -9,7 +9,10 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parents[2]
-REPO_ROOT = BASE_DIR.parents[1]
+_PARENTS = list(BASE_DIR.parents)
+# Sur l'hôte : .../smartpay-africa/apps/api → repo = parents[1].
+# Dans l'image Docker WORKDIR=/app → un seul parent (/), on reste sur BASE_DIR.
+REPO_ROOT = _PARENTS[1] if len(_PARENTS) > 1 else BASE_DIR
 
 load_dotenv(REPO_ROOT / ".env")
 load_dotenv(BASE_DIR / ".env")
@@ -167,7 +170,7 @@ SPECTACULAR_SETTINGS = {
         "API MVP hackathon. Bitcoin Regtest uniquement. "
         "Le fournisseur Mock ne produit jamais un règlement Lightning."
     ),
-    "VERSION": "0.1.0",
+    "VERSION": "0.2.0",
     "SERVE_INCLUDE_SCHEMA": False,
 }
 
@@ -176,10 +179,20 @@ BITCOIN_NETWORK = env("BITCOIN_NETWORK", "regtest")
 MAX_PAYMENT_AMOUNT_SATS = 10_000_000_000
 SUPPORTED_COUNTRIES = ("SN", "CG", "CI")
 
+def _abs_secret_path(raw: str | None) -> str:
+    if not raw:
+        return ""
+    path = Path(raw)
+    if path.is_absolute():
+        return str(path)
+    return str((REPO_ROOT / path).resolve())
+
+
 # Chemins fichiers uniquement — jamais le contenu d'un macaroon ou d'une seed.
 LND_REST_URL = env("LND_REST_URL", "")
-LND_MACAROON_PATH = env("LND_MACAROON_PATH", "")
-LND_TLS_CERT_PATH = env("LND_TLS_CERT_PATH", "")
+LND_MACAROON_PATH = _abs_secret_path(env("LND_MACAROON_PATH", ""))
+LND_TLS_CERT_PATH = _abs_secret_path(env("LND_TLS_CERT_PATH", ""))
+LND_TIMEOUT_SECONDS = int(env("LND_TIMEOUT_SECONDS", "30"))
 
 LOGGING = {
     "version": 1,

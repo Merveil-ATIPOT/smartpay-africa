@@ -12,7 +12,7 @@ class WalletConnection(models.Model):
 
     class Provider(models.TextChoices):
         MOCK = "mock", _("Mock (non Lightning)")
-        LND_REGTEST = "lnd_regtest", _("LND Regtest (non implémenté en P01)")
+        LND_REGTEST = "lnd_regtest", _("LND Regtest")
 
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,

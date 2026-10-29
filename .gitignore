@@ -48,7 +48,11 @@ Thumbs.db
 
 # Docker / data
 infrastructure/development/data/
+infrastructure/lightning-regtest/secrets/**
+!infrastructure/lightning-regtest/secrets/README.md
+infrastructure/lightning-regtest/data/
 *.log
+*.cookie
 
 # Generated
 apps/api/staticfiles/

@@ -7,7 +7,14 @@ from uuid import uuid4
 
 from django.utils import timezone
 
-from smartpay.payments.providers.base import InvoiceDraft, PaymentPreview
+from smartpay.payments.providers.base import (
+    DecodedInvoice,
+    InvoiceDraft,
+    LookupResult,
+    NodeInfo,
+    PaymentPreview,
+)
+from smartpay.payments.providers.errors import LndInvoiceError, LndPaymentError
 
 MOCK_WARNING = (
     "Fournisseur Mock : facture et paiement simulés. "
@@ -17,6 +24,7 @@ MOCK_WARNING = (
 
 class MockPaymentProvider:
     name = "mock"
+    settlement_mode = "mock"
 
     def create_invoice(self, *, amount_sats: int, memo: str, expiry_seconds: int) -> InvoiceDraft:
         token = uuid4().hex
@@ -30,7 +38,7 @@ class MockPaymentProvider:
             is_mock=True,
         )
 
-    def preview(self, *, amount_sats: int) -> PaymentPreview:
+    def preview(self, *, amount_sats: int, encoded_invoice: str = "") -> PaymentPreview:
         return PaymentPreview(
             amount_sats=amount_sats,
             fee_sats=0,
@@ -38,4 +46,32 @@ class MockPaymentProvider:
             network="regtest",
             is_lightning_settled=False,
             warnings=[MOCK_WARNING],
+            encoded_invoice=encoded_invoice,
         )
+
+    def get_node_info(self) -> NodeInfo:
+        return NodeInfo(connected=False, alias="mock")
+
+    def get_channel_balance_sats(self) -> int:
+        return 0
+
+    def decode_invoice(self, encoded_invoice: str) -> DecodedInvoice:
+        if encoded_invoice.startswith("lnbcrt") or encoded_invoice.startswith("lnbc"):
+            raise LndInvoiceError("Une facture BOLT11 réelle ne peut pas être payée via Mock.")
+        return DecodedInvoice(
+            payment_hash="mockhash_decoded",
+            amount_sats=0,
+            description="",
+            expiry_seconds=0,
+            destination="",
+            encoded_invoice=encoded_invoice,
+        )
+
+    def lookup_invoice(self, payment_hash: str) -> LookupResult:
+        return LookupResult(found=True, settled=False, status="mock")
+
+    def lookup_payment(self, payment_hash: str) -> LookupResult:
+        return LookupResult(found=True, settled=False, status="mock")
+
+    def send_payment(self, *, encoded_invoice: str, timeout_seconds: int) -> str:
+        raise LndPaymentError("Le fournisseur Mock n'exécute aucun paiement Lightning.")

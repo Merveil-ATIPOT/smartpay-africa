@@ -27,9 +27,7 @@ def test_mock_preview_warns():
     assert any("Lightning" in warning for warning in preview.warnings)
 
 
-def test_lnd_regtest_is_not_implemented():
+def test_lnd_regtest_is_disconnected_without_config():
     provider = LndRegtestPaymentProvider()
-    with pytest.raises(NotImplementedError, match="P01"):
-        provider.create_invoice(amount_sats=1, memo="", expiry_seconds=60)
-    with pytest.raises(NotImplementedError, match="P01"):
-        provider.preview(amount_sats=1)
+    info = provider.get_node_info()
+    assert info.connected is False

@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: SmartPay Africa API
-  version: 0.1.0
+  version: 0.2.0
   description: |
     API P01. Bitcoin Regtest uniquement.
     Le fournisseur Mock ne produit jamais un règlement Lightning.
@@ -327,6 +327,13 @@ components:
           type: integer
         idempotency_key:
           type: string
+        encoded_invoice:
+          type: string
+          description: Facture BOLT11 Regtest (lnbcrt…). Obligatoire si PAYMENT_PROVIDER=lnd_regtest.
+        confirm:
+          type: boolean
+          default: true
+          description: Confirmation explicite du paiement. POST /payments/ est l'acte de confirmation.
     PaymentPreview:
       type: object
       properties:

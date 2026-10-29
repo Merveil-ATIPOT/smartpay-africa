@@ -1,26 +1,106 @@
-# Bitcoin Core + LND Regtest — NON démarré en phase P01.
-# Conservé pour une phase ultérieure. Ne pas fusionner avec le compose racine.
-
 name: smartpay-lightning-regtest
+
+# Laboratoire isolé. RPC Bitcoin et gRPC LND ne sont pas publiés sur l'hôte.
+# REST LND est lié à 127.0.0.1 uniquement, pour Django local.
 
 services:
   bitcoind:
-    image: lightninglabs/bitcoin-core:latest
-    profiles: ["future"]
-    restart: "no"
-    command: ["-regtest", "-server"]
+    image: bitcoin/bitcoin:29.0
+    container_name: smartpay-bitcoind
+    restart: unless-stopped
+    command:
+      - -regtest=1
+      - -server=1
+      - -txindex=1
+      - -listen=1
+      - -discover=0
+      - -fallbackfee=0.0002
+      - -rpcbind=0.0.0.0
+      - -rpcport=18443
+      - -rpcallowip=10.0.0.0/8
+      - -rpcallowip=172.16.0.0/12
+      - -rpcallowip=192.168.0.0/16
+      - -zmqpubrawblock=tcp://0.0.0.0:28332
+      - -zmqpubrawtx=tcp://0.0.0.0:28333
+      - -printtoconsole=1
+      - -rpcuser=${BITCOIN_RPC_USER:-smartpayregtest}
+      - -rpcpassword=${BITCOIN_RPC_PASSWORD:-changeme-regtest-rpc-only}
+    volumes:
+      - bitcoind-data:/home/bitcoin/.bitcoin
+    expose:
+      - "18443"
+      - "18444"
+      - "28332"
+      - "28333"
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "bitcoin-cli",
+          "-regtest",
+          "-rpcuser=smartpayregtest",
+          "-rpcpassword=changeme-regtest-rpc-only",
+          "getblockchaininfo",
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 10s
     networks:
       - lightning
 
-  lnd:
-    image: lightninglabs/lnd:latest
-    profiles: ["future"]
-    restart: "no"
+  lnd-alice:
+    image: lightninglabs/lnd:v0.20.6-beta
+    container_name: smartpay-lnd-alice
+    restart: unless-stopped
     depends_on:
-      - bitcoind
+      bitcoind:
+        condition: service_healthy
+    command:
+      - --configfile=/root/.lnd/lnd.conf
+      - --bitcoind.rpcuser=${BITCOIN_RPC_USER:-smartpayregtest}
+      - --bitcoind.rpcpass=${BITCOIN_RPC_PASSWORD:-changeme-regtest-rpc-only}
+    volumes:
+      - lnd-alice-data:/root/.lnd
+      - ./lnd-alice.conf:/root/.lnd/lnd.conf:ro
+    ports:
+      - "127.0.0.1:8081:8080"
+    expose:
+      - "9735"
+      - "8080"
+      - "10009"
     networks:
       - lightning
+
+  lnd-bob:
+    image: lightninglabs/lnd:v0.20.6-beta
+    container_name: smartpay-lnd-bob
+    restart: unless-stopped
+    depends_on:
+      bitcoind:
+        condition: service_healthy
+    command:
+      - --configfile=/root/.lnd/lnd.conf
+      - --bitcoind.rpcuser=${BITCOIN_RPC_USER:-smartpayregtest}
+      - --bitcoind.rpcpass=${BITCOIN_RPC_PASSWORD:-changeme-regtest-rpc-only}
+    volumes:
+      - lnd-bob-data:/root/.lnd
+      - ./lnd-bob.conf:/root/.lnd/lnd.conf:ro
+    ports:
+      - "127.0.0.1:8082:8080"
+    expose:
+      - "9735"
+      - "8080"
+      - "10009"
+    networks:
+      - lightning
+
+volumes:
+  bitcoind-data:
+  lnd-alice-data:
+  lnd-bob-data:
 
 networks:
   lightning:
+    name: smartpay-lightning
     driver: bridge

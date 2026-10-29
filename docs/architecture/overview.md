@@ -1,46 +1,44 @@
-# Architecture SmartPay Africa — P01
+# Architecture SmartPay Africa — P02
 
 ## Objectif
 
-Poser une base monorepo testable pour un MVP hackathon de paiements Bitcoin Lightning, exclusivement en **Regtest**, sans argent réel.
+Stabiliser P01 puis opérer un laboratoire **Bitcoin Regtest** avec Bitcoin Core et deux nœuds LND (Alice, Bob). Aucun Mainnet, aucun FCFA réel.
 
 ## Découpage
 
-| Zone | Rôle P01 |
+| Zone | Rôle P02 |
 | --- | --- |
-| `apps/api` | API Django REST, source de vérité métier |
-| `apps/admin-web` | Squelette Next.js, pas d'écrans Stitch |
-| `apps/mobile` | Squelette Expo, pas d'écrans Stitch |
-| `packages/contracts` | OpenAPI + types TypeScript |
-| `packages/design-tokens` | Couleurs et espacements partagés |
-| `infrastructure/lightning-regtest` | Compose LND/bitcoind **non démarré** |
+| `apps/api` | API Django REST, Mock **et** LND Regtest |
+| `apps/admin-web` | Squelette Next.js 15, hors Stitch |
+| `apps/mobile` | Squelette Expo 52, hors Stitch |
+| `packages/contracts` | OpenAPI 3 + types TypeScript |
+| `compose.yaml` | PostgreSQL 16 (hôte **5433**) + API |
+| `infrastructure/lightning-regtest` | bitcoind + LND Alice/Bob, réseau `smartpay-lightning` |
 
-## Flux de paiement P01
+## Fournisseurs de paiement
 
-1. Le client authentifié appelle `POST /api/v1/payments/preview/`.
-2. Le `PaymentProvider` actif est **Mock**.
-3. Une facture (`POST /api/v1/payments/invoices/`) ou un paiement sortant (`POST /api/v1/payments/`) est enregistré en satoshis entiers.
-4. `settlement_mode=mock` et `is_lightning_settled=false` sont imposés.
-5. Un `AuditLog` est écrit. Aucune clé privée n'est persistée.
+- `MockPaymentProvider` : factures `mockln1…`, `is_lightning_settled=false` toujours.
+- `LndRegtestPaymentProvider` : factures `lnbcrt…`, REST LND authentifié par macaroon **fichier**. Un HTTP 200 n'est pas une preuve de règlement : le lookup LND (`SETTLED` / `SUCCEEDED`) l'est.
 
-L'adaptateur `LndRegtestPaymentProvider` existe comme interface et lève `NotImplementedError`.
+`PAYMENT_PROVIDER=mock` ou `lnd_regtest`.
 
-## Statuts
+## Flux Lightning
 
-`created` → `pending` → `confirmed` | `failed` | `expired`
+1. `POST /api/v1/payments/preview/` avec `encoded_invoice` (estimation de frais si disponible).
+2. `POST /api/v1/payments/` avec `encoded_invoice` + `Idempotency-Key` + `confirm=true` = confirmation explicite.
+3. L'adaptateur envoie le paiement, puis **lookup**.
+4. `GET /api/v1/payments/{id}/` et `manage.py reconcile_payments` réconcilient les statuts `pending`.
 
-`confirmed` côté Mock signifie un accusé de réception métier, **pas** un règlement Lightning.
+## Réseaux Docker
 
-## Pays MVP
+- `smartpay` : API + PostgreSQL.
+- `smartpay-lightning` : bitcoind, lnd-alice, lnd-bob.
+- RPC Bitcoin et gRPC LND non publiés. REST LND lié à `127.0.0.1` uniquement.
 
-Sénégal (`SN`), Congo-Brazzaville (`CG`), Côte d'Ivoire (`CI`).
-
-## Hors P01
+## Hors P02
 
 - Bitcoin Mainnet
-- Dépôts FCFA réels
-- Wave / Orange Money / MTN Money
-- Taux de change de marché
+- Dépôts FCFA, Wave / Orange Money / MTN
 - Assistant IA
-- Interfaces Stitch
+- Écrans Stitch / M08 M13 M15 M20
 - Déploiement

@@ -1,8 +1,12 @@
+from django.conf import settings
 from django.db import connection
 from django.http import JsonResponse
 from django.utils import timezone
 from django.views import View
 from rest_framework.permissions import AllowAny
+
+from smartpay.payments.providers import get_payment_provider
+from smartpay.payments.providers.errors import LndUnavailable
 
 
 class HealthView(View):
@@ -21,22 +25,38 @@ class HealthView(View):
         except Exception:
             database_ok = False
 
+        provider_name = getattr(settings, "PAYMENT_PROVIDER", "mock")
+        lightning = "not_connected"
+        try:
+            info = get_payment_provider().get_node_info()
+            if info.connected:
+                lightning = "regtest"
+        except LndUnavailable:
+            lightning = "not_connected"
+        except Exception:
+            lightning = "not_connected"
+
         status = "ok" if database_ok else "degraded"
         http_status = 200 if database_ok else 503
+        warnings = [
+            "Aucune conversion FCFA réelle. Aucun dépôt Wave / Orange Money / MTN.",
+            "Réseau Bitcoin Regtest uniquement. Pas de Mainnet.",
+        ]
+        if provider_name == "mock":
+            warnings.insert(0, "Fournisseur Mock : aucun règlement Lightning.")
+        elif lightning != "regtest":
+            warnings.insert(0, "LND Regtest configuré mais nœud injoignable.")
         return JsonResponse(
             {
                 "status": status,
                 "service": "smartpay-api",
-                "version": "0.1.0",
-                "network": "regtest",
-                "payment_provider": "mock",
-                "lightning": "not_connected",
+                "version": "0.2.0",
+                "network": getattr(settings, "BITCOIN_NETWORK", "regtest"),
+                "payment_provider": provider_name,
+                "lightning": lightning,
                 "database": "up" if database_ok else "down",
                 "checked_at": timezone.now().isoformat(),
-                "warnings": [
-                    "P01: fournisseur Mock uniquement. Aucun règlement Lightning.",
-                    "Aucune conversion FCFA réelle. Aucun dépôt Wave / Orange Money / MTN.",
-                ],
+                "warnings": warnings,
             },
             status=http_status,
         )

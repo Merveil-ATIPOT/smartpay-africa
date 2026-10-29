@@ -11,3 +11,4 @@ whitenoise==6.9.0
 PyYAML==6.0.2
 uritemplate==4.2.0
 inflection==0.5.1
+httpx==0.28.1

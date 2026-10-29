@@ -52,6 +52,7 @@ class Payment(models.Model):
     direction = models.CharField(max_length=16, choices=Direction.choices)
     idempotency_key = models.CharField(max_length=64, blank=True)
     provider_reference = models.CharField(max_length=128, blank=True)
+    encoded_invoice = models.TextField(blank=True)
     failure_reason = models.CharField(max_length=255, blank=True)
     expires_at = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -81,6 +82,7 @@ class Payment(models.Model):
         indexes = [
             models.Index(fields=["owner", "status"]),
             models.Index(fields=["settlement_mode", "is_lightning_settled"]),
+            models.Index(fields=["provider_reference"]),
         ]
 
     def __str__(self) -> str:

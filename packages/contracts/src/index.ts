@@ -40,6 +40,7 @@ export interface WalletConnection {
   alias: string;
   is_active: boolean;
   mock_balance_sats: number;
+  channel_balance_sats: number;
   is_lightning_connected: boolean;
   connected_at: string;
   warnings: string[];
@@ -60,7 +61,7 @@ export interface Payment {
   status: PaymentStatus;
   settlement_mode: SettlementMode;
   is_lightning_settled: boolean;
-  lightning_status: "not_applicable" | "settled";
+  lightning_status: "not_applicable" | "pending" | "settled" | "failed" | "expired";
   network: BitcoinNetwork;
   direction: PaymentDirection;
   idempotency_key: string;
@@ -79,6 +80,8 @@ export interface PaymentPreview {
   settlement_mode: SettlementMode;
   network: BitcoinNetwork;
   is_lightning_settled: boolean;
+  encoded_invoice?: string;
+  payment_hash?: string;
   warnings: string[];
 }
 
@@ -93,6 +96,8 @@ export interface CreatePaymentRequest {
   description?: string;
   merchant_id?: number;
   idempotency_key?: string;
+  encoded_invoice?: string;
+  confirm?: boolean;
 }
 
 export interface TransferSimulation {
