@@ -64,12 +64,22 @@ class LndRegtestPaymentProvider:
     def preview(self, *, amount_sats: int, encoded_invoice: str = "") -> PaymentPreview:
         fee_sats = 0
         payment_hash = ""
+        description = ""
+        destination = ""
+        expiry_seconds = 0
+        expires_at = None
         if encoded_invoice:
             decoded = self.decode_invoice(encoded_invoice)
             payment_hash = decoded.payment_hash
-            if decoded.amount_sats and amount_sats != decoded.amount_sats:
-                raise LndInvoiceError("Le montant ne correspond pas à la facture BOLT11.")
-            amount_sats = decoded.amount_sats or amount_sats
+            description = decoded.description
+            destination = decoded.destination
+            expiry_seconds = decoded.expiry_seconds
+            if decoded.amount_sats:
+                if amount_sats and amount_sats != decoded.amount_sats:
+                    raise LndInvoiceError("Le montant ne correspond pas à la facture BOLT11.")
+                amount_sats = decoded.amount_sats
+            if expiry_seconds:
+                expires_at = timezone.now() + timedelta(seconds=expiry_seconds)
             estimate = self.client.estimate_route_fee(encoded_invoice)
             fee_msat = estimate.get("routing_fee_msat") or estimate.get("routing_fee") or 0
             fee_sats = _msat_to_sats(fee_msat) if int(fee_msat or 0) >= 1000 else int(fee_msat or 0)
@@ -84,6 +94,10 @@ class LndRegtestPaymentProvider:
             warnings=[REGTEST_WARNING],
             encoded_invoice=encoded_invoice,
             payment_hash=payment_hash,
+            description=description,
+            destination=destination,
+            expiry_seconds=expiry_seconds,
+            expires_at=expires_at,
         )
 
     def get_node_info(self) -> NodeInfo:

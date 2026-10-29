@@ -1,13 +1,23 @@
 export const colors = {
-  background: "#0B1F17",
-  surface: "#12352A",
-  accent: "#F4B942",
-  accentMuted: "#C4891A",
-  text: "#F7F4EA",
-  muted: "#C5D5CC",
-  danger: "#E05A4F",
-  success: "#3DDC97",
-  warning: "#F4B942",
+  /** Charte SmartPay Africa (Stitch / P03) */
+  navy: "#101828",
+  orange: "#F7931A",
+  green: "#12B76A",
+  gray: "#F4F6F8",
+  white: "#FFFFFF",
+  /** Alias Stitch */
+  background: "#F4F6F8",
+  surface: "#FFFFFF",
+  accent: "#F7931A",
+  accentMuted: "#D97706",
+  text: "#101828",
+  muted: "#667085",
+  danger: "#D92D20",
+  success: "#12B76A",
+  warning: "#F79009",
+  /** Conservés pour l'admin-web P01 (thème sombre) */
+  backgroundDark: "#0B1F17",
+  surfaceDark: "#12352A",
 } as const;
 
 export const spacing = {

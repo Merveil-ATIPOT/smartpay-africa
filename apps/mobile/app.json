@@ -2,16 +2,31 @@
   "expo": {
     "name": "SmartPay Africa",
     "slug": "smartpay-africa",
-    "version": "0.1.0",
+    "version": "0.3.0",
     "orientation": "portrait",
-    "userInterfaceStyle": "dark",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": false,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "africa.smartpay.mobile"
+      "bundleIdentifier": "africa.smartpay.mobile",
+      "infoPlist": {
+        "NSCameraUsageDescription": "SmartPay Africa utilise la caméra uniquement pour lire les factures Lightning BOLT11."
+      }
     },
     "android": {
-      "package": "africa.smartpay.mobile"
+      "package": "africa.smartpay.mobile",
+      "permissions": ["CAMERA"]
     },
-    "plugins": []
+    "plugins": [
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "SmartPay Africa utilise la caméra uniquement pour lire les factures Lightning BOLT11.",
+          "microphonePermission": false,
+          "recordAudioAndroid": false
+        }
+      ],
+      "expo-secure-store"
+    ]
   }
 }

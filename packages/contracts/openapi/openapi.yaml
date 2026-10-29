@@ -131,7 +131,7 @@ paths:
               $ref: "#/components/schemas/PreviewPaymentRequest"
       responses:
         "200":
-          description: Aperçu Mock
+          description: Aperçu (Mock ou décodage LND Regtest). is_lightning_settled est toujours false.
           content:
             application/json:
               schema:
@@ -307,13 +307,16 @@ components:
           maximum: 86400
     PreviewPaymentRequest:
       type: object
-      required: [amount_sats]
       properties:
         amount_sats:
           type: integer
           minimum: 1
+          description: Obligatoire sauf si encoded_invoice porte déjà un montant BOLT11.
         description:
           type: string
+        encoded_invoice:
+          type: string
+          description: Facture BOLT11 (lnbcrt) ou Mock (mockln1). Aucun paiement n'est déclenché.
     CreatePaymentRequest:
       type: object
       required: [amount_sats]
@@ -347,6 +350,22 @@ components:
           type: string
         is_lightning_settled:
           type: boolean
+          description: Toujours false. Un aperçu n'est jamais un règlement.
+        encoded_invoice:
+          type: string
+        payment_hash:
+          type: string
+        description:
+          type: string
+        destination:
+          type: string
+          description: Pubkey destinataire si LND a pu décoder. Non vérifié KYC.
+        expiry_seconds:
+          type: integer
+        expires_at:
+          type: string
+          format: date-time
+          nullable: true
         warnings:
           type: array
           items:

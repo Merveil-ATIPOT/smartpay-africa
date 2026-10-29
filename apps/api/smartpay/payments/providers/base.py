@@ -26,6 +26,10 @@ class PaymentPreview:
     warnings: list[str] = field(default_factory=list)
     encoded_invoice: str = ""
     payment_hash: str = ""
+    description: str = ""
+    destination: str = ""
+    expiry_seconds: int = 0
+    expires_at: datetime | None = None
 
 
 @dataclass(frozen=True)

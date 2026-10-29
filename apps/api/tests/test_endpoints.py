@@ -78,6 +78,29 @@ def test_preview_payment(auth_client):
 
 
 @pytest.mark.django_db
+def test_preview_does_not_create_payment(auth_client):
+    before = Payment.objects.count()
+    response = auth_client.post(
+        "/api/v1/payments/preview/",
+        {"encoded_invoice": "mockln1deadbeef", "amount_sats": 2500},
+        format="json",
+    )
+    assert response.status_code == status.HTTP_200_OK
+    assert Payment.objects.count() == before
+    assert response.data["is_lightning_settled"] is False
+
+
+@pytest.mark.django_db
+def test_preview_rejects_bolt11_when_provider_is_mock(auth_client):
+    response = auth_client.post(
+        "/api/v1/payments/preview/",
+        {"encoded_invoice": "lnbcrt2500n1preview", "amount_sats": 250},
+        format="json",
+    )
+    assert response.status_code == status.HTTP_400_BAD_REQUEST
+
+
+@pytest.mark.django_db
 def test_create_payment_idempotent(auth_client):
     payload = {"amount_sats": 4200, "description": "frais scolarité"}
     first = auth_client.post(

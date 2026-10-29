@@ -39,6 +39,20 @@ class MockPaymentProvider:
         )
 
     def preview(self, *, amount_sats: int, encoded_invoice: str = "") -> PaymentPreview:
+        description = ""
+        destination = ""
+        expiry_seconds = 0
+        if encoded_invoice:
+            decoded = self.decode_invoice(encoded_invoice)
+            description = decoded.description
+            destination = decoded.destination
+            expiry_seconds = decoded.expiry_seconds
+            if decoded.amount_sats:
+                amount_sats = decoded.amount_sats
+        if amount_sats < 1:
+            raise LndInvoiceError(
+                "Montant indisponible sur cette facture Mock. Indiquez amount_sats pour l'aperçu."
+            )
         return PaymentPreview(
             amount_sats=amount_sats,
             fee_sats=0,
@@ -47,6 +61,9 @@ class MockPaymentProvider:
             is_lightning_settled=False,
             warnings=[MOCK_WARNING],
             encoded_invoice=encoded_invoice,
+            description=description,
+            destination=destination,
+            expiry_seconds=expiry_seconds,
         )
 
     def get_node_info(self) -> NodeInfo:

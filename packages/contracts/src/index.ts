@@ -82,6 +82,10 @@ export interface PaymentPreview {
   is_lightning_settled: boolean;
   encoded_invoice?: string;
   payment_hash?: string;
+  description?: string;
+  destination?: string;
+  expiry_seconds?: number;
+  expires_at?: string | null;
   warnings: string[];
 }
 

@@ -8,6 +8,7 @@ from smartpay.core.permissions import IsOwnerOrAdmin
 from smartpay.merchants.models import Merchant
 from smartpay.payments.models import Payment
 from smartpay.payments.providers import get_payment_provider
+from smartpay.payments.providers.errors import LndError, LndInvoiceError, LndUnavailable
 from smartpay.payments.serializers import (
     CreateInvoiceSerializer,
     CreatePaymentSerializer,
@@ -96,19 +97,27 @@ class PaymentPreviewView(APIView):
         serializer = PreviewPaymentSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         data = serializer.validated_data
-        preview = get_payment_provider().preview(
-            amount_sats=data["amount_sats"],
-            encoded_invoice=data.get("encoded_invoice", ""),
-        )
+        try:
+            preview = get_payment_provider().preview(
+                amount_sats=data.get("amount_sats") or 0,
+                encoded_invoice=data.get("encoded_invoice", ""),
+            )
+        except (LndInvoiceError, LndUnavailable, LndError) as exc:
+            raise ValidationError({"encoded_invoice": str(exc)}) from exc
+        expires_at = preview.expires_at.isoformat() if preview.expires_at else None
         return Response(
             {
                 "amount_sats": preview.amount_sats,
                 "fee_sats": preview.fee_sats,
                 "settlement_mode": preview.settlement_mode,
                 "network": preview.network,
-                "is_lightning_settled": preview.is_lightning_settled,
+                "is_lightning_settled": False,
                 "encoded_invoice": preview.encoded_invoice,
                 "payment_hash": preview.payment_hash,
+                "description": preview.description,
+                "destination": preview.destination,
+                "expiry_seconds": preview.expiry_seconds,
+                "expires_at": expires_at,
                 "warnings": preview.warnings,
             }
         )

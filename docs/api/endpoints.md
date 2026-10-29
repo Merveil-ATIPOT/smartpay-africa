@@ -25,6 +25,11 @@ Les montants sont toujours des **entiers en satoshis**.
 
 Les champs P01 restent valides. Les clients Mock ignorent `encoded_invoice`.
 
+## Extension de contrat P03 (additive)
+
+- `POST /payments/preview/` : `amount_sats` n'est plus obligatoire si `encoded_invoice` est fourni. Réponse additive : `description`, `destination`, `expiry_seconds`, `expires_at`. `is_lightning_settled` reste **toujours false**.
+- Une facture BOLT11 (`lnbcrt` / `lnbc`) est rejetée lorsque `PAYMENT_PROVIDER=mock`.
+
 ## Idempotence
 
 `POST /api/v1/payments/` exige `Idempotency-Key` ou `idempotency_key`. Un rejeu renvoie `200` **sans renvoyer** le paiement LND.

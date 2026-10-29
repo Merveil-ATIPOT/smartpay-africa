@@ -1,4 +1,4 @@
-# Architecture SmartPay Africa — P02
+# Architecture SmartPay Africa — P03
 
 ## Objectif
 
@@ -10,7 +10,7 @@ Stabiliser P01 puis opérer un laboratoire **Bitcoin Regtest** avec Bitcoin Core
 | --- | --- |
 | `apps/api` | API Django REST, Mock **et** LND Regtest |
 | `apps/admin-web` | Squelette Next.js 15, hors Stitch |
-| `apps/mobile` | Squelette Expo 52, hors Stitch |
+| `apps/mobile` | Expo 52 — M08 Dashboard, M13 Scanner, M15 Confirm, M20 Recevoir |
 | `packages/contracts` | OpenAPI 3 + types TypeScript |
 | `compose.yaml` | PostgreSQL 16 (hôte **5433**) + API |
 | `infrastructure/lightning-regtest` | bitcoind + LND Alice/Bob, réseau `smartpay-lightning` |
@@ -35,10 +35,15 @@ Stabiliser P01 puis opérer un laboratoire **Bitcoin Regtest** avec Bitcoin Core
 - `smartpay-lightning` : bitcoind, lnd-alice, lnd-bob.
 - RPC Bitcoin et gRPC LND non publiés. REST LND lié à `127.0.0.1` uniquement.
 
-## Hors P02
+## Client mobile (P03)
+
+Le mobile parle **uniquement** à Django (`EXPO_PUBLIC_API_URL` ou override Profil). JWT dans Expo SecureStore. Le scan QR appelle `preview`, jamais `payments` create. Un HTTP 200 n'est jamais affiché comme règlement Lightning. Mock ≠ settled.
+
+Pour tester LND sans changer le frontend : pointer l'API vers une instance Django `PAYMENT_PROVIDER=lnd_regtest`. Docker Compose reste Mock par défaut.
+
+## Hors P03
 
 - Bitcoin Mainnet
 - Dépôts FCFA, Wave / Orange Money / MTN
 - Assistant IA
-- Écrans Stitch / M08 M13 M15 M20
 - Déploiement

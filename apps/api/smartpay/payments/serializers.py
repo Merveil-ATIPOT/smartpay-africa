@@ -80,9 +80,18 @@ class CreateInvoiceSerializer(serializers.Serializer):
 
 
 class PreviewPaymentSerializer(serializers.Serializer):
-    amount_sats = serializers.IntegerField(min_value=1, max_value=settings.MAX_PAYMENT_AMOUNT_SATS)
+    amount_sats = serializers.IntegerField(
+        min_value=1, max_value=settings.MAX_PAYMENT_AMOUNT_SATS, required=False
+    )
     description = serializers.CharField(max_length=255, required=False, allow_blank=True, default="")
     encoded_invoice = serializers.CharField(required=False, allow_blank=True, default="")
+
+    def validate(self, attrs):
+        invoice = (attrs.get("encoded_invoice") or "").strip()
+        if not invoice and not attrs.get("amount_sats"):
+            raise serializers.ValidationError("Indiquez amount_sats ou encoded_invoice.")
+        attrs["encoded_invoice"] = invoice
+        return attrs
 
 
 class CreatePaymentSerializer(serializers.Serializer):

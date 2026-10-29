@@ -27,6 +27,16 @@ def test_mock_preview_warns():
     assert any("Lightning" in warning for warning in preview.warnings)
 
 
+def test_mock_preview_rejects_bolt11():
+    with pytest.raises(Exception, match="BOLT11"):
+        MockPaymentProvider().preview(amount_sats=1500, encoded_invoice="lnbcrt1ppreview")
+
+
+def test_mock_preview_requires_amount_without_invoice_amount():
+    with pytest.raises(Exception, match="Montant"):
+        MockPaymentProvider().preview(amount_sats=0, encoded_invoice="mockln1abc")
+
+
 def test_lnd_regtest_is_disconnected_without_config():
     provider = LndRegtestPaymentProvider()
     info = provider.get_node_info()
