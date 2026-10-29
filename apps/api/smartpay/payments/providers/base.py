@@ -51,6 +51,7 @@ class LookupResult:
     status: str
     failure_reason: str = ""
     amount_sats: int = 0
+    fee_sats: int = 0
 
 
 @dataclass(frozen=True)
@@ -88,6 +89,12 @@ class PaymentProvider(Protocol):
     def lookup_payment(self, payment_hash: str) -> LookupResult:
         ...
 
-    def send_payment(self, *, encoded_invoice: str, timeout_seconds: int) -> str:
+    def send_payment(
+        self,
+        *,
+        encoded_invoice: str,
+        timeout_seconds: int,
+        fee_limit_sats: int | None = None,
+    ) -> str:
         """Déclenche un paiement et retourne le payment_hash. Ce n'est PAS une preuve de règlement."""
         ...

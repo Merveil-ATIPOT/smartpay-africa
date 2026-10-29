@@ -21,6 +21,11 @@ REGTEST_WARNING = (
     "Fournisseur LND Regtest. Un HTTP 200 n'est pas une preuve de règlement. "
     "Le statut settled provient d'un lookup LND."
 )
+SELF_PAY_WARNING = (
+    "Cette facture a été émise par le nœud payeur (Alice). "
+    "Un paiement Alice → Alice n'est pas un transfert Alice → Bob. "
+    "Utilisez une facture de la contrepartie Bob."
+)
 
 
 def _msat_to_sats(value: str | int | None) -> int:
@@ -85,13 +90,21 @@ class LndRegtestPaymentProvider:
             fee_sats = _msat_to_sats(fee_msat) if int(fee_msat or 0) >= 1000 else int(fee_msat or 0)
             if estimate.get("unavailable"):
                 fee_sats = 0
+        warnings = [REGTEST_WARNING]
+        if destination:
+            try:
+                node = self.get_node_info()
+            except (LndUnavailable, LndError):
+                node = NodeInfo(connected=False)
+            if node.pubkey and destination == node.pubkey:
+                warnings.append(SELF_PAY_WARNING)
         return PaymentPreview(
             amount_sats=amount_sats,
             fee_sats=fee_sats,
             settlement_mode="lightning_regtest",
             network="regtest",
             is_lightning_settled=False,
-            warnings=[REGTEST_WARNING],
+            warnings=warnings,
             encoded_invoice=encoded_invoice,
             payment_hash=payment_hash,
             description=description,
@@ -165,20 +178,33 @@ class LndRegtestPaymentProvider:
         status = str(payload.get("status") or "").upper()
         settled = status in {"SUCCEEDED", "SUCCESS", "2"}
         failed = status in {"FAILED", "FAILURE", "3"}
+        fee_sat = payload.get("fee_sat") or payload.get("fee") or 0
+        fee_msat = payload.get("fee_msat") or 0
+        fee_sats = int(fee_sat or 0)
+        if fee_sats == 0 and int(fee_msat or 0) >= 1000:
+            fee_sats = int(fee_msat) // 1000
         return LookupResult(
             found=True,
             settled=settled,
             status=status or "IN_FLIGHT",
             failure_reason="" if not failed else str(payload.get("failure_reason") or "payment_failed"),
             amount_sats=int(payload.get("value_sat") or payload.get("value") or 0),
+            fee_sats=fee_sats,
         )
 
-    def send_payment(self, *, encoded_invoice: str, timeout_seconds: int) -> str:
+    def send_payment(
+        self,
+        *,
+        encoded_invoice: str,
+        timeout_seconds: int,
+        fee_limit_sats: int | None = None,
+    ) -> str:
         decoded = self.decode_invoice(encoded_invoice)
+        limit = fee_limit_sats if fee_limit_sats is not None else max(50, decoded.amount_sats // 100)
         payload = self.client.send_payment_sync(
             encoded_invoice=encoded_invoice,
             timeout_seconds=timeout_seconds,
-            fee_limit_sats=max(50, decoded.amount_sats // 100),
+            fee_limit_sats=limit,
         )
         error = payload.get("payment_error") or ""
         payment_hash = payment_hash_to_hex(payload.get("payment_hash") or decoded.payment_hash)

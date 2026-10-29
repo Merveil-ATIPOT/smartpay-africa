@@ -90,5 +90,11 @@ class MockPaymentProvider:
     def lookup_payment(self, payment_hash: str) -> LookupResult:
         return LookupResult(found=True, settled=False, status="mock")
 
-    def send_payment(self, *, encoded_invoice: str, timeout_seconds: int) -> str:
+    def send_payment(
+        self,
+        *,
+        encoded_invoice: str,
+        timeout_seconds: int,
+        fee_limit_sats: int | None = None,
+    ) -> str:
         raise LndPaymentError("Le fournisseur Mock n'exécute aucun paiement Lightning.")

@@ -152,12 +152,14 @@ class LndRestClient:
             return {"routing_fee_msat": "0", "unavailable": True}
 
     def send_payment_sync(self, *, encoded_invoice: str, timeout_seconds: int, fee_limit_sats: int) -> dict:
+        # SendPaymentSync (Lightning RPC) n'accepte pas timeout_seconds — ce champ
+        # appartient à Router SendPaymentV2. Un champ inconnu fait échouer LND 0.20.
+        _ = timeout_seconds
         payload = self.request(
             "POST",
             "/v1/channels/transactions",
             json={
                 "payment_request": encoded_invoice,
-                "timeout_seconds": timeout_seconds,
                 "fee_limit": {"fixed": str(max(fee_limit_sats, 1))},
             },
         )

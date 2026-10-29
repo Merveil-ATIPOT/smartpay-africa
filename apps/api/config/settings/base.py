@@ -170,7 +170,7 @@ SPECTACULAR_SETTINGS = {
         "API MVP hackathon. Bitcoin Regtest uniquement. "
         "Le fournisseur Mock ne produit jamais un règlement Lightning."
     ),
-    "VERSION": "0.2.0",
+    "VERSION": "0.6.0",
     "SERVE_INCLUDE_SCHEMA": False,
 }
 
@@ -178,6 +178,20 @@ PAYMENT_PROVIDER = env("PAYMENT_PROVIDER", "mock")
 BITCOIN_NETWORK = env("BITCOIN_NETWORK", "regtest")
 MAX_PAYMENT_AMOUNT_SATS = 10_000_000_000
 SUPPORTED_COUNTRIES = ("SN", "CG", "CI")
+
+# Devis de transfert international — taux fictif, pas un cours de marché.
+TRANSFER_DEMO_FCFA_PER_BTC = int(env("TRANSFER_DEMO_FCFA_PER_BTC", "43300000"))
+TRANSFER_DEMO_FEE_SATS = int(env("TRANSFER_DEMO_FEE_SATS", "1"))
+TRANSFER_QUOTE_TTL_SECONDS = int(env("TRANSFER_QUOTE_TTL_SECONDS", "300"))
+TRANSFER_QUOTE_VERSION = env("TRANSFER_QUOTE_VERSION", "demo-b1-v1")
+TRANSFER_MIN_AMOUNT_LOCAL = int(env("TRANSFER_MIN_AMOUNT_LOCAL", "100"))
+TRANSFER_MAX_AMOUNT_LOCAL = int(env("TRANSFER_MAX_AMOUNT_LOCAL", "50000000"))
+TRANSFER_INVOICE_EXPIRY_SECONDS = int(env("TRANSFER_INVOICE_EXPIRY_SECONDS", "600"))
+TRANSFER_MAX_ROUTING_FEE_SATS = int(env("TRANSFER_MAX_ROUTING_FEE_SATS", "50"))
+TRANSFER_CREDIT_DISCLAIMER = (
+    "Crédit Mobile Money simulé. Aucun opérateur réel n'a été contacté. "
+    "Aucun SMS n'a été envoyé. Ceci n'est pas un paiement bancaire."
+)
 
 def _abs_secret_path(raw: str | None) -> str:
     if not raw:
@@ -193,6 +207,14 @@ LND_REST_URL = env("LND_REST_URL", "")
 LND_MACAROON_PATH = _abs_secret_path(env("LND_MACAROON_PATH", ""))
 LND_TLS_CERT_PATH = _abs_secret_path(env("LND_TLS_CERT_PATH", ""))
 LND_TIMEOUT_SECONDS = int(env("LND_TIMEOUT_SECONDS", "30"))
+LND_LOOKUP_RETRY_ATTEMPTS = int(env("LND_LOOKUP_RETRY_ATTEMPTS", "8"))
+LND_LOOKUP_RETRY_DELAY_SECONDS = float(env("LND_LOOKUP_RETRY_DELAY_SECONDS", "0.4"))
+
+# Nœud Bob — contrepartie laboratoire uniquement, jamais le portefeuille utilisateur.
+LND_BOB_REST_URL = env("LND_BOB_REST_URL", "")
+LND_BOB_MACAROON_PATH = _abs_secret_path(env("LND_BOB_MACAROON_PATH", ""))
+LND_BOB_TLS_CERT_PATH = _abs_secret_path(env("LND_BOB_TLS_CERT_PATH", ""))
+LAB_COUNTERPARTY_ENABLED = env_bool("LAB_COUNTERPARTY_ENABLED", False)
 
 LOGGING = {
     "version": 1,
