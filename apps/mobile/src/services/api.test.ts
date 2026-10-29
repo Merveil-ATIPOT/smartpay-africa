@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 
 import { ConfirmLock } from "../lib/confirmLock";
-import { ApiError } from "./errors";
+import { ApiError, isTransportError, messageFromBody, userFacingRequestError } from "./errors";
 
 describe("flux preview puis confirm", () => {
   it("n'appelle pas /payments/ tant que confirm n'est pas demandé", async () => {
@@ -37,6 +37,33 @@ describe("erreurs réseau", () => {
   it("ApiError 0 représente un réseau injoignable", () => {
     const error = new ApiError(0, "Réseau injoignable.");
     assert.equal(error.status, 0);
+    assert.equal(isTransportError(error), true);
+    assert.match(userFacingRequestError(error, "x"), /pas un paiement refusé/);
+  });
+
+  it("un JWT expiré n'est pas un paiement refusé", () => {
+    const error = new ApiError(401, "Identifiants invalides ou session expirée.");
+    assert.equal(error.status, 401);
+    assert.equal(isTransportError(error), false);
+    assert.equal(userFacingRequestError(error, "x"), "Identifiants invalides ou session expirée.");
+  });
+
+  it("ne confond pas une validation 400 avec une coupure réseau", () => {
+    const error = new ApiError(400, "Facture expirée.");
+    assert.equal(isTransportError(error), false);
+    assert.equal(userFacingRequestError(error, "x"), "Facture expirée.");
+  });
+
+  it("extrait le message métier de l'enveloppe SmartPay 400", () => {
+    const body = {
+      error: true,
+      status_code: 400,
+      detail: {
+        encoded_invoice:
+          "Cette facture a été émise par le nœud payeur (Alice). Un paiement Alice → Alice n'est pas un transfert Alice → Bob.",
+      },
+    };
+    assert.match(messageFromBody(body, "Erreur API (400)."), /Alice → Alice/);
   });
 });
 

@@ -146,11 +146,13 @@ export function DashboardScreen() {
 
         <View style={styles.sectionHead}>
           <Text style={styles.sectionTitle}>Corridors panafricains</Text>
-          <Badge label="0% frais LN" tone="green" />
+          <Pressable onPress={() => tabs.getParent<NativeStackNavigationProp<AppStackParamList>>()?.navigate("TransferDestination")}>
+            <Text style={styles.link}>Simuler</Text>
+          </Pressable>
         </View>
         <Text style={styles.corridor}>
-          Sénégal SN · Côte d'Ivoire CI · Congo-Brazzaville CG. Transferts Wave / Orange Money / MTN et FCFA réel hors
-          périmètre P03.
+          Sénégal SN · Côte d'Ivoire CI · Congo-Brazzaville CG. Le parcours M22–M26 parle à Django. Le paiement
+          Lightning international n'est pas relancé depuis ces écrans.
         </Text>
 
         <View style={styles.sectionHead}>

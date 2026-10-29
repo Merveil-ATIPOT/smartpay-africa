@@ -9,6 +9,11 @@ export type AppStackParamList = {
     amountOverride?: number;
   };
   Receive: undefined;
+  TransferDestination: undefined;
+  TransferBeneficiary: undefined;
+  TransferAmount: undefined;
+  TransferReview: undefined;
+  TransferResult: { transferId?: string };
 };
 
 export type TabParamList = {

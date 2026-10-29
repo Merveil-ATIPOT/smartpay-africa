@@ -22,10 +22,11 @@ export function createApiClient(deps: {
 
   async function getBaseUrl(): Promise<string> {
     const override = await storageGet(STORAGE_KEYS.apiBase);
+    const metro = metroHost();
     if (override) {
-      return override.replace(/\/$/, "");
+      return rewriteLoopbackToLan(override.replace(/\/$/, ""), metro);
     }
-    return rewriteLoopbackToLan(defaultApiUrl(deps.platform ?? "ios"), metroHost());
+    return rewriteLoopbackToLan(defaultApiUrl(deps.platform ?? "ios"), metro);
   }
 
   async function setApiBaseUrl(url: string): Promise<void> {
@@ -34,7 +35,8 @@ export function createApiClient(deps: {
       await storageDelete(STORAGE_KEYS.apiBase);
       return;
     }
-    await storageSet(STORAGE_KEYS.apiBase, clean);
+    const rewritten = rewriteLoopbackToLan(clean, metroHost());
+    await storageSet(STORAGE_KEYS.apiBase, rewritten);
   }
 
   async function getTokens(): Promise<Partial<TokenPair>> {
@@ -97,6 +99,7 @@ export function createApiClient(deps: {
       auth?: boolean;
       headers?: Record<string, string>;
       retry?: boolean;
+      timeoutMs?: number;
     } = {},
   ): Promise<T> {
     const base = await getBaseUrl();
@@ -114,7 +117,7 @@ export function createApiClient(deps: {
     let response: Response;
     try {
       const controller = new AbortController();
-      const timer = setTimeout(() => controller.abort(), 12_000);
+      const timer = setTimeout(() => controller.abort(), options.timeoutMs ?? 12_000);
       try {
         response = await fetchImpl(`${base}${path}`, {
           method: options.method ?? "GET",

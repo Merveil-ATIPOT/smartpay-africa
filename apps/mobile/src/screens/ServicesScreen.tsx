@@ -1,31 +1,50 @@
-import { StyleSheet, Text, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import type { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
+import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { Badge } from "../components/ui";
+import type { AppStackParamList, TabParamList } from "../navigation/types";
 import { colors, radius, spacing } from "../theme";
 
-const ITEMS = [
-  { title: "Transfert Direct", subtitle: "Wave / Orange Money / MTN — hors P03", badge: "P04" },
-  { title: "Assistant IA", subtitle: "Hors périmètre P03", badge: "P04" },
-  { title: "Payer Boutique", subtitle: "Terminal marchand — hors P03", badge: "P04" },
-  { title: "Robinet Faucet", subtitle: "Crédit démo Stitch non branché à LND", badge: "Maquette" },
-];
-
 export function ServicesScreen() {
+  const tabs = useNavigation<BottomTabNavigationProp<TabParamList>>();
+  const parent = tabs.getParent<NativeStackNavigationProp<AppStackParamList>>();
+
   return (
     <SafeAreaView style={styles.safe} edges={["top"]}>
       <Text style={styles.title}>Services</Text>
       <Text style={styles.sub}>
-        Grille reprise de M08 pour la navigation Stitch. Aucun service FCFA, Wave, Orange Money ou MTN n'est actif.
+        Le transfert M22–M26 utilise les API Django pour le catalogue, le devis et le résultat. Aucun POST confirm
+        pendant B3. Les paiements Lightning du Scanner / Recevoir restent inchangés. Aucune API Wave, Orange Money ou
+        MTN n'est appelée.
       </Text>
       <View style={styles.grid}>
-        {ITEMS.map((item) => (
-          <View key={item.title} style={styles.card}>
-            <Badge label={item.badge} tone="muted" />
-            <Text style={styles.name}>{item.title}</Text>
-            <Text style={styles.meta}>{item.subtitle}</Text>
-          </View>
-        ))}
+        <Pressable
+          style={styles.card}
+          onPress={() => parent?.navigate("TransferDestination")}
+          accessibilityRole="button"
+        >
+          <Badge label="API Django · B3" tone="orange" />
+          <Text style={styles.name}>Transfert Direct</Text>
+          <Text style={styles.meta}>Préparation serveur · paiement Lightning bloqué</Text>
+        </Pressable>
+        <View style={[styles.card, styles.cardOff]}>
+          <Badge label="Hors phase" tone="muted" />
+          <Text style={styles.name}>Assistant IA</Text>
+          <Text style={styles.meta}>Non disponible</Text>
+        </View>
+        <View style={[styles.card, styles.cardOff]}>
+          <Badge label="Hors phase" tone="muted" />
+          <Text style={styles.name}>Payer Boutique</Text>
+          <Text style={styles.meta}>Non disponible</Text>
+        </View>
+        <View style={[styles.card, styles.cardOff]}>
+          <Badge label="Maquette" tone="muted" />
+          <Text style={styles.name}>Robinet Faucet</Text>
+          <Text style={styles.meta}>Non branché à LND</Text>
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -42,8 +61,9 @@ const styles = StyleSheet.create({
     borderRadius: radius.lg,
     padding: spacing.md,
     gap: 8,
-    opacity: 0.85,
+    minHeight: 120,
   },
+  cardOff: { opacity: 0.55 },
   name: { color: colors.navy, fontWeight: "700" },
   meta: { color: colors.muted, fontSize: 11 },
 });
