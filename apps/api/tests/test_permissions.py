@@ -6,7 +6,14 @@ from smartpay.payments.models import Payment
 
 @pytest.mark.django_db
 def test_private_endpoints_require_auth(api_client):
-    for url in ("/api/v1/me/", "/api/v1/wallet/", "/api/v1/payments/", "/api/v1/transfers/simulations/"):
+    for url in (
+        "/api/v1/me/",
+        "/api/v1/wallet/",
+        "/api/v1/payments/",
+        "/api/v1/transfers/simulations/",
+        "/api/v1/transfers/",
+        "/api/v1/transfers/destinations/",
+    ):
         response = api_client.get(url)
         assert response.status_code in (status.HTTP_401_UNAUTHORIZED, status.HTTP_403_FORBIDDEN)
 
