@@ -155,6 +155,25 @@ export function parseBolt11AmountSats(encoded: string): number | null {
   }
 }
 
+/** Facture émise par le nœud payeur (Alice). Le bouton Confirmer doit rester inactif. */
+export const USER_INVOICE_MEMO = "Facture SmartPay Africa";
+export const LAB_BOB_INVOICE_MEMO = "Facture SmartPay Africa";
+
+/** Colle le brouillon uniquement. La navigation M15 reste sur Valider. */
+export function applyClipboardInvoice(clipboard: string): { draft: string; error: string | null } {
+  const draft = clipboard.trim();
+  if (!draft) {
+    return { draft: "", error: "Presse-papiers vide." };
+  }
+  return { draft, error: null };
+}
+
+export function isPayerSelfInvoice(warnings: string[] | undefined | null): boolean {
+  return (warnings ?? []).some(
+    (warning) => warning.includes("nœud payeur") || warning.includes("Alice → Alice"),
+  );
+}
+
 export function assertNotExpired(expiresAt: string | null | undefined, nowMs = Date.now()): void {
   if (!expiresAt) {
     return;

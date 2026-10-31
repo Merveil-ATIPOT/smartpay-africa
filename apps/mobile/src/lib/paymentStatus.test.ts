@@ -6,6 +6,7 @@ import {
   httpOkIsSettlement,
   isLightningSuccess,
   settlementCaption,
+  shouldStopPolling,
   uiPaymentState,
 } from "./paymentStatus";
 
@@ -90,6 +91,44 @@ describe("règlement", () => {
         }),
       ),
       "pending",
+    );
+  });
+
+  it("arrête le polling Mock dès le premier accusé", () => {
+    assert.equal(
+      shouldStopPolling(
+        payment({
+          settlement_mode: "mock",
+          status: "pending",
+          lightning_status: "not_applicable",
+        }),
+      ),
+      true,
+    );
+  });
+
+  it("continue le polling LND tant que le lookup n'est pas terminal", () => {
+    assert.equal(
+      shouldStopPolling(
+        payment({
+          settlement_mode: "lightning_regtest",
+          status: "pending",
+          is_lightning_settled: false,
+          lightning_status: "pending",
+        }),
+      ),
+      false,
+    );
+    assert.equal(
+      shouldStopPolling(
+        payment({
+          settlement_mode: "lightning_regtest",
+          status: "confirmed",
+          is_lightning_settled: true,
+          lightning_status: "settled",
+        }),
+      ),
+      true,
     );
   });
 });

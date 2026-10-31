@@ -1,5 +1,10 @@
 import type { UserProfile } from "@smartpay/contracts";
 
+import {
+  createRegisterApiCall,
+  type RegisterFormValues,
+  type RegisterResponse,
+} from "../lib/registerForm";
 import { api } from "./api";
 
 export async function login(email: string, password: string): Promise<UserProfile> {
@@ -10,6 +15,16 @@ export async function login(email: string, password: string): Promise<UserProfil
   });
   await api.setTokens(tokens);
   return fetchMe();
+}
+
+/** Inscription anonyme. Aucun JWT n'est lu ni stocké. */
+export async function registerAccount(values: RegisterFormValues): Promise<RegisterResponse> {
+  const call = createRegisterApiCall(values);
+  return api.request<RegisterResponse>(call.path, {
+    method: call.method,
+    auth: call.auth,
+    body: call.body,
+  });
 }
 
 export async function fetchMe(): Promise<UserProfile> {

@@ -2,6 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
+html,
 body {
-  @apply bg-forest text-stone-100 antialiased;
+  min-height: 100dvh;
+}
+
+body {
+  @apply bg-surface text-navy antialiased;
+}
+
+/* Centre W01 si la hauteur le permet ; bascule en haut si le contenu déborde. */
+.login-stage {
+  display: flex;
+  min-height: 100dvh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  justify-content: safe center;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.font-display {
+  font-family: var(--font-outfit), Outfit, Inter, system-ui, sans-serif;
+}
+
+.font-sans {
+  font-family: var(--font-inter), Inter, system-ui, sans-serif;
 }

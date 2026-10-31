@@ -1,29 +1,35 @@
 import { Ionicons } from "@expo/vector-icons";
-import { useEffect, useRef } from "react";
-import { Animated, StyleSheet, Text, View } from "react-native";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Animated, Easing, StyleSheet, Text, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 
+import { SCAN_FRAME_SIZE, SCAN_LINE_HEIGHT, scanLineTravelRange } from "../lib/scanLine";
 import { colors } from "../theme";
-
-const BOX = 256;
 
 export function ScanViewfinder() {
   const travel = useRef(new Animated.Value(0)).current;
+  const [frameHeight, setFrameHeight] = useState(SCAN_FRAME_SIZE);
+  const { from, to } = useMemo(() => scanLineTravelRange(frameHeight), [frameHeight]);
 
   useEffect(() => {
+    travel.setValue(0);
+    const timing = { duration: 1600, easing: Easing.linear, useNativeDriver: true } as const;
     const loop = Animated.loop(
       Animated.sequence([
-        Animated.timing(travel, { toValue: 1, duration: 1600, useNativeDriver: true }),
-        Animated.timing(travel, { toValue: 0, duration: 1600, useNativeDriver: true }),
+        Animated.timing(travel, { ...timing, toValue: 1 }),
+        Animated.timing(travel, { ...timing, toValue: 0 }),
       ]),
     );
     loop.start();
-    return () => loop.stop();
-  }, [travel]);
+    return () => {
+      loop.stop();
+      travel.stopAnimation();
+    };
+  }, [travel, frameHeight]);
 
   const translateY = travel.interpolate({
     inputRange: [0, 1],
-    outputRange: [18, BOX - 28],
+    outputRange: [from, to],
   });
 
   return (
@@ -32,7 +38,15 @@ export function ScanViewfinder() {
       <Corner top right color={colors.stitchGreenGlow} />
       <Corner bottom left color={colors.stitchGreenGlow} />
       <Corner bottom right color={colors.stitchOrange} />
-      <View style={styles.inner}>
+      <View
+        style={styles.inner}
+        onLayout={(event) => {
+          const next = Math.round(event.nativeEvent.layout.height);
+          if (next > 0 && next !== frameHeight) {
+            setFrameHeight(next);
+          }
+        }}
+      >
         <Animated.View style={[styles.laserWrap, { transform: [{ translateY }] }]}>
           <LinearGradient
             colors={[colors.stitchOrange, colors.stitchGreenGlow, colors.stitchOrange]}
@@ -103,8 +117,8 @@ function Corner({
 
 const styles = StyleSheet.create({
   box: {
-    width: BOX,
-    height: BOX,
+    width: SCAN_FRAME_SIZE,
+    height: SCAN_FRAME_SIZE,
     alignSelf: "center",
     justifyContent: "center",
     alignItems: "center",
@@ -120,9 +134,10 @@ const styles = StyleSheet.create({
   },
   laserWrap: {
     position: "absolute",
+    top: 0,
     left: 16,
     right: 16,
-    height: 3,
+    height: SCAN_LINE_HEIGHT,
     zIndex: 2,
   },
   laser: {

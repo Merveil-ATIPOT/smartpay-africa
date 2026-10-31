@@ -1,3 +1,5 @@
+import os
+
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand
@@ -17,10 +19,10 @@ class Command(BaseCommand):
             self.stderr.write("seed_dev refusé hors DEBUG.")
             return
 
-        admin_email = getattr(settings, "DEV_ADMIN_EMAIL", None) or "admin@smartpay.local"
-        user_email = getattr(settings, "DEV_USER_EMAIL", None) or "user@smartpay.local"
-        admin_password = __import__("os").environ.get("DEV_ADMIN_PASSWORD", "changeme-local-only")
-        user_password = __import__("os").environ.get("DEV_USER_PASSWORD", "changeme-local-only")
+        admin_email = os.environ.get("DEV_ADMIN_EMAIL") or "admin@smartpay.local"
+        user_email = os.environ.get("DEV_USER_EMAIL") or "user@smartpay.local"
+        admin_password = os.environ.get("DEV_ADMIN_PASSWORD", "changeme-local-only")
+        user_password = os.environ.get("DEV_USER_PASSWORD", "changeme-local-only")
 
         admin, created = User.objects.get_or_create(
             email=admin_email,
@@ -34,9 +36,11 @@ class Command(BaseCommand):
         if created:
             admin.set_password(admin_password)
             admin.save()
+        # Compte de démonstration mobile (LoginScreen). Pays de départ SN / Dakar.
+        # Les rôles Country.CG et Country.CI restent valides pour d'autres utilisateurs.
         user, created_user = User.objects.get_or_create(
             email=user_email,
-            defaults={"role": User.Role.INDIVIDUAL, "country": User.Country.CG},
+            defaults={"role": User.Role.INDIVIDUAL, "country": User.Country.SN},
         )
         if created_user:
             user.set_password(user_password)
@@ -47,7 +51,7 @@ class Command(BaseCommand):
             legal_name="Boutique Demo SmartPay",
             defaults={
                 "display_name": "Boutique Demo",
-                "country": "CG",
+                "country": User.Country.SN,
                 "status": Merchant.Status.ACTIVE,
             },
         )

@@ -10,10 +10,10 @@ import {
   applyBeneficiary,
   beneficiaryErrors,
   createLocalPreview,
-  demoShareMessage,
   quoteFromDraft,
   selectCountry,
 } from "./transferDraft";
+import { demoShareMessage } from "./transferReceipt";
 import { phoneErrors } from "./transferPhone";
 
 describe("M23 bénéficiaire", () => {
@@ -98,8 +98,8 @@ describe("M25 M26 cohérence démo", () => {
     assert.equal("payment_hash" in preview, false);
     const share = demoShareMessage(preview);
     assert.match(share, new RegExp(DEMO_PROOF_STAMP));
-    assert.match(share, /Awa Koné/);
-    assert.match(share, /50000 FCFA/);
+    assert.doesNotMatch(share, /07458912|\+225/);
+    assert.match(share, /50/);
     assert.match(PDF_UNAVAILABLE_MESSAGE, /PDF/);
     assert.match(DEMO_RESULT_DISCLAIMER, /Aucun paiement Lightning/);
   });

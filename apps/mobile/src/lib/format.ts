@@ -3,8 +3,33 @@ import type { CountryCode } from "@smartpay/contracts";
 export const FCFA_DISCLAIMER =
   "Conversion FCFA : non disponible. Aucun taux de marché n'est fourni dans ce MVP.";
 
+export const LND_DEMO_NODE_BALANCE_LABEL = "Solde du nœud de démonstration · Regtest";
+export const MOCK_BALANCE_LABEL = "Solde Mock — pas un canal Lightning";
+export const OFFICIAL_LOGO_ASSET = "Logo_SmartPay_Africa.png";
+
+/** Le canal LND est celui du nœud Alice partagé, pas un portefeuille utilisateur. */
+export function walletBalanceLabel(provider: string): string {
+  if (provider === "lnd_regtest") {
+    return LND_DEMO_NODE_BALANCE_LABEL;
+  }
+  return MOCK_BALANCE_LABEL;
+}
+
 export function formatSats(value: number): string {
   return new Intl.NumberFormat("fr-FR").format(value);
+}
+
+/** Accepte 2500, « 2 500 » ou séparateurs fins. Ne fabrique pas de montant. */
+export function parseSatsInput(raw: string): number | null {
+  const digits = raw.replace(/[\s\u00a0\u202f]/g, "");
+  if (!digits || !/^\d+$/.test(digits)) {
+    return null;
+  }
+  const parsed = Number(digits);
+  if (!Number.isInteger(parsed) || parsed <= 0) {
+    return null;
+  }
+  return parsed;
 }
 
 export function countryLine(code: CountryCode | string): string {

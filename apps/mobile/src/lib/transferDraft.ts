@@ -179,16 +179,6 @@ export function quoteFromDraft(draft: TransferDraft): TransferQuote {
   return local;
 }
 
-export function demoShareMessage(preview: DemoPreview): string {
-  return [
-    DEMO_PROOF_STAMP,
-    preview.disclaimer,
-    `Référence locale : ${preview.localReference}`,
-    `${preview.beneficiaryName} · ${preview.phone}`,
-    `${preview.quote.amountFcfa} FCFA / ${preview.quote.amountSats} sats`,
-  ].join("\n");
-}
-
 export function createLocalPreview(draft: TransferDraft, now = new Date()): DemoPreview | null {
   if (!draft.destinationCode || !draft.operator || beneficiaryErrors(draft).length > 0) {
     return null;

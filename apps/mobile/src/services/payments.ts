@@ -1,6 +1,14 @@
-import type { CreateInvoiceRequest, Paginated, Payment, PaymentPreview } from "@smartpay/contracts";
+import type {
+  CreateInvoiceRequest,
+  LabCounterpartyInvoice,
+  Paginated,
+  Payment,
+  PaymentPreview,
+} from "@smartpay/contracts";
 
 import { newIdempotencyKey } from "../lib/confirmLock";
+import { LAB_BOB_INVOICE_MEMO } from "../lib/invoice";
+import { shouldStopPolling } from "../lib/paymentStatus";
 import { api } from "./api";
 
 export async function previewPayment(input: {
@@ -29,6 +37,7 @@ export async function confirmPayment(input: {
   return api.request<Payment>("/api/v1/payments/", {
     method: "POST",
     headers: { "Idempotency-Key": key },
+    timeoutMs: 90_000,
     body: {
       amount_sats: input.amountSats,
       encoded_invoice: input.encodedInvoice,
@@ -43,6 +52,19 @@ export async function createInvoice(input: CreateInvoiceRequest): Promise<Paymen
   return api.request<Payment>("/api/v1/payments/invoices/", {
     method: "POST",
     body: input,
+  });
+}
+
+export async function createLabCounterpartyInvoice(input: {
+  amountSats: number;
+  memo?: string;
+}): Promise<LabCounterpartyInvoice> {
+  return api.request<LabCounterpartyInvoice>("/api/v1/lab/counterparty-invoice/", {
+    method: "POST",
+    body: {
+      amount_sats: input.amountSats,
+      memo: input.memo ?? LAB_BOB_INVOICE_MEMO,
+    },
   });
 }
 
@@ -67,14 +89,7 @@ export async function pollPayment(
     if (options.isCancelled?.()) {
       return last;
     }
-    if (
-      last.is_lightning_settled ||
-      last.status === "failed" ||
-      last.status === "expired" ||
-      last.lightning_status === "settled" ||
-      last.lightning_status === "failed" ||
-      last.lightning_status === "expired"
-    ) {
+    if (shouldStopPolling(last)) {
       return last;
     }
     await new Promise((resolve) => setTimeout(resolve, intervalMs));

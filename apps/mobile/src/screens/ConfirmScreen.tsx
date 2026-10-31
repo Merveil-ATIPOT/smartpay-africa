@@ -1,7 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import * as Clipboard from "expo-clipboard";
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import type { Payment } from "@smartpay/contracts";
@@ -9,10 +9,12 @@ import type { Payment } from "@smartpay/contracts";
 import { Badge, ErrorBanner, GhostButton, ModeBanner, PrimaryButton } from "../components/ui";
 import { ConfirmLock, newIdempotencyKey } from "../lib/confirmLock";
 import { FCFA_DISCLAIMER, formatSats, remainingLabel, shortenInvoice } from "../lib/format";
-import { assertNotExpired, InvoiceError } from "../lib/invoice";
+import { assertNotExpired, isPayerSelfInvoice } from "../lib/invoice";
 import { isLightningSuccess, settlementCaption, statusLabel, uiPaymentState } from "../lib/paymentStatus";
 import type { AppStackParamList } from "../navigation/types";
+import { isTransportError, userFacingRequestError } from "../services/errors";
 import { confirmPayment, pollPayment } from "../services/payments";
+import { fetchWallet } from "../services/wallet";
 import { colors, radius, spacing } from "../theme";
 
 type Props = NativeStackScreenProps<AppStackParamList, "Confirm">;
@@ -27,9 +29,17 @@ export function ConfirmScreen({ navigation, route }: Props) {
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [payment, setPayment] = useState<Payment | null>(null);
+  const [lightningConnected, setLightningConnected] = useState(false);
+
+  useEffect(() => {
+    void fetchWallet()
+      .then((wallet) => setLightningConnected(Boolean(wallet.is_lightning_connected)))
+      .catch(() => setLightningConnected(false));
+  }, []);
 
   const amountSats = Number(amount);
-  const canPay = Number.isInteger(amountSats) && amountSats > 0 && !busy;
+  const selfInvoice = isPayerSelfInvoice(preview.warnings);
+  const canPay = Number.isInteger(amountSats) && amountSats > 0 && !busy && !selfInvoice;
   const state = payment ? uiPaymentState(payment) : null;
   const expires = remainingLabel(preview.expires_at ?? null);
 
@@ -41,7 +51,7 @@ export function ConfirmScreen({ navigation, route }: Props) {
   }, [preview.destination]);
 
   async function onConfirm() {
-    if (!lock.current.tryAcquire()) {
+    if (selfInvoice || !lock.current.tryAcquire()) {
       return;
     }
     setError(null);
@@ -54,14 +64,18 @@ export function ConfirmScreen({ navigation, route }: Props) {
         description: preview.description,
         idempotencyKey: idempotencyKey.current,
       });
-      const latest = await pollPayment(created.id, { timeoutMs: 45_000 });
+      const latest = await pollPayment(created.id, {
+        timeoutMs: created.settlement_mode === "mock" ? 0 : 90_000,
+      });
       setPayment(latest);
       if (latest.status === "failed") {
         idempotencyKey.current = newIdempotencyKey();
       }
     } catch (err) {
-      idempotencyKey.current = newIdempotencyKey();
-      setError(err instanceof InvoiceError || err instanceof Error ? err.message : "Paiement impossible.");
+      if (!isTransportError(err)) {
+        idempotencyKey.current = newIdempotencyKey();
+      }
+      setError(userFacingRequestError(err, "Paiement impossible."));
     } finally {
       setBusy(false);
       lock.current.release();
@@ -78,7 +92,10 @@ export function ConfirmScreen({ navigation, route }: Props) {
           <Text style={styles.navTitle}>Détails de transaction</Text>
           <Badge label={preview.settlement_mode === "mock" ? "Mock" : "Regtest"} tone="orange" />
         </View>
-        <ModeBanner provider={preview.settlement_mode === "mock" ? "mock" : "lnd_regtest"} />
+        <ModeBanner
+          provider={preview.settlement_mode === "mock" ? "mock" : "lnd_regtest"}
+          lightningConnected={lightningConnected}
+        />
 
         <View style={styles.amountCard}>
           <Text style={styles.kicker}>MONTANT À TRANSFÉRER</Text>

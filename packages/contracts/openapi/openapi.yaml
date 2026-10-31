@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: SmartPay Africa API
-  version: 0.2.0
+  version: 0.7.0
   description: |
     API P01. Bitcoin Regtest uniquement.
     Le fournisseur Mock ne produit jamais un règlement Lightning.
@@ -24,6 +24,35 @@ paths:
                 $ref: "#/components/schemas/Health"
         "503":
           description: Base de données indisponible
+  /api/v1/auth/register/:
+    post:
+      operationId: registerUser
+      tags: [accounts]
+      security: []
+      description: |
+        Inscription publique d'un compte Particulier.
+        Aucun JWT n'est délivré. Authentifiez-vous ensuite via POST /api/v1/auth/token/.
+        Le rôle est toujours `individual`. Les champs staff / superuser / role du body sont ignorés.
+        Le téléphone est un contact non vérifié : il ne prouve pas un compte Mobile Money.
+        MVP démo : un e-mail déjà utilisé renvoie « Cet e-mail est déjà utilisé »
+        (risque d'énumération des comptes, à revoir avant une mise en production).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RegisterRequest"
+      responses:
+        "201":
+          description: Compte Particulier créé. Aucun jeton JWT.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RegisterResponse"
+        "400":
+          description: Validation (champs, e-mail déjà utilisé, mot de passe, téléphone, CGU)
+        "429":
+          description: Quota d'inscription dépassé
   /api/v1/me/:
     get:
       operationId: getMe
@@ -136,6 +165,25 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PaymentPreview"
+  /api/v1/lab/counterparty-invoice/:
+    post:
+      operationId: createLabCounterpartyInvoice
+      tags: [lab]
+      security: [{ bearerAuth: [] }]
+      description: >
+        Facture BOLT11 émise par Bob (laboratoire). Ne remplace pas le portefeuille utilisateur.
+        Désactivé hors overlay P04.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateInvoiceRequest"
+      responses:
+        "201":
+          description: Facture Bob laboratoire
+        "404":
+          description: Contrepartie laboratoire désactivée
   /api/v1/transfers/simulations/:
     get:
       operationId: listTransferSimulations
@@ -148,6 +196,243 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/TransferSimulationList"
+  /api/v1/transfers/destinations/:
+    get:
+      operationId: listTransferDestinations
+      tags: [transfers]
+      security: [{ bearerAuth: [] }]
+      responses:
+        "200":
+          description: Catalogue de démonstration (passerelles simulées)
+  /api/v1/transfers/destinations/{code}/operators/:
+    get:
+      operationId: listTransferOperators
+      tags: [transfers]
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: path
+          name: code
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Opérateurs simulés du pays
+  /api/v1/transfers/quotes/:
+    post:
+      operationId: createTransferQuote
+      tags: [transfers]
+      security: [{ bearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TransferQuoteRequest"
+      responses:
+        "200":
+          description: Devis calculé côté serveur (taux fictif)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TransferQuote"
+  /api/v1/transfers/:
+    get:
+      operationId: listTransfers
+      tags: [transfers]
+      security: [{ bearerAuth: [] }]
+      responses:
+        "200":
+          description: Transferts du propriétaire (préparation B1)
+    post:
+      operationId: createTransfer
+      tags: [transfers]
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: header
+          name: Idempotency-Key
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateTransferRequest"
+      responses:
+        "201":
+          description: Brouillon créé
+        "200":
+          description: Rejeu idempotent
+  /api/v1/transfers/{id}/:
+    get:
+      operationId: getTransfer
+      tags: [transfers]
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Récapitulatif
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternationalTransfer"
+        "403":
+          description: Accès refusé
+    patch:
+      operationId: updateTransfer
+      tags: [transfers]
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateTransferRequest"
+      responses:
+        "200":
+          description: Brouillon mis à jour
+  /api/v1/transfers/{id}/status/:
+    get:
+      operationId: getTransferStatus
+      tags: [transfers]
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Statut courant
+  /api/v1/transfers/{id}/beneficiary/:
+    post:
+      operationId: validateTransferBeneficiary
+      tags: [transfers]
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Bénéficiaire validé (format uniquement)
+  /api/v1/transfers/{id}/quote/:
+    post:
+      operationId: quoteTransfer
+      tags: [transfers]
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Devis associé au transfert
+  /api/v1/transfers/{id}/ready/:
+    post:
+      operationId: markTransferReady
+      tags: [transfers]
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Transfert prêt (aucun paiement déclenché)
+  /api/v1/transfers/{id}/preview-payment/:
+    post:
+      operationId: previewTransferPayment
+      tags: [transfers]
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Conditions de paiement. Aucun send_payment LND.
+  /api/v1/transfers/{id}/confirm/:
+    post:
+      operationId: confirmTransfer
+      tags: [transfers]
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - in: header
+          name: Idempotency-Key
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Exécution Alice→Bob puis crédit MM simulé si lookups confirmés
+  /api/v1/transfers/{id}/result/:
+    get:
+      operationId: getTransferResult
+      tags: [transfers]
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Résultat métier
+  /api/v1/transfers/{id}/reconcile/:
+    post:
+      operationId: reconcileTransfer
+      tags: [transfers]
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Rapprochement admin. Pas de nouveau paiement automatique.
+        "403":
+          description: Réservé aux administrateurs
 components:
   securitySchemes:
     bearerAuth:
@@ -170,13 +455,16 @@ components:
           enum: [regtest]
         payment_provider:
           type: string
-          enum: [mock]
+          enum: [mock, lnd_regtest]
         lightning:
           type: string
           enum: [not_connected, regtest]
         database:
           type: string
           enum: [up, down]
+        lab_counterparty:
+          type: boolean
+          description: True si une facture Bob laboratoire peut être émise. Ce n'est pas le portefeuille utilisateur.
         checked_at:
           type: string
           format: date-time
@@ -184,6 +472,77 @@ components:
           type: array
           items:
             type: string
+    RegisterRequest:
+      type: object
+      required:
+        - first_name
+        - last_name
+        - email
+        - password
+        - country
+        - phone_number
+        - accepted_terms
+      properties:
+        first_name:
+          type: string
+          maxLength: 150
+        last_name:
+          type: string
+          maxLength: 150
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          format: password
+          writeOnly: true
+        country:
+          type: string
+          enum: [SN, CI, CG]
+        phone_number:
+          type: string
+          description: Numéro national ou E.164. Stocké en E.164. Non vérifié.
+        accepted_terms:
+          type: boolean
+          description: Doit valoir true. Non persisté.
+        role:
+          type: string
+          description: Ignoré. Le serveur force individual.
+        is_staff:
+          type: boolean
+          description: Ignoré.
+        is_superuser:
+          type: boolean
+          description: Ignoré.
+    RegisterResponse:
+      type: object
+      required:
+        - id
+        - email
+        - first_name
+        - last_name
+        - phone_number
+        - role
+        - country
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+          format: email
+        first_name:
+          type: string
+        last_name:
+          type: string
+        phone_number:
+          type: string
+          description: E.164. Contact non vérifié.
+        role:
+          type: string
+          enum: [individual]
+        country:
+          type: string
+          enum: [SN, CI, CG]
     UserProfile:
       type: object
       properties:
@@ -400,3 +759,96 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/TransferSimulation"
+    TransferQuoteRequest:
+      type: object
+      properties:
+        amount_local:
+          type: integer
+          minimum: 0
+        destination_country:
+          type: string
+    TransferQuote:
+      type: object
+      properties:
+        amount_local:
+          type: integer
+        currency:
+          type: string
+          enum: [XOF, XAF]
+        amount_sats:
+          type: integer
+        fee_sats:
+          type: integer
+        total_sats:
+          type: integer
+        demo_rate_fcfa_per_btc:
+          type: integer
+        quote_version:
+          type: string
+        is_fictional_rate:
+          type: boolean
+        is_lnd_fee_estimate:
+          type: boolean
+          description: Toujours false en B1. Pas une estimation LND.
+        disclaimer:
+          type: string
+    CreateTransferRequest:
+      type: object
+      properties:
+        source_country:
+          type: string
+          enum: [SN, CG, CI]
+        destination_country:
+          type: string
+          enum: [SN, CI, CG, CM, BJ, TG]
+        operator:
+          type: string
+        beneficiary_name:
+          type: string
+        phone_number:
+          type: string
+        reason:
+          type: string
+        amount_local:
+          type: integer
+        idempotency_key:
+          type: string
+    InternationalTransfer:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        public_reference:
+          type: string
+        status:
+          type: string
+          enum:
+            [
+              draft,
+              quoted,
+              ready,
+              payment_pending,
+              lightning_settled,
+              simulated_credited,
+              failed,
+              pending_reconciliation,
+            ]
+        execution_mode:
+          type: string
+          enum: [regtest_mobile_money_simulation]
+        amount_local:
+          type: integer
+        amount_sats:
+          type: integer
+        fee_sats:
+          type: integer
+        total_sats:
+          type: integer
+        lightning_payment_hash:
+          type: string
+          description: Toujours vide en B1. Aucun paiement LND n'est exécuté.
+        warnings:
+          type: array
+          items:
+            type: string

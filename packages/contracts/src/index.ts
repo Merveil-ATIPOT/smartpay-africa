@@ -266,5 +266,31 @@ export interface TransferExecutionResult {
 
 export interface Paginated<T> {
   count: number;
+  next?: string | null;
+  previous?: string | null;
   results: T[];
+}
+
+export type AssistantMessageRole = "user" | "assistant";
+export type AssistantResponseType = "faq" | "unsupported" | "error" | "blocked" | "";
+
+export interface AssistantConversation {
+  id: string;
+  title: string;
+  created_at: string;
+  updated_at: string;
+  message_count?: number;
+}
+
+export interface AssistantMessage {
+  id: string;
+  role: AssistantMessageRole;
+  content: string;
+  response_type: AssistantResponseType;
+  created_at: string;
+}
+
+export interface AssistantMessageExchange {
+  user_message: AssistantMessage;
+  assistant_message: AssistantMessage;
 }

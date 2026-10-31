@@ -1,5 +1,6 @@
 from django.urls import path
 
+from smartpay.transfers.admin_corridors_views import AdminCorridorsView
 from smartpay.transfers.views import (
     DestinationListView,
     DestinationOperatorsView,
@@ -18,6 +19,7 @@ from smartpay.transfers.views import (
 )
 
 urlpatterns = [
+    path("admin/corridors/", AdminCorridorsView.as_view(), name="admin-corridors"),
     path("transfers/simulations/", TransferSimulationListView.as_view(), name="transfer-simulations"),
     path("transfers/destinations/", DestinationListView.as_view(), name="transfer-destinations"),
     path(

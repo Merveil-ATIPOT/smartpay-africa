@@ -2,7 +2,7 @@ import type { TransferExecutionResult } from "@smartpay/contracts";
 import { Ionicons } from "@expo/vector-icons";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useCallback, useEffect, useState } from "react";
-import { Alert, Pressable, ScrollView, Share, StyleSheet, Text, View } from "react-native";
+import { Alert, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { TransferFooterNote, TransferHeader } from "../components/TransferChrome";
@@ -13,14 +13,20 @@ import { getCorridor, type DestinationCode } from "../lib/transferCorridors";
 import {
   DEMO_PROOF_STAMP,
   DEMO_RESULT_DISCLAIMER,
-  PDF_UNAVAILABLE_MESSAGE,
-  demoShareMessage,
 } from "../lib/transferDraft";
+import {
+  demoReceiptHtml,
+  demoShareMessage,
+  isUserShareCancel,
+  receiptHtml,
+  serverShareMessage,
+} from "../lib/transferReceipt";
+import { printAndShareHtml, sharePlainMessage } from "../lib/transferReceiptShare";
 import { SIMULATED_MM_DISCLAIMER } from "../lib/transferSafety";
 import { lightningHeadline, transferStatusLabel } from "../lib/transferStatus";
 import type { AppStackParamList } from "../navigation/types";
 import { userFacingRequestError } from "../services/errors";
-import { fetchTransferResult } from "../services/transfers";
+import { fetchTransfer, fetchTransferResult } from "../services/transfers";
 import { colors, radius, shadow, spacing } from "../theme";
 
 type Props = NativeStackScreenProps<AppStackParamList, "TransferResult">;
@@ -29,8 +35,10 @@ export function TransferResultScreen({ navigation, route }: Props) {
   const { preview, reset, draft } = useTransferDraft();
   const transferId = route.params?.transferId || draft.transferId;
   const [result, setResult] = useState<TransferExecutionResult | null>(null);
+  const [createdAt, setCreatedAt] = useState<string | null>(null);
   const [loading, setLoading] = useState(Boolean(transferId));
   const [error, setError] = useState<string | null>(null);
+  const [exporting, setExporting] = useState(false);
   const corridor = getCorridor(
     preview?.destinationCode || (result?.destination_country as DestinationCode | undefined) || draft.destinationCode,
   );
@@ -46,8 +54,15 @@ export function TransferResultScreen({ navigation, route }: Props) {
     try {
       const payload = await fetchTransferResult(transferId);
       setResult(payload);
+      try {
+        const detail = await fetchTransfer(transferId);
+        setCreatedAt(detail.created_at || null);
+      } catch {
+        setCreatedAt(null);
+      }
     } catch (err) {
       setResult(null);
+      setCreatedAt(null);
       setError(userFacingRequestError(err, "Résultat serveur indisponible."));
     } finally {
       setLoading(false);
@@ -64,31 +79,53 @@ export function TransferResultScreen({ navigation, route }: Props) {
   }
 
   async function onShare() {
-    if (result) {
-      await Share.share({
-        message: [
-          result.lightning_confirmed ? "Consultation d'un transfert serveur." : DEMO_PROOF_STAMP,
-          `Référence : ${result.public_reference}`,
-          `Statut : ${transferStatusLabel(result.status)}`,
-          lightningHeadline({
-            lightningConfirmed: result.lightning_confirmed,
-            status: result.status,
-            aliceStatus: result.alice_status,
-            bobStatus: result.bob_status,
-          }),
-          result.mobile_money_credit_status === "simulated" ? SIMULATED_MM_DISCLAIMER : "Aucun crédit Mobile Money réel.",
-        ].join("\n"),
-      });
+    if (exporting) {
       return;
     }
-    if (!preview) {
+    const message = result ? serverShareMessage(result) : preview ? demoShareMessage(preview) : "";
+    if (!message) {
+      Alert.alert("Partage impossible", "Aucun résultat à partager.");
       return;
     }
-    await Share.share({ message: demoShareMessage(preview) });
+    setExporting(true);
+    try {
+      await sharePlainMessage(message);
+    } catch (err) {
+      if (isUserShareCancel(err)) {
+        return;
+      }
+      Alert.alert("Partage impossible", userFacingRequestError(err, "Le partage a échoué."));
+    } finally {
+      setExporting(false);
+    }
   }
 
-  function onPdf() {
-    Alert.alert("Justificatif PDF indisponible", PDF_UNAVAILABLE_MESSAGE);
+  async function onPdf() {
+    if (exporting) {
+      return;
+    }
+    const html = result ? receiptHtml(result, createdAt) : preview ? demoReceiptHtml(preview) : null;
+    if (!html) {
+      Alert.alert("Justificatif indisponible", "Aucun résultat serveur ni démonstration à documenter.");
+      return;
+    }
+    setExporting(true);
+    try {
+      const outcome = await printAndShareHtml(html);
+      if (outcome === "unavailable") {
+        Alert.alert(
+          "Partage indisponible",
+          "Le justificatif PDF n'a pas pu être partagé depuis cet appareil. Aucun fichier n'a été enregistré de façon permanente.",
+        );
+      }
+    } catch (err) {
+      if (isUserShareCancel(err)) {
+        return;
+      }
+      Alert.alert("Justificatif PDF", userFacingRequestError(err, "La génération du justificatif a échoué."));
+    } finally {
+      setExporting(false);
+    }
   }
 
   if (loading) {
@@ -169,13 +206,21 @@ export function TransferResultScreen({ navigation, route }: Props) {
             <Text style={styles.mm}>Aucun FCFA réel n'a été envoyé.</Text>
           )}
           <View style={styles.actions}>
-            <Pressable onPress={() => void onShare()} style={styles.action}>
+            <Pressable
+              onPress={() => void onShare()}
+              style={[styles.action, exporting && styles.actionBusy]}
+              disabled={exporting}
+            >
               <Ionicons name="share-outline" size={18} color={colors.navy} />
               <Text style={styles.actionText}>Partager</Text>
             </Pressable>
-            <Pressable onPress={onPdf} style={styles.action}>
+            <Pressable
+              onPress={() => void onPdf()}
+              style={[styles.action, exporting && styles.actionBusy]}
+              disabled={exporting}
+            >
               <Ionicons name="document-outline" size={18} color={colors.navy} />
-              <Text style={styles.actionText}>Justificatif PDF</Text>
+              <Text style={styles.actionText}>{exporting ? "Préparation…" : "Justificatif PDF"}</Text>
             </Pressable>
           </View>
           <PrimaryButton label="Retour à l'accueil" icon="home" onPress={goHome} />
@@ -230,13 +275,21 @@ export function TransferResultScreen({ navigation, route }: Props) {
         </View>
 
         <View style={styles.actions}>
-          <Pressable onPress={() => void onShare()} style={styles.action}>
+          <Pressable
+            onPress={() => void onShare()}
+            style={[styles.action, exporting && styles.actionBusy]}
+            disabled={exporting}
+          >
             <Ionicons name="share-outline" size={18} color={colors.navy} />
             <Text style={styles.actionText}>Partager</Text>
           </Pressable>
-          <Pressable onPress={onPdf} style={styles.action}>
+          <Pressable
+            onPress={() => void onPdf()}
+            style={[styles.action, exporting && styles.actionBusy]}
+            disabled={exporting}
+          >
             <Ionicons name="document-outline" size={18} color={colors.navy} />
-            <Text style={styles.actionText}>Justificatif PDF</Text>
+            <Text style={styles.actionText}>{exporting ? "Préparation…" : "Justificatif PDF"}</Text>
           </Pressable>
         </View>
         <PrimaryButton label="Retour à l'accueil" icon="home" onPress={goHome} />
@@ -318,4 +371,5 @@ const styles = StyleSheet.create({
     ...shadow.card,
   },
   actionText: { color: colors.navy, fontWeight: "700" },
+  actionBusy: { opacity: 0.55 },
 });

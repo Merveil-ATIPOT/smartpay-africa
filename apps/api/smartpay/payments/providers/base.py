@@ -62,6 +62,7 @@ class NodeInfo:
     synced_to_chain: bool = False
     block_height: int = 0
     num_active_channels: int = 0
+    num_peers: int = 0
 
 
 class PaymentProvider(Protocol):

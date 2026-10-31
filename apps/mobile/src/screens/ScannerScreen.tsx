@@ -15,15 +15,22 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import type { WalletConnection } from "@smartpay/contracts";
+import type { HealthResponse, WalletConnection } from "@smartpay/contracts";
 
 import { BrandMark, ErrorBanner } from "../components/ui";
 import { DotLattice } from "../components/DotLattice";
 import { ScanViewfinder } from "../components/ScanViewfinder";
-import { assertCompatibleInvoice, classifyInvoice, InvoiceError, parseBolt11AmountSats } from "../lib/invoice";
+import {
+  applyClipboardInvoice,
+  assertCompatibleInvoice,
+  classifyInvoice,
+  InvoiceError,
+  parseBolt11AmountSats,
+  type WalletProviderName,
+} from "../lib/invoice";
 import type { AppStackParamList, TabParamList } from "../navigation/types";
 import { previewPayment } from "../services/payments";
-import { fetchWallet } from "../services/wallet";
+import { fetchHealth, fetchWallet } from "../services/wallet";
 import { colors, radius, shadow, spacing } from "../theme";
 
 export function ScannerScreen() {
@@ -35,6 +42,7 @@ export function ScannerScreen() {
   const [busy, setBusy] = useState(false);
   const [torch, setTorch] = useState(false);
   const [wallet, setWallet] = useState<WalletConnection | null>(null);
+  const [health, setHealth] = useState<HealthResponse | null>(null);
   const [lastPreview, setLastPreview] = useState<string | null>(null);
   const lock = useRef(false);
 
@@ -42,9 +50,30 @@ export function ScannerScreen() {
     void fetchWallet()
       .then(setWallet)
       .catch(() => undefined);
+    void fetchHealth()
+      .then(setHealth)
+      .catch(() => undefined);
   }, []);
 
-  const provider = wallet?.provider ?? "mock";
+  const provider: WalletProviderName | undefined = wallet?.provider ?? health?.payment_provider;
+
+  async function resolveProvider(): Promise<WalletProviderName> {
+    if (wallet?.provider) {
+      return wallet.provider;
+    }
+    if (health?.payment_provider) {
+      return health.payment_provider;
+    }
+    const live = await fetchHealth();
+    setHealth(live);
+    if (live.payment_provider === "lnd_regtest" || live.payment_provider === "mock") {
+      return live.payment_provider;
+    }
+    throw new InvoiceError(
+      "incompatible",
+      "Fournisseur API inconnu. Vérifiez l'URL (http://IP_LAN:8000, pas localhost) puis réessayez.",
+    );
+  }
 
   async function openPreview(raw: string) {
     if (lock.current || busy) {
@@ -53,7 +82,7 @@ export function ScannerScreen() {
     setError(null);
     let encoded = "";
     try {
-      encoded = assertCompatibleInvoice(raw, provider);
+      encoded = assertCompatibleInvoice(raw, await resolveProvider());
     } catch (err) {
       setError(err instanceof InvoiceError ? err.message : "Facture invalide.");
       return;
@@ -88,13 +117,13 @@ export function ScannerScreen() {
   }
 
   async function pasteInvoice() {
-    const text = await Clipboard.getStringAsync();
-    if (!text) {
-      setError("Presse-papiers vide.");
+    const result = applyClipboardInvoice(await Clipboard.getStringAsync());
+    if (result.error) {
+      setError(result.error);
       return;
     }
-    setManual(text);
-    await openPreview(text);
+    setError(null);
+    setManual(result.draft);
   }
 
   return (
@@ -146,7 +175,9 @@ export function ScannerScreen() {
               <Text style={styles.cameraTitle}>Scanner QR</Text>
               <View style={styles.regionPill}>
                 <View style={styles.regionDot} />
-                <Text style={styles.regionText}>RÉGION OUEST · REGTEST</Text>
+                <Text style={styles.regionText}>
+                  {provider === "mock" ? "RÉGION OUEST · MOCK" : "RÉGION OUEST · REGTEST"}
+                </Text>
               </View>
             </View>
             <Pressable
@@ -203,7 +234,7 @@ export function ScannerScreen() {
               <Text style={styles.actionTitle} numberOfLines={1}>
                 Coller facture
               </Text>
-              <Text style={styles.actionSub}>Presse-papiers</Text>
+              <Text style={styles.actionSub}>Contrôlez puis Valider</Text>
             </View>
           </Pressable>
           <View style={[styles.actionCard, styles.actionDisabled]}>

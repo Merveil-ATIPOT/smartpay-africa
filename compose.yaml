@@ -1,5 +1,8 @@
 name: smartpay-africa
 
+# P04 laboratoire LND : docker compose -f compose.yaml -f compose.regtest.yaml up -d api
+# Retour Mock : cet overlay n'est pas chargé ; PAYMENT_PROVIDER=mock
+
 services:
   postgres:
     image: postgres:16-alpine

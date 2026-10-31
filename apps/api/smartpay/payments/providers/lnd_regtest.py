@@ -125,6 +125,7 @@ class LndRegtestPaymentProvider:
             synced_to_chain=bool(info.get("synced_to_chain")),
             block_height=int(info.get("block_height") or 0),
             num_active_channels=int(info.get("num_active_channels") or 0),
+            num_peers=int(info.get("num_peers") or 0),
         )
 
     def get_channel_balance_sats(self) -> int:

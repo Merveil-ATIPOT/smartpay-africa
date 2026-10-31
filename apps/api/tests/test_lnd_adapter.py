@@ -7,11 +7,11 @@ import pytest
 from django.utils import timezone
 from rest_framework import status
 from smartpay.payments.models import Payment
-from smartpay.payments.providers.base import DecodedInvoice, LookupResult
+from smartpay.payments.providers.base import DecodedInvoice, LookupResult, NodeInfo
 from smartpay.payments.providers.errors import LndInvoiceError, LndUnavailable
 from smartpay.payments.providers.factory import get_payment_provider
 from smartpay.payments.providers.lnd_client import payment_hash_to_hex
-from smartpay.payments.providers.lnd_regtest import LndRegtestPaymentProvider
+from smartpay.payments.providers.lnd_regtest import LndRegtestPaymentProvider, SELF_PAY_WARNING
 from smartpay.payments.providers.mock import MockPaymentProvider
 from smartpay.payments.reconciliation import reconcile_payment
 from smartpay.payments.services import create_outgoing_payment
@@ -82,6 +82,25 @@ def test_expired_bolt11_is_rejected():
     provider = _provider_with_client(client)
     with pytest.raises(LndInvoiceError, match="expir"):
         provider.decode_invoice("lnbcrt1expired")
+
+
+def test_preview_warns_on_alice_self_invoice():
+    local = "02" + "aa" * 32
+    client = MagicMock()
+    client.decode_pay_req.return_value = {
+        "num_satoshis": "5000",
+        "payment_hash": "cc" * 32,
+        "description": "self",
+        "expiry": "3600",
+        "timestamp": str(int(timezone.now().timestamp())),
+        "destination": local,
+    }
+    client.estimate_route_fee.return_value = {"unavailable": True}
+    client.getinfo.return_value = {"identity_pubkey": local, "alias": "alice", "synced_to_chain": True}
+    provider = _provider_with_client(client)
+    preview = provider.preview(amount_sats=5000, encoded_invoice="lnbcrt1self")
+    assert preview.is_lightning_settled is False
+    assert SELF_PAY_WARNING in preview.warnings
 
 
 @pytest.mark.django_db
@@ -225,3 +244,37 @@ def test_mock_still_separated_from_lnd():
     assert preview.is_lightning_settled is False
     with pytest.raises(Exception):
         mock.send_payment(encoded_invoice="lnbcrt1x", timeout_seconds=5)
+
+
+@pytest.mark.django_db
+def test_self_payment_alice_to_alice_is_rejected(user, settings):
+    settings.PAYMENT_PROVIDER = "lnd_regtest"
+    local = "02" + "aa" * 32
+    fake = MagicMock()
+    fake.name = "lnd_regtest"
+    fake.settlement_mode = "lightning_regtest"
+    fake.decode_invoice.return_value = DecodedInvoice(
+        payment_hash="ff" * 32,
+        amount_sats=2500,
+        description="self",
+        expiry_seconds=3600,
+        destination=local,
+        encoded_invoice="lnbcrt1self",
+    )
+    fake.get_node_info.return_value = NodeInfo(connected=True, pubkey=local, alias="alice")
+    from smartpay.payments import services
+
+    original = services.get_payment_provider
+    services.get_payment_provider = lambda: fake
+    try:
+        with pytest.raises(Exception, match="Alice"):
+            create_outgoing_payment(
+                user=user,
+                amount_sats=2500,
+                idempotency_key="self-pay",
+                encoded_invoice="lnbcrt1self",
+            )
+    finally:
+        services.get_payment_provider = original
+    assert Payment.objects.count() == 0
+    fake.send_payment.assert_not_called()

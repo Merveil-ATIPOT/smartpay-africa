@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import logging
+import time
 from datetime import timedelta
 
 from django.conf import settings
@@ -134,6 +135,21 @@ def create_outgoing_payment(
             raise ValidationError({"lightning": str(exc)}) from exc
         if decoded.amount_sats and decoded.amount_sats != amount_sats:
             raise ValidationError({"amount_sats": "Montant différent de la facture BOLT11."})
+        local_pubkey = ""
+        try:
+            local_pubkey = provider.get_node_info().pubkey or ""
+        except (LndUnavailable, LndError):
+            local_pubkey = ""
+        if local_pubkey and decoded.destination and decoded.destination == local_pubkey:
+            raise ValidationError(
+                {
+                    "encoded_invoice": (
+                        "Cette facture a été émise par le nœud payeur (Alice). "
+                        "Un paiement Alice → Alice n'est pas un transfert Alice → Bob. "
+                        "Utilisez une facture de la contrepartie Bob."
+                    )
+                }
+            )
         payment_hash = decoded.payment_hash
         duplicate = Payment.objects.filter(
             provider_reference=payment_hash,
@@ -198,5 +214,22 @@ def create_outgoing_payment(
             transition(payment, Payment.Status.FAILED, failure_reason=str(exc)[:255])
             logger.info("payment_send_failed payment_id=%s", payment.id)
             return payment, True
-        payment = reconcile_payment(payment)
+        payment = _wait_for_lightning_lookup(payment)
     return payment, True
+
+
+def _wait_for_lightning_lookup(payment: Payment) -> Payment:
+    attempts = max(1, int(getattr(settings, "LND_LOOKUP_RETRY_ATTEMPTS", 8)))
+    delay = float(getattr(settings, "LND_LOOKUP_RETRY_DELAY_SECONDS", 0.4))
+    last = payment
+    for index in range(attempts):
+        last = reconcile_payment(last)
+        if last.is_lightning_settled or last.status in {
+            Payment.Status.FAILED,
+            Payment.Status.EXPIRED,
+            Payment.Status.CONFIRMED,
+        }:
+            return last
+        if index + 1 < attempts and delay > 0:
+            time.sleep(delay)
+    return last

@@ -5,7 +5,7 @@ from django.utils import timezone
 from django.views import View
 from rest_framework.permissions import AllowAny
 
-from smartpay.payments.providers import get_payment_provider
+from smartpay.payments.providers import get_payment_provider, lab_counterparty_configured
 from smartpay.payments.providers.errors import LndUnavailable
 
 
@@ -50,10 +50,12 @@ class HealthView(View):
             {
                 "status": status,
                 "service": "smartpay-api",
-                "version": "0.2.0",
+                "version": "0.4.0",
                 "network": getattr(settings, "BITCOIN_NETWORK", "regtest"),
                 "payment_provider": provider_name,
                 "lightning": lightning,
+                "lab_counterparty": lab_counterparty_configured()
+                and bool(getattr(settings, "LAB_COUNTERPARTY_ENABLED", False)),
                 "database": "up" if database_ok else "down",
                 "checked_at": timezone.now().isoformat(),
                 "warnings": warnings,

@@ -3,9 +3,13 @@ import { describe, it } from "node:test";
 
 import {
   InvoiceError,
+  LAB_BOB_INVOICE_MEMO,
+  USER_INVOICE_MEMO,
+  applyClipboardInvoice,
   assertCompatibleInvoice,
   assertNotExpired,
   classifyInvoice,
+  isPayerSelfInvoice,
   normalizeInvoice,
   parseBolt11AmountSats,
 } from "./invoice";
@@ -89,5 +93,39 @@ describe("assertNotExpired", () => {
       assertNotExpired("2099-01-01T00:00:00.000Z", Date.parse("2024-01-01T00:00:00.000Z")),
     );
     assert.doesNotThrow(() => assertNotExpired(null));
+  });
+});
+
+describe("isPayerSelfInvoice", () => {
+  it("détecte l'avertissement Alice → Alice", () => {
+    assert.equal(
+      isPayerSelfInvoice([
+        "Fournisseur LND Regtest.",
+        "Cette facture a été émise par le nœud payeur (Alice). Un paiement Alice → Alice n'est pas un transfert Alice → Bob.",
+      ]),
+      true,
+    );
+  });
+
+  it("laisse payer une facture Bob", () => {
+    assert.equal(isPayerSelfInvoice(["Fournisseur LND Regtest. Un HTTP 200 n'est pas une preuve de règlement."]), false);
+    assert.equal(isPayerSelfInvoice([]), false);
+    assert.equal(isPayerSelfInvoice(undefined), false);
+  });
+});
+
+describe("collage M13", () => {
+  it("remplit le brouillon sans ouvrir M15", () => {
+    const pasted = applyClipboardInvoice("  lnbcrt2500n1pvalidregtest  ");
+    assert.equal(pasted.draft, "lnbcrt2500n1pvalidregtest");
+    assert.equal(pasted.error, null);
+    assert.equal(applyClipboardInvoice("").error, "Presse-papiers vide.");
+  });
+
+  it("n'utilise plus le mémo générique P03", () => {
+    assert.equal(USER_INVOICE_MEMO, "Facture SmartPay Africa");
+    assert.equal(LAB_BOB_INVOICE_MEMO, "Facture SmartPay Africa");
+    assert.equal(USER_INVOICE_MEMO.includes("P03"), false);
+    assert.equal(LAB_BOB_INVOICE_MEMO.includes("P03"), false);
   });
 });

@@ -67,6 +67,26 @@ export function statusLabel(state: UiPaymentState): string {
   }
 }
 
+export function shouldStopPolling(payment: Payment): boolean {
+  if (payment.settlement_mode === "mock") {
+    return true;
+  }
+  if (payment.is_lightning_settled) {
+    return true;
+  }
+  if (payment.status === "failed" || payment.status === "expired" || payment.status === "confirmed") {
+    return true;
+  }
+  if (
+    payment.lightning_status === "settled" ||
+    payment.lightning_status === "failed" ||
+    payment.lightning_status === "expired"
+  ) {
+    return true;
+  }
+  return false;
+}
+
 export function settlementCaption(payment: Payment): string {
   if (isLightningSuccess(payment)) {
     return "Règlement Lightning Regtest confirmé par lookup LND côté serveur.";

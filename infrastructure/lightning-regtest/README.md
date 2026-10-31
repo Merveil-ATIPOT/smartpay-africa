@@ -52,7 +52,9 @@ Ne détruit **pas** `smartpay_pgdata`.
 
 ## Django
 
-Après `export-secrets`, dans `.env` :
+Après `export-secrets` :
+
+**Hôte (pytest / manage.py local)**
 
 ```
 PAYMENT_PROVIDER=lnd_regtest
@@ -61,7 +63,15 @@ LND_MACAROON_PATH=infrastructure/lightning-regtest/secrets/alice/admin.macaroon
 LND_TLS_CERT_PATH=infrastructure/lightning-regtest/secrets/alice/tls.cert
 ```
 
-Le backend parle à Alice. Bob sert de contrepartie (factures). Les clients HTTP ne reçoivent jamais le macaroon.
+**API Docker P04** (ne recrée pas les volumes) :
+
+```
+docker compose -f compose.yaml -f compose.regtest.yaml up -d api
+```
+
+L'overlay attache `smartpay-api` au réseau `smartpay-lightning`, monte les secrets Alice/Bob en lecture seule sous `/run/lnd/`, et utilise `https://lnd-alice:8080`. Retour Mock : `PAYMENT_PROVIDER=mock docker compose up -d api` (sans overlay).
+
+Le backend payeur est Alice. Bob est uniquement la contrepartie laboratoire (`POST /api/v1/lab/counterparty-invoice/`). Les clients HTTP ne reçoivent jamais le macaroon.
 
 ## Preuve Alice → Bob (P02, labo local)
 

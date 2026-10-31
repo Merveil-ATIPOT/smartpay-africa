@@ -5,14 +5,15 @@ import { useEffect, useState } from "react";
 import { Pressable, ScrollView, Share, StyleSheet, Text, TextInput, View } from "react-native";
 import QRCode from "react-native-qrcode-svg";
 import { SafeAreaView } from "react-native-safe-area-context";
-import type { Payment, WalletConnection } from "@smartpay/contracts";
+import type { HealthResponse, Payment, WalletConnection } from "@smartpay/contracts";
 
 import { ErrorBanner } from "../components/ui";
-import { FCFA_DISCLAIMER, formatSats, remainingLabel, shortenInvoice } from "../lib/format";
+import { FCFA_DISCLAIMER, formatSats, parseSatsInput, remainingLabel, shortenInvoice } from "../lib/format";
+import { LAB_BOB_INVOICE_MEMO, USER_INVOICE_MEMO } from "../lib/invoice";
 import { isLightningSuccess, settlementCaption, statusLabel, uiPaymentState } from "../lib/paymentStatus";
 import type { AppStackParamList } from "../navigation/types";
-import { createInvoice, fetchPayment } from "../services/payments";
-import { fetchWallet } from "../services/wallet";
+import { createInvoice, createLabCounterpartyInvoice, fetchPayment } from "../services/payments";
+import { fetchHealth, fetchWallet } from "../services/wallet";
 import { colors, shadow, spacing } from "../theme";
 
 const CHIPS = [5_000, 10_000, 50_000];
@@ -29,10 +30,17 @@ export function ReceiveScreen({ navigation }: Props) {
   const [busy, setBusy] = useState(false);
   const [now, setNow] = useState(Date.now());
   const [copied, setCopied] = useState(false);
+  const [labCopied, setLabCopied] = useState(false);
+  const [health, setHealth] = useState<HealthResponse | null>(null);
+  const [labInvoice, setLabInvoice] = useState<string>("");
+  const [labBusy, setLabBusy] = useState(false);
 
   useEffect(() => {
     void fetchWallet()
       .then(setWallet)
+      .catch(() => undefined);
+    void fetchHealth()
+      .then(setHealth)
       .catch(() => undefined);
   }, []);
 
@@ -61,7 +69,8 @@ export function ReceiveScreen({ navigation }: Props) {
     payment?.invoice?.is_mock || payment?.settlement_mode === "mock" || encoded.startsWith("mockln");
   const state = payment ? uiPaymentState(payment) : null;
   const paid = payment ? isLightningSuccess(payment) : false;
-  const isLnd = wallet?.provider === "lnd_regtest";
+  const isLnd = wallet?.provider === "lnd_regtest" || health?.payment_provider === "lnd_regtest";
+  const showLabCard = isLnd || Boolean(health?.lab_counterparty);
   const countdown = remainingLabel(payment?.expires_at, now);
 
   async function onCreate() {
@@ -70,7 +79,7 @@ export function ReceiveScreen({ navigation }: Props) {
     try {
       const created = await createInvoice({
         amount_sats: amount,
-        memo: "Facture SmartPay Africa P03",
+        memo: USER_INVOICE_MEMO,
         expiry_seconds: 3600,
       });
       setPayment(created);
@@ -78,6 +87,25 @@ export function ReceiveScreen({ navigation }: Props) {
       setError(err instanceof Error ? err.message : "Création de facture impossible.");
     } finally {
       setBusy(false);
+    }
+  }
+
+  async function onLabBobInvoice() {
+    setError(null);
+    setLabBusy(true);
+    try {
+      const draft = await createLabCounterpartyInvoice({
+        amountSats: amount,
+        memo: LAB_BOB_INVOICE_MEMO,
+      });
+      setLabInvoice(draft.encoded_invoice);
+      await Clipboard.setStringAsync(draft.encoded_invoice);
+      setLabCopied(true);
+      setTimeout(() => setLabCopied(false), 1600);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Facture Bob indisponible.");
+    } finally {
+      setLabBusy(false);
     }
   }
 
@@ -181,8 +209,8 @@ export function ReceiveScreen({ navigation }: Props) {
               placeholderTextColor="#7C8498"
               onChangeText={(value) => {
                 setCustom(value);
-                const parsed = Number(value);
-                if (Number.isInteger(parsed) && parsed > 0) {
+                const parsed = parseSatsInput(value);
+                if (parsed) {
                   setAmount(parsed);
                 }
               }}
@@ -192,7 +220,40 @@ export function ReceiveScreen({ navigation }: Props) {
           <Pressable style={styles.generate} onPress={() => void onCreate()} disabled={busy}>
             <Text style={styles.generateText}>{busy ? "Création…" : "Générer la facture"}</Text>
           </Pressable>
+          <Text style={styles.aliceHint}>
+            Cette facture est émise par Alice (votre nœud). Elle ne sert pas au test Alice → Bob.
+          </Text>
         </View>
+
+        {showLabCard ? (
+          <View style={styles.labCard}>
+            <Text style={styles.labTitle}>Laboratoire Alice → Bob</Text>
+            <Text style={styles.labBody}>
+              Facture émise par Bob, pas par votre portefeuille. Saisissez 2500 via Montant libre, générez,
+              puis collez-la dans Scanner (M13) et validez avant M15.
+            </Text>
+            <Pressable style={styles.labBtn} onPress={() => void onLabBobInvoice()} disabled={labBusy}>
+              <Text style={styles.labBtnText}>
+                {labBusy ? "Création Bob…" : `Facture Bob ${formatSats(amount)} sats`}
+              </Text>
+            </Pressable>
+            {labInvoice ? (
+              <Pressable
+                style={styles.labCopy}
+                onPress={() => {
+                  void Clipboard.setStringAsync(labInvoice).then(() => {
+                    setLabCopied(true);
+                    setTimeout(() => setLabCopied(false), 1600);
+                  });
+                }}
+              >
+                <Text style={styles.labInvoice}>
+                  {shortenInvoice(labInvoice)} · {labCopied ? "copiée" : "copier la facture Bob"}
+                </Text>
+              </Pressable>
+            ) : null}
+          </View>
+        ) : null}
 
         {error ? <ErrorBanner message={error} /> : null}
 
@@ -427,6 +488,7 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   generateText: { color: "#663800", fontWeight: "800" },
+  aliceHint: { color: "#D9E3FB", fontSize: 11, lineHeight: 16 },
   qrCard: {
     backgroundColor: colors.white,
     borderRadius: 12,
@@ -515,6 +577,24 @@ const styles = StyleSheet.create({
     ...shadow.card,
   },
   placeholder: { color: colors.stitchOnVariant, fontSize: 13, textAlign: "center", lineHeight: 20 },
+  labCard: {
+    backgroundColor: colors.stitchPeach,
+    borderRadius: 12,
+    padding: spacing.md,
+    gap: 8,
+  },
+  labTitle: { color: "#6B3B00", fontWeight: "800", fontSize: 14 },
+  labBody: { color: "#6B3B00", fontSize: 12, lineHeight: 18 },
+  labBtn: {
+    backgroundColor: colors.stitchNavy,
+    borderRadius: 8,
+    minHeight: 44,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  labBtnText: { color: colors.white, fontWeight: "700" },
+  labInvoice: { color: "#6B3B00", fontSize: 12, fontWeight: "600" },
+  labCopy: { minHeight: 36, justifyContent: "center" },
   lnurl: { backgroundColor: colors.stitchBlue, borderRadius: 12, padding: spacing.md, gap: 8 },
   lnurlHead: { flexDirection: "row", justifyContent: "space-between", alignItems: "center" },
   lnurlLeft: { flexDirection: "row", alignItems: "center", gap: 8, flex: 1 },

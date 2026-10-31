@@ -15,6 +15,7 @@ def test_health_is_public(api_client):
     assert body["network"] == "regtest"
     assert body["payment_provider"] == "mock"
     assert body["lightning"] == "not_connected"
+    assert body["lab_counterparty"] is False
 
 
 @pytest.mark.django_db
@@ -155,3 +156,13 @@ def test_transfer_simulations_list(auth_client, user):
     assert response.status_code == status.HTTP_200_OK
     assert response.data["count"] == 1
     assert "SIMULATION" in response.data["results"][0]["disclaimer"]
+
+
+@pytest.mark.django_db
+def test_lab_counterparty_disabled_by_default(auth_client):
+    response = auth_client.post(
+        "/api/v1/lab/counterparty-invoice/",
+        {"amount_sats": 2500},
+        format="json",
+    )
+    assert response.status_code == status.HTTP_404_NOT_FOUND

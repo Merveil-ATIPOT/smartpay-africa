@@ -1,7 +1,11 @@
+import { Ionicons } from "@expo/vector-icons";
+import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useEffect, useState } from "react";
 import {
   KeyboardAvoidingView,
   Platform,
+  Pressable,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -9,109 +13,274 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { BrandMark, ErrorBanner, PrimaryButton } from "../components/ui";
+import {
+  AuthHeader,
+  AuthPrimaryButton,
+  PendingNotice,
+} from "../components/AuthChrome";
+import { SmartPayLogo } from "../components/SmartPayLogo";
+import { ErrorBanner } from "../components/ui";
 import { useAuth } from "../hooks/useAuth";
+import {
+  DEMO_USER_LOCATION,
+  FORGOT_PASSWORD_PENDING_MESSAGE,
+  LOGIN_PASSWORD_PLACEHOLDER,
+  LOGIN_TITLE,
+  demoEmailPrefill,
+  loginUserFacingError,
+  showDevAuthTools,
+} from "../lib/authEntry";
+import { canSubmitLogin, loginFieldsAfterRegister, loginPasswordAutoFill } from "../lib/registerForm";
+import type { AppStackParamList } from "../navigation/types";
 import { api } from "../services/api";
-import { ApiError } from "../services/errors";
-import { colors, radius, spacing } from "../theme";
+import { colors, spacing } from "../theme";
 
-export function LoginScreen() {
+type Props = NativeStackScreenProps<AppStackParamList, "Login">;
+
+export function LoginScreen({ navigation, route }: Props) {
   const { login } = useAuth();
-  const [email, setEmail] = useState("user@smartpay.local");
-  const [password, setPassword] = useState("");
+  const devTools = showDevAuthTools();
+  const fromRegister = Boolean(route.params?.fromRegister || route.params?.registeredEmail);
+  const postRegister = fromRegister
+    ? loginFieldsAfterRegister(route.params?.registeredEmail ?? "")
+    : null;
+  const [email, setEmail] = useState(() => postRegister?.email || demoEmailPrefill());
+  const [password, setPassword] = useState<string>(() => postRegister?.password ?? "");
+  const [showPassword, setShowPassword] = useState(false);
   const [apiUrl, setApiUrl] = useState("");
+  const [showDev, setShowDev] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [notice, setNotice] = useState<string | null>(() => postRegister?.notice ?? null);
   const [loading, setLoading] = useState(false);
+  const allowPasswordAutofill = loginPasswordAutoFill(fromRegister);
 
   useEffect(() => {
+    if (!fromRegister) {
+      return;
+    }
+    const fields = loginFieldsAfterRegister(route.params?.registeredEmail ?? "");
+    setEmail(fields.email);
+    setPassword(fields.password);
+    setNotice(fields.notice);
+  }, [fromRegister, route.params?.registeredEmail]);
+
+  useEffect(() => {
+    if (!devTools) {
+      return;
+    }
     void api.getBaseUrl().then(setApiUrl);
-  }, []);
+  }, [devTools]);
 
   async function onSubmit() {
     setError(null);
+    setNotice(null);
     setLoading(true);
     try {
-      if (apiUrl.trim()) {
+      if (devTools && apiUrl.trim()) {
         await api.setApiBaseUrl(apiUrl);
       }
       await login(email, password);
     } catch (err) {
-      setError(
-        err instanceof ApiError
-          ? err.message
-          : "Connexion impossible. Vérifiez l'API et vos identifiants.",
-      );
+      setError(loginUserFacingError(err));
     } finally {
       setLoading(false);
     }
   }
 
   return (
-    <SafeAreaView style={styles.safe}>
-      <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : undefined} style={styles.flex}>
-        <View style={styles.inner}>
-          <BrandMark />
-          <Text style={styles.title}>Connexion</Text>
-          <Text style={styles.subtitle}>
-            JWT stocké dans Expo SecureStore. Aucun macaroon LND n'est embarqué dans l'application.
-          </Text>
+    <SafeAreaView style={styles.safe} edges={["top", "bottom"]}>
+      <AuthHeader
+        showBack
+        onBack={() => (navigation.canGoBack() ? navigation.goBack() : navigation.navigate("Welcome"))}
+      />
+      <KeyboardAvoidingView
+        style={styles.flex}
+        behavior={Platform.OS === "ios" ? "padding" : undefined}
+      >
+        <ScrollView
+          contentContainerStyle={styles.content}
+          keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}
+        >
+          <View style={styles.hero}>
+            <SmartPayLogo size={72} />
+            <Text style={styles.title}>{LOGIN_TITLE}</Text>
+          </View>
+
           {error ? <ErrorBanner message={error} /> : null}
-          <Text style={styles.label}>E-mail</Text>
-          <TextInput
-            autoCapitalize="none"
-            autoCorrect={false}
-            keyboardType="email-address"
-            value={email}
-            onChangeText={setEmail}
-            style={styles.input}
-            placeholder="user@smartpay.local"
-            placeholderTextColor={colors.muted}
-          />
-          <Text style={styles.label}>Mot de passe</Text>
-          <TextInput
-            secureTextEntry
-            value={password}
-            onChangeText={setPassword}
-            style={styles.input}
-            placeholder="changeme-local-only"
-            placeholderTextColor={colors.muted}
-          />
-          <Text style={styles.label}>Adresse API</Text>
-          <TextInput
-            autoCapitalize="none"
-            autoCorrect={false}
-            value={apiUrl}
-            onChangeText={setApiUrl}
-            style={styles.input}
-            placeholder="http://192.168.x.x:8000"
-            placeholderTextColor={colors.muted}
-          />
-          <PrimaryButton label="Entrer" onPress={onSubmit} loading={loading} disabled={!email || !password} />
-          <Text style={styles.hint}>
-            Compte seed : user@smartpay.local / changeme-local-only. Sur un téléphone, localhost ne fonctionne pas :
-            utilisez l'IP LAN du PC (celle du QR Expo), port 8000.
-          </Text>
-        </View>
+          {notice ? <PendingNotice message={notice} /> : null}
+
+          <View style={styles.form}>
+            <Text style={styles.label}>E-mail</Text>
+            <View style={styles.inputWrap}>
+              <Ionicons name="at" size={18} color={colors.muted} />
+              <TextInput
+                autoCapitalize="none"
+                autoCorrect={false}
+                autoComplete="email"
+                keyboardType="email-address"
+                textContentType="username"
+                value={email}
+                onChangeText={setEmail}
+                placeholder="e-mail"
+                placeholderTextColor={colors.muted}
+                style={styles.input}
+              />
+            </View>
+
+            <Text style={styles.label}>Mot de passe</Text>
+            <View style={styles.inputWrap}>
+              <Ionicons name="lock-closed-outline" size={18} color={colors.muted} />
+              <TextInput
+                key={fromRegister ? "login-password-after-register" : "login-password"}
+                secureTextEntry={!showPassword}
+                autoComplete={allowPasswordAutofill ? "password" : "off"}
+                textContentType={allowPasswordAutofill ? "password" : "none"}
+                importantForAutofill={allowPasswordAutofill ? "yes" : "no"}
+                value={password}
+                onChangeText={setPassword}
+                placeholder={LOGIN_PASSWORD_PLACEHOLDER}
+                placeholderTextColor={colors.muted}
+                style={styles.input}
+              />
+              <Pressable
+                accessibilityRole="button"
+                accessibilityLabel={showPassword ? "Masquer le mot de passe" : "Afficher le mot de passe"}
+                onPress={() => setShowPassword((current) => !current)}
+                hitSlop={8}
+              >
+                <Ionicons name={showPassword ? "eye-off-outline" : "eye-outline"} size={20} color={colors.muted} />
+              </Pressable>
+            </View>
+
+            <Text style={styles.forgot}>
+              Mot de passe oublié ? {FORGOT_PASSWORD_PENDING_MESSAGE}
+            </Text>
+
+            <AuthPrimaryButton
+              label="Se connecter"
+              onPress={() => void onSubmit()}
+              loading={loading}
+              disabled={!canSubmitLogin(email, password) || loading}
+            />
+          </View>
+
+          <View style={styles.signupRow}>
+            <Text style={styles.signupMuted}>Pas encore de compte ?</Text>
+            <Pressable accessibilityRole="button" onPress={() => navigation.navigate("Register")}>
+              <Text style={styles.linkBold}>Créer un compte</Text>
+            </Pressable>
+          </View>
+
+          {devTools ? (
+            <View style={styles.devBox}>
+              <Pressable
+                accessibilityRole="button"
+                onPress={() => setShowDev((current) => !current)}
+                style={styles.devToggle}
+              >
+                <Ionicons name="settings-outline" size={16} color={colors.stitchOnVariant} />
+                <Text style={styles.devToggleText}>Options de développement</Text>
+                <Ionicons
+                  name={showDev ? "chevron-up" : "chevron-down"}
+                  size={16}
+                  color={colors.stitchOnVariant}
+                />
+              </Pressable>
+              {showDev ? (
+                <View style={styles.devBody}>
+                  <Pressable
+                    accessibilityRole="button"
+                    onPress={() => setEmail(demoEmailPrefill(true))}
+                    style={styles.devAction}
+                  >
+                    <Text style={styles.devActionTitle}>Compte de démonstration</Text>
+                    <Text style={styles.devActionMeta}>
+                      {demoEmailPrefill(true)} · {DEMO_USER_LOCATION}
+                    </Text>
+                  </Pressable>
+                  <Text style={styles.label}>Adresse API</Text>
+                  <View style={styles.inputWrap}>
+                    <Ionicons name="globe-outline" size={18} color={colors.muted} />
+                    <TextInput
+                      autoCapitalize="none"
+                      autoCorrect={false}
+                      keyboardType="url"
+                      value={apiUrl}
+                      onChangeText={setApiUrl}
+                      placeholder="http://192.168.x.x:8000"
+                      placeholderTextColor={colors.muted}
+                      style={styles.input}
+                    />
+                  </View>
+                  <Text style={styles.devHint}>
+                    Sur un téléphone, localhost ne fonctionne pas : utilisez l'IP LAN du PC (QR
+                    Expo), port 8000.
+                  </Text>
+                </View>
+              ) : null}
+            </View>
+          ) : null}
+        </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: colors.gray },
+  safe: { flex: 1, backgroundColor: colors.stitchSurface },
   flex: { flex: 1 },
-  inner: { flex: 1, padding: spacing.lg, gap: spacing.sm, justifyContent: "center" },
-  title: { fontSize: 28, fontWeight: "800", color: colors.navy, marginTop: spacing.md },
-  subtitle: { color: colors.muted, fontSize: 14, lineHeight: 20, marginBottom: spacing.sm },
-  label: { color: colors.navy, fontWeight: "600", marginTop: 8 },
-  input: {
+  content: {
+    paddingHorizontal: spacing.lg,
+    paddingBottom: spacing.xl,
+    gap: spacing.md,
+  },
+  hero: { alignItems: "center", gap: spacing.sm, paddingTop: spacing.sm },
+  title: { color: colors.navy, fontSize: 28, fontWeight: "700", lineHeight: 36 },
+  form: {
     backgroundColor: colors.white,
-    borderRadius: radius.md,
-    paddingHorizontal: 14,
-    minHeight: 48,
-    color: colors.navy,
+    borderRadius: 16,
+    padding: spacing.md,
+    gap: 10,
+  },
+  label: { color: colors.stitchOnVariant, fontSize: 12, fontWeight: "600" },
+  inputWrap: {
+    minHeight: 52,
+    borderRadius: 12,
+    backgroundColor: colors.stitchBlueLow,
+    paddingHorizontal: 12,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+  },
+  input: { flex: 1, color: colors.navy, fontSize: 14, minHeight: 48 },
+  forgot: { color: colors.stitchOnVariant, fontSize: 12, lineHeight: 18 },
+  signupRow: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 6,
+    flexWrap: "wrap",
+  },
+  signupMuted: { color: colors.stitchOnVariant, fontSize: 14 },
+  linkBold: { color: colors.stitchOrange, fontSize: 14, fontWeight: "800" },
+  devBox: {
+    borderRadius: 12,
     borderWidth: 1,
     borderColor: colors.border,
+    padding: spacing.sm,
+    gap: 8,
   },
-  hint: { color: colors.muted, fontSize: 12, lineHeight: 18 },
+  devToggle: { flexDirection: "row", alignItems: "center", gap: 8, paddingVertical: 4 },
+  devToggleText: { flex: 1, color: colors.stitchOnVariant, fontSize: 13, fontWeight: "600" },
+  devBody: { gap: 8 },
+  devAction: {
+    backgroundColor: colors.stitchBlueLow,
+    borderRadius: 12,
+    padding: 12,
+    gap: 2,
+  },
+  devActionTitle: { color: colors.navy, fontSize: 14, fontWeight: "700" },
+  devActionMeta: { color: colors.stitchOnVariant, fontSize: 12 },
+  devHint: { color: colors.stitchOnVariant, fontSize: 11, lineHeight: 16 },
 });

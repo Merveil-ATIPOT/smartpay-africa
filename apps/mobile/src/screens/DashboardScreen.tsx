@@ -18,7 +18,7 @@ import type { HealthResponse, Payment, WalletConnection } from "@smartpay/contra
 
 import { Badge, BrandMark, EmptyState, ErrorBanner, LoadingBlock, ModeBanner } from "../components/ui";
 import { useAuth } from "../hooks/useAuth";
-import { countryLine, FCFA_DISCLAIMER, formatSats, greetingName } from "../lib/format";
+import { countryLine, FCFA_DISCLAIMER, formatSats, greetingName, walletBalanceLabel } from "../lib/format";
 import { statusLabel, uiPaymentState } from "../lib/paymentStatus";
 import type { AppStackParamList, TabParamList } from "../navigation/types";
 import { listPayments } from "../services/payments";
@@ -68,7 +68,7 @@ export function DashboardScreen() {
   const provider = wallet?.provider ?? health?.payment_provider ?? "mock";
   const isLnd = provider === "lnd_regtest";
   const balance = isLnd ? (wallet?.channel_balance_sats ?? 0) : (wallet?.mock_balance_sats ?? 0);
-  const balanceSource = isLnd ? "Solde canal LND Regtest" : "Solde Mock — pas un canal Lightning";
+  const balanceSource = walletBalanceLabel(provider);
 
   return (
     <SafeAreaView style={styles.safe} edges={["top"]}>

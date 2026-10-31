@@ -1,1 +1,1 @@
-# Module IA volontairement vide en phase P01.
+# Pas d'enregistrement admin : les conversations restent privées au propriétaire.

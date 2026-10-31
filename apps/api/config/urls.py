@@ -16,4 +16,8 @@ urlpatterns = [
     path("api/v1/", include("smartpay.wallets.urls")),
     path("api/v1/", include("smartpay.payments.urls")),
     path("api/v1/", include("smartpay.transfers.urls")),
+    path("api/v1/", include("smartpay.merchants.urls")),
+    path("api/v1/", include("smartpay.infrastructure.urls")),
+    path("api/v1/", include("smartpay.audit.urls")),
+    path("api/v1/", include("smartpay.ai_assistant.urls")),
 ]

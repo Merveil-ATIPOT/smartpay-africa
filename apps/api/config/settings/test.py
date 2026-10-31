@@ -26,8 +26,15 @@ LND_BOB_MACAROON_PATH = ""
 LND_BOB_TLS_CERT_PATH = ""
 EMAIL_BACKEND = "django.core.mail.backends.locmem.EmailBackend"
 
+# Les vues sans throttle_classes restent libres. RegisterView a un throttle dédié :
+# quota élevé ici pour ne pas faire échouer la suite, testé à part avec override.
+AUTH_REGISTER_THROTTLE_RATE = "1000/min"
+AUTH_AI_MESSAGE_THROTTLE_RATE = "1000/min"
 REST_FRAMEWORK["DEFAULT_THROTTLE_CLASSES"] = ()  # noqa: F405
-REST_FRAMEWORK["DEFAULT_THROTTLE_RATES"] = {}  # noqa: F405
+REST_FRAMEWORK["DEFAULT_THROTTLE_RATES"] = {  # noqa: F405
+    "register": AUTH_REGISTER_THROTTLE_RATE,
+    "ai_message": AUTH_AI_MESSAGE_THROTTLE_RATE,
+}
 
 STORAGES["staticfiles"] = {  # noqa: F405
     "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",

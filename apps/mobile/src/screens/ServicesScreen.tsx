@@ -5,6 +5,8 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { Badge } from "../components/ui";
+import { MERCHANT_DEMO_ENTRY_LABEL } from "../lib/merchantDemo";
+import { openMerchantDemo } from "../lib/merchantNavigation";
 import type { AppStackParamList, TabParamList } from "../navigation/types";
 import { colors, radius, spacing } from "../theme";
 
@@ -30,11 +32,24 @@ export function ServicesScreen() {
           <Text style={styles.name}>Transfert Direct</Text>
           <Text style={styles.meta}>Préparation serveur · paiement Lightning bloqué</Text>
         </Pressable>
-        <View style={[styles.card, styles.cardOff]}>
-          <Badge label="Hors phase" tone="muted" />
+        <Pressable
+          style={styles.card}
+          onPress={() => parent && openMerchantDemo(parent)}
+          accessibilityRole="button"
+        >
+          <Badge label="Démo locale" tone="orange" />
+          <Text style={styles.name}>{MERCHANT_DEMO_ENTRY_LABEL}</Text>
+          <Text style={styles.meta}>M28–M32 · aucun paiement Lightning</Text>
+        </Pressable>
+        <Pressable
+          style={styles.card}
+          onPress={() => parent?.navigate("AssistantHome")}
+          accessibilityRole="button"
+        >
+          <Badge label="Pédagogie · M33" tone="orange" />
           <Text style={styles.name}>Assistant IA</Text>
-          <Text style={styles.meta}>Non disponible</Text>
-        </View>
+          <Text style={styles.meta}>Accueil · conversation bientôt</Text>
+        </Pressable>
         <View style={[styles.card, styles.cardOff]}>
           <Badge label="Hors phase" tone="muted" />
           <Text style={styles.name}>Payer Boutique</Text>

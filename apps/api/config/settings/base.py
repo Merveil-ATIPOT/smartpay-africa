@@ -113,6 +113,10 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
+# Inscription publique : quota par IP. Ex. AUTH_REGISTER_THROTTLE=5/hour
+AUTH_REGISTER_THROTTLE_RATE = env("AUTH_REGISTER_THROTTLE", "5/hour")
+AUTH_AI_MESSAGE_THROTTLE_RATE = env("AUTH_AI_MESSAGE_THROTTLE", "20/min")
+
 LANGUAGE_CODE = "fr-fr"
 TIME_ZONE = "UTC"
 USE_I18N = True
@@ -152,6 +156,8 @@ REST_FRAMEWORK = {
     "DEFAULT_THROTTLE_RATES": {
         "user": "120/min",
         "anon": "30/min",
+        "register": AUTH_REGISTER_THROTTLE_RATE,
+        "ai_message": AUTH_AI_MESSAGE_THROTTLE_RATE,
     },
     "EXCEPTION_HANDLER": "smartpay.core.exceptions.smartpay_exception_handler",
 }
@@ -170,7 +176,7 @@ SPECTACULAR_SETTINGS = {
         "API MVP hackathon. Bitcoin Regtest uniquement. "
         "Le fournisseur Mock ne produit jamais un règlement Lightning."
     ),
-    "VERSION": "0.6.0",
+    "VERSION": "0.7.0",
     "SERVE_INCLUDE_SCHEMA": False,
 }
 

@@ -1,1 +1,1 @@
-# Module IA réservé — non implémenté en P01.
+# Assistant IA pédagogique — conversations privées, moteur FAQ déterministe.

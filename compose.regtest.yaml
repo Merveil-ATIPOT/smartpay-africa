@@ -1,0 +1,37 @@
+name: smartpay-africa
+
+# Overlay P04 — attache l'API au réseau Lightning déjà existant.
+# Ne recrée pas les volumes PostgreSQL ni Lightning.
+#
+# Prérequis : infrastructure/lightning-regtest (réseau smartpay-lightning).
+# Usage :
+#   docker compose -f compose.yaml -f compose.regtest.yaml up -d api
+# Retour Mock explicite :
+#   PAYMENT_PROVIDER=mock docker compose up -d api
+
+services:
+  api:
+    volumes:
+      - ./apps/api:/app
+      - ./infrastructure/lightning-regtest/secrets/alice:/run/lnd/alice:ro
+      - ./infrastructure/lightning-regtest/secrets/bob:/run/lnd/bob:ro
+    environment:
+      PAYMENT_PROVIDER: lnd_regtest
+      LND_REST_URL: https://lnd-alice:8080
+      LND_MACAROON_PATH: /run/lnd/alice/admin.macaroon
+      LND_TLS_CERT_PATH: /run/lnd/alice/tls.cert
+      LND_TIMEOUT_SECONDS: "45"
+      LND_BOB_REST_URL: https://lnd-bob:8080
+      LND_BOB_MACAROON_PATH: /run/lnd/bob/admin.macaroon
+      LND_BOB_TLS_CERT_PATH: /run/lnd/bob/tls.cert
+      LAB_COUNTERPARTY_ENABLED: "true"
+    networks:
+      - smartpay
+      - lightning
+
+networks:
+  smartpay:
+    driver: bridge
+  lightning:
+    external: true
+    name: smartpay-lightning

@@ -11,19 +11,15 @@ import {
 } from "react-native";
 
 import { colors, radius, shadow, spacing } from "../theme";
+import { SmartPayLogo } from "./SmartPayLogo";
 
 export function BrandMark({ compact = false }: { compact?: boolean }) {
   return (
     <View style={styles.brandRow}>
-      <View style={styles.logoMark}>
-        <Ionicons name="flash" size={compact ? 16 : 18} color={colors.white} />
-      </View>
-      <View>
-        <Text style={[styles.brandTitle, compact && { fontSize: 15 }]}>
-          SmartPay <Text style={styles.brandAccent}>Africa</Text>
-        </Text>
-        {!compact ? <Text style={styles.logoMissing}>Logo officiel local indisponible</Text> : null}
-      </View>
+      <SmartPayLogo size={compact ? 28 : 36} />
+      <Text style={[styles.brandTitle, compact && { fontSize: 15 }]}>
+        SmartPay <Text style={styles.brandAccent}>Africa</Text>
+      </Text>
     </View>
   );
 }
@@ -161,17 +157,8 @@ export function ModeBanner({
 
 const styles = StyleSheet.create({
   brandRow: { flexDirection: "row", alignItems: "center", gap: 8 },
-  logoMark: {
-    width: 32,
-    height: 32,
-    borderRadius: 10,
-    backgroundColor: colors.orange,
-    alignItems: "center",
-    justifyContent: "center",
-  },
   brandTitle: { color: colors.navy, fontSize: 18, fontWeight: "800" },
   brandAccent: { color: colors.orange },
-  logoMissing: { color: colors.muted, fontSize: 9, marginTop: 1 },
   card: {
     backgroundColor: colors.white,
     borderRadius: radius.lg,

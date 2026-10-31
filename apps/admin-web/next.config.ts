@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   transpilePackages: ["@smartpay/contracts", "@smartpay/design-tokens"],
   outputFileTracingRoot: path.join(configDir, "../.."),
+  devIndicators: false,
 };
 
 export default nextConfig;
