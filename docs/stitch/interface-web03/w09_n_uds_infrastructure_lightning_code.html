@@ -1,0 +1,601 @@
+<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_dashboard" name="shell-type"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Outfit:wght@500;600;700&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"secondary":"#8c4f00","primary-container":"#141b2c","on-primary-fixed":"#141b2c","on-tertiary-fixed-variant":"#00522c","on-tertiary":"#ffffff","secondary-fixed":"#ffdcbf","error-container":"#ffdad6","primary":"#000000","surface-container-high":"#dfe8ff","surface-container-low":"#f0f3ff","background":"#f9f9ff","outline-variant":"#c6c6cd","primary-fixed":"#dbe2f9","surface-container-lowest":"#ffffff","on-tertiary-fixed":"#00210e","on-surface-variant":"#45474c","on-primary-container":"#7c8498","on-secondary-fixed":"#2d1600","error":"#ba1a1a","surface":"#f9f9ff","secondary-fixed-dim":"#ffb874","on-primary-fixed-variant":"#3f4759","outline":"#76777d","on-error-container":"#93000a","inverse-on-surface":"#ecf0ff","on-secondary":"#ffffff","inverse-surface":"#273143","on-secondary-container":"#663800","on-secondary-fixed-variant":"#6b3b00","tertiary-fixed":"#70fda7","secondary-container":"#fe9821","surface-dim":"#d0daf2","surface-bright":"#f9f9ff","primary-fixed-dim":"#bfc6dc","tertiary-container":"#00210e","on-error":"#ffffff","on-background":"#111c2d","on-surface":"#111c2d","surface-tint":"#565e71","surface-container-highest":"#d9e3fb","surface-variant":"#d9e3fb","on-primary":"#ffffff","tertiary":"#000000","surface-container":"#e8eeff","tertiary-fixed-dim":"#51df8e","on-tertiary-container":"#009756","inverse-primary":"#bfc6dc"},borderRadius:{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},spacing:{"space-lg":"1.5rem","margin":"1rem","space-xs":"0.25rem","gutter":"1rem","space-md":"1rem","space-sm":"0.5rem","space-xl":"2rem"},fontFamily:{"mono-crypto":["Inter"],"body-lg":["Inter"],"label-nav":["Inter"],"body-md":["Inter"],"body-sm":["Inter"],"balance-num-md":["Inter"],"display-hero":["Inter"],"label-badge":["Inter"],"display-hero-mobile":["Inter"],"balance-num-lg":["Inter"],"headline-md":["Outfit"],"headline-sm":["Outfit"],"headline-lg":["Outfit"]},fontSize:{"mono-crypto":["13px",{"lineHeight":"18px","fontWeight":"500"}],"body-lg":["16px",{"lineHeight":"24px","fontWeight":"500"}],"label-nav":["10px",{"lineHeight":"12px","letterSpacing":"0.06em","fontWeight":"600"}],"body-md":["14px",{"lineHeight":"20px","fontWeight":"400"}],"body-sm":["12px",{"lineHeight":"18px","fontWeight":"400"}],"balance-num-md":["22px",{"lineHeight":"28px","letterSpacing":"-0.01em","fontWeight":"700"}],"display-hero":["36px",{"lineHeight":"44px","letterSpacing":"-0.02em","fontWeight":"700"}],"label-badge":["11px",{"lineHeight":"14px","letterSpacing":"0.02em","fontWeight":"600"}],"display-hero-mobile":["30px",{"lineHeight":"38px","letterSpacing":"-0.02em","fontWeight":"700"}],"balance-num-lg":["32px",{"lineHeight":"40px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-md":["22px",{"lineHeight":"30px","letterSpacing":"-0.01em","fontWeight":"600"}],"headline-sm":["18px",{"lineHeight":"26px","fontWeight":"600"}],"headline-lg":["28px",{"lineHeight":"36px","letterSpacing":"-0.01em","fontWeight":"700"}]}}}};</script></head><body class="bg-surface font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-[260px] bg-primary-container z-50 flex flex-col justify-between shadow-[0_4px_24px_rgba(0,0,0,0.18)]"><div class="flex flex-col"><div class="h-20 px-space-md flex items-center gap-space-sm bg-primary-container border-b border-on-primary-container/20"><img alt="Logo_SmartPay_Africa__Bitcoin_au_cœur_de_l_Afrique.png" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKB4j0nwemDS0rGvweSVFvSdTQP_3P-10ImM6JXHnbRV8oKke-WHUGjdlHKJRxn6mLv47XVmin4o626fQesyGVYopVH73G1Dsj7MpOFFRsvgZxvfRG1lXYK90lkMTiILj2ZkJSpMpykuqOJKKk9u5BQiHnJlXF56M7-AGdVwXV1sCSju3W2MB58iNX1OAPZBeS05tD2KAf_a8_0yNnCK986orKUKSGhHQcN2PgGMjh2_9bjq7gLRRN5g"><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-surface font-bold tracking-tight">SmartPay</span><span class="font-label-nav text-label-nav text-secondary-container uppercase tracking-widest font-semibold">Africa Admin</span></div></div><div class="p-space-sm"><div class="p-space-sm rounded-lg bg-surface-container-lowest/5 border border-on-primary-container/20 flex flex-col gap-1"><div class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-tertiary-fixed animate-pulse"></span><span class="font-label-badge text-label-badge text-tertiary-fixed font-bold tracking-wider">REGTEST NETWORK</span></div><p class="font-body-sm text-[10px] leading-tight text-on-primary-container">Dakar Bitcoin Hack 2026 Sandbox</p><div class="flex items-center justify-between pt-1 border-t border-on-primary-container/10"><span class="font-mono-crypto text-[10px] text-surface-container-high">LND #1 SYNC</span><span class="font-mono-crypto text-[10px] text-tertiary-fixed font-bold">100%</span></div></div></div><nav class="px-space-sm space-y-4 overflow-y-auto max-h-[calc(100vh-270px)]" data-active-classes="bg-surface-container-lowest/15 text-surface font-semibold"><div class="space-y-1"><span class="px-3 font-label-nav text-label-nav uppercase tracking-wider text-on-primary-container font-bold block">Supervision</span><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-primary-container hover:bg-surface-container-lowest/10 hover:text-surface transition-all font-body-sm text-body-sm" data-path="vue-d-ensemble" href="#"><span class="material-symbols-outlined text-[18px]">dashboard</span>Vue d'ensemble</a><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-primary-container hover:bg-surface-container-lowest/10 hover:text-surface transition-all font-body-sm text-body-sm" data-path="w07---transactions-lightning-regtest" href="#"><span class="material-symbols-outlined text-[18px]">receipt_long</span>Transactions Regtest</a><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-primary-container hover:bg-surface-container-lowest/10 hover:text-surface transition-all font-body-sm text-body-sm" data-path="w08---corridors-internationaux" href="#"><span class="material-symbols-outlined text-[18px]">swap_horiz</span>Corridors Internationaux</a></div><div class="space-y-1"><span class="px-3 font-label-nav text-label-nav uppercase tracking-wider text-on-primary-container font-bold block">Écosystème</span><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-primary-container hover:bg-surface-container-lowest/10 hover:text-surface transition-all font-body-sm text-body-sm" data-path="utilisateurs" href="#"><span class="material-symbols-outlined text-[18px]">group</span>Utilisateurs</a><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-primary-container hover:bg-surface-container-lowest/10 hover:text-surface transition-all font-body-sm text-body-sm" data-path="detail-utilisateur" href="#"><span class="material-symbols-outlined text-[18px]">person_search</span>Détail utilisateur</a><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-primary-container hover:bg-surface-container-lowest/10 hover:text-surface transition-all font-body-sm text-body-sm" data-path="marchands" href="#"><span class="material-symbols-outlined text-[18px]">storefront</span>Marchands</a><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-primary-container hover:bg-surface-container-lowest/10 hover:text-surface transition-all font-body-sm text-body-sm" data-path="detail-marchand" href="#"><span class="material-symbols-outlined text-[18px]">store</span>Détail Marchand</a></div><div class="space-y-1"><span class="px-3 font-label-nav text-label-nav uppercase tracking-wider text-on-primary-container font-bold block">Infrastructure &amp; Audit</span><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-primary-container hover:bg-surface-container-lowest/10 hover:text-surface transition-all font-body-sm text-body-sm" data-path="w09---noeuds-&amp;-infrastructure-lightning" href="#"><span class="material-symbols-outlined text-[18px]">hub</span>Nœud &amp; Infra LND</a><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-primary-container hover:bg-surface-container-lowest/10 hover:text-surface transition-all font-body-sm text-body-sm" data-path="audit-&amp;-securite" href="#"><span class="material-symbols-outlined text-[18px]">verified_user</span>Audit &amp; Sécurité</a></div><div class="space-y-1"><span class="px-3 font-label-nav text-label-nav uppercase tracking-wider text-on-primary-container font-bold block">Système</span><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-primary-container hover:bg-surface-container-lowest/10 hover:text-surface transition-all font-body-sm text-body-sm" data-path="parametres" href="#"><span class="material-symbols-outlined text-[18px]">settings</span>Paramètres</a><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-primary-container hover:bg-surface-container-lowest/10 hover:text-surface transition-all font-body-sm text-body-sm" data-path="assistance" href="#"><span class="material-symbols-outlined text-[18px]">support_agent</span>Assistance</a></div></nav></div><div class="p-space-sm border-t border-on-primary-container/20"><div class="flex items-center gap-2 p-2 rounded-lg bg-surface-container-lowest/5"><div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-surface font-bold text-[18px]">bolt</span></div><div class="flex flex-col min-w-0"><span class="font-label-badge text-[11px] text-surface truncate font-semibold">Dakar Hack 2026</span><span class="font-mono-crypto text-[10px] text-on-primary-container truncate">v0.14.2-beta</span></div></div></div></aside><div class="pl-[260px]"><header class="fixed top-0 left-[260px] right-0 h-20 bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 px-space-lg flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md flex-1 max-w-md min-w-0"><div class="relative w-full"><span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span><input class="w-full pl-10 pr-4 py-2 bg-surface-container-low rounded-lg font-body-sm text-body-sm text-on-surface placeholder:text-on-surface-variant outline-none focus:ring-1 focus:ring-secondary transition-all" placeholder="Rechercher test, métrique, composant..." type="text"></div></div><div class="flex items-center gap-3 shrink-0"><div class="hidden xl:flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-container-low"><span class="w-2 h-2 rounded-full bg-tertiary-fixed animate-ping"></span><span class="font-body-sm text-[12px] text-on-surface font-medium">Nœud Regtest local (Simulé)</span></div><div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-badge text-label-badge font-semibold shadow-sm"><span class="material-symbols-outlined text-[14px]">science</span>Mode Démonstration Regtest</div><div class="flex items-center gap-3 pl-2 border-l border-outline-variant/30"><div class="flex flex-col text-right hidden md:block"><span class="font-body-sm text-body-sm font-semibold text-on-surface leading-tight">M. Diop</span><span class="font-label-badge text-[10px] text-on-surface-variant leading-none">Lead Ops · Super Admin</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shadow-sm"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><div class="fixed top-20 left-[260px] right-0 z-30 bg-secondary-fixed/40 backdrop-blur-md px-space-lg py-2 border-b border-secondary-fixed-dim/40 flex items-center justify-between"><div class="flex items-center gap-2"><span class="material-symbols-outlined text-secondary text-[18px]">warning</span><span class="font-body-sm text-[12px] text-on-secondary-fixed font-medium">Maquette — Données d'illustration · Banc d'essai Regtest (Dakar Bitcoin Hack 2026) — Environnement de démonstration Regtest. Aucun paiement en monnaie réelle.</span></div><span class="px-2 py-0.5 rounded font-label-badge text-[10px] tracking-wider uppercase font-bold bg-secondary text-on-secondary shrink-0 ml-2">BAC À SABLE SÉCURISÉ</span></div><main class="relative pt-[120px] min-h-screen bg-surface w-full px-space-lg py-space-lg"><div class="flex flex-col w-full space-y-space-xl">
+<!-- En-tête Principal & Actions Supérieures -->
+<div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-space-md">
+<div class="flex flex-col space-y-1">
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-label-badge font-label-badge bg-secondary-container/20 text-secondary font-bold uppercase tracking-wider">
+          Supervision LND &amp; Core
+        </span>
+<span class="font-mono-crypto text-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="inline-block w-1.5 h-1.5 rounded-full bg-tertiary-fixed animate-ping"></span>
+          Cluster ID: dkr-regtest-01
+        </span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface font-bold tracking-tight">
+        Nœuds &amp; Infrastructure Lightning
+      </h1>
+<p class="font-body-md text-body-md text-on-surface-variant">
+        Supervision technique du banc d'essai Bitcoin Lightning et des services applicatifs.
+      </p>
+</div>
+<!-- Actions Rapides -->
+<div class="flex flex-wrap items-center gap-2">
+<button class="h-10 px-4 rounded-lg bg-surface-container-lowest shadow-sm hover:shadow text-on-surface hover:text-secondary flex items-center gap-2 font-body-sm text-body-sm font-semibold transition-all" id="btn-refresh">
+<span class="material-symbols-outlined text-[18px] transition-transform duration-500" id="icon-refresh">refresh</span>
+        Actualiser l'état des services
+      </button>
+<button class="h-10 px-4 rounded-lg bg-surface-container-lowest shadow-sm hover:shadow text-on-surface flex items-center gap-2 font-body-sm text-body-sm font-semibold transition-all">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">terminal</span>
+        Consulter les événements
+      </button>
+<button class="h-10 px-4 rounded-lg bg-primary-container text-surface shadow-md hover:bg-inverse-surface flex items-center gap-2 font-body-sm text-body-sm font-semibold transition-all">
+<span class="material-symbols-outlined text-[18px] text-secondary-container">file_download</span>
+        Exporter rapport démo
+      </button>
+</div>
+</div>
+<!-- B. Cartes de services (Grille 5 composants) -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-space-md"><!-- Service 1: LND Alice -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between space-y-4">
+<div class="space-y-3">
+<div class="flex items-start justify-between">
+<div class="w-10 h-10 rounded-lg bg-secondary-container/15 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[22px]">bolt</span>
+</div>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-label-badge bg-tertiary-fixed/30 text-on-tertiary-fixed-variant font-bold">
+Service actif (exemple de maquette)
+</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">LND Alice</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-1">Nœud Regtest A (Sandbox locale)</p>
+</div>
+<div class="space-y-1.5 pt-2 font-mono-crypto text-body-sm text-on-surface">
+<div class="flex justify-between items-center text-[12px]">
+<span class="text-on-surface-variant">Canaux actifs (simulés)</span>
+<span class="font-bold">18 canaux</span>
+</div>
+<div class="flex justify-between items-center text-[12px]">
+<span class="text-on-surface-variant">Capacité de maquette</span>
+<span class="font-bold text-secondary">0.45 BTC (sandbox)</span>
+</div>
+<div class="flex justify-between items-center text-[12px]">
+<span class="text-on-surface-variant">Disponibilité indicative</span>
+<span class="font-bold text-on-tertiary-fixed-variant">99.98%</span>
+</div>
+</div>
+</div>
+<div class="pt-3 flex items-center justify-between text-on-surface-variant font-body-sm text-[11px]">
+<span class="">Contrôle périodique</span>
+<span class="font-mono-crypto">Valeur de maquette</span>
+</div>
+</div>
+<!-- Service 2: LND Bob -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between space-y-4">
+<div class="space-y-3">
+<div class="flex items-start justify-between">
+<div class="w-10 h-10 rounded-lg bg-primary-container/10 flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[22px]">hub</span>
+</div>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-label-badge bg-tertiary-fixed/30 text-on-tertiary-fixed-variant font-bold">
+Service actif (exemple de maquette)
+</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">LND Bob</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-1">Nœud Regtest B (Sandbox locale)</p>
+</div>
+<div class="space-y-1.5 pt-2 font-mono-crypto text-body-sm text-on-surface">
+<div class="flex justify-between items-center text-[12px]">
+<span class="text-on-surface-variant">Canaux ouverts (simulés)</span>
+<span class="font-bold">14 canaux</span>
+</div>
+<div class="flex justify-between items-center text-[12px]">
+<span class="text-on-surface-variant">Pairs test connectés</span>
+<span class="font-bold">4 pairs P2P</span>
+</div>
+<div class="flex justify-between items-center text-[12px]">
+<span class="text-on-surface-variant">Latence RPC simulée</span>
+<span class="font-bold text-on-tertiary-fixed-variant">14 ms</span>
+</div>
+</div>
+</div>
+<div class="pt-3 flex items-center justify-between text-on-surface-variant font-body-sm text-[11px]">
+<span class="">Contrôle périodique</span>
+<span class="font-mono-crypto">Valeur de maquette</span>
+</div>
+</div>
+<!-- Service 3: Bitcoin Core -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between space-y-4">
+<div class="space-y-3">
+<div class="flex items-start justify-between">
+<div class="w-10 h-10 rounded-lg bg-secondary-fixed flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[22px]">currency_bitcoin</span>
+</div>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-label-badge bg-tertiary-fixed/30 text-on-tertiary-fixed-variant font-bold">
+Service actif (exemple de maquette)
+</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">Bitcoin Core</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-1">Blockchain Regtest privée (Sandbox)</p>
+</div>
+<div class="space-y-1.5 pt-2 font-mono-crypto text-body-sm text-on-surface">
+<div class="flex justify-between items-center text-[12px]">
+<span class="text-on-surface-variant">Hauteur bloc (illustratif)</span>
+<span class="font-bold text-secondary">#412</span>
+</div>
+<div class="flex justify-between items-center text-[12px]">
+<span class="text-on-surface-variant">Difficulté</span>
+<span class="font-bold">Minimum (1.0)</span>
+</div>
+<div class="flex justify-between items-center text-[12px]">
+<span class="text-on-surface-variant">Mempool local simulé</span>
+<span class="font-bold">6 txs test</span>
+</div>
+</div>
+</div>
+<div class="pt-3 flex items-center justify-between text-on-surface-variant font-body-sm text-[11px]">
+<span class="">Contrôle périodique</span>
+<span class="font-mono-crypto">Valeur de maquette</span>
+</div>
+</div>
+<!-- Service 4: API Django REST -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between space-y-4">
+<div class="space-y-3">
+<div class="flex items-start justify-between">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-on-surface">
+<span class="material-symbols-outlined text-[22px]">api</span>
+</div>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-label-badge bg-tertiary-fixed/30 text-on-tertiary-fixed-variant font-bold">
+Service actif (exemple de maquette)
+</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">API Django REST</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-1">Backend de simulation banc d'essai</p>
+</div>
+<div class="space-y-1.5 pt-2 font-mono-crypto text-body-sm text-on-surface">
+<div class="flex justify-between items-center text-[12px]">
+<span class="text-on-surface-variant">Version maquette</span>
+<span class="font-bold">V1.4.2-hack</span>
+</div>
+<div class="flex justify-between items-center text-[12px]">
+<span class="text-on-surface-variant">Temps réponse indicatif</span>
+<span class="font-bold text-on-tertiary-fixed-variant">42 ms</span>
+</div>
+<div class="flex justify-between items-center text-[12px]">
+<span class="text-on-surface-variant">Erreurs HTTP 5xx</span>
+<span class="font-bold text-on-tertiary-fixed-variant">0 (0.00%)</span>
+</div>
+</div>
+</div>
+<div class="pt-3 flex items-center justify-between text-on-surface-variant font-body-sm text-[11px]">
+<span class="">Contrôle périodique</span>
+<span class="font-mono-crypto">Valeur de maquette</span>
+</div>
+</div>
+<!-- Service 5: PostgreSQL -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between space-y-4">
+<div class="space-y-3">
+<div class="flex items-start justify-between">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-on-surface">
+<span class="material-symbols-outlined text-[22px]">database</span>
+</div>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-label-badge bg-tertiary-fixed/30 text-on-tertiary-fixed-variant font-bold">
+Service actif (exemple de maquette)
+</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">PostgreSQL</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-1">Base persistance sandbox</p>
+</div>
+<div class="space-y-1.5 pt-2 font-mono-crypto text-body-sm text-on-surface">
+<div class="flex justify-between items-center text-[12px]">
+<span class="text-on-surface-variant">Pool connexions</span>
+<span class="font-bold">12 / 100</span>
+</div>
+<div class="flex justify-between items-center text-[12px]">
+<span class="text-on-surface-variant">Taille dataset test</span>
+<span class="font-bold">142 MB</span>
+</div>
+<div class="flex justify-between items-center text-[12px]">
+<span class="text-on-surface-variant">I/O Performance</span>
+<span class="font-bold text-on-tertiary-fixed-variant">Nominal</span>
+</div>
+</div>
+</div>
+<div class="pt-3 flex items-center justify-between text-on-surface-variant font-body-sm text-[11px]">
+<span class="">Contrôle périodique</span>
+<span class="font-mono-crypto">Valeur de maquette</span>
+</div>
+</div></div>
+<!-- C. Schéma d'architecture technique interactif -->
+<div class="bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm space-y-space-md">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+<div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[22px]">account_tree</span>
+<h2 class="font-headline-md text-headline-md text-on-surface font-bold">
+            Topologie Fonctionnelle du Banc d'Essai
+          </h2>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+          Flux de communication, protocoles réseau et interconnexions synchronisées.
+        </p>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2.5 py-1 rounded bg-surface-container-low font-mono-crypto text-[11px] text-on-surface-variant">
+          P2P BOLT · REST · gRPC · bitcoind RPC
+        </span>
+</div>
+</div>
+<!-- Canvas Schéma Visuel -->
+<div class="bg-surface-container-low/60 rounded-xl p-6 relative overflow-hidden">
+<!-- Arrière-plan grille subtile -->
+<div class="absolute inset-0 bg-gradient-to-b from-transparent via-surface-container-highest/20 to-transparent pointer-events-none"></div>
+<div class="relative z-10 flex flex-col items-center space-y-6 max-w-4xl mx-auto">
+<!-- Niveau 1: Client Mobile -->
+<div class="w-full flex justify-center">
+<div class="w-full sm:w-80 bg-surface-container-lowest rounded-xl p-3 shadow-md flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-secondary-container text-surface flex items-center justify-center font-bold">
+<span class="material-symbols-outlined text-[20px]">smartphone</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-headline-sm text-[15px] font-bold text-on-surface leading-tight">App Mobile SmartPay Africa</span>
+<span class="font-body-sm text-[11px] text-on-surface-variant">Client Expo / React Native</span>
+</div>
+</div>
+</div>
+<!-- Connecteur 1: HTTPS -->
+<div class="flex flex-col items-center">
+<span class="font-mono-crypto text-[11px] text-secondary font-semibold bg-surface-container-lowest px-2.5 py-0.5 rounded-full shadow-sm">
+            HTTPS / REST JSON
+          </span>
+<span class="material-symbols-outlined text-on-surface-variant text-[20px] -mt-1">arrow_downward</span>
+</div>
+<!-- Niveau 2: Backend & Base de Données -->
+<div class="w-full grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Backend -->
+<div class="bg-surface-container-lowest rounded-xl p-4 shadow-md flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-primary-container text-surface flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">dns</span>
+</div>
+<div>
+<span class="font-headline-sm text-[15px] font-bold text-on-surface block leading-tight">API Django REST</span>
+<span class="font-body-sm text-[11px] text-on-surface-variant">Contrôleur de facturation</span>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded bg-tertiary-fixed/30 text-on-tertiary-fixed-variant font-mono-crypto text-[10px] font-bold">ACTIF</span>
+</div>
+<!-- Base de données -->
+<div class="bg-surface-container-lowest rounded-xl p-4 shadow-md flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high text-on-surface flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">database</span>
+</div>
+<div>
+<span class="font-headline-sm text-[15px] font-bold text-on-surface block leading-tight">PostgreSQL Persistance</span>
+<span class="font-body-sm text-[11px] text-on-surface-variant">Transactions &amp; logs d'audit</span>
+</div>
+</div>
+<span class="font-mono-crypto text-[11px] text-on-surface-variant font-medium">Pool 12 cnx</span>
+</div>
+</div>
+<!-- Connecteur 2: gRPC -->
+<div class="flex flex-col items-center">
+<span class="font-mono-crypto text-[11px] text-primary-container font-semibold bg-surface-container-lowest px-2.5 py-0.5 rounded-full shadow-sm">
+            gRPC / Lightning LND Client (TLS)
+          </span>
+<span class="material-symbols-outlined text-on-surface-variant text-[20px] -mt-1">arrow_downward</span>
+</div>
+<!-- Niveau 3: Lightning Channels Alice <-> Bob -->
+<div class="w-full bg-surface-container-lowest rounded-xl p-4 shadow-md"><div class="grid grid-cols-1 md:grid-cols-11 gap-4 items-center"><!-- Nœud Alice --><div class="md:col-span-5 bg-surface-container-low rounded-lg p-3"><div class="flex items-center justify-between mb-2"><div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-secondary"></span><span class="font-headline-sm text-[14px] font-bold text-on-surface">LND Alice (Banc d'essai)</span></div><span class="font-mono-crypto text-[10px] text-secondary font-bold">REGTEST_HUB_01</span></div><p class="font-body-sm text-[11px] text-on-surface-variant">Routage caisse test &amp; simulation liquidité sandbox</p></div><!-- Interconnexion P2P Lightning --><div class="md:col-span-1 flex flex-col items-center justify-center py-2 md:py-0"><div class="flex md:flex-col items-center gap-1 text-secondary"><span class="material-symbols-outlined text-[18px]">swap_horiz</span></div><span class="font-mono-crypto text-[9px] text-center text-on-surface-variant font-bold leading-tight">BOLT P2P</span></div><!-- Nœud Bob --><div class="md:col-span-5 bg-surface-container-low rounded-lg p-3"><div class="flex items-center justify-between mb-2"><div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-primary-container"></span><span class="font-headline-sm text-[14px] font-bold text-on-surface">LND Bob (Contrepartie test)</span></div><span class="font-mono-crypto text-[10px] text-on-surface font-bold">REGTEST_PEER_02</span></div><p class="font-body-sm text-[11px] text-on-surface-variant">Simulation règlements transfrontaliers instantanés</p></div></div></div>
+<!-- Connecteur 3: RPC Bitcoind -->
+<div class="flex flex-col items-center">
+<span class="font-mono-crypto text-[11px] text-secondary font-semibold bg-surface-container-lowest px-2.5 py-0.5 rounded-full shadow-sm">
+            RPC bitcoind (Consensus On-chain)
+          </span>
+<span class="material-symbols-outlined text-on-surface-variant text-[20px] -mt-1">arrow_downward</span>
+</div>
+<!-- Niveau 4: Bitcoin Core Regtest -->
+<div class="w-full sm:w-96 bg-primary-container text-surface rounded-xl p-4 shadow-lg flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container-lowest/10 flex items-center justify-center text-secondary-container">
+<span class="material-symbols-outlined text-[24px]">view_in_ar</span>
+</div>
+<div>
+<span class="font-headline-sm text-[15px] font-bold text-surface block leading-tight">Bitcoin Core Regtest</span>
+<span class="font-mono-crypto text-[11px] text-on-primary-container">Bloc #412 · Sandbox local privé</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-tertiary-fixed text-[20px]">verified</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant font-body-sm text-body-sm pt-1">
+<span class="material-symbols-outlined text-[16px] text-secondary">info</span>
+<span class="">Schéma logique d'architecture — Banc d'essai Regtest hackathon (Relations conceptuelles entre composants simulés de la sandbox).</span>
+</div>
+</div>
+<!-- D. Indicateurs techniques (4 widgets KPI / mini graphiques) -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-space-md"><!-- KPI 1 -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col justify-between space-y-3">
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="font-body-sm text-body-sm font-semibold">Hauteur du bloc Regtest (illustratif)</span>
+<span class="material-symbols-outlined text-[20px] text-secondary">layers</span>
+</div>
+<div>
+<div class="font-balance-num-lg text-balance-num-lg text-on-surface font-bold">#412</div>
+<p class="font-body-sm text-[12px] text-on-surface-variant">Génération manuelle via <code class="font-mono-crypto bg-surface-container-low px-1 py-0.5 rounded">bitcoin-cli</code></p>
+</div>
+<div class="h-6 w-full pt-1">
+<svg class="w-full h-full text-secondary" preserveAspectRatio="none" viewBox="0 0 100 20">
+<polyline fill="none" points="0,18 15,16 30,17 45,12 60,14 75,8 90,9 100,3" stroke="currentColor" stroke-width="2"></polyline>
+</svg>
+</div>
+</div>
+<!-- KPI 2 -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col justify-between space-y-3">
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="font-body-sm text-body-sm font-semibold">Connexion nœuds (simulation)</span>
+<span class="material-symbols-outlined text-[20px] text-on-tertiary-fixed-variant">sync_saved_locally</span>
+</div>
+<div>
+<div class="font-balance-num-lg text-balance-num-lg text-on-surface font-bold">100%</div>
+<p class="font-body-sm text-[12px] text-on-surface-variant">Connectivité RPC locale test (valeur illustrative)</p>
+</div>
+<div class="w-full bg-surface-container-low rounded-full h-2 overflow-hidden">
+<div class="bg-tertiary-fixed h-full rounded-full w-full"></div>
+</div>
+</div>
+<!-- KPI 3 -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col justify-between space-y-3">
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="font-body-sm text-body-sm font-semibold">Factures de test émises (maquette)</span>
+<span class="material-symbols-outlined text-[20px] text-on-surface">receipt</span>
+</div>
+<div>
+<div class="font-balance-num-lg text-balance-num-lg text-on-surface font-bold">1 842</div>
+<p class="font-body-sm text-[12px] text-on-surface-variant">Total simulé sur l'ensemble du banc d'essai</p>
+</div>
+<div class="flex items-center justify-between text-[11px] font-mono-crypto text-on-surface-variant pt-1">
+<span class="">Succès: 98.4%</span>
+<span class="">Rejets: 1.6%</span>
+</div>
+</div>
+<!-- KPI 4 -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col justify-between space-y-3">
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="font-body-sm text-body-sm font-semibold">Règlements HTLC réglés (simulés)</span>
+<span class="material-symbols-outlined text-[20px] text-secondary">flash_on</span>
+</div>
+<div>
+<div class="font-balance-num-lg text-balance-num-lg text-on-surface font-bold">1 216</div>
+<p class="font-body-sm text-[12px] text-on-surface-variant">Règlements instantanés fictifs (sandbox)</p>
+</div>
+<div class="flex items-center justify-between text-[11px] font-mono-crypto text-on-surface-variant pt-1">
+<span class="text-secondary font-semibold">Temps moy.: 340ms</span>
+<span class="text-on-surface-variant">3 timeouts résolus</span>
+</div>
+</div></div>
+<!-- Avertissement de liquidité simulée -->
+<div class="bg-surface-container-low rounded-xl p-3 flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary text-[20px] shrink-0">info</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+      La capacité et les flux du banc d'essai sont strictement fictifs et ne représentent aucune liquidité monétaire réelle.
+    </p>
+</div>
+<!-- E. Journal technique (Tableau des logs et événements récents) -->
+<div class="bg-surface-container-lowest rounded-2xl shadow-sm overflow-hidden space-y-space-md p-space-lg">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div class="space-y-0.5"><div class="flex items-center gap-2"><span class="material-symbols-outlined text-on-surface text-[22px]">history_edu</span><h2 class="font-headline-md text-headline-md text-on-surface font-bold">Journal d'événements fictifs (Simulation de tests)</h2></div><p class="font-body-sm text-body-sm text-on-surface-variant">Piste d'audit des messages RPC et déclencheurs de test (valeurs simulées — aucun mot de passe, seed, macaroon ou clé privée).</p></div>
+<div class="flex items-center gap-2">
+<span class="font-mono-crypto text-body-sm text-on-surface-variant">Filtre: Tous les composants</span>
+</div>
+</div>
+<!-- Table Responsive -->
+<div class="w-full overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low font-label-nav text-label-nav uppercase text-on-surface-variant tracking-wider">
+<th class="py-3 px-4 rounded-l-lg">Horodatage</th>
+<th class="py-3 px-4">Service</th>
+<th class="py-3 px-4">Événement &amp; Métadonnées</th>
+<th class="py-3 px-4">Niveau</th>
+<th class="py-3 px-4 rounded-r-lg">Statut</th>
+</tr>
+</thead>
+<tbody class="divide-y-0 font-body-sm text-body-sm text-on-surface">
+<!-- Log 1 -->
+<tr class="hover:bg-surface-container-low/40 transition-colors">
+<td class="py-3.5 px-4 font-mono-crypto text-[12px] text-on-surface-variant whitespace-nowrap">
+              16 Jan 2026 15:42:10
+            </td>
+<td class="py-3.5 px-4 whitespace-nowrap font-semibold">
+<span class="inline-flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+                LND Alice
+              </span>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col">
+<span class="font-medium">Création d'une facture Regtest lnbc2500u1p3...</span>
+<span class="font-mono-crypto text-[11px] text-on-surface-variant">Rhash: e3b0c442... hash validé pour caisse Touba Marché</span>
+</div>
+</td>
+<td class="py-3.5 px-4 whitespace-nowrap">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-label-badge font-bold bg-tertiary-fixed/30 text-on-tertiary-fixed-variant">
+                INFO
+              </span>
+</td>
+<td class="py-3.5 px-4 whitespace-nowrap font-medium text-on-tertiary-fixed-variant">
+              Succès
+            </td>
+</tr>
+<!-- Log 2 -->
+<tr class="hover:bg-surface-container-low/40 transition-colors">
+<td class="py-3.5 px-4 font-mono-crypto text-[12px] text-on-surface-variant whitespace-nowrap">
+              16 Jan 2026 15:41:48
+            </td>
+<td class="py-3.5 px-4 whitespace-nowrap font-semibold">
+<span class="inline-flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+                LND Bob
+              </span>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col">
+<span class="font-medium">Vérification de connexion LND RPC</span>
+<span class="font-mono-crypto text-[11px] text-on-surface-variant">Handshake TLS 1.3 réussi avec daemon distant simulé</span>
+</div>
+</td>
+<td class="py-3.5 px-4 whitespace-nowrap">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-label-badge font-bold bg-surface-container-high text-on-surface">
+                DEBUG
+              </span>
+</td>
+<td class="py-3.5 px-4 whitespace-nowrap font-medium text-on-surface">
+              Traité
+            </td>
+</tr>
+<!-- Log 3 -->
+<tr class="hover:bg-surface-container-low/40 transition-colors">
+<td class="py-3.5 px-4 font-mono-crypto text-[12px] text-on-surface-variant whitespace-nowrap">
+              16 Jan 2026 15:40:22
+            </td>
+<td class="py-3.5 px-4 whitespace-nowrap font-semibold">
+<span class="inline-flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-secondary-fixed"></span>
+                Bitcoin Core
+              </span>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col">
+<span class="font-medium">Synchronisation illustrative des blocs #412</span>
+<span class="font-mono-crypto text-[11px] text-on-surface-variant">Génération de nouveau bloc de test via génératrice locale sandbox</span>
+</div>
+</td>
+<td class="py-3.5 px-4 whitespace-nowrap">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-label-badge font-bold bg-tertiary-fixed/30 text-on-tertiary-fixed-variant">
+                INFO
+              </span>
+</td>
+<td class="py-3.5 px-4 whitespace-nowrap font-medium text-on-tertiary-fixed-variant">
+              Succès
+            </td>
+</tr>
+<!-- Log 4 -->
+<tr class="hover:bg-surface-container-low/40 transition-colors">
+<td class="py-3.5 px-4 font-mono-crypto text-[12px] text-on-surface-variant whitespace-nowrap">
+              16 Jan 2026 15:38:15
+            </td>
+<td class="py-3.5 px-4 whitespace-nowrap font-semibold">
+<span class="inline-flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-secondary-container"></span>
+                API Django
+              </span>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col">
+<span class="font-medium">Expiration d'une facture de test</span>
+<span class="font-mono-crypto text-[11px] text-on-surface-variant">Timeout standard (300s) atteint sans réclamation HTLC</span>
+</div>
+</td>
+<td class="py-3.5 px-4 whitespace-nowrap">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-label-badge font-bold bg-secondary-fixed text-on-secondary-fixed">
+                WARNING
+              </span>
+</td>
+<td class="py-3.5 px-4 whitespace-nowrap font-medium text-secondary">
+              Notifié
+            </td>
+</tr>
+<!-- Log 5 -->
+<tr class="hover:bg-surface-container-low/40 transition-colors">
+<td class="py-3.5 px-4 font-mono-crypto text-[12px] text-on-surface-variant whitespace-nowrap">
+              16 Jan 2026 15:35:01
+            </td>
+<td class="py-3.5 px-4 whitespace-nowrap font-semibold">
+<span class="inline-flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+                API Django
+              </span>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col">
+<span class="font-medium">Vérification de santé applicative /health</span>
+<span class="font-mono-crypto text-[11px] text-on-surface-variant">Tous les check endpoints (DB, Cache, LND Alice) retournent HTTP 200 OK</span>
+</div>
+</td>
+<td class="py-3.5 px-4 whitespace-nowrap">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-label-badge font-bold bg-tertiary-fixed/30 text-on-tertiary-fixed-variant">
+                INFO
+              </span>
+</td>
+<td class="py-3.5 px-4 whitespace-nowrap font-medium text-on-tertiary-fixed-variant">
+              Succès
+            </td>
+</tr>
+<!-- Log 6 -->
+<tr class="hover:bg-surface-container-low/40 transition-colors">
+<td class="py-3.5 px-4 font-mono-crypto text-[12px] text-on-surface-variant whitespace-nowrap">
+              16 Jan 2026 15:30:19
+            </td>
+<td class="py-3.5 px-4 whitespace-nowrap font-semibold">
+<span class="inline-flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-surface-container-high"></span>
+                PostgreSQL
+              </span>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col">
+<span class="font-medium">Maintenance automatique de la table audit_logs</span>
+<span class="font-mono-crypto text-[11px] text-on-surface-variant">VACUUM ANALYZE complété avec succès (durée: 14ms)</span>
+</div>
+</td>
+<td class="py-3.5 px-4 whitespace-nowrap">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-label-badge font-bold bg-surface-container-high text-on-surface">
+                DEBUG
+              </span>
+</td>
+<td class="py-3.5 px-4 whitespace-nowrap font-medium text-on-surface">
+              Traité
+            </td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- F. Note de sécurité en bas de page -->
+<div class="bg-primary-container text-surface rounded-xl p-space-md shadow-md flex items-start gap-4">
+<div class="w-10 h-10 rounded-lg bg-surface-container-lowest/10 flex items-center justify-center shrink-0 text-secondary-container">
+<span class="material-symbols-outlined text-[24px]">verified_user</span>
+</div>
+<div class="space-y-1">
+<h3 class="font-headline-sm text-[16px] font-bold text-surface">
+        Note de sécurité et d'intégrité
+      </h3>
+<p class="font-body-sm text-body-sm text-on-primary-container leading-relaxed">
+        Environnement Regtest isolé. Les données de cette maquette sont illustratives. Les informations sensibles d'infrastructure (macaroons d'administration, clés privées des nœuds, secrets API) ne sont pas exposées dans le portail.
+      </p>
+</div>
+</div>
+</div>
+<script>
+  // Micro-interaction pour le bouton de rafraîchissement
+  const btnRefresh = document.getElementById('btn-refresh');
+  const iconRefresh = document.getElementById('icon-refresh');
+  if (btnRefresh && iconRefresh) {
+    btnRefresh.addEventListener('click', () => {
+      iconRefresh.classList.add('rotate-180');
+      setTimeout(() => {
+        iconRefresh.classList.remove('rotate-180');
+      }, 500);
+    });
+  }
+</script></main></div>
+
+</body></html>

@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+
+<html lang="fr"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Outfit:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-tertiary-container":"#009756","on-error":"#ffffff","surface-bright":"#f9f9ff","on-secondary":"#ffffff","surface-tint":"#565e71","on-secondary-fixed-variant":"#6b3b00","tertiary-container":"#00210e","inverse-primary":"#bfc6dc","tertiary-fixed-dim":"#51df8e","background":"#f9f9ff","inverse-surface":"#273143","surface-container-low":"#f0f3ff","outline":"#76777d","on-tertiary":"#ffffff","on-surface-variant":"#45474c","surface-variant":"#d9e3fb","inverse-on-surface":"#ecf0ff","surface-container-high":"#dfe8ff","on-primary-fixed-variant":"#3f4759","secondary-fixed":"#ffdcbf","on-background":"#111c2d","on-secondary-fixed":"#2d1600","on-secondary-container":"#663800","surface-container":"#e8eeff","primary":"#000000","secondary-fixed-dim":"#ffb874","surface-dim":"#d0daf2","on-primary-fixed":"#141b2c","on-primary":"#ffffff","on-tertiary-fixed-variant":"#00522c","on-tertiary-fixed":"#00210e","primary-container":"#141b2c","secondary-container":"#fe9821","error-container":"#ffdad6","surface-container-highest":"#d9e3fb","tertiary-fixed":"#70fda7","outline-variant":"#c6c6cd","tertiary":"#000000","primary-fixed-dim":"#bfc6dc","error":"#ba1a1a","surface-container-lowest":"#ffffff","on-error-container":"#93000a","secondary":"#8c4f00","on-surface":"#111c2d","on-primary-container":"#7c8498","primary-fixed":"#dbe2f9","surface":"#f9f9ff"},borderRadius:{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},spacing:{"gutter":"1rem","space-sm":"0.5rem","space-xl":"2rem","margin":"1rem","space-md":"1rem","space-xs":"0.25rem","space-lg":"1.5rem"},fontFamily:{"body-lg":["Inter"],"body-sm":["Inter"],"balance-num-lg":["Inter"],"label-nav":["Inter"],"mono-crypto":["Inter"],"label-badge":["Inter"],"headline-md":["Outfit"],"balance-num-md":["Inter"],"display-hero-mobile":["Inter"],"headline-lg":["Outfit"],"body-md":["Inter"],"display-hero":["Inter"],"headline-sm":["Outfit"]},fontSize:{"body-lg":["16px",{"lineHeight":"24px","fontWeight":"500"}],"body-sm":["12px",{"lineHeight":"18px","fontWeight":"400"}],"balance-num-lg":["32px",{"lineHeight":"40px","letterSpacing":"-0.02em","fontWeight":"700"}],"label-nav":["10px",{"lineHeight":"12px","letterSpacing":"0.06em","fontWeight":"600"}],"mono-crypto":["13px",{"lineHeight":"18px","fontWeight":"500"}],"label-badge":["11px",{"lineHeight":"14px","letterSpacing":"0.02em","fontWeight":"600"}],"headline-md":["22px",{"lineHeight":"30px","letterSpacing":"-0.01em","fontWeight":"600"}],"balance-num-md":["22px",{"lineHeight":"28px","letterSpacing":"-0.01em","fontWeight":"700"}],"display-hero-mobile":["30px",{"lineHeight":"38px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-lg":["28px",{"lineHeight":"36px","letterSpacing":"-0.01em","fontWeight":"700"}],"body-md":["14px",{"lineHeight":"20px","fontWeight":"400"}],"display-hero":["36px",{"lineHeight":"44px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-sm":["18px",{"lineHeight":"26px","fontWeight":"600"}]}}}}</script></head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-50 flex flex-col justify-between overflow-y-auto"><div class="p-space-lg"><div class="flex items-center gap-space-sm pb-space-lg"><img alt="Logo_SmartPay_Africa__Bitcoin_au_cœur_de_l_Afrique.png" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/d/1Xl2861lB0u39oZ_fO4m6Q4sS1nI2p_rK"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight">SmartPay</span><span class="font-label-nav text-label-nav text-secondary uppercase">Fintech Admin</span></div></div><div class="mb-space-md px-space-sm py-space-xs bg-surface-container rounded-lg flex items-center justify-between"><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-[14px] text-on-tertiary-container">bolt</span><span class="font-label-badge text-label-badge text-on-surface">Dakar LND #1</span></div><span class="font-label-badge text-label-badge text-on-tertiary-container bg-surface-container-lowest px-space-xs py-0.5 rounded-full">SYNC 100%</span></div><nav class="flex flex-col gap-1" data-active-classes="bg-primary-container text-on-primary font-body-md"><div class="px-space-sm pt-space-xs pb-1 font-label-nav text-label-nav text-on-surface-variant uppercase tracking-wider">Supervision</div><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="vue-densemble" href="#"><span class="material-symbols-outlined text-[20px]">dashboard</span><span>Vue d'ensemble</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="transactions-regtest" href="#"><span class="material-symbols-outlined text-[20px]">receipt_long</span><span>Transactions Regtest</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="corridors-internationaux" href="#"><span class="material-symbols-outlined text-[20px]">public</span><span>Corridors Internationaux</span></a><div class="px-space-sm pt-space-md pb-1 font-label-nav text-label-nav text-on-surface-variant uppercase tracking-wider">Écosystème</div><a aria-current="page" class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg transition-all bg-primary-container text-on-primary font-body-md" data-path="gestion-utilisateurs" href="#"><span class="material-symbols-outlined text-[20px]">group</span><span>Utilisateurs</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="marchands" href="#"><span class="material-symbols-outlined text-[20px]">storefront</span><span>Marchands</span></a><div class="px-space-sm pt-space-md pb-1 font-label-nav text-label-nav text-on-surface-variant uppercase tracking-wider">Infrastructure &amp; Audit</div><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="noeud-infrastructure-lnd" href="#"><span class="material-symbols-outlined text-[20px]">hub</span><span>Nœud &amp; Infrastructure LND</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="audit-securite" href="#"><span class="material-symbols-outlined text-[20px]">shield</span><span>Audit &amp; Sécurité</span></a><div class="px-space-sm pt-space-md pb-1 font-label-nav text-label-nav text-on-surface-variant uppercase tracking-wider">Système</div><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="parametres" href="#"><span class="material-symbols-outlined text-[20px]">settings</span><span>Paramètres</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="assistance" href="#"><span class="material-symbols-outlined text-[20px]">support_agent</span><span>Assistance</span></a></nav></div><div class="p-space-md bg-surface-container-low mx-space-md mb-space-md rounded-xl"><div class="flex items-center gap-space-xs text-secondary"><span class="material-symbols-outlined text-[16px]">terminal</span><span class="font-label-badge text-label-badge uppercase">Regtest Network</span></div><p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Dakar Bitcoin Hack 2026 Sandbox</p></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-16 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-space-lg"><div class="flex items-center gap-space-md flex-1 max-w-lg"><img alt="Logo_SmartPay_Africa__Bitcoin_au_cœur_de_l_Afrique.png" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/d/1Xl2861lB0u39oZ_fO4m6Q4sS1nI2p_rK"/><div class="relative w-full"><span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">search</span><input class="w-full pl-9 pr-4 py-2 bg-surface-container rounded-lg font-body-sm text-body-sm text-on-surface placeholder:text-on-surface-variant outline-none focus:bg-surface-container-lowest transition-all" placeholder="Rechercher un tx hash, utilisateur, facture BOLT11..." type="text"/></div></div><div class="flex items-center gap-space-md"><div class="hidden md:flex items-center gap-space-xs bg-surface-container px-space-sm py-1.5 rounded-full"><span class="h-2 w-2 rounded-full bg-on-tertiary-container animate-pulse"></span><span class="font-label-badge text-label-badge text-on-surface">Dakar Lightning Node (Actif)</span></div><div class="flex items-center gap-space-xs bg-secondary-fixed px-space-sm py-1.5 rounded-full"><span class="material-symbols-outlined text-[16px] text-on-secondary-fixed-variant">science</span><span class="font-label-badge text-label-badge text-on-secondary-fixed-variant font-semibold">Mode Démonstration Regtest</span></div><div class="flex items-center gap-space-sm pl-space-sm"><div class="text-right hidden sm:block"><div class="font-body-sm text-body-sm text-on-surface font-semibold">M. Diop (Lead Ops)</div><div class="font-label-nav text-label-nav text-on-surface-variant">Super Admin</div></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="relative pt-16 w-full px-space-lg min-h-screen bg-surface"><div class="flex flex-col w-full">
+<div class="py-space-lg flex flex-col gap-space-lg">
+<!-- Top Action & Context Header -->
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-space-sm flex-wrap">
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Gestion des Utilisateurs</h1>
+<span class="inline-flex items-center gap-1.5 px-space-sm py-0.5 rounded-full bg-surface-container font-label-badge text-label-badge text-on-surface-variant shadow-sm">
+<span class="material-symbols-outlined text-[14px] text-secondary">verified_user</span>
+            Données d'illustration · Environnement sécurisé
+          </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+          Répertoire et supervision des 1 248 comptes simulés sur l'environnement Regtest Bitcoin Lightning.
+        </p>
+</div>
+<div class="flex items-center gap-space-sm self-start lg:self-auto">
+<button class="flex items-center gap-space-xs px-space-md py-2.5 bg-surface-container-lowest text-on-surface hover:bg-surface-container rounded-xl font-body-sm text-body-sm font-semibold shadow-sm transition-all duration-200" id="refreshBtn" onclick="simulerRafraichissement()">
+<span class="material-symbols-outlined text-[18px]" id="refreshIcon">sync</span>
+<span>Rafraîchir les flux</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-2.5 bg-primary-container text-on-primary hover:bg-surface-dim hover:text-on-surface rounded-xl font-body-sm text-body-sm font-semibold shadow-sm transition-all duration-200" onclick="declencherExportCSV()">
+<span class="material-symbols-outlined text-[18px]">download</span>
+<span>Export Audit (CSV)</span>
+</button>
+</div>
+</div>
+<!-- Metrics Ribbon for Fast Overview -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md">
+<div class="p-space-md rounded-2xl bg-surface-container-lowest shadow-sm flex items-center justify-between">
+<div>
+<span class="font-label-nav text-label-nav text-on-surface-variant uppercase tracking-wider">Total Comptes Regtest</span>
+<div class="font-balance-num-md text-balance-num-md text-on-surface mt-1">1 248</div>
+<div class="font-body-sm text-body-sm text-on-tertiary-container flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[14px]">trending_up</span>
+<span>+14 simulés cette heure</span>
+</div>
+</div>
+<div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[24px]">group</span>
+</div>
+</div>
+<div class="p-space-md rounded-2xl bg-surface-container-lowest shadow-sm flex items-center justify-between">
+<div>
+<span class="font-label-nav text-label-nav text-on-surface-variant uppercase tracking-wider">Commerçants En Rôles</span>
+<div class="font-balance-num-md text-balance-num-md text-on-surface mt-1">312</div>
+<div class="font-body-sm text-body-sm text-secondary flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[14px]">storefront</span>
+<span>25% du pool démo</span>
+</div>
+</div>
+<div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[24px]">point_of_sale</span>
+</div>
+</div>
+<div class="p-space-md rounded-2xl bg-surface-container-lowest shadow-sm flex items-center justify-between">
+<div>
+<span class="font-label-nav text-label-nav text-on-surface-variant uppercase tracking-wider">Canaux Lightning Liés</span>
+<div class="font-balance-num-md text-balance-num-md text-on-surface mt-1">3 894</div>
+<div class="font-body-sm text-body-sm text-on-tertiary-container flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[14px]">bolt</span>
+<span>100% connectivité LND</span>
+</div>
+</div>
+<div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center text-on-tertiary-container">
+<span class="material-symbols-outlined text-[24px]">hub</span>
+</div>
+</div>
+<div class="p-space-md rounded-2xl bg-surface-container-lowest shadow-sm flex items-center justify-between">
+<div>
+<span class="font-label-nav text-label-nav text-on-surface-variant uppercase tracking-wider">Sécurité En Démo</span>
+<div class="font-balance-num-md text-balance-num-md text-on-surface mt-1">98.2%</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[14px]">lock</span>
+<span>2FA sandbox activé</span>
+</div>
+</div>
+<div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[24px]">security</span>
+</div>
+</div>
+</div>
+<!-- Filter & Query Control Center -->
+<div class="bg-surface-container-lowest p-space-md rounded-2xl shadow-sm flex flex-col gap-space-md">
+<div class="flex flex-col lg:flex-row gap-space-sm items-stretch lg:items-center justify-between">
+<!-- Text Search -->
+<div class="relative flex-1 min-w-[260px]">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">person_search</span>
+<input class="w-full pl-10 pr-4 py-2.5 bg-surface-container-low rounded-xl font-body-sm text-body-sm text-on-surface placeholder:text-on-surface-variant outline-none focus:bg-surface-container transition-all" id="searchInput" oninput="filtrerUtilisateurs()" placeholder="Rechercher par nom, identifiant USR-..., adresse LN ou email..." type="text"/>
+</div>
+<!-- Filter Selects -->
+<div class="flex flex-wrap items-center gap-space-xs">
+<!-- Pays -->
+<div class="relative">
+<select class="appearance-none bg-surface-container-low text-on-surface font-body-sm text-body-sm pl-3 pr-8 py-2.5 rounded-xl cursor-pointer outline-none focus:bg-surface-container font-medium" id="filterCountry" onchange="filtrerUtilisateurs()">
+<option value="ALL">Tous les pays</option>
+<option value="SN">🇸🇳 Sénégal</option>
+<option value="CI">🇨🇮 Côte d'Ivoire</option>
+<option value="CG">🇨🇬 Congo-Brazzaville</option>
+<option value="BJ">🇧🇯 Bénin</option>
+</select>
+<span class="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px] pointer-events-none">arrow_drop_down</span>
+</div>
+<!-- Rôle -->
+<div class="relative">
+<select class="appearance-none bg-surface-container-low text-on-surface font-body-sm text-body-sm pl-3 pr-8 py-2.5 rounded-xl cursor-pointer outline-none focus:bg-surface-container font-medium" id="filterRole" onchange="filtrerUtilisateurs()">
+<option value="ALL">Tous les rôles</option>
+<option value="Commerçant">Commerçant / Merchant</option>
+<option value="Particulier">Client Particulier</option>
+<option value="Agent Relais">Agent Relais</option>
+<option value="Admin Démo">Admin Démo</option>
+</select>
+<span class="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px] pointer-events-none">arrow_drop_down</span>
+</div>
+<!-- Statut -->
+<div class="relative">
+<select class="appearance-none bg-surface-container-low text-on-surface font-body-sm text-body-sm pl-3 pr-8 py-2.5 rounded-xl cursor-pointer outline-none focus:bg-surface-container font-medium" id="filterStatus" onchange="filtrerUtilisateurs()">
+<option value="ALL">Tous statuts</option>
+<option value="Actif">Actif (Regtest)</option>
+<option value="En attente">En attente d'audit</option>
+<option value="Restreint">Restreint</option>
+</select>
+<span class="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px] pointer-events-none">arrow_drop_down</span>
+</div>
+<!-- Clear Filters -->
+<button class="px-3 py-2.5 rounded-xl text-on-surface-variant hover:text-on-surface hover:bg-surface-container font-body-sm text-body-sm flex items-center gap-1 transition-all" onclick="reinitialiserFiltres()" title="Réinitialiser filtres">
+<span class="material-symbols-outlined text-[18px]">filter_alt_off</span>
+<span class="hidden sm:inline">Effacer</span>
+</button>
+</div>
+</div>
+<!-- Result counter and security notice bar -->
+<div class="flex items-center justify-between pt-space-xs text-on-surface-variant font-body-sm text-body-sm border-t border-transparent">
+<div class="flex items-center gap-space-xs">
+<span class="inline-block w-2 h-2 rounded-full bg-on-tertiary-container"></span>
+<span class="font-semibold text-on-surface" id="userCountDisplay">1 248</span>
+<span>utilisateurs trouvés</span>
+</div>
+<div class="flex items-center gap-1 text-[11px] text-on-surface-variant">
+<span class="material-symbols-outlined text-[14px]">format_image_left</span>
+<span>Zéro clé privée ou seed stocké sur l'espace d'administration</span>
+</div>
+</div>
+</div>
+<!-- Data Table Container with Responsive Horizontal Overflow -->
+<div class="bg-surface-container-lowest rounded-2xl shadow-sm overflow-hidden flex flex-col">
+<div class="overflow-x-auto w-full">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low text-on-surface-variant font-label-nav text-label-nav uppercase tracking-wider select-none">
+<th class="py-3.5 px-space-md font-semibold">Utilisateur</th>
+<th class="py-3.5 px-space-md font-semibold">Pays &amp; Hub</th>
+<th class="py-3.5 px-space-md font-semibold">Rôle</th>
+<th class="py-3.5 px-space-md font-semibold text-right">Solde Démonstration</th>
+<th class="py-3.5 px-space-md font-semibold">Statut</th>
+<th class="py-3.5 px-space-md font-semibold">Inscription (Démo)</th>
+<th class="py-3.5 px-space-md font-semibold">Sécurité &amp; Canaux</th>
+<th class="py-3.5 px-space-md font-semibold text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="font-body-md text-body-md divide-y divide-transparent" id="userTableBody">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low/60 transition-colors group cursor-pointer" onclick="ouvrirTiroirDetail('Amadou Diallo', 'USR-SN-7841', 'SN', 'Commerçant', '148 500 sats', '64 250 FCFA', 'Actif', '14 Mai 2026, 09:30', 'amadou@keur-gui.sn', 'amadou@ln.smartpay.sn', 3, 'Activé', 'Marché Sandaga, Dakar')">
+<td class="py-3.5 px-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center font-bold text-body-md shadow-sm">
+                    AD
+                  </div>
+<div class="flex flex-col min-w-0">
+<span class="font-semibold text-on-surface truncate group-hover:text-secondary transition-colors">Amadou Diallo</span>
+<span class="font-mono-crypto text-mono-crypto text-on-surface-variant">USR-SN-7841</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-space-md">
+<div class="flex items-center gap-2">
+<span class="text-[18px]">🇸🇳</span>
+<div class="flex flex-col">
+<span class="text-on-surface font-medium">Sénégal</span>
+<span class="font-label-badge text-label-badge text-on-surface-variant">Dakar LND</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-space-md">
+<span class="inline-flex items-center px-2.5 py-1 rounded-lg bg-secondary-fixed text-on-secondary-fixed-variant font-label-badge text-label-badge font-semibold">
+                  Commerçant / Merchant
+                </span>
+</td>
+<td class="py-3.5 px-space-md text-right">
+<div class="flex flex-col items-end">
+<span class="font-bold text-on-surface font-mono-crypto text-mono-crypto">148 500 sats</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">~ 64 250 FCFA</span>
+</div>
+</td>
+<td class="py-3.5 px-space-md">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container font-label-badge text-label-badge text-on-tertiary-container font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span>
+                  Actif (Regtest)
+                </span>
+</td>
+<td class="py-3.5 px-space-md text-on-surface-variant font-body-sm text-body-sm whitespace-nowrap">
+                14 Mai 2026, 09:30
+              </td>
+<td class="py-3.5 px-space-md">
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1 text-[11px] font-semibold text-on-tertiary-container bg-surface-container px-2 py-0.5 rounded-md" title="Authentification 2FA activée">
+<span class="material-symbols-outlined text-[13px]">lock</span> 2FA
+                  </span>
+<span class="inline-flex items-center gap-1 text-[11px] font-semibold text-on-surface-variant bg-surface-container-low px-2 py-0.5 rounded-md" title="3 Canaux ouverts">
+<span class="material-symbols-outlined text-[13px] text-secondary">bolt</span> 3 canaux
+                  </span>
+</div>
+</td>
+<td class="py-3.5 px-space-md text-right" onclick="event.stopPropagation()">
+<div class="flex items-center justify-end gap-1">
+<button class="px-2.5 py-1.5 bg-surface-container hover:bg-surface-container-high text-on-surface rounded-lg font-body-sm text-body-sm font-semibold transition-all" onclick="ouvrirTiroirDetail('Amadou Diallo', 'USR-SN-7841', 'SN', 'Commerçant', '148 500 sats', '64 250 FCFA', 'Actif', '14 Mai 2026, 09:30', 'amadou@keur-gui.sn', 'amadou@ln.smartpay.sn', 3, 'Activé', 'Marché Sandaga, Dakar')">
+                    Détail (W04)
+                  </button>
+<button class="p-1.5 text-on-surface-variant hover:text-on-surface rounded-lg hover:bg-surface-container">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low/60 transition-colors group cursor-pointer" onclick="ouvrirTiroirDetail('Awa Koné', 'USR-CI-9042', 'CI', 'Particulier', '82 000 sats', '35 480 FCFA', 'Actif', '12 Mai 2026, 14:15', 'awa.kone@abidjan-tech.ci', 'awakone@ln.smartpay.ci', 2, 'Activé', 'Cocody, Abidjan')">
+<td class="py-3.5 px-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-full bg-surface-container-high text-primary-container flex items-center justify-center font-bold text-body-md shadow-sm">
+                    AK
+                  </div>
+<div class="flex flex-col min-w-0">
+<span class="font-semibold text-on-surface truncate group-hover:text-secondary transition-colors">Awa Koné</span>
+<span class="font-mono-crypto text-mono-crypto text-on-surface-variant">USR-CI-9042</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-space-md">
+<div class="flex items-center gap-2">
+<span class="text-[18px]">🇨🇮</span>
+<div class="flex flex-col">
+<span class="text-on-surface font-medium">Côte d'Ivoire</span>
+<span class="font-label-badge text-label-badge text-on-surface-variant">Abidjan Node</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-space-md">
+<span class="inline-flex items-center px-2.5 py-1 rounded-lg bg-surface-container text-on-surface font-label-badge text-label-badge font-semibold">
+                  Client Particulier
+                </span>
+</td>
+<td class="py-3.5 px-space-md text-right">
+<div class="flex flex-col items-end">
+<span class="font-bold text-on-surface font-mono-crypto text-mono-crypto">82 000 sats</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">~ 35 480 FCFA</span>
+</div>
+</td>
+<td class="py-3.5 px-space-md">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container font-label-badge text-label-badge text-on-tertiary-container font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span>
+                  Actif (Regtest)
+                </span>
+</td>
+<td class="py-3.5 px-space-md text-on-surface-variant font-body-sm text-body-sm whitespace-nowrap">
+                12 Mai 2026, 14:15
+              </td>
+<td class="py-3.5 px-space-md">
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1 text-[11px] font-semibold text-on-tertiary-container bg-surface-container px-2 py-0.5 rounded-md">
+<span class="material-symbols-outlined text-[13px]">lock</span> 2FA
+                  </span>
+<span class="inline-flex items-center gap-1 text-[11px] font-semibold text-on-surface-variant bg-surface-container-low px-2 py-0.5 rounded-md">
+<span class="material-symbols-outlined text-[13px] text-secondary">bolt</span> 2 canaux
+                  </span>
+</div>
+</td>
+<td class="py-3.5 px-space-md text-right" onclick="event.stopPropagation()">
+<div class="flex items-center justify-end gap-1">
+<button class="px-2.5 py-1.5 bg-surface-container hover:bg-surface-container-high text-on-surface rounded-lg font-body-sm text-body-sm font-semibold transition-all" onclick="ouvrirTiroirDetail('Awa Koné', 'USR-CI-9042', 'CI', 'Particulier', '82 000 sats', '35 480 FCFA', 'Actif', '12 Mai 2026, 14:15', 'awa.kone@abidjan-tech.ci', 'awakone@ln.smartpay.ci', 2, 'Activé', 'Cocody, Abidjan')">
+                    Détail (W04)
+                  </button>
+<button class="p-1.5 text-on-surface-variant hover:text-on-surface rounded-lg hover:bg-surface-container">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low/60 transition-colors group cursor-pointer" onclick="ouvrirTiroirDetail('Jean-Luc M\'Baye', 'USR-SN-1105', 'SN', 'Agent Relais', '350 000 sats', '151 550 FCFA', 'Actif', '08 Mai 2026, 11:04', 'jl.mbaye@relais-transfert.sn', 'relais-dakar@ln.smartpay.sn', 5, 'Activé', 'Pikine, Dakar')">
+<td class="py-3.5 px-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-body-md shadow-sm">
+                    JM
+                  </div>
+<div class="flex flex-col min-w-0">
+<span class="font-semibold text-on-surface truncate group-hover:text-secondary transition-colors">Jean-Luc M'Baye</span>
+<span class="font-mono-crypto text-mono-crypto text-on-surface-variant">USR-SN-1105</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-space-md">
+<div class="flex items-center gap-2">
+<span class="text-[18px]">🇸🇳</span>
+<div class="flex flex-col">
+<span class="text-on-surface font-medium">Sénégal</span>
+<span class="font-label-badge text-label-badge text-on-surface-variant">Dakar LND</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-space-md">
+<span class="inline-flex items-center px-2.5 py-1 rounded-lg bg-surface-container-high text-on-surface font-label-badge text-label-badge font-semibold">
+                  Agent Relais
+                </span>
+</td>
+<td class="py-3.5 px-space-md text-right">
+<div class="flex flex-col items-end">
+<span class="font-bold text-on-surface font-mono-crypto text-mono-crypto">350 000 sats</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">~ 151 550 FCFA</span>
+</div>
+</td>
+<td class="py-3.5 px-space-md">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container font-label-badge text-label-badge text-on-tertiary-container font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span>
+                  Actif (Regtest)
+                </span>
+</td>
+<td class="py-3.5 px-space-md text-on-surface-variant font-body-sm text-body-sm whitespace-nowrap">
+                08 Mai 2026, 11:04
+              </td>
+<td class="py-3.5 px-space-md">
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1 text-[11px] font-semibold text-on-tertiary-container bg-surface-container px-2 py-0.5 rounded-md">
+<span class="material-symbols-outlined text-[13px]">lock</span> 2FA
+                  </span>
+<span class="inline-flex items-center gap-1 text-[11px] font-semibold text-secondary-container text-on-secondary-container bg-secondary-fixed/50 px-2 py-0.5 rounded-md">
+<span class="material-symbols-outlined text-[13px] text-secondary">bolt</span> 5 canaux
+                  </span>
+</div>
+</td>
+<td class="py-3.5 px-space-md text-right" onclick="event.stopPropagation()">
+<div class="flex items-center justify-end gap-1">
+<button class="px-2.5 py-1.5 bg-surface-container hover:bg-surface-container-high text-on-surface rounded-lg font-body-sm text-body-sm font-semibold transition-all" onclick="ouvrirTiroirDetail('Jean-Luc M\'Baye', 'USR-SN-1105', 'SN', 'Agent Relais', '350 000 sats', '151 550 FCFA', 'Actif', '08 Mai 2026, 11:04', 'jl.mbaye@relais-transfert.sn', 'relais-dakar@ln.smartpay.sn', 5, 'Activé', 'Pikine, Dakar')">
+                    Détail (W04)
+                  </button>
+<button class="p-1.5 text-on-surface-variant hover:text-on-surface rounded-lg hover:bg-surface-container">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-low/60 transition-colors group cursor-pointer" onclick="ouvrirTiroirDetail('Fatou Sow', 'USR-CG-3390', 'CG', 'Particulier', '24 300 sats', '10 520 FCFA', 'En attente', '04 Mai 2026, 17:42', 'fatou.sow@brazza.cg', 'fatousow@ln.smartpay.cg', 1, 'Inactif', 'Brazzaville Centre')">
+<td class="py-3.5 px-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed-dim text-on-secondary-fixed flex items-center justify-center font-bold text-body-md shadow-sm">
+                    FS
+                  </div>
+<div class="flex flex-col min-w-0">
+<span class="font-semibold text-on-surface truncate group-hover:text-secondary transition-colors">Fatou Sow</span>
+<span class="font-mono-crypto text-mono-crypto text-on-surface-variant">USR-CG-3390</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-space-md">
+<div class="flex items-center gap-2">
+<span class="text-[18px]">🇨🇬</span>
+<div class="flex flex-col">
+<span class="text-on-surface font-medium">Congo-Brazzaville</span>
+<span class="font-label-badge text-label-badge text-on-surface-variant">Brazza Hub</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-space-md">
+<span class="inline-flex items-center px-2.5 py-1 rounded-lg bg-surface-container text-on-surface font-label-badge text-label-badge font-semibold">
+                  Client Particulier
+                </span>
+</td>
+<td class="py-3.5 px-space-md text-right">
+<div class="flex flex-col items-end">
+<span class="font-bold text-on-surface font-mono-crypto text-mono-crypto">24 300 sats</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">~ 10 520 FCFA</span>
+</div>
+</td>
+<td class="py-3.5 px-space-md">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-secondary-fixed font-label-badge text-label-badge text-on-secondary-fixed-variant font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                  En attente audit
+                </span>
+</td>
+<td class="py-3.5 px-space-md text-on-surface-variant font-body-sm text-body-sm whitespace-nowrap">
+                04 Mai 2026, 17:42
+              </td>
+<td class="py-3.5 px-space-md">
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1 text-[11px] font-semibold text-on-surface-variant bg-surface-container-low px-2 py-0.5 rounded-md">
+<span class="material-symbols-outlined text-[13px] text-outline">lock_open</span> Non vérifié
+                  </span>
+<span class="inline-flex items-center gap-1 text-[11px] font-semibold text-on-surface-variant bg-surface-container-low px-2 py-0.5 rounded-md">
+<span class="material-symbols-outlined text-[13px] text-secondary">bolt</span> 1 canal
+                  </span>
+</div>
+</td>
+<td class="py-3.5 px-space-md text-right" onclick="event.stopPropagation()">
+<div class="flex items-center justify-end gap-1">
+<button class="px-2.5 py-1.5 bg-surface-container hover:bg-surface-container-high text-on-surface rounded-lg font-body-sm text-body-sm font-semibold transition-all" onclick="ouvrirTiroirDetail('Fatou Sow', 'USR-CG-3390', 'CG', 'Particulier', '24 300 sats', '10 520 FCFA', 'En attente', '04 Mai 2026, 17:42', 'fatou.sow@brazza.cg', 'fatousow@ln.smartpay.cg', 1, 'Inactif', 'Brazzaville Centre')">
+                    Détail (W04)
+                  </button>
+<button class="p-1.5 text-on-surface-variant hover:text-on-surface rounded-lg hover:bg-surface-container">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-surface-container-low/60 transition-colors group cursor-pointer" onclick="ouvrirTiroirDetail('Koffi Mensah', 'USR-BJ-5122', 'BJ', 'Commerçant', '512 800 sats', '222 050 FCFA', 'Actif', '29 Avr 2026, 18:20', 'koffi@cotonou-marche.bj', 'mensah-boutique@ln.smartpay.bj', 4, 'Activé', 'Grand Marché Dantokpa, Cotonou')">
+<td class="py-3.5 px-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest text-on-surface flex items-center justify-center font-bold text-body-md shadow-sm">
+                    KM
+                  </div>
+<div class="flex flex-col min-w-0">
+<span class="font-semibold text-on-surface truncate group-hover:text-secondary transition-colors">Koffi Mensah</span>
+<span class="font-mono-crypto text-mono-crypto text-on-surface-variant">USR-BJ-5122</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-space-md">
+<div class="flex items-center gap-2">
+<span class="text-[18px]">🇧🇯</span>
+<div class="flex flex-col">
+<span class="text-on-surface font-medium">Bénin</span>
+<span class="font-label-badge text-label-badge text-on-surface-variant">Cotonou Relay</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-space-md">
+<span class="inline-flex items-center px-2.5 py-1 rounded-lg bg-secondary-fixed text-on-secondary-fixed-variant font-label-badge text-label-badge font-semibold">
+                  Commerçant / Merchant
+                </span>
+</td>
+<td class="py-3.5 px-space-md text-right">
+<div class="flex flex-col items-end">
+<span class="font-bold text-on-surface font-mono-crypto text-mono-crypto">512 800 sats</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">~ 222 050 FCFA</span>
+</div>
+</td>
+<td class="py-3.5 px-space-md">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container font-label-badge text-label-badge text-on-tertiary-container font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span>
+                  Actif (Regtest)
+                </span>
+</td>
+<td class="py-3.5 px-space-md text-on-surface-variant font-body-sm text-body-sm whitespace-nowrap">
+                29 Avr 2026, 18:20
+              </td>
+<td class="py-3.5 px-space-md">
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1 text-[11px] font-semibold text-on-tertiary-container bg-surface-container px-2 py-0.5 rounded-md">
+<span class="material-symbols-outlined text-[13px]">lock</span> 2FA
+                  </span>
+<span class="inline-flex items-center gap-1 text-[11px] font-semibold text-on-surface-variant bg-surface-container-low px-2 py-0.5 rounded-md">
+<span class="material-symbols-outlined text-[13px] text-secondary">bolt</span> 4 canaux
+                  </span>
+</div>
+</td>
+<td class="py-3.5 px-space-md text-right" onclick="event.stopPropagation()">
+<div class="flex items-center justify-end gap-1">
+<button class="px-2.5 py-1.5 bg-surface-container hover:bg-surface-container-high text-on-surface rounded-lg font-body-sm text-body-sm font-semibold transition-all" onclick="ouvrirTiroirDetail('Koffi Mensah', 'USR-BJ-5122', 'BJ', 'Commerçant', '512 800 sats', '222 050 FCFA', 'Actif', '29 Avr 2026, 18:20', 'koffi@cotonou-marche.bj', 'mensah-boutique@ln.smartpay.bj', 4, 'Activé', 'Grand Marché Dantokpa, Cotonou')">
+                    Détail (W04)
+                  </button>
+<button class="p-1.5 text-on-surface-variant hover:text-on-surface rounded-lg hover:bg-surface-container">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 6 -->
+<tr class="hover:bg-surface-container-low/60 transition-colors group cursor-pointer" onclick="ouvrirTiroirDetail('Mariama Sy', 'USR-SN-6401', 'SN', 'Admin Démo', '1 200 000 sats', '519 600 FCFA', 'Actif', '25 Avr 2026, 08:00', 'mariama.admin@smartpay.sn', 'root-dakar@ln.smartpay.sn', 8, 'Activé (U2F)', 'Siège Dakar, Almadies')">
+<td class="py-3.5 px-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-bold text-body-md shadow-sm">
+                    MS
+                  </div>
+<div class="flex flex-col min-w-0">
+<span class="font-semibold text-on-surface truncate group-hover:text-secondary transition-colors">Mariama Sy</span>
+<span class="font-mono-crypto text-mono-crypto text-on-surface-variant">USR-SN-6401</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-space-md">
+<div class="flex items-center gap-2">
+<span class="text-[18px]">🇸🇳</span>
+<div class="flex flex-col">
+<span class="text-on-surface font-medium">Sénégal</span>
+<span class="font-label-badge text-label-badge text-on-surface-variant">Dakar LND Core</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-space-md">
+<span class="inline-flex items-center px-2.5 py-1 rounded-lg bg-primary-container text-on-primary font-label-badge text-label-badge font-semibold">
+                  Admin Démo
+                </span>
+</td>
+<td class="py-3.5 px-space-md text-right">
+<div class="flex flex-col items-end">
+<span class="font-bold text-on-surface font-mono-crypto text-mono-crypto">1 200 000 sats</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">~ 519 600 FCFA</span>
+</div>
+</td>
+<td class="py-3.5 px-space-md">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container font-label-badge text-label-badge text-on-tertiary-container font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span>
+                  Actif (Regtest)
+                </span>
+</td>
+<td class="py-3.5 px-space-md text-on-surface-variant font-body-sm text-body-sm whitespace-nowrap">
+                25 Avr 2026, 08:00
+              </td>
+<td class="py-3.5 px-space-md">
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1 text-[11px] font-semibold text-on-tertiary-container bg-surface-container px-2 py-0.5 rounded-md">
+<span class="material-symbols-outlined text-[13px]">key</span> Hard-Token
+                  </span>
+<span class="inline-flex items-center gap-1 text-[11px] font-semibold text-on-surface-variant bg-surface-container-low px-2 py-0.5 rounded-md">
+<span class="material-symbols-outlined text-[13px] text-secondary">bolt</span> 8 canaux
+                  </span>
+</div>
+</td>
+<td class="py-3.5 px-space-md text-right" onclick="event.stopPropagation()">
+<div class="flex items-center justify-end gap-1">
+<button class="px-2.5 py-1.5 bg-surface-container hover:bg-surface-container-high text-on-surface rounded-lg font-body-sm text-body-sm font-semibold transition-all" onclick="ouvrirTiroirDetail('Mariama Sy', 'USR-SN-6401', 'SN', 'Admin Démo', '1 200 000 sats', '519 600 FCFA', 'Actif', '25 Avr 2026, 08:00', 'mariama.admin@smartpay.sn', 'root-dakar@ln.smartpay.sn', 8, 'Activé (U2F)', 'Siège Dakar, Almadies')">
+                    Détail (W04)
+                  </button>
+<button class="p-1.5 text-on-surface-variant hover:text-on-surface rounded-lg hover:bg-surface-container">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 7 -->
+<tr class="hover:bg-surface-container-low/60 transition-colors group cursor-pointer" onclick="ouvrirTiroirDetail('Oumar Bamba', 'USR-CI-7731', 'CI', 'Particulier', '3 100 sats', '1 340 FCFA', 'Restreint', '21 Avr 2026, 22:10', 'oumar.b@yopougon.ci', 'oumar-bamba@ln.smartpay.ci', 0, 'Inactif', 'Yopougon, Abidjan')">
+<td class="py-3.5 px-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-full bg-error-container text-on-error-container flex items-center justify-center font-bold text-body-md shadow-sm">
+                    OB
+                  </div>
+<div class="flex flex-col min-w-0">
+<span class="font-semibold text-on-surface truncate group-hover:text-secondary transition-colors">Oumar Bamba</span>
+<span class="font-mono-crypto text-mono-crypto text-on-surface-variant">USR-CI-7731</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-space-md">
+<div class="flex items-center gap-2">
+<span class="text-[18px]">🇨🇮</span>
+<div class="flex flex-col">
+<span class="text-on-surface font-medium">Côte d'Ivoire</span>
+<span class="font-label-badge text-label-badge text-on-surface-variant">Abidjan Node</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-space-md">
+<span class="inline-flex items-center px-2.5 py-1 rounded-lg bg-surface-container text-on-surface font-label-badge text-label-badge font-semibold">
+                  Client Particulier
+                </span>
+</td>
+<td class="py-3.5 px-space-md text-right">
+<div class="flex flex-col items-end">
+<span class="font-bold text-on-surface font-mono-crypto text-mono-crypto">3 100 sats</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">~ 1 340 FCFA</span>
+</div>
+</td>
+<td class="py-3.5 px-space-md">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-error-container font-label-badge text-label-badge text-on-error-container font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+                  Restreint (Audit)
+                </span>
+</td>
+<td class="py-3.5 px-space-md text-on-surface-variant font-body-sm text-body-sm whitespace-nowrap">
+                21 Avr 2026, 22:10
+              </td>
+<td class="py-3.5 px-space-md">
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1 text-[11px] font-semibold text-on-error-container bg-error-container px-2 py-0.5 rounded-md">
+<span class="material-symbols-outlined text-[13px]">block</span> Suspendu
+                  </span>
+<span class="inline-flex items-center gap-1 text-[11px] font-semibold text-on-surface-variant bg-surface-container-low px-2 py-0.5 rounded-md">
+                    0 canal
+                  </span>
+</div>
+</td>
+<td class="py-3.5 px-space-md text-right" onclick="event.stopPropagation()">
+<div class="flex items-center justify-end gap-1">
+<button class="px-2.5 py-1.5 bg-surface-container hover:bg-surface-container-high text-on-surface rounded-lg font-body-sm text-body-sm font-semibold transition-all" onclick="ouvrirTiroirDetail('Oumar Bamba', 'USR-CI-7731', 'CI', 'Particulier', '3 100 sats', '1 340 FCFA', 'Restreint', '21 Avr 2026, 22:10', 'oumar.b@yopougon.ci', 'oumar-bamba@ln.smartpay.ci', 0, 'Inactif', 'Yopougon, Abidjan')">
+                    Détail (W04)
+                  </button>
+<button class="p-1.5 text-on-surface-variant hover:text-on-surface rounded-lg hover:bg-surface-container">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 8 -->
+<tr class="hover:bg-surface-container-low/60 transition-colors group cursor-pointer" onclick="ouvrirTiroirDetail('Chantal Moukoko', 'USR-CG-1899', 'CG', 'Commerçant', '198 400 sats', '85 910 FCFA', 'Actif', '18 Avr 2026, 12:45', 'epicerie.moukoko@brazza.cg', 'moukoko@ln.smartpay.cg', 2, 'Activé', 'Pointe-Noire Centre')">
+<td class="py-3.5 px-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center font-bold text-body-md shadow-sm">
+                    CM
+                  </div>
+<div class="flex flex-col min-w-0">
+<span class="font-semibold text-on-surface truncate group-hover:text-secondary transition-colors">Chantal Moukoko</span>
+<span class="font-mono-crypto text-mono-crypto text-on-surface-variant">USR-CG-1899</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-space-md">
+<div class="flex items-center gap-2">
+<span class="text-[18px]">🇨🇬</span>
+<div class="flex flex-col">
+<span class="text-on-surface font-medium">Congo-Brazzaville</span>
+<span class="font-label-badge text-label-badge text-on-surface-variant">Brazza Hub</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-space-md">
+<span class="inline-flex items-center px-2.5 py-1 rounded-lg bg-secondary-fixed text-on-secondary-fixed-variant font-label-badge text-label-badge font-semibold">
+                  Commerçant / Merchant
+                </span>
+</td>
+<td class="py-3.5 px-space-md text-right">
+<div class="flex flex-col items-end">
+<span class="font-bold text-on-surface font-mono-crypto text-mono-crypto">198 400 sats</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">~ 85 910 FCFA</span>
+</div>
+</td>
+<td class="py-3.5 px-space-md">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container font-label-badge text-label-badge text-on-tertiary-container font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span>
+                  Actif (Regtest)
+                </span>
+</td>
+<td class="py-3.5 px-space-md text-on-surface-variant font-body-sm text-body-sm whitespace-nowrap">
+                18 Avr 2026, 12:45
+              </td>
+<td class="py-3.5 px-space-md">
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1 text-[11px] font-semibold text-on-tertiary-container bg-surface-container px-2 py-0.5 rounded-md">
+<span class="material-symbols-outlined text-[13px]">lock</span> 2FA
+                  </span>
+<span class="inline-flex items-center gap-1 text-[11px] font-semibold text-on-surface-variant bg-surface-container-low px-2 py-0.5 rounded-md">
+<span class="material-symbols-outlined text-[13px] text-secondary">bolt</span> 2 canaux
+                  </span>
+</div>
+</td>
+<td class="py-3.5 px-space-md text-right" onclick="event.stopPropagation()">
+<div class="flex items-center justify-end gap-1">
+<button class="px-2.5 py-1.5 bg-surface-container hover:bg-surface-container-high text-on-surface rounded-lg font-body-sm text-body-sm font-semibold transition-all" onclick="ouvrirTiroirDetail('Chantal Moukoko', 'USR-CG-1899', 'CG', 'Commerçant', '198 400 sats', '85 910 FCFA', 'Actif', '18 Avr 2026, 12:45', 'epicerie.moukoko@brazza.cg', 'moukoko@ln.smartpay.cg', 2, 'Activé', 'Pointe-Noire Centre')">
+                    Détail (W04)
+                  </button>
+<button class="p-1.5 text-on-surface-variant hover:text-on-surface rounded-lg hover:bg-surface-container">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Advanced Pagination Toolbar -->
+<div class="p-space-md bg-surface-container-low flex flex-col sm:flex-row items-center justify-between gap-space-md border-t border-transparent">
+<div class="flex items-center gap-space-md text-on-surface-variant font-body-sm text-body-sm">
+<div class="flex items-center gap-space-xs">
+<span>Afficher par page :</span>
+<select class="bg-surface-container-lowest text-on-surface font-semibold px-2 py-1 rounded-lg outline-none cursor-pointer" id="pageSizeSelect">
+<option selected="" value="8">8</option>
+<option value="15">15</option>
+<option value="25">25</option>
+<option value="50">50</option>
+</select>
+</div>
+<span>Affichage de <strong>1 à 8</strong> sur <strong>1 248</strong> comptes</span>
+</div>
+<div class="flex items-center gap-1.5">
+<button class="p-2 rounded-lg bg-surface-container-lowest text-on-surface-variant hover:text-on-surface hover:bg-surface-container disabled:opacity-40 transition-all" disabled="" title="Page précédente">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</button>
+<button class="px-3 py-1.5 rounded-lg bg-primary-container text-on-primary font-body-sm text-body-sm font-bold shadow-sm">1</button>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container-lowest text-on-surface hover:bg-surface-container font-body-sm text-body-sm font-medium transition-all">2</button>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container-lowest text-on-surface hover:bg-surface-container font-body-sm text-body-sm font-medium transition-all">3</button>
+<span class="px-1 text-on-surface-variant">...</span>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container-lowest text-on-surface hover:bg-surface-container font-body-sm text-body-sm font-medium transition-all">156</button>
+<button class="p-2 rounded-lg bg-surface-container-lowest text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all" title="Page suivante">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Regtest Environment Bottom Operational Banner -->
+<div class="p-space-lg rounded-2xl bg-surface-container-high/40 flex flex-col md:flex-row items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<div class="w-12 h-12 rounded-xl bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed shrink-0">
+<span class="material-symbols-outlined text-[24px]">terminal</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Protocole de Sécurité &amp; Clés Privées</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+            Conforme à l'architecture Lightning sans garde (Non-Custodial) : aucun mot de passe utilisateur, phrase mnémonique ou clé secrète n'est accessible via la console centrale d'administration.
+          </p>
+</div>
+</div>
+<div class="flex items-center gap-space-sm shrink-0">
+<span class="inline-flex items-center gap-1.5 px-space-sm py-1 rounded-full bg-surface-container font-label-badge text-label-badge text-on-tertiary-container font-semibold">
+<span class="h-2 w-2 rounded-full bg-on-tertiary-container animate-pulse"></span>
+          Audit HSM Conforme
+        </span>
+</div>
+</div>
+</div>
+<!-- Retractable Detail Drawer (Écran W04 - Fast Preview Side Sheet) -->
+<div class="fixed inset-0 bg-primary/40 backdrop-blur-sm z-50 opacity-0 pointer-events-none transition-opacity duration-300" id="detailDrawerBackdrop" onclick="fermerTiroirDetail()"></div>
+<div class="fixed right-0 top-0 bottom-0 w-full max-w-lg bg-surface-container-lowest shadow-2xl z-50 translate-x-full transition-transform duration-300 ease-out flex flex-col justify-between overflow-y-auto" id="detailDrawer">
+<div class="p-space-lg flex flex-col gap-space-lg">
+<!-- Drawer Header -->
+<div class="flex items-center justify-between border-b border-transparent pb-space-sm">
+<div class="flex items-center gap-space-xs text-secondary">
+<span class="material-symbols-outlined text-[20px]">badge</span>
+<span class="font-label-badge text-label-badge uppercase font-bold tracking-wider">Fiche Utilisateur · Écran W04</span>
+</div>
+<button class="w-9 h-9 rounded-full bg-surface-container text-on-surface hover:bg-surface-container-high flex items-center justify-center transition-colors" onclick="fermerTiroirDetail()">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Identity Header Card -->
+<div class="p-space-md rounded-2xl bg-surface-container-low flex flex-col gap-space-sm">
+<div class="flex items-center gap-space-md">
+<div class="w-14 h-14 rounded-2xl bg-primary text-on-primary font-bold text-headline-sm flex items-center justify-center shadow-md" id="drawerAvatar">
+            AD
+          </div>
+<div class="flex flex-col min-w-0">
+<h3 class="font-headline-md text-headline-md text-on-surface truncate" id="drawerName">Amadou Diallo</h3>
+<span class="font-mono-crypto text-mono-crypto text-on-surface-variant" id="drawerUserId">USR-SN-7841</span>
+</div>
+</div>
+<div class="flex flex-wrap gap-2 pt-2">
+<span class="px-2.5 py-1 rounded-lg bg-secondary-fixed text-on-secondary-fixed-variant font-label-badge text-label-badge font-semibold" id="drawerRoleBadge">
+            Commerçant / Merchant
+          </span>
+<span class="px-2.5 py-1 rounded-full bg-surface-container text-on-tertiary-container font-label-badge text-label-badge font-semibold flex items-center gap-1" id="drawerStatusBadge">
+<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span>
+            Actif (Regtest)
+          </span>
+<span class="px-2.5 py-1 rounded-lg bg-surface-container-high text-on-surface font-label-badge text-label-badge" id="drawerLocationTag">
+            Dakar, Sénégal
+          </span>
+</div>
+</div>
+<!-- Balance & Node Stats Block -->
+<div class="grid grid-cols-2 gap-space-sm">
+<div class="p-space-md rounded-2xl bg-surface-container-low flex flex-col">
+<span class="font-label-nav text-label-nav text-on-surface-variant uppercase">Solde Sandbox</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-mono-crypto mt-1" id="drawerBalanceSats">148 500 sats</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5" id="drawerBalanceFiat">~ 64 250 FCFA</span>
+</div>
+<div class="p-space-md rounded-2xl bg-surface-container-low flex flex-col">
+<span class="font-label-nav text-label-nav text-on-surface-variant uppercase">Canaux LND Liés</span>
+<span class="font-headline-sm text-headline-sm text-on-surface mt-1" id="drawerChannelCount">3 canaux actifs</span>
+<span class="font-body-sm text-body-sm text-on-tertiary-container mt-0.5">Routage 100% stable</span>
+</div>
+</div>
+<!-- Technical & Identity Ledger -->
+<div class="flex flex-col gap-space-sm">
+<h4 class="font-headline-sm text-headline-sm text-on-surface">Métadonnées Réseau &amp; Sécurité</h4>
+<div class="p-space-md rounded-2xl bg-surface-container-low flex flex-col gap-space-sm">
+<div class="flex items-center justify-between text-body-sm">
+<span class="text-on-surface-variant">Adresse Lightning (LNURL)</span>
+<span class="font-mono-crypto text-on-surface font-semibold" id="drawerLnAddress">amadou@ln.smartpay.sn</span>
+</div>
+<div class="flex items-center justify-between text-body-sm border-t border-transparent pt-2">
+<span class="text-on-surface-variant">Email simulé</span>
+<span class="text-on-surface font-medium" id="drawerEmail">amadou@keur-gui.sn</span>
+</div>
+<div class="flex items-center justify-between text-body-sm border-t border-transparent pt-2">
+<span class="text-on-surface-variant">Double Authentification</span>
+<span class="text-on-tertiary-container font-semibold flex items-center gap-1" id="drawer2FA">
+<span class="material-symbols-outlined text-[16px]">verified</span> Activé
+            </span>
+</div>
+<div class="flex items-center justify-between text-body-sm border-t border-transparent pt-2">
+<span class="text-on-surface-variant">Date d'inscription simulée</span>
+<span class="text-on-surface" id="drawerCreatedAt">14 Mai 2026, 09:30</span>
+</div>
+<div class="flex items-center justify-between text-body-sm border-t border-transparent pt-2">
+<span class="text-on-surface-variant">Localisation déclarée</span>
+<span class="text-on-surface" id="drawerCity">Marché Sandaga, Dakar</span>
+</div>
+</div>
+</div>
+<!-- Simulated Quick Action Ledger in Regtest Mode -->
+<div class="flex flex-col gap-space-sm">
+<span class="font-label-nav text-label-nav text-on-surface-variant uppercase">Actions de Supervision Regtest</span>
+<div class="grid grid-cols-2 gap-space-sm">
+<button class="flex items-center justify-center gap-1.5 py-2.5 px-space-sm bg-surface-container hover:bg-surface-container-high rounded-xl text-on-surface font-body-sm text-body-sm font-semibold transition-all" onclick="notifierActionSimulee('Canal Regtest rebalancé avec succès')">
+<span class="material-symbols-outlined text-[18px]">bolt</span>
+<span>Rééquilibrer LND</span>
+</button>
+<button class="flex items-center justify-center gap-1.5 py-2.5 px-space-sm bg-surface-container hover:bg-surface-container-high rounded-xl text-on-surface font-body-sm text-body-sm font-semibold transition-all" onclick="notifierActionSimulee('Demande de re-vérification KYC envoyée')">
+<span class="material-symbols-outlined text-[18px]">rule</span>
+<span>Auditer profil</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Drawer Footer Actions -->
+<div class="p-space-lg bg-surface-container-low flex items-center justify-between gap-space-md border-t border-transparent">
+<button class="flex-1 py-3 px-space-md bg-surface-container-lowest text-on-surface hover:bg-surface-container rounded-xl font-body-md text-body-md font-semibold transition-all shadow-sm" onclick="fermerTiroirDetail()">
+        Fermer
+      </button>
+<button class="flex-1 py-3 px-space-md bg-primary text-on-primary hover:bg-primary-container rounded-xl font-body-md text-body-md font-semibold transition-all shadow-md flex items-center justify-center gap-1" onclick="notifierActionSimulee('Navigation vers l\'écran W04 (Détail étendu)'); fermerTiroirDetail();">
+<span>Ouvrir W04 Complet</span>
+<span class="material-symbols-outlined text-[18px]">open_in_new</span>
+</button>
+</div>
+</div>
+<!-- Notification Toast Notification for Admin Actions -->
+<div class="fixed bottom-6 right-6 z-50 bg-primary-container text-on-primary px-space-md py-3 rounded-xl shadow-xl flex items-center gap-space-sm translate-y-24 opacity-0 transition-all duration-300 pointer-events-none" id="toastNotification">
+<span class="material-symbols-outlined text-secondary text-[20px]">info</span>
+<span class="font-body-sm text-body-sm" id="toastMessage">Action simulée avec succès</span>
+</div>
+</div>
+<script>
+  function filtrerUtilisateurs() {
+    const searchQuery = document.getElementById('searchInput').value.toLowerCase();
+    const selectedCountry = document.getElementById('filterCountry').value;
+    const selectedRole = document.getElementById('filterRole').value;
+    const selectedStatus = document.getElementById('filterStatus').value;
+
+    const rows = document.querySelectorAll('#userTableBody tr');
+    let visibleCount = 0;
+
+    rows.forEach(row => {
+      const text = row.innerText.toLowerCase();
+      const matchSearch = text.includes(searchQuery);
+
+      let matchCountry = true;
+      if (selectedCountry === 'SN') matchCountry = text.includes('sénégal');
+      else if (selectedCountry === 'CI') matchCountry = text.includes('côte d\'ivoire');
+      else if (selectedCountry === 'CG') matchCountry = text.includes('congo-brazzaville');
+      else if (selectedCountry === 'BJ') matchCountry = text.includes('bénin');
+
+      let matchRole = true;
+      if (selectedRole !== 'ALL') {
+        matchRole = text.includes(selectedRole.toLowerCase());
+      }
+
+      let matchStatus = true;
+      if (selectedStatus === 'Actif') matchStatus = text.includes('actif');
+      else if (selectedStatus === 'En attente') matchStatus = text.includes('en attente');
+      else if (selectedStatus === 'Restreint') matchStatus = text.includes('restreint');
+
+      if (matchSearch && matchCountry && matchRole && matchStatus) {
+        row.style.display = '';
+        visibleCount++;
+      } else {
+        row.style.display = 'none';
+      }
+    });
+
+    document.getElementById('userCountDisplay').textContent = visibleCount > 0 ? (visibleCount * 156).toLocaleString('fr-FR') : '0';
+  }
+
+  function reinitialiserFiltres() {
+    document.getElementById('searchInput').value = '';
+    document.getElementById('filterCountry').value = 'ALL';
+    document.getElementById('filterRole').value = 'ALL';
+    document.getElementById('filterStatus').value = 'ALL';
+    filtrerUtilisateurs();
+  }
+
+  function simulerRafraichissement() {
+    const icon = document.getElementById('refreshIcon');
+    icon.classList.add('animate-spin');
+    setTimeout(() => {
+      icon.classList.remove('animate-spin');
+      notifierActionSimulee('1 248 nœuds et comptes Regtest synchronisés (LND Dakar)');
+    }, 600);
+  }
+
+  function declencherExportCSV() {
+    notifierActionSimulee('Téléchargement du journal d\'audit CSV horodaté...');
+  }
+
+  function ouvrirTiroirDetail(nom, userId, pays, role, soldeSats, soldeFiat, statut, date, email, lnAddress, canaux, twoFA, ville) {
+    document.getElementById('drawerName').textContent = nom;
+    document.getElementById('drawerUserId').textContent = userId;
+    document.getElementById('drawerAvatar').textContent = nom.split(' ').map(n => n[0]).join('').substring(0, 2);
+    document.getElementById('drawerRoleBadge').textContent = role;
+    document.getElementById('drawerBalanceSats').textContent = soldeSats;
+    document.getElementById('drawerBalanceFiat').textContent = '~ ' + soldeFiat;
+    document.getElementById('drawerChannelCount').textContent = canaux + ' canaux actifs';
+    document.getElementById('drawerEmail').textContent = email;
+    document.getElementById('drawerLnAddress').textContent = lnAddress;
+    document.getElementById('drawer2FA').innerHTML = `<span class="material-symbols-outlined text-[16px]">verified</span> ${twoFA}`;
+    document.getElementById('drawerCreatedAt').textContent = date;
+    document.getElementById('drawerCity').textContent = ville;
+
+    const drawer = document.getElementById('detailDrawer');
+    const backdrop = document.getElementById('detailDrawerBackdrop');
+
+    backdrop.classList.remove('opacity-0', 'pointer-events-none');
+    backdrop.classList.add('opacity-100');
+
+    drawer.classList.remove('translate-x-full');
+    drawer.classList.add('translate-x-0');
+  }
+
+  function fermerTiroirDetail() {
+    const drawer = document.getElementById('detailDrawer');
+    const backdrop = document.getElementById('detailDrawerBackdrop');
+
+    backdrop.classList.remove('opacity-100');
+    backdrop.classList.add('opacity-0', 'pointer-events-none');
+
+    drawer.classList.remove('translate-x-0');
+    drawer.classList.add('translate-x-full');
+  }
+
+  function notifierActionSimulee(msg) {
+    const toast = document.getElementById('toastNotification');
+    const label = document.getElementById('toastMessage');
+    label.textContent = msg;
+
+    toast.classList.remove('translate-y-24', 'opacity-0', 'pointer-events-none');
+    toast.classList.add('translate-y-0', 'opacity-100');
+
+    setTimeout(() => {
+      toast.classList.remove('translate-y-0', 'opacity-100');
+      toast.classList.add('translate-y-24', 'opacity-0', 'pointer-events-none');
+    }, 2800);
+  }
+</script></main></div></body></html>

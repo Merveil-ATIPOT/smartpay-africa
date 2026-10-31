@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+
+<html lang="fr"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Outfit:wght@600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "primary-fixed-dim": "#bfc6dc", "on-surface": "#111c2d", "inverse-primary": "#bfc6dc", "on-secondary-fixed": "#2d1600", "outline-variant": "#c6c6cd", "on-primary-fixed": "#141b2c", "tertiary": "#000000", "surface-tint": "#565e71", "surface-container-highest": "#d9e3fb", "inverse-on-surface": "#ecf0ff", "secondary": "#8c4f00", "tertiary-container": "#00210e", "on-primary-fixed-variant": "#3f4759", "on-secondary-container": "#663800", "surface-container-high": "#dfe8ff", "secondary-fixed-dim": "#ffb874", "primary": "#000000", "on-background": "#111c2d", "on-tertiary-fixed-variant": "#00522c", "on-primary": "#ffffff", "secondary-fixed": "#ffdcbf", "background": "#f9f9ff", "tertiary-fixed": "#70fda7", "primary-container": "#141b2c", "surface-container-low": "#f0f3ff", "secondary-container": "#fe9821", "tertiary-fixed-dim": "#51df8e", "on-tertiary-fixed": "#00210e", "primary-fixed": "#dbe2f9", "surface-container-lowest": "#ffffff", "surface-container": "#e8eeff", "surface": "#f9f9ff", "error-container": "#ffdad6", "surface-bright": "#f9f9ff", "on-surface-variant": "#45474c", "surface-variant": "#d9e3fb", "inverse-surface": "#273143", "on-tertiary": "#ffffff", "on-secondary": "#ffffff", "outline": "#76777d", "error": "#ba1a1a", "on-tertiary-container": "#009756", "on-secondary-fixed-variant": "#6b3b00", "on-primary-container": "#7c8498", "surface-dim": "#d0daf2", "on-error-container": "#93000a", "on-error": "#ffffff" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "margin": "1rem", "space-md": "1rem", "space-sm": "0.5rem", "gutter": "1rem", "space-lg": "1.5rem", "space-xs": "0.25rem", "space-xl": "2rem" }, fontFamily: { "headline-lg": ["Outfit"], "body-sm": ["Inter"], "headline-md": ["Outfit"], "display-hero": ["Inter"], "label-badge": ["Inter"], "body-lg": ["Inter"], "headline-sm": ["Outfit"], "body-md": ["Inter"], "display-hero-mobile": ["Inter"], "label-nav": ["Inter"], "mono-crypto": ["Inter"], "balance-num-lg": ["Inter"], "balance-num-md": ["Inter"] }, fontSize: { "headline-lg": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700" }], "body-sm": ["12px", { "lineHeight": "18px", "fontWeight": "400" }], "headline-md": ["22px", { "lineHeight": "30px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "display-hero": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "label-badge": ["11px", { "lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "600" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "500" }], "headline-sm": ["18px", { "lineHeight": "26px", "fontWeight": "600" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "display-hero-mobile": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "label-nav": ["10px", { "lineHeight": "12px", "letterSpacing": "0.06em", "fontWeight": "600" }], "mono-crypto": ["13px", { "lineHeight": "18px", "fontWeight": "500" }], "balance-num-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "balance-num-md": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "700" }] } } } }</script><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-on-surface flex flex-col min-h-screen"><header class="fixed top-0 inset-x-0 z-50 bg-surface-container-lowest/90 backdrop-blur-xl pt-safe shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0"><button aria-label="Retour" class="w-11 h-11 flex items-center justify-center rounded-full text-on-surface hover:bg-surface-container-low transition-colors -ml-1 flex-shrink-0" onclick="history.back()"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><img alt="Logo_SmartPay_Africa__Bitcoin_au_cœur_de_l_Afrique.png" class="h-8 w-auto object-contain flex-shrink-0" src="https://lh3.googleusercontent.com/aida/AEtjO1XTOh46Imw-1FrBDI88dPJaJeE3fa6seaGs9UXy8QFQE0_UawuCviVLhHahGQXTDDNMLLHkyh_bMXy75MmN_S3GrLjwRj_aOAhe1SMjLZR8fpEruebQ0ealr12ktNtza1M8SjvevO3V6P-JpFdxcd47m-zyc0ChOuPekniW5tro-YNkue91qeqRjo5yq6nCG5yGJmlBjzqKnF_OrVvMeqw-Vcf-L4fYgeq8pZyBFp7yHDS7BkEqb87zPFk"/><div class="flex flex-col min-w-0"><div class="flex items-center gap-space-xs"><h1 class="font-headline-sm text-headline-sm text-on-surface truncate">Assistant Ia Chat</h1><span class="inline-flex items-center px-space-xs py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-badge text-label-badge whitespace-nowrap">Regtest · Démo</span></div></div></div><div class="flex items-center gap-space-xs flex-shrink-0"><button aria-label="Options" class="w-11 h-11 flex items-center justify-center rounded-full text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors"><span class="material-symbols-outlined text-[22px]">more_vert</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center ml-1"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex flex-col relative w-full pt-16 bg-surface min-h-screen pb-safe"><div class="flex flex-col w-full relative">
+<!-- Status Context Ribbon -->
+<div class="px-margin pt-space-xs pb-space-sm flex flex-col gap-space-xs">
+<div class="flex items-center justify-between gap-space-xs">
+<div class="flex items-center gap-space-xs min-w-0">
+<span class="w-2.5 h-2.5 rounded-full bg-tertiary-fixed animate-pulse shrink-0"></span>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Assistant IA SmartPay · Actif 24/7</span>
+</div>
+<span class="inline-flex items-center px-space-xs py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-badge text-label-badge shrink-0 font-semibold shadow-sm">
+        MODE CONSEIL · REGTEST
+      </span>
+</div>
+<!-- Security Micro-Banner -->
+<div class="bg-surface-container-low px-space-md py-space-xs rounded-xl flex items-center gap-space-xs shadow-sm">
+<span class="material-symbols-outlined text-[16px] text-secondary shrink-0" style="font-variation-settings: 'FILL' 1;">shield</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant text-[11px] leading-tight">
+        Ne partagez jamais vos clés privées, mots de passe ou codes PIN secrets.
+      </p>
+</div>
+</div>
+<!-- Chat Scroll Area -->
+<div class="flex flex-col px-margin pb-36 gap-space-md">
+<!-- Day Divider -->
+<div class="flex items-center justify-center my-space-xs">
+<span class="px-space-md py-0.5 rounded-full bg-surface-container font-label-badge text-label-badge text-on-surface-variant shadow-sm">
+        Aujourd'hui · Session sécurisée
+      </span>
+</div>
+<!-- 1. User Message -->
+<div class="flex flex-col items-end gap-1 max-w-[88%] self-end">
+<div class="bg-primary-container text-surface-container-lowest p-space-md rounded-2xl rounded-tr-xs shadow-md">
+<p class="font-body-md text-body-md text-surface-container-lowest leading-relaxed">
+          Pourquoi mon dernier paiement Lightning a pris 1 seconde alors que le virement bancaire prend 2 jours ? Et quels sont les frais exacts ?
+        </p>
+</div>
+<div class="flex items-center gap-1 pr-1">
+<span class="font-body-sm text-body-sm text-on-surface-variant text-[11px]">14:35</span>
+<span class="material-symbols-outlined text-[14px] text-on-tertiary-container" style="font-variation-settings: 'FILL' 1;">done_all</span>
+</div>
+</div>
+<!-- 2. AI Assistant Message -->
+<div class="flex items-start gap-space-xs max-w-[96%] self-start">
+<!-- AI Avatar -->
+<div class="w-9 h-9 rounded-full bg-secondary-container flex items-center justify-center shadow-md shrink-0 mt-1">
+<span class="material-symbols-outlined text-[20px] text-on-primary" style="font-variation-settings: 'FILL' 1;">bolt</span>
+</div>
+<div class="flex flex-col gap-1.5 flex-1 min-w-0">
+<!-- Message Card -->
+<div class="bg-surface-container-lowest p-space-md rounded-2xl rounded-tl-xs shadow-md flex flex-col gap-space-sm">
+<!-- Summary Header -->
+<div class="flex items-center gap-space-xs pb-1">
+<span class="w-1.5 h-4 bg-secondary rounded-full"></span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface text-[15px]">
+              Le secret du Lightning Network en 2 points clés :
+            </h3>
+</div>
+<!-- Explanation Bullets -->
+<div class="space-y-space-sm">
+<div class="flex items-start gap-2 bg-surface-container-low p-space-sm rounded-xl">
+<span class="text-[18px] leading-none shrink-0 mt-0.5">⚡</span>
+<p class="font-body-md text-body-md text-on-surface leading-snug">
+<strong class="font-semibold text-on-surface">Règlement hors-chaîne instantané :</strong> Au lieu d'attendre la validation d'un bloc Bitcoin (10-60 min) ou la compensation interbancaire (48h), Lightning utilise des canaux de paiement pré-établis. Le transfert est direct, chiffré et immédiat <span class="text-on-tertiary-container font-medium">(exécuté en 0.8 seconde)</span>.
+              </p>
+</div>
+<div class="flex items-start gap-2 bg-surface-container-low p-space-sm rounded-xl">
+<span class="text-[18px] leading-none shrink-0 mt-0.5">💰</span>
+<p class="font-body-md text-body-md text-on-surface leading-snug">
+<strong class="font-semibold text-on-surface">Frais microscopiques :</strong> Vous n'avez déboursé que <strong class="text-secondary font-semibold">1 sat</strong> (environ 0.43 FCFA), car le routage se fait sans intermédiaire financier traditionnel.
+              </p>
+</div>
+</div>
+<!-- Comparative Insight Card -->
+<div class="bg-primary-container text-surface-container-lowest rounded-xl p-space-sm shadow-inner flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="font-label-badge text-label-badge uppercase tracking-wider text-on-primary-container">
+                Simulation comparative
+              </span>
+<span class="font-mono-crypto text-mono-crypto text-tertiary-fixed text-[11px] font-bold">
+                Économie ~99.9%
+              </span>
+</div>
+<!-- Comparison Grid -->
+<div class="grid grid-cols-2 gap-2 pt-1">
+<div class="bg-surface-container-lowest/10 p-2 rounded-lg flex flex-col">
+<div class="flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-secondary-container"></span>
+<span class="font-body-sm text-body-sm text-on-secondary-fixed text-[11px]">SmartPay Lightning</span>
+</div>
+<span class="font-balance-num-md text-balance-num-md text-surface-container-lowest mt-0.5 text-[17px]">1 sat</span>
+<span class="font-body-sm text-body-sm text-tertiary-fixed text-[10px]">Vitesse &lt; 1 seconde</span>
+</div>
+<div class="bg-surface-container-lowest/10 p-2 rounded-lg flex flex-col">
+<div class="flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-outline"></span>
+<span class="font-body-sm text-body-sm text-on-primary-container text-[11px]">Virement Classique</span>
+</div>
+<span class="font-balance-num-md text-balance-num-md text-surface-container-lowest mt-0.5 text-[17px]">2 500 FCFA</span>
+<span class="font-body-sm text-body-sm text-error-container text-[10px]">Délai 24 à 48 heures</span>
+</div>
+</div>
+</div>
+<!-- Feedback & Helpfulness -->
+<div class="flex items-center justify-between pt-1">
+<span class="font-body-sm text-body-sm text-on-surface-variant text-[11px]">Cette réponse vous a-t-elle aidé ?</span>
+<div class="flex items-center gap-1">
+<button aria-label="Utile" class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center hover:bg-surface-container-highest active:scale-95 transition-transform" id="thumb-up">
+<span class="text-sm">👍</span>
+</button>
+<button aria-label="Pas utile" class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center hover:bg-surface-container-highest active:scale-95 transition-transform" id="thumb-down">
+<span class="text-sm">👎</span>
+</button>
+<button aria-label="Copier" class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center hover:bg-surface-container-highest text-on-surface-variant" id="copy-btn">
+<span class="material-symbols-outlined text-[16px]">content_copy</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Assistant Message Timestamp -->
+<span class="font-body-sm text-body-sm text-on-surface-variant text-[11px] pl-2">14:36 · SmartPay AI v2.4</span>
+</div>
+</div>
+</div>
+<!-- Bottom Interactive Dock (Fixed Above Home Area) -->
+<div class="fixed bottom-0 inset-x-0 bg-surface-container-lowest/95 backdrop-blur-xl shadow-[0_-4px_24px_rgba(0,0,0,0.06)] px-margin pt-space-xs pb-safe z-40 flex flex-col gap-space-xs">
+<!-- Suggested Prompts / Chips (Horizontal Scroll) -->
+<div class="flex items-center gap-space-xs overflow-x-auto no-scrollbar py-1">
+<button class="whitespace-nowrap px-space-md py-1.5 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface font-body-sm text-body-sm active:scale-95 transition-all shadow-sm flex items-center gap-1 shrink-0" onclick="handleSuggestion(this)">
+<span class="text-secondary">⚡</span> Comment envoyer des sats ?
+      </button>
+<button class="whitespace-nowrap px-space-md py-1.5 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface font-body-sm text-body-sm active:scale-95 transition-all shadow-sm flex items-center gap-1 shrink-0" onclick="handleSuggestion(this)">
+<span class="text-secondary">🛡️</span> Quels sont les risques ?
+      </button>
+<button class="whitespace-nowrap px-space-md py-1.5 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface font-body-sm text-body-sm active:scale-95 transition-all shadow-sm flex items-center gap-1 shrink-0" onclick="handleSuggestion(this)">
+<span class="text-secondary">🧾</span> Expliquer ma facture #SN-8924
+      </button>
+</div>
+<!-- Main Chat Input Bar -->
+<div class="flex items-center gap-space-xs bg-surface-container-lowest rounded-full p-1.5 shadow-md">
+<!-- Media / Invoice attachment button -->
+<button aria-label="Joindre facture ou capture" class="w-10 h-10 rounded-full bg-surface-container-low flex items-center justify-center text-on-surface hover:bg-surface-container transition-colors shrink-0 active:scale-95">
+<span class="material-symbols-outlined text-[20px]">add</span>
+</button>
+<!-- Input Field -->
+<input class="flex-1 bg-transparent px-space-xs font-body-md text-body-md text-on-surface placeholder:text-outline focus:outline-none min-w-0" id="chat-input" placeholder="Posez votre question à SmartPay IA..." type="text"/>
+<!-- Voice Prompt Button -->
+<button aria-label="Commande vocale" class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors shrink-0">
+<span class="material-symbols-outlined text-[20px]">mic</span>
+</button>
+<!-- Vibrant Send Button -->
+<button aria-label="Envoyer" class="w-10 h-10 rounded-full bg-secondary-container text-on-primary flex items-center justify-center shadow-lg hover:brightness-105 active:scale-95 transition-all shrink-0" id="send-button" onclick="sendMessage()">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">send</span>
+</button>
+</div>
+<!-- Legal Advisory Disclaimer -->
+<div class="text-center pb-2">
+<p class="font-body-sm text-body-sm text-on-surface-variant text-[10px]">
+        L'IA ne peut pas initier de transactions financières directes.
+      </p>
+</div>
+</div>
+</div>
+<script>
+  function handleSuggestion(btn) {
+    const text = btn.innerText.replace(/^[^\wÀ-ÿ]+/, '').trim();
+    const input = document.getElementById('chat-input');
+    if (input) {
+      input.value = text;
+      input.focus();
+    }
+  }
+
+  function sendMessage() {
+    const input = document.getElementById('chat-input');
+    if (!input || !input.value.trim()) return;
+
+    // Quick micro-interaction feedback
+    input.value = '';
+    const sendBtn = document.getElementById('send-button');
+    if (sendBtn) {
+      sendBtn.classList.add('scale-90');
+      setTimeout(() => sendBtn.classList.remove('scale-90'), 150);
+    }
+  }
+
+  // Thumb voting feedback
+  document.getElementById('thumb-up')?.addEventListener('click', function() {
+    this.classList.toggle('bg-tertiary-fixed');
+    document.getElementById('thumb-down')?.classList.remove('bg-error-container');
+  });
+
+  document.getElementById('thumb-down')?.addEventListener('click', function() {
+    this.classList.toggle('bg-error-container');
+    document.getElementById('thumb-up')?.classList.remove('bg-tertiary-fixed');
+  });
+
+  document.getElementById('copy-btn')?.addEventListener('click', function() {
+    const icon = this.querySelector('span');
+    if (icon) {
+      icon.innerText = 'check';
+      setTimeout(() => { icon.innerText = 'content_copy'; }, 2000);
+    }
+  });
+
+  // Enter key trigger
+  document.getElementById('chat-input')?.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+      sendMessage();
+    }
+  });
+</script></main></body></html>

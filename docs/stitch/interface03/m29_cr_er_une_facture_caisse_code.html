@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport">
+  <meta content="mobile_stack" name="shell-type">
+  <title>Créer une facture — SmartPay Africa</title>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Outfit:wght@600;700&amp;display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "on-background": "#111c2d",
+            "outline-variant": "#c6c6cd",
+            "secondary": "#8c4f00",
+            "secondary-container": "#fe9821",
+            "surface-container": "#e8eeff",
+            "error": "#ba1a1a",
+            "secondary-fixed": "#ffdcbf",
+            "on-secondary-fixed": "#2d1600",
+            "surface-bright": "#f9f9ff",
+            "on-secondary": "#ffffff",
+            "on-primary-container": "#7c8498",
+            "tertiary-container": "#00210e",
+            "primary": "#101828",
+            "primary-container": "#141b2c",
+            "on-surface-variant": "#45474c",
+            "secondary-fixed-dim": "#ffb874",
+            "surface": "#f4f6f8",
+            "surface-container-highest": "#d9e3fb",
+            "on-secondary-container": "#663800",
+            "surface-container-high": "#dfe8ff",
+            "on-tertiary-container": "#12b76a",
+            "on-surface": "#111c2d",
+            "tertiary-fixed": "#70fda7",
+            "surface-container-lowest": "#ffffff",
+            "on-primary": "#ffffff",
+            "background": "#f4f6f8",
+            "outline": "#76777d",
+            "error-container": "#ffdad6",
+            "surface-container-low": "#f0f3ff"
+          },
+          borderRadius: { DEFAULT: "0.5rem", lg: "1rem", xl: "1.5rem", full: "9999px" },
+          spacing: { margin: "1rem", "space-xl": "2rem", "space-md": "1rem", "space-lg": "1.5rem", "space-xs": "0.25rem", "space-sm": "0.5rem", gutter: "1rem" },
+          fontFamily: {
+            "body-sm": ["Inter"], "label-nav": ["Inter"], "balance-num-md": ["Inter"], "balance-num-lg": ["Inter"],
+            "mono-crypto": ["Inter"], "body-lg": ["Inter"], "display-hero-mobile": ["Inter"], "body-md": ["Inter"],
+            "headline-lg": ["Outfit"], "label-badge": ["Inter"], "headline-md": ["Outfit"], "headline-sm": ["Outfit"]
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    @layer base {
+      html, body { width: 100%; max-width: 100%; margin: 0; padding: 0; overflow-x: hidden; }
+      body { overscroll-behavior: none; min-height: 100dvh; background: #f4f6f8; }
+      .pb-safe { padding-bottom: env(safe-area-inset-bottom, 0px); }
+      .pt-safe { padding-top: env(safe-area-inset-top, 0px); }
+    }
+    ::-webkit-scrollbar { display: none; }
+    .keypad-btn {
+      min-height: 56px;
+      width: 100%;
+    }
+  </style>
+</head>
+<body class="bg-surface font-body-md text-on-surface flex flex-col min-h-screen">
+  <header class="fixed top-0 inset-x-0 z-50 pt-safe bg-white/95 backdrop-blur-xl border-b border-[#EAECF0]">
+    <div class="w-full px-4 py-2.5 flex items-center gap-3">
+      <button class="w-11 h-11 shrink-0 flex items-center justify-center rounded-full text-on-surface hover:bg-surface-container-low" onclick="history.back()" type="button" aria-label="Retour">
+        <span class="material-symbols-outlined text-[24px]">arrow_back</span>
+      </button>
+      <div class="w-9 h-9 shrink-0 rounded-lg bg-primary-container flex items-center justify-center" aria-hidden="true">
+        <span class="material-symbols-outlined text-secondary-container text-[20px]" style="font-variation-settings: 'FILL' 1;">bolt</span>
+      </div>
+      <div class="flex-1 min-w-0">
+        <p class="font-headline-sm text-[15px] leading-tight text-on-surface">SmartPay Africa</p>
+        <h1 class="font-body-sm text-[13px] leading-tight text-on-surface-variant font-medium">Créer une facture</h1>
+      </div>
+      <span class="shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#FEF0C7] text-[#B54708] border border-[#FEDF89] font-label-badge text-[11px] font-semibold">
+        <span class="w-1.5 h-1.5 rounded-full bg-[#F79009]"></span>
+        Regtest
+      </span>
+    </div>
+  </header>
+
+  <main class="flex-1 w-full pt-[4.75rem] pb-24">
+    <div class="w-full px-4 flex flex-col gap-3 pt-3 pb-4">
+      <div class="w-full rounded-2xl bg-[#FEF0C7] border border-[#FEDF89] px-3.5 py-3 flex items-start gap-2.5">
+        <span class="material-symbols-outlined text-[#B54708] text-[20px] shrink-0 mt-0.5" style="font-variation-settings: 'FILL' 1;">science</span>
+        <div class="min-w-0">
+          <p class="font-label-badge text-[11px] font-bold uppercase tracking-wide text-[#B54708]">Démonstration Regtest</p>
+          <p class="font-body-sm text-[12px] leading-snug text-[#7A2E0E] mt-0.5">Montants, taux et opérations fictifs. Aucun taux garanti, aucun frais réseau confirmé, aucun paiement réel.</p>
+        </div>
+      </div>
+
+      <div class="w-full rounded-2xl bg-white border border-[#EAECF0] px-3.5 py-3 flex items-center justify-between gap-3 shadow-[0_2px_8px_rgba(16,24,40,0.04)]">
+        <div class="flex items-center gap-2.5 min-w-0">
+          <div class="w-10 h-10 rounded-xl bg-surface-container-low flex items-center justify-center shrink-0">
+            <span class="material-symbols-outlined text-primary text-[20px]">storefront</span>
+          </div>
+          <div class="min-w-0">
+            <p class="font-body-md text-[14px] font-semibold text-on-surface truncate">Boutique Dakar Plateau</p>
+            <p class="font-body-sm text-[12px] text-on-surface-variant">Caisse A · Poste 01</p>
+          </div>
+        </div>
+        <span class="shrink-0 inline-flex items-center gap-1 px-2 py-1 rounded-full bg-[#D1FADF] text-[#039855] font-label-badge text-[10px] font-bold uppercase">
+          <span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">bolt</span>
+          Test
+        </span>
+      </div>
+
+      <section class="w-full rounded-2xl bg-primary-container text-white p-4 shadow-[0_8px_24px_rgba(16,24,40,0.12)] relative overflow-hidden">
+        <div class="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-secondary-container/20 blur-2xl pointer-events-none"></div>
+        <div class="relative z-10 flex flex-col items-center">
+          <div class="flex w-full max-w-[240px] rounded-full bg-white/10 p-1 mb-3" role="tablist" aria-label="Unité de saisie">
+            <button class="flex-1 h-9 rounded-full bg-secondary-container text-on-secondary-container font-label-badge text-[11px] font-bold" id="toggle-fcfa" type="button">FCFA</button>
+            <button class="flex-1 h-9 rounded-full text-white/80 font-label-badge text-[11px] font-semibold flex items-center justify-center gap-1" id="toggle-sats" type="button">
+              <span class="material-symbols-outlined text-[14px]">bolt</span> SATS
+            </button>
+          </div>
+          <div class="flex items-baseline justify-center gap-2 w-full">
+            <span class="font-display-hero-mobile text-[34px] leading-none font-bold tracking-tight tabular-nums" id="display-amount">25 000</span>
+            <span class="font-headline-sm text-[18px] font-bold text-secondary-container" id="display-unit">FCFA</span>
+          </div>
+          <p class="mt-2 font-mono-crypto text-[13px] text-white/80" id="display-equiv">Équiv. indicatif · ~57 737 sats</p>
+          <p class="mt-1 text-center font-label-badge text-[11px] text-white/55 leading-snug px-2">Taux de démo · 1 BTC ≈ 43 300 000 FCFA · non contractuel</p>
+        </div>
+      </section>
+
+      <div class="grid grid-cols-4 gap-2 w-full">
+        <button class="h-11 rounded-xl bg-white border border-[#EAECF0] text-on-surface font-label-badge text-[11px] font-semibold" onclick="addAmount(1000)" type="button">+1 000</button>
+        <button class="h-11 rounded-xl bg-white border border-[#EAECF0] text-on-surface font-label-badge text-[11px] font-semibold" onclick="addAmount(5000)" type="button">+5 000</button>
+        <button class="h-11 rounded-xl bg-white border border-[#EAECF0] text-on-surface font-label-badge text-[11px] font-semibold" onclick="addAmount(10000)" type="button">+10 000</button>
+        <button class="h-11 rounded-xl bg-white border border-[#EAECF0] text-on-surface font-label-badge text-[11px] font-semibold" onclick="roundAmount()" type="button">Arrondir</button>
+      </div>
+
+      <div class="w-full rounded-2xl bg-white border border-[#EAECF0] p-2.5 shadow-[0_2px_8px_rgba(16,24,40,0.04)]">
+        <div class="grid grid-cols-3 gap-2 w-full">
+          <button class="keypad-btn rounded-xl bg-surface-container-low text-on-surface font-balance-num-md text-[24px] font-bold" onclick="inputDigit('1')" type="button">1</button>
+          <button class="keypad-btn rounded-xl bg-surface-container-low text-on-surface font-balance-num-md text-[24px] font-bold" onclick="inputDigit('2')" type="button">2</button>
+          <button class="keypad-btn rounded-xl bg-surface-container-low text-on-surface font-balance-num-md text-[24px] font-bold" onclick="inputDigit('3')" type="button">3</button>
+          <button class="keypad-btn rounded-xl bg-surface-container-low text-on-surface font-balance-num-md text-[24px] font-bold" onclick="inputDigit('4')" type="button">4</button>
+          <button class="keypad-btn rounded-xl bg-surface-container-low text-on-surface font-balance-num-md text-[24px] font-bold" onclick="inputDigit('5')" type="button">5</button>
+          <button class="keypad-btn rounded-xl bg-surface-container-low text-on-surface font-balance-num-md text-[24px] font-bold" onclick="inputDigit('6')" type="button">6</button>
+          <button class="keypad-btn rounded-xl bg-surface-container-low text-on-surface font-balance-num-md text-[24px] font-bold" onclick="inputDigit('7')" type="button">7</button>
+          <button class="keypad-btn rounded-xl bg-surface-container-low text-on-surface font-balance-num-md text-[24px] font-bold" onclick="inputDigit('8')" type="button">8</button>
+          <button class="keypad-btn rounded-xl bg-surface-container-low text-on-surface font-balance-num-md text-[24px] font-bold" onclick="inputDigit('9')" type="button">9</button>
+          <button class="keypad-btn rounded-xl bg-surface-container-low text-on-surface font-balance-num-md text-[22px] font-bold" onclick="inputDigit('00')" type="button">00</button>
+          <button class="keypad-btn rounded-xl bg-surface-container-low text-on-surface font-balance-num-md text-[24px] font-bold" onclick="inputDigit('0')" type="button">0</button>
+          <button class="keypad-btn rounded-xl bg-surface-container-high text-on-surface-variant" onclick="backspace()" type="button" aria-label="Effacer">
+            <span class="material-symbols-outlined text-[24px]">backspace</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="w-full rounded-2xl bg-white border border-[#EAECF0] p-3.5 shadow-[0_2px_8px_rgba(16,24,40,0.04)]">
+        <div class="flex items-center justify-between mb-2">
+          <label class="font-label-badge text-[11px] font-semibold text-on-surface-variant uppercase tracking-wide" for="order-ref">Note de caisse</label>
+          <span class="font-body-sm text-[12px] text-outline">Optionnel</span>
+        </div>
+        <input class="w-full h-12 px-3 rounded-xl bg-surface-container-low text-on-surface font-body-md text-[14px] focus:outline-none focus:ring-2 focus:ring-secondary-container" id="order-ref" placeholder="Ex. Commande #SN-8924" type="text" value="Commande #SN-8924 — Articles divers">
+      </div>
+
+      <div class="w-full rounded-2xl bg-white border border-[#EAECF0] p-3.5 flex items-center justify-between gap-3 shadow-[0_2px_8px_rgba(16,24,40,0.04)]">
+        <div class="flex items-center gap-3 min-w-0">
+          <div class="w-10 h-10 rounded-xl bg-surface-container-low flex items-center justify-center shrink-0">
+            <span class="material-symbols-outlined text-[20px]">badge</span>
+          </div>
+          <div class="min-w-0">
+            <p class="font-label-badge text-[11px] text-on-surface-variant font-semibold uppercase">Poste de caisse</p>
+            <p class="font-body-md text-[14px] font-semibold truncate">Caisse principale (Poste 01)</p>
+          </div>
+        </div>
+        <button class="w-11 h-11 rounded-full bg-surface-container-low flex items-center justify-center text-on-surface-variant shrink-0" type="button" aria-label="Changer de poste">
+          <span class="material-symbols-outlined text-[20px]">swap_horiz</span>
+        </button>
+      </div>
+
+      <div class="w-full rounded-2xl bg-white border border-[#EAECF0] p-3.5 shadow-[0_2px_8px_rgba(16,24,40,0.04)]">
+        <div class="flex items-center justify-between mb-2.5">
+          <p class="font-label-badge text-[11px] font-semibold text-on-surface-variant uppercase tracking-wide">Expiration (démo)</p>
+          <span class="font-body-sm text-[12px] text-outline">Indicatif</span>
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <button class="h-12 rounded-xl bg-secondary-fixed text-on-secondary-fixed font-body-sm text-[13px] font-semibold flex items-center justify-center gap-1.5" id="exp-15" onclick="setExpiry('15')" type="button">
+            <span class="material-symbols-outlined text-[16px]">check_circle</span> 15 minutes
+          </button>
+          <button class="h-12 rounded-xl bg-surface-container-low text-on-surface-variant font-body-sm text-[13px] font-medium" id="exp-60" onclick="setExpiry('60')" type="button">1 heure</button>
+        </div>
+      </div>
+
+      <div class="w-full rounded-2xl bg-white border border-[#EAECF0] p-3.5 flex items-center justify-between gap-3 shadow-[0_2px_8px_rgba(16,24,40,0.04)]">
+        <div class="flex items-center gap-3 min-w-0">
+          <div class="w-10 h-10 rounded-xl bg-surface-container-low flex items-center justify-center shrink-0">
+            <span class="material-symbols-outlined text-[20px]">volunteer_activism</span>
+          </div>
+          <div class="min-w-0">
+            <p class="font-body-md text-[14px] font-semibold">Pourboire</p>
+            <p class="font-body-sm text-[12px] text-on-surface-variant">Proposer un pourboire (prévu)</p>
+          </div>
+        </div>
+        <button class="w-12 h-7 rounded-full bg-outline-variant flex items-center px-0.5 shrink-0" id="tip-toggle" onclick="toggleTip()" type="button" aria-pressed="false" aria-label="Activer le pourboire">
+          <span class="w-6 h-6 rounded-full bg-white shadow transform translate-x-0" id="tip-thumb"></span>
+        </button>
+      </div>
+
+      <button class="w-full h-14 rounded-2xl bg-secondary-container text-on-secondary-container font-headline-sm text-[16px] font-bold flex items-center justify-center gap-2 shadow-[0_6px_16px_rgba(247,147,26,0.35)]" id="btn-submit" type="button">
+        <span class="material-symbols-outlined text-[22px]">qr_code_2</span>
+        <span id="btn-submit-text">Générer le QR Code</span>
+      </button>
+      <button class="w-full h-11 rounded-xl bg-white border border-[#EAECF0] text-on-surface-variant font-body-sm text-[13px] font-medium flex items-center justify-center gap-1" onclick="resetAmount()" type="button">
+        <span class="material-symbols-outlined text-[16px]">refresh</span> Réinitialiser
+      </button>
+    </div>
+  </main>
+
+  <nav class="fixed bottom-0 inset-x-0 z-50 pb-safe bg-white border-t border-[#EAECF0]" aria-label="Navigation marchand">
+    <div class="flex items-center justify-around h-16 px-1">
+      <a class="flex flex-col items-center justify-center min-w-[56px] min-h-[44px] text-on-surface-variant" href="#">
+        <span class="material-symbols-outlined text-[22px]">point_of_sale</span>
+        <span class="font-label-nav text-[10px] mt-0.5">Caisse</span>
+      </a>
+      <a class="flex flex-col items-center justify-center min-w-[56px] min-h-[44px] text-on-surface-variant" href="#">
+        <span class="material-symbols-outlined text-[22px]">payments</span>
+        <span class="font-label-nav text-[10px] mt-0.5">Encaissements</span>
+      </a>
+      <div class="relative -top-3 flex flex-col items-center">
+        <a class="w-14 h-14 rounded-full bg-secondary-container text-white flex items-center justify-center shadow-[0_6px_16px_rgba(254,152,33,0.35)]" href="#" aria-current="page">
+          <span class="material-symbols-outlined text-[26px]">qr_code_scanner</span>
+        </a>
+        <span class="font-label-nav text-[10px] text-secondary mt-1 font-semibold">Facturer</span>
+      </div>
+      <a class="flex flex-col items-center justify-center min-w-[56px] min-h-[44px] text-on-surface-variant" href="#">
+        <span class="material-symbols-outlined text-[22px]">receipt_long</span>
+        <span class="font-label-nav text-[10px] mt-0.5">Historique</span>
+      </a>
+      <a class="flex flex-col items-center justify-center min-w-[56px] min-h-[44px] text-on-surface-variant" href="#">
+        <span class="material-symbols-outlined text-[22px]">storefront</span>
+        <span class="font-label-nav text-[10px] mt-0.5">Boutique</span>
+      </a>
+    </div>
+  </nav>
+
+  <script>
+    const DEMO_FCFA_PER_BTC = 43300000;
+    let rawAmount = 25000;
+    let unit = "FCFA";
+    let isTipEnabled = false;
+
+    function formatNumber(num) {
+      return String(num).replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+    }
+
+    function fcfaToSats(fcfa) {
+      return Math.round((Number(fcfa) * 100000000) / DEMO_FCFA_PER_BTC);
+    }
+
+    function satsToFcfa(sats) {
+      return Math.round((Number(sats) * DEMO_FCFA_PER_BTC) / 100000000);
+    }
+
+    function updateDisplay() {
+      const amountEl = document.getElementById("display-amount");
+      const unitEl = document.getElementById("display-unit");
+      const equivEl = document.getElementById("display-equiv");
+      const submitEl = document.getElementById("btn-submit-text");
+      amountEl.textContent = formatNumber(rawAmount);
+      unitEl.textContent = unit;
+      if (unit === "FCFA") {
+        equivEl.textContent = "Équiv. indicatif · ~" + formatNumber(fcfaToSats(rawAmount)) + " sats";
+        submitEl.textContent = "Générer le QR Code · " + formatNumber(rawAmount) + " FCFA";
+      } else {
+        equivEl.textContent = "Équiv. indicatif · ~" + formatNumber(satsToFcfa(rawAmount)) + " FCFA";
+        submitEl.textContent = "Générer le QR Code · " + formatNumber(rawAmount) + " sats";
+      }
+    }
+
+    function setUnit(next) {
+      if (next === unit) return;
+      if (next === "SATS") rawAmount = fcfaToSats(rawAmount);
+      else rawAmount = satsToFcfa(rawAmount);
+      unit = next;
+      const fcfaBtn = document.getElementById("toggle-fcfa");
+      const satsBtn = document.getElementById("toggle-sats");
+      if (unit === "FCFA") {
+        fcfaBtn.className = "flex-1 h-9 rounded-full bg-secondary-container text-on-secondary-container font-label-badge text-[11px] font-bold";
+        satsBtn.className = "flex-1 h-9 rounded-full text-white/80 font-label-badge text-[11px] font-semibold flex items-center justify-center gap-1";
+      } else {
+        satsBtn.className = "flex-1 h-9 rounded-full bg-secondary-container text-on-secondary-container font-label-badge text-[11px] font-bold flex items-center justify-center gap-1";
+        fcfaBtn.className = "flex-1 h-9 rounded-full text-white/80 font-label-badge text-[11px] font-semibold";
+      }
+      updateDisplay();
+    }
+
+    function inputDigit(digit) {
+      let str = String(rawAmount);
+      if (str === "0") str = digit === "00" ? "0" : digit;
+      else if (str.length < 9) str += digit;
+      rawAmount = parseInt(str, 10) || 0;
+      updateDisplay();
+    }
+
+    function backspace() {
+      const str = String(rawAmount);
+      rawAmount = str.length <= 1 ? 0 : parseInt(str.slice(0, -1), 10) || 0;
+      updateDisplay();
+    }
+
+    function addAmount(val) {
+      rawAmount += unit === "FCFA" ? val : fcfaToSats(val);
+      updateDisplay();
+    }
+
+    function roundAmount() {
+      if (rawAmount <= 0) return;
+      const step = unit === "FCFA" ? 1000 : 100;
+      rawAmount = Math.max(step, Math.ceil(rawAmount / step) * step);
+      updateDisplay();
+    }
+
+    function resetAmount() {
+      rawAmount = 0;
+      updateDisplay();
+    }
+
+    function setExpiry(minutes) {
+      const btn15 = document.getElementById("exp-15");
+      const btn60 = document.getElementById("exp-60");
+      const active = "h-12 rounded-xl bg-secondary-fixed text-on-secondary-fixed font-body-sm text-[13px] font-semibold flex items-center justify-center gap-1.5";
+      const idle = "h-12 rounded-xl bg-surface-container-low text-on-surface-variant font-body-sm text-[13px] font-medium";
+      if (minutes === "15") {
+        btn15.className = active;
+        btn15.innerHTML = '<span class="material-symbols-outlined text-[16px]">check_circle</span> 15 minutes';
+        btn60.className = idle;
+        btn60.textContent = "1 heure";
+      } else {
+        btn60.className = active;
+        btn60.innerHTML = '<span class="material-symbols-outlined text-[16px]">check_circle</span> 1 heure';
+        btn15.className = idle;
+        btn15.textContent = "15 minutes";
+      }
+    }
+
+    function toggleTip() {
+      isTipEnabled = !isTipEnabled;
+      const toggleBtn = document.getElementById("tip-toggle");
+      const thumb = document.getElementById("tip-thumb");
+      toggleBtn.setAttribute("aria-pressed", String(isTipEnabled));
+      toggleBtn.classList.toggle("bg-outline-variant", !isTipEnabled);
+      toggleBtn.classList.toggle("bg-secondary-container", isTipEnabled);
+      thumb.classList.toggle("translate-x-0", !isTipEnabled);
+      thumb.classList.toggle("translate-x-5", isTipEnabled);
+    }
+
+    document.getElementById("toggle-fcfa").addEventListener("click", function () { setUnit("FCFA"); });
+    document.getElementById("toggle-sats").addEventListener("click", function () { setUnit("SATS"); });
+    updateDisplay();
+  </script>
+</body>
+</html>

@@ -1,0 +1,442 @@
+<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_dashboard" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Outfit:wght@600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-tertiary-container":"#009756","on-error":"#ffffff","surface-bright":"#f9f9ff","on-secondary":"#ffffff","surface-tint":"#565e71","on-secondary-fixed-variant":"#6b3b00","tertiary-container":"#00210e","tertiary-fixed-dim":"#51df8e","background":"#f9f9ff","inverse-surface":"#273143","surface-container-low":"#f0f3ff","outline":"#76777d","on-tertiary":"#ffffff","on-surface-variant":"#45474c","surface-variant":"#d9e3fb","inverse-on-surface":"#ecf0ff","surface-container-high":"#dfe8ff","on-primary-fixed-variant":"#3f4759","secondary-fixed":"#ffdcbf","on-background":"#111c2d","on-secondary-fixed":"#2d1600","on-secondary-container":"#663800","surface-container":"#e8eeff","primary":"#000000","secondary-fixed-dim":"#ffb874","surface-dim":"#d0daf2","on-primary-fixed":"#141b2c","on-primary":"#ffffff","on-tertiary-fixed-variant":"#00522c","on-tertiary-fixed":"#00210e","primary-container":"#141b2c","secondary-container":"#fe9821","error-container":"#ffdad6","surface-container-highest":"#d9e3fb","tertiary-fixed":"#70fda7","outline-variant":"#c6c6cd","tertiary":"#000000","primary-fixed-dim":"#bfc6dc","error":"#ba1a1a","surface-container-lowest":"#ffffff","on-error-container":"#93000a","secondary":"#8c4f00","on-surface":"#111c2d","on-primary-container":"#7c8498","primary-fixed":"#dbe2f9","surface":"#f9f9ff"},borderRadius:{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},spacing:{"gutter":"1rem","space-sm":"0.5rem","space-xl":"2rem","margin":"1rem","space-md":"1rem","space-xs":"0.25rem","space-lg":"1.5rem"},fontFamily:{"body-lg":["Inter"],"body-sm":["Inter"],"balance-num-lg":["Inter"],"label-nav":["Inter"],"mono-crypto":["Inter"],"label-badge":["Inter"],"headline-md":["Outfit"],"balance-num-md":["Inter"],"display-hero-mobile":["Inter"],"headline-lg":["Outfit"],"body-md":["Inter"],"display-hero":["Inter"],"headline-sm":["Outfit"]},fontSize:{"body-lg":["16px",{"lineHeight":"24px","fontWeight":"500"}],"body-sm":["12px",{"lineHeight":"18px","fontWeight":"400"}],"balance-num-lg":["32px",{"lineHeight":"40px","letterSpacing":"-0.02em","fontWeight":"700"}],"label-nav":["10px",{"lineHeight":"12px","letterSpacing":"0.06em","fontWeight":"600"}],"mono-crypto":["13px",{"lineHeight":"18px","fontWeight":"500"}],"label-badge":["11px",{"lineHeight":"14px","letterSpacing":"0.02em","fontWeight":"600"}],"headline-md":["22px",{"lineHeight":"30px","letterSpacing":"-0.01em","fontWeight":"600"}],"balance-num-md":["22px",{"lineHeight":"28px","letterSpacing":"-0.01em","fontWeight":"700"}],"display-hero-mobile":["30px",{"lineHeight":"38px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-lg":["28px",{"lineHeight":"36px","letterSpacing":"-0.01em","fontWeight":"700"}],"body-md":["14px",{"lineHeight":"20px","fontWeight":"400"}],"display-hero":["36px",{"lineHeight":"44px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-sm":["18px",{"lineHeight":"26px","fontWeight":"600"}]}}}}</script></head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-72 bg-[#111827] text-white shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-50 flex flex-col justify-between overflow-y-auto"><div class="p-space-lg"><div class="flex items-center gap-space-sm pb-space-lg"><img alt="SmartPay Africa Logo" class="h-10 w-10 rounded-lg object-contain shrink-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCyuqPGsbex1ewR1hp7Hankk0H_TezdR4EuoqC2qc9FsaGEV_Y_zNsiGKxpkYk57MOmdKbI5iukoXAwXLbMI4lcZ_38oTYdjqjrjLOBchErBjw1769nzpnOa4ecHSK7Q69unLbyWTH03DjvV8Ujcj7QnsO_xA5mnrpw3QNbqOTPekWaRx9h4SrjHsHv8xZCIjyDZNPVjRrCKspXUmhMaQvcaYC8NaI8SRRS2bUFBBIPYJ9Yt1O_JY2ClA"><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-white tracking-tight font-bold">SmartPay</span><span class="font-label-nav text-label-nav text-secondary-fixed uppercase font-semibold">Africa Admin</span></div></div><div class="mb-space-md px-space-sm py-space-xs bg-[#1f2937] rounded-lg flex items-center justify-between"><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-[14px] text-tertiary-fixed-dim">bolt</span><span class="font-label-badge text-label-badge text-white">Dakar LND #1</span></div><span class="font-label-badge text-label-badge text-tertiary-fixed-dim bg-[#111827] px-space-xs py-0.5 rounded-full">SYNC 100%</span></div><nav class="flex flex-col gap-1" data-active-classes="bg-secondary text-white font-body-md"><div class="px-space-sm pt-space-xs pb-1 font-label-nav text-label-nav text-gray-400 uppercase tracking-wider">Supervision</div><a class="flex items-center px-space-md py-space-sm rounded-lg text-gray-300 hover:bg-[#1f2937] hover:text-white transition-all" data-path="vue-densemble" href="#">Vue d'ensemble</a><a class="flex items-center px-space-md py-space-sm rounded-lg text-gray-300 hover:bg-[#1f2937] hover:text-white transition-all" data-path="transactions-regtest" href="#">Transactions Regtest</a><a class="flex items-center px-space-md py-space-sm rounded-lg text-gray-300 hover:bg-[#1f2937] hover:text-white transition-all" data-path="corridors-internationaux" href="#">Corridors Internationaux</a><div class="px-space-sm pt-space-md pb-1 font-label-nav text-label-nav text-gray-400 uppercase tracking-wider">Écosystème</div><a class="flex items-center px-space-md py-space-sm rounded-lg text-gray-300 hover:bg-[#1f2937] hover:text-white transition-all" data-path="gestion-utilisateurs" href="#">Utilisateurs</a><a class="flex items-center pl-space-xl pr-space-md py-1.5 rounded-lg text-gray-400 hover:bg-[#1f2937] hover:text-white font-body-sm text-body-sm transition-all" data-path="detail-utilisateur" href="#">Détail utilisateur</a><a class="flex items-center px-space-md py-space-sm rounded-lg text-gray-300 hover:bg-[#1f2937] hover:text-white transition-all" data-path="marchands" href="#">Marchands</a><a class="flex items-center pl-space-xl pr-space-md py-1.5 rounded-lg text-gray-400 hover:bg-[#1f2937] hover:text-white font-body-sm text-body-sm transition-all" data-path="detail-marchand" href="#">Détail Marchand</a><div class="px-space-sm pt-space-md pb-1 font-label-nav text-label-nav text-gray-400 uppercase tracking-wider">Infrastructure &amp; Audit</div><a class="flex items-center px-space-md py-space-sm rounded-lg text-gray-300 hover:bg-[#1f2937] hover:text-white transition-all" data-path="noeud-infrastructure-lnd" href="#">Nœud &amp; Infrastructure LND</a><a class="flex items-center px-space-md py-space-sm rounded-lg text-gray-300 hover:bg-[#1f2937] hover:text-white transition-all" data-path="audit-securite" href="#">Audit &amp; Sécurité</a><div class="px-space-sm pt-space-md pb-1 font-label-nav text-label-nav text-gray-400 uppercase tracking-wider">Système</div><a class="flex items-center px-space-md py-space-sm rounded-lg text-gray-300 hover:bg-[#1f2937] hover:text-white transition-all" data-path="parametres" href="#">Paramètres</a><a class="flex items-center px-space-md py-space-sm rounded-lg text-gray-300 hover:bg-[#1f2937] hover:text-white transition-all" data-path="assistance" href="#">Assistance</a></nav></div><div class="p-space-md bg-[#1f2937] mx-space-md mb-space-md rounded-xl"><div class="flex items-center gap-space-xs text-secondary-fixed"><span class="material-symbols-outlined text-[16px]">terminal</span><span class="font-label-badge text-label-badge uppercase">Regtest Network</span></div><p class="font-body-sm text-body-sm text-gray-400 mt-1">Dakar Bitcoin Hack 2026 Sandbox</p></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-16 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-space-lg"><div class="flex items-center gap-space-md flex-1 max-w-lg"><div class="flex items-center gap-2 shrink-0"><img alt="SmartPay Africa" class="h-9 w-9 rounded-lg object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCyuqPGsbex1ewR1hp7Hankk0H_TezdR4EuoqC2qc9FsaGEV_Y_zNsiGKxpkYk57MOmdKbI5iukoXAwXLbMI4lcZ_38oTYdjqjrjLOBchErBjw1769nzpnOa4ecHSK7Q69unLbyWTH03DjvV8Ujcj7QnsO_xA5mnrpw3QNbqOTPekWaRx9h4SrjHsHv8xZCIjyDZNPVjRrCKspXUmhMaQvcaYC8NaI8SRRS2bUFBBIPYJ9Yt1O_JY2ClA"><span class="hidden sm:inline font-headline-sm text-[16px] font-bold text-on-surface">SmartPay</span></div><div class="relative w-full"><span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">search</span><input class="w-full pl-9 pr-4 py-2 bg-surface-container rounded-lg font-body-sm text-body-sm text-on-surface placeholder:text-on-surface-variant outline-none focus:bg-surface-container-lowest transition-all" placeholder="Rechercher un utilisateur, e-mail, identifiant..." type="text"></div></div><div class="flex items-center gap-space-md"><div class="hidden md:flex items-center gap-space-xs bg-surface-container px-space-sm py-1.5 rounded-full"><span class="h-2 w-2 rounded-full bg-on-tertiary-container animate-pulse"></span><span class="font-label-badge text-label-badge text-on-surface">Dakar Lightning Node (Actif)</span></div><div class="flex items-center gap-space-xs bg-secondary-fixed px-space-sm py-1.5 rounded-full"><span class="material-symbols-outlined text-[16px] text-on-secondary-fixed-variant">science</span><span class="font-label-badge text-label-badge text-on-secondary-fixed-variant font-semibold">Mode Démonstration Regtest</span></div><div class="flex items-center gap-space-sm pl-space-sm"><div class="text-right hidden sm:block"><div class="font-body-sm text-body-sm text-on-surface font-semibold">M. Diop (Lead Ops)</div><div class="font-label-nav text-label-nav text-on-surface-variant">Super Admin</div></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="relative pt-16 w-full px-space-lg min-h-screen bg-surface"><div class="flex flex-col w-full pb-space-xl">
+<!-- Regtest Environment Top Banner -->
+<div class="mb-space-lg w-full bg-secondary-fixed text-on-secondary-fixed-variant px-space-md py-2.5 rounded-xl shadow-sm flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[18px]">science</span>
+<span class="font-label-badge text-label-badge font-semibold tracking-wide">
+        Maquette — Données d'illustration · Banc d'essai Regtest (Dakar Bitcoin Hack 2026)
+      </span>
+</div>
+<div class="flex items-center gap-2">
+<span class="inline-block w-2 h-2 rounded-full bg-secondary"></span>
+<span class="font-body-sm text-body-sm font-medium">Environnement Sandbox Isolé</span>
+</div>
+</div>
+<!-- Page Header Area -->
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md mb-space-lg">
+<div>
+<div class="flex items-center gap-space-xs">
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Gestion des Marchands</h1>
+<span class="bg-surface-container px-2.5 py-0.5 rounded-full font-label-badge text-label-badge text-on-surface-variant font-semibold">
+          POS &amp; TPE Lightning
+        </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">
+        Supervision des boutiques et points de vente (POS) configurés pour l'encaissement Lightning en bac à sable
+      </p>
+</div>
+<!-- Quick Actions -->
+<div class="flex items-center gap-space-sm self-start lg:self-auto">
+<button class="bg-surface-container-lowest text-on-surface px-space-md py-2.5 rounded-xl font-body-sm text-body-sm font-semibold shadow-sm hover:bg-surface-container transition-all flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px]">download</span>
+<span class="">Télécharger l'inventaire (JSON)</span>
+</button>
+<button class="bg-primary text-on-primary px-space-md py-2.5 rounded-xl font-body-sm text-body-sm font-semibold shadow-sm hover:bg-primary-container transition-all flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px]">sync</span>
+<span class="">Rafraîchir les flux</span>
+</button>
+</div>
+</div>
+<!-- KPI Summary Cards (4 stats) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-space-md mb-space-lg">
+<!-- Stat 1 -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm relative overflow-hidden flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<div>
+<span class="font-body-sm text-body-sm text-on-surface-variant font-medium">Boutiques Enregistrées</span>
+<div class="font-balance-num-lg text-balance-num-lg text-on-surface mt-1">84</div>
+</div>
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-on-surface">
+<span class="material-symbols-outlined text-[22px]">storefront</span>
+</div>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between">
+<span class="bg-surface-container-high text-on-surface px-2 py-0.5 rounded font-label-badge text-label-badge font-semibold">Données d'illustration</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant font-medium">32 terminaux de démonstration</span>
+</div>
+</div>
+<!-- Stat 2 -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm relative overflow-hidden flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<div>
+<span class="font-body-sm text-body-sm text-on-surface-variant font-medium">Simulations d'Encaissement</span>
+<div class="font-balance-num-lg text-balance-num-lg text-on-surface mt-1">1 428</div>
+</div>
+<div class="w-10 h-10 rounded-lg bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed-variant">
+<span class="material-symbols-outlined text-[22px]">bolt</span>
+</div>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between">
+<span class="bg-secondary-fixed text-on-secondary-fixed-variant px-2 py-0.5 rounded font-label-badge text-label-badge font-semibold">
+          +18 aujourd'hui
+        </span>
+<span class="font-mono-crypto text-mono-crypto text-on-surface-variant font-medium">~3.2M sats simulés</span>
+</div>
+</div>
+<!-- Stat 3 -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm relative overflow-hidden flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<div>
+<span class="font-body-sm text-body-sm text-on-surface-variant font-medium">Réussite des scénarios fictifs</span>
+<div class="font-balance-num-lg text-balance-num-lg text-on-surface mt-1">99.2%</div>
+</div>
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-on-tertiary-container">
+<span class="material-symbols-outlined text-[22px]">verified</span>
+</div>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between">
+<span class="bg-surface-container-high text-on-tertiary-container px-2 py-0.5 rounded font-label-badge text-label-badge font-semibold">
+          Banc d'essai
+        </span>
+<span class="font-body-sm text-body-sm text-on-surface-variant font-medium">Taux fictif de réussite des scénarios</span>
+</div>
+</div>
+<!-- Stat 4 -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm relative overflow-hidden flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<div>
+<span class="font-body-sm text-body-sm text-on-surface-variant font-medium">Corridors Marchands Actifs</span>
+<div class="font-balance-num-lg text-balance-num-lg text-on-surface mt-1">3 Pays</div>
+</div>
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-on-surface">
+<span class="material-symbols-outlined text-[22px]">public</span>
+</div>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center gap-1.5 font-body-sm text-body-sm font-medium text-on-surface-variant">
+<span class="">Sénégal 🇸🇳</span>
+<span class="text-outline-variant">·</span>
+<span class="">Côte d'Ivoire 🇨🇮</span>
+<span class="text-outline-variant">·</span>
+<span class="">Congo 🇨🇬</span>
+</div>
+</div>
+</div><div class="-mt-space-md mb-space-lg flex items-center gap-space-xs text-on-surface-variant font-body-sm text-body-sm"><span class="material-symbols-outlined text-[16px] text-secondary">info</span><span class="font-medium">Statistiques modélisées — Non issues de paiements réels</span></div>
+<!-- Filter & Search Toolbar -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm mb-space-md">
+<div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-space-md">
+<!-- Search Input -->
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">search</span>
+<input class="w-full pl-9 pr-4 py-2.5 bg-surface-container rounded-lg font-body-sm text-body-sm text-on-surface placeholder:text-on-surface-variant outline-none focus:bg-surface-container-low transition-all" placeholder="Rechercher une boutique, gérant, ID marchand..." type="text">
+</div>
+<!-- Filters Group -->
+<div class="flex flex-wrap items-center gap-space-sm">
+<!-- Filter: Country -->
+<select class="px-space-md py-2.5 bg-surface-container text-on-surface rounded-lg font-body-sm text-body-sm outline-none cursor-pointer">
+<option selected="">Tous les pays (SN, CI, CG)</option>
+<option>Sénégal (SN) 🇸🇳</option>
+<option>Côte d'Ivoire (CI) 🇨🇮</option>
+<option>Congo-Brazzaville (CG) 🇨🇬</option>
+</select>
+<!-- Filter: POS Type -->
+<select class="px-space-md py-2.5 bg-surface-container text-on-surface rounded-lg font-body-sm text-body-sm outline-none cursor-pointer">
+<option selected="">Tous types (Boutique, Restaurant, Service)</option>
+<option>Boutique physique</option>
+<option>Restauration &amp; Caisse</option>
+<option>Santé &amp; Pharmacie</option>
+<option>Multi-services / TPE</option>
+</select>
+<!-- Filter: Status -->
+<select class="px-space-md py-2.5 bg-surface-container text-on-surface rounded-lg font-body-sm text-body-sm outline-none cursor-pointer">
+<option selected="">Tous statuts (Actif en démo, En attente)</option>
+<option>Actif Démo</option>
+<option>En test Regtest</option>
+<option>En attente de test</option>
+</select>
+</div>
+</div>
+<!-- Active Count Counter -->
+<div class="mt-space-sm pt-space-xs flex items-center justify-between text-on-surface-variant font-body-sm text-body-sm">
+<span class="">Affichage de 6 sur 84 boutiques de démonstration</span>
+<span class="font-mono-crypto text-mono-crypto text-on-surface-variant">LND Regtest Sandbox · RPC Channel Ready</span>
+</div>
+</div>
+<!-- Merchants Data Table Section -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden mb-space-md">
+<div class="overflow-x-auto">
+<table class="w-full text-left font-body-sm text-body-sm">
+<thead>
+<tr class="bg-surface-container text-on-surface-variant font-label-nav text-label-nav uppercase tracking-wider">
+<th class="py-3 px-space-md">Nom de la Boutique</th>
+<th class="py-3 px-space-md">Responsable / Gérant</th>
+<th class="py-3 px-space-md">Pays</th>
+<th class="py-3 px-space-md">Identifiant Marchand</th>
+<th class="py-3 px-space-md">Type d'activité</th>
+<th class="py-3 px-space-md">Statut Démo</th>
+<th class="py-3 px-space-md">Opérations Simulées</th>
+<th class="py-3 px-space-md text-right">Action</th>
+</tr>
+</thead>
+<tbody class="text-on-surface">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3.5 px-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-on-surface">
+<span class="material-symbols-outlined text-[18px]">checkroom</span>
+</div>
+<div>
+<div class="font-body-md text-body-md font-semibold text-on-surface">Boutique Almadies #4</div>
+<div class="text-on-surface-variant font-body-sm text-body-sm">Dakar Almadies · Caisse #01</div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-space-md font-medium text-on-surface">Mamadou Fall</td>
+<td class="py-3.5 px-space-md">
+<span class="inline-flex items-center gap-1 font-medium">Sénégal 🇸🇳</span>
+</td>
+<td class="py-3.5 px-space-md">
+<span class="font-mono-crypto text-mono-crypto bg-surface-container px-2 py-0.5 rounded text-on-surface">MCH-SN-0418</span>
+</td>
+<td class="py-3.5 px-space-md text-on-surface-variant">Prêt-à-porter / POS</td>
+<td class="py-3.5 px-space-md">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full font-label-badge text-label-badge font-semibold bg-surface-container text-on-tertiary-container">
+<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span>
+                Actif Démo
+              </span>
+</td>
+<td class="py-3.5 px-space-md">
+<div class="font-mono-crypto text-mono-crypto font-semibold text-on-surface">342 simulations</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">~485k sats</div>
+</td>
+<td class="py-3.5 px-space-md text-right">
+<a class="inline-flex items-center gap-1 bg-surface-container px-3 py-1.5 rounded-lg text-on-surface hover:bg-primary hover:text-on-primary font-body-sm text-body-sm font-semibold transition-all" data-path="detail-marchand" href="#">
+<span class="">Voir le détail</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</a>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3.5 px-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-on-surface">
+<span class="material-symbols-outlined text-[18px]">restaurant</span>
+</div>
+<div>
+<div class="font-body-md text-body-md font-semibold text-on-surface">Café Plateau Abidjan</div>
+<div class="text-on-surface-variant font-body-sm text-body-sm">Abidjan Plateau · Bar &amp; Table</div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-space-md font-medium text-on-surface">Awa Traoré</td>
+<td class="py-3.5 px-space-md">
+<span class="inline-flex items-center gap-1 font-medium">Côte d'Ivoire 🇨🇮</span>
+</td>
+<td class="py-3.5 px-space-md">
+<span class="font-mono-crypto text-mono-crypto bg-surface-container px-2 py-0.5 rounded text-on-surface">MCH-CI-0102</span>
+</td>
+<td class="py-3.5 px-space-md text-on-surface-variant">Restauration &amp; Caisse</td>
+<td class="py-3.5 px-space-md">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full font-label-badge text-label-badge font-semibold bg-surface-container text-on-tertiary-container">
+<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span>
+                Actif Démo
+              </span>
+</td>
+<td class="py-3.5 px-space-md">
+<div class="font-mono-crypto text-mono-crypto font-semibold text-on-surface">289 simulations</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">~310k sats</div>
+</td>
+<td class="py-3.5 px-space-md text-right">
+<a class="inline-flex items-center gap-1 bg-surface-container px-3 py-1.5 rounded-lg text-on-surface hover:bg-primary hover:text-on-primary font-body-sm text-body-sm font-semibold transition-all" data-path="detail-marchand" href="#">
+<span class="">Voir le détail</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</a>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3.5 px-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-on-surface">
+<span class="material-symbols-outlined text-[18px]">local_grocery_store</span>
+</div>
+<div>
+<div class="font-body-md text-body-md font-semibold text-on-surface">Épicerie Bacongo Brazza</div>
+<div class="text-on-surface-variant font-body-sm text-body-sm">Brazzaville Bacongo · Comptoir</div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-space-md font-medium text-on-surface">Paul Mabiala</td>
+<td class="py-3.5 px-space-md">
+<span class="inline-flex items-center gap-1 font-medium">Congo-Brazzaville 🇨🇬</span>
+</td>
+<td class="py-3.5 px-space-md">
+<span class="font-mono-crypto text-mono-crypto bg-surface-container px-2 py-0.5 rounded text-on-surface">MCH-CG-0054</span>
+</td>
+<td class="py-3.5 px-space-md text-on-surface-variant">Alimentation générale</td>
+<td class="py-3.5 px-space-md">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full font-label-badge text-label-badge font-semibold bg-surface-container text-on-tertiary-container">
+<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span>
+                Actif Démo
+              </span>
+</td>
+<td class="py-3.5 px-space-md">
+<div class="font-mono-crypto text-mono-crypto font-semibold text-on-surface">176 simulations</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">~190k sats</div>
+</td>
+<td class="py-3.5 px-space-md text-right">
+<a class="inline-flex items-center gap-1 bg-surface-container px-3 py-1.5 rounded-lg text-on-surface hover:bg-primary hover:text-on-primary font-body-sm text-body-sm font-semibold transition-all" data-path="detail-marchand" href="#">
+<span class="">Voir le détail</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</a>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3.5 px-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-on-surface">
+<span class="material-symbols-outlined text-[18px]">local_pharmacy</span>
+</div>
+<div>
+<div class="font-body-md text-body-md font-semibold text-on-surface">Pharmacie Corniche Dakar</div>
+<div class="text-on-surface-variant font-body-sm text-body-sm">Dakar Fann-Corniche · Guichet</div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-space-md font-medium text-on-surface">Dr. Ousmane Diop</td>
+<td class="py-3.5 px-space-md">
+<span class="inline-flex items-center gap-1 font-medium">Sénégal 🇸🇳</span>
+</td>
+<td class="py-3.5 px-space-md">
+<span class="font-mono-crypto text-mono-crypto bg-surface-container px-2 py-0.5 rounded text-on-surface">MCH-SN-0892</span>
+</td>
+<td class="py-3.5 px-space-md text-on-surface-variant">Santé &amp; Pharmacie</td>
+<td class="py-3.5 px-space-md">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full font-label-badge text-label-badge font-semibold bg-secondary-fixed text-on-secondary-fixed-variant">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                En test Regtest
+              </span>
+</td>
+<td class="py-3.5 px-space-md">
+<div class="font-mono-crypto text-mono-crypto font-semibold text-on-surface">98 simulations</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">~120k sats</div>
+</td>
+<td class="py-3.5 px-space-md text-right">
+<a class="inline-flex items-center gap-1 bg-surface-container px-3 py-1.5 rounded-lg text-on-surface hover:bg-primary hover:text-on-primary font-body-sm text-body-sm font-semibold transition-all" data-path="detail-marchand" href="#">
+<span class="">Voir le détail</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</a>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3.5 px-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-on-surface">
+<span class="material-symbols-outlined text-[18px]">menu_book</span>
+</div>
+<div>
+<div class="font-body-md text-body-md font-semibold text-on-surface">Librairie Cocody Arts</div>
+<div class="text-on-surface-variant font-body-sm text-body-sm">Abidjan Cocody · Caisse Livres</div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-space-md font-medium text-on-surface">Marie Koffi</td>
+<td class="py-3.5 px-space-md">
+<span class="inline-flex items-center gap-1 font-medium">Côte d'Ivoire 🇨🇮</span>
+</td>
+<td class="py-3.5 px-space-md">
+<span class="font-mono-crypto text-mono-crypto bg-surface-container px-2 py-0.5 rounded text-on-surface">MCH-CI-0341</span>
+</td>
+<td class="py-3.5 px-space-md text-on-surface-variant">Presse &amp; Livres</td>
+<td class="py-3.5 px-space-md">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full font-label-badge text-label-badge font-semibold bg-surface-container text-on-tertiary-container">
+<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span>
+                Actif Démo
+              </span>
+</td>
+<td class="py-3.5 px-space-md">
+<div class="font-mono-crypto text-mono-crypto font-semibold text-on-surface">114 simulations</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">~145k sats</div>
+</td>
+<td class="py-3.5 px-space-md text-right">
+<a class="inline-flex items-center gap-1 bg-surface-container px-3 py-1.5 rounded-lg text-on-surface hover:bg-primary hover:text-on-primary font-body-sm text-body-sm font-semibold transition-all" data-path="detail-marchand" href="#">
+<span class="">Voir le détail</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</a>
+</td>
+</tr>
+<!-- Row 6 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3.5 px-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-on-surface">
+<span class="material-symbols-outlined text-[18px]">point_of_sale</span>
+</div>
+<div>
+<div class="font-body-md text-body-md font-semibold text-on-surface">Kiosque Mobile Poto-Poto</div>
+<div class="text-on-surface-variant font-body-sm text-body-sm">Brazzaville Poto-Poto · Terminal TPE</div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-space-md font-medium text-on-surface">Serge Ngoma</td>
+<td class="py-3.5 px-space-md">
+<span class="inline-flex items-center gap-1 font-medium">Congo-Brazzaville 🇨🇬</span>
+</td>
+<td class="py-3.5 px-space-md">
+<span class="font-mono-crypto text-mono-crypto bg-surface-container px-2 py-0.5 rounded text-on-surface">MCH-CG-0119</span>
+</td>
+<td class="py-3.5 px-space-md text-on-surface-variant">Multi-services / TPE</td>
+<td class="py-3.5 px-space-md">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full font-label-badge text-label-badge font-semibold bg-surface-container text-on-surface-variant">
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
+                En attente de test
+              </span>
+</td>
+<td class="py-3.5 px-space-md">
+<div class="font-mono-crypto text-mono-crypto font-semibold text-on-surface">23 simulations</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">~32k sats</div>
+</td>
+<td class="py-3.5 px-space-md text-right">
+<a class="inline-flex items-center gap-1 bg-surface-container px-3 py-1.5 rounded-lg text-on-surface hover:bg-primary hover:text-on-primary font-body-sm text-body-sm font-semibold transition-all" data-path="detail-marchand" href="#">
+<span class="">Voir le détail</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination Footer -->
+<div class="px-space-md py-3 bg-surface-container flex flex-col sm:flex-row items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-md text-on-surface-variant font-body-sm text-body-sm">
+<span class="">Afficher par page: <strong>6</strong></span>
+<span class="">Affichage de <strong>1 à 6</strong> sur <strong>84</strong> marchands</span>
+</div>
+<div class="flex items-center gap-1">
+<button class="w-8 h-8 rounded-lg bg-surface-container-lowest text-on-surface font-semibold flex items-center justify-center hover:bg-surface-dim transition-all shadow-sm">
+<span class="material-symbols-outlined text-[16px]">chevron_left</span>
+</button>
+<button class="w-8 h-8 rounded-lg bg-primary text-on-primary font-semibold flex items-center justify-center shadow-sm">
+          1
+        </button>
+<button class="w-8 h-8 rounded-lg bg-surface-container-lowest text-on-surface font-semibold flex items-center justify-center hover:bg-surface-dim transition-all shadow-sm">
+          2
+        </button>
+<button class="w-8 h-8 rounded-lg bg-surface-container-lowest text-on-surface font-semibold flex items-center justify-center hover:bg-surface-dim transition-all shadow-sm">
+          3
+        </button>
+<span class="px-1 text-on-surface-variant font-bold">...</span>
+<button class="w-8 h-8 rounded-lg bg-surface-container-lowest text-on-surface font-semibold flex items-center justify-center hover:bg-surface-dim transition-all shadow-sm">
+          14
+        </button>
+<button class="px-3 h-8 rounded-lg bg-surface-container-lowest text-on-surface font-semibold flex items-center gap-1 hover:bg-surface-dim transition-all shadow-sm">
+<span class="">Suivant</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Regulatory and Technical Sandbox Disclaimer Note -->
+<div class="bg-surface-container p-space-md rounded-xl flex items-start gap-space-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px] text-secondary shrink-0 mt-0.5">info</span>
+<p class="font-body-sm text-body-sm leading-relaxed">
+<strong>Note de conformité :</strong> Les marchands listés sont des exemples d'illustration pour le hackathon. L'activation marchande en production nécessite la passerelle Django REST et les canaux LND dédiés.
+    </p>
+</div>
+</div></main></div>
+
+</body></html>

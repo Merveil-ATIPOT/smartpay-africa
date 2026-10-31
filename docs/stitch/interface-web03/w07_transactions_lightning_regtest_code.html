@@ -1,0 +1,739 @@
+<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_dashboard" name="shell-type"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Outfit:wght@500;600;700&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"secondary":"#8c4f00","primary-container":"#141b2c","on-primary-fixed":"#141b2c","on-tertiary-fixed-variant":"#00522c","on-tertiary":"#ffffff","secondary-fixed":"#ffdcbf","error-container":"#ffdad6","primary":"#000000","surface-container-high":"#dfe8ff","surface-container-low":"#f0f3ff","background":"#f9f9ff","outline-variant":"#c6c6cd","primary-fixed":"#dbe2f9","surface-container-lowest":"#ffffff","on-tertiary-fixed":"#00210e","on-surface-variant":"#45474c","on-primary-container":"#7c8498","on-secondary-fixed":"#2d1600","error":"#ba1a1a","surface":"#f9f9ff","secondary-fixed-dim":"#ffb874","on-primary-fixed-variant":"#3f4759","outline":"#76777d","on-error-container":"#93000a","inverse-on-surface":"#ecf0ff","on-secondary":"#ffffff","inverse-surface":"#273143","on-secondary-container":"#663800","on-secondary-fixed-variant":"#6b3b00","tertiary-fixed":"#70fda7","secondary-container":"#fe9821","surface-dim":"#d0daf2","surface-bright":"#f9f9ff","primary-fixed-dim":"#bfc6dc","tertiary-container":"#00210e","on-error":"#ffffff","on-background":"#111c2d","on-surface":"#111c2d","surface-tint":"#565e71","surface-container-highest":"#d9e3fb","surface-variant":"#d9e3fb","on-primary":"#ffffff","tertiary":"#000000","surface-container":"#e8eeff","tertiary-fixed-dim":"#51df8e","on-tertiary-container":"#009756","inverse-primary":"#bfc6dc"},borderRadius:{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},spacing:{"space-lg":"1.5rem","margin":"1rem","space-xs":"0.25rem","gutter":"1rem","space-md":"1rem","space-sm":"0.5rem","space-xl":"2rem"},fontFamily:{"mono-crypto":["Inter"],"body-lg":["Inter"],"label-nav":["Inter"],"body-md":["Inter"],"body-sm":["Inter"],"balance-num-md":["Inter"],"display-hero":["Inter"],"label-badge":["Inter"],"display-hero-mobile":["Inter"],"balance-num-lg":["Inter"],"headline-md":["Outfit"],"headline-sm":["Outfit"],"headline-lg":["Outfit"]},fontSize:{"mono-crypto":["13px",{"lineHeight":"18px","fontWeight":"500"}],"body-lg":["16px",{"lineHeight":"24px","fontWeight":"500"}],"label-nav":["10px",{"lineHeight":"12px","letterSpacing":"0.06em","fontWeight":"600"}],"body-md":["14px",{"lineHeight":"20px","fontWeight":"400"}],"body-sm":["12px",{"lineHeight":"18px","fontWeight":"400"}],"balance-num-md":["22px",{"lineHeight":"28px","letterSpacing":"-0.01em","fontWeight":"700"}],"display-hero":["36px",{"lineHeight":"44px","letterSpacing":"-0.02em","fontWeight":"700"}],"label-badge":["11px",{"lineHeight":"14px","letterSpacing":"0.02em","fontWeight":"600"}],"display-hero-mobile":["30px",{"lineHeight":"38px","letterSpacing":"-0.02em","fontWeight":"700"}],"balance-num-lg":["32px",{"lineHeight":"40px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-md":["22px",{"lineHeight":"30px","letterSpacing":"-0.01em","fontWeight":"600"}],"headline-sm":["18px",{"lineHeight":"26px","fontWeight":"600"}],"headline-lg":["28px",{"lineHeight":"36px","letterSpacing":"-0.01em","fontWeight":"700"}]}}}};</script></head><body class="bg-surface font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-[260px] bg-primary-container z-50 flex flex-col justify-between shadow-[0_4px_24px_rgba(0,0,0,0.18)]"><div class="flex flex-col"><div class="h-20 px-space-md flex items-center gap-space-sm bg-primary-container border-b border-on-primary-container/20"><img alt="SmartPay Africa Logo" class="h-8 w-8 rounded-lg object-contain shrink-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKB4j0nwemDS0rGvweSVFvSdTQP_3P-10ImM6JXHnbRV8oKke-WHUGjdlHKJRxn6mLv47XVmin4o626fQesyGVYopVH73G1Dsj7MpOFFRsvgZxvfRG1lXYK90lkMTiILj2ZkJSpMpykuqOJKKk9u5BQiHnJlXF56M7-AGdVwXV1sCSju3W2MB58iNX1OAPZBeS05tD2KAf_a8_0yNnCK986orKUKSGhHQcN2PgGMjh2_9bjq7gLRRN5g"><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-surface font-bold tracking-tight">SmartPay</span><span class="font-label-nav text-label-nav text-secondary-container uppercase tracking-widest font-semibold">Africa Admin</span></div></div><div class="p-space-sm"><div class="p-space-sm rounded-lg bg-surface-container-lowest/5 border border-on-primary-container/20 flex flex-col gap-1"><div class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-tertiary-fixed animate-pulse"></span><span class="font-label-badge text-label-badge text-tertiary-fixed font-bold tracking-wider">REGTEST NETWORK</span></div><p class="font-body-sm text-[10px] leading-tight text-on-primary-container">Dakar Bitcoin Hack 2026 Sandbox</p><div class="flex items-center justify-between pt-1 border-t border-on-primary-container/10"><span class="font-mono-crypto text-[10px] text-surface-container-high">LND #1 SYNC</span><span class="font-mono-crypto text-[10px] text-tertiary-fixed font-bold">100%</span></div></div></div><nav class="px-space-sm space-y-4 overflow-y-auto max-h-[calc(100vh-270px)]" data-active-classes="bg-surface-container-lowest/15 text-surface font-semibold"><div class="space-y-1"><span class="px-3 font-label-nav text-label-nav uppercase tracking-wider text-on-primary-container font-bold block">Supervision</span><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-primary-container hover:bg-surface-container-lowest/10 hover:text-surface transition-all font-body-sm text-body-sm" data-path="vue-d-ensemble" href="#"><span class="material-symbols-outlined text-[18px]">dashboard</span>Vue d'ensemble</a><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-primary-container hover:bg-surface-container-lowest/10 hover:text-surface transition-all font-body-sm text-body-sm" data-path="w07---transactions-lightning-regtest" href="#"><span class="material-symbols-outlined text-[18px]">receipt_long</span>Transactions Regtest</a><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-primary-container hover:bg-surface-container-lowest/10 hover:text-surface transition-all font-body-sm text-body-sm" data-path="w08---corridors-internationaux" href="#"><span class="material-symbols-outlined text-[18px]">swap_horiz</span>Corridors Internationaux</a></div><div class="space-y-1"><span class="px-3 font-label-nav text-label-nav uppercase tracking-wider text-on-primary-container font-bold block">Écosystème</span><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-primary-container hover:bg-surface-container-lowest/10 hover:text-surface transition-all font-body-sm text-body-sm" data-path="utilisateurs" href="#"><span class="material-symbols-outlined text-[18px]">group</span>Utilisateurs</a><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-primary-container hover:bg-surface-container-lowest/10 hover:text-surface transition-all font-body-sm text-body-sm" data-path="detail-utilisateur" href="#"><span class="material-symbols-outlined text-[18px]">person_search</span>Détail utilisateur</a><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-primary-container hover:bg-surface-container-lowest/10 hover:text-surface transition-all font-body-sm text-body-sm" data-path="marchands" href="#"><span class="material-symbols-outlined text-[18px]">storefront</span>Marchands</a><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-primary-container hover:bg-surface-container-lowest/10 hover:text-surface transition-all font-body-sm text-body-sm" data-path="detail-marchand" href="#"><span class="material-symbols-outlined text-[18px]">store</span>Détail Marchand</a></div><div class="space-y-1"><span class="px-3 font-label-nav text-label-nav uppercase tracking-wider text-on-primary-container font-bold block">Infrastructure &amp; Audit</span><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-primary-container hover:bg-surface-container-lowest/10 hover:text-surface transition-all font-body-sm text-body-sm" data-path="w09---noeuds-&amp;-infrastructure-lightning" href="#"><span class="material-symbols-outlined text-[18px]">hub</span>Nœud &amp; Infra LND</a><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-primary-container hover:bg-surface-container-lowest/10 hover:text-surface transition-all font-body-sm text-body-sm" data-path="audit-&amp;-securite" href="#"><span class="material-symbols-outlined text-[18px]">verified_user</span>Audit &amp; Sécurité</a></div><div class="space-y-1"><span class="px-3 font-label-nav text-label-nav uppercase tracking-wider text-on-primary-container font-bold block">Système</span><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-primary-container hover:bg-surface-container-lowest/10 hover:text-surface transition-all font-body-sm text-body-sm" data-path="parametres" href="#"><span class="material-symbols-outlined text-[18px]">settings</span>Paramètres</a><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-primary-container hover:bg-surface-container-lowest/10 hover:text-surface transition-all font-body-sm text-body-sm" data-path="assistance" href="#"><span class="material-symbols-outlined text-[18px]">support_agent</span>Assistance</a></div></nav></div><div class="p-space-sm border-t border-on-primary-container/20"><div class="flex items-center gap-2 p-2 rounded-lg bg-surface-container-lowest/5"><div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-surface font-bold text-[18px]">bolt</span></div><div class="flex flex-col min-w-0"><span class="font-label-badge text-[11px] text-surface truncate font-semibold">Dakar Hack 2026</span><span class="font-mono-crypto text-[10px] text-on-primary-container truncate">v0.14.2-beta</span></div></div></div></aside><div class="pl-[260px]"><header class="fixed top-0 left-[260px] right-0 h-20 bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 px-space-lg flex items-center justify-between gap-space-md"><div class="flex items-center gap-3 min-w-0 flex-1"><div class="flex items-center gap-2 shrink-0 pr-3 border-r border-outline-variant/30"><img alt="SmartPay Africa Logo" class="h-8 w-8 rounded-lg object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKB4j0nwemDS0rGvweSVFvSdTQP_3P-10ImM6JXHnbRV8oKke-WHUGjdlHKJRxn6mLv47XVmin4o626fQesyGVYopVH73G1Dsj7MpOFFRsvgZxvfRG1lXYK90lkMTiILj2ZkJSpMpykuqOJKKk9u5BQiHnJlXF56M7-AGdVwXV1sCSju3W2MB58iNX1OAPZBeS05tD2KAf_a8_0yNnCK986orKUKSGhHQcN2PgGMjh2_9bjq7gLRRN5g"><div class="flex flex-col"><span class="font-headline-sm text-[15px] font-bold text-on-surface leading-tight">SmartPay Africa</span><span class="font-label-nav text-[10px] text-secondary font-semibold uppercase tracking-wider">Regtest Sandbox</span></div></div><div class="relative w-full max-w-md"><span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">search</span><input class="w-full pl-9 pr-4 py-2 bg-surface-container-low rounded-lg font-body-sm text-body-sm text-on-surface placeholder:text-on-surface-variant outline-none focus:ring-1 focus:ring-secondary transition-all" placeholder="Rechercher une facture, référence, montant..." type="text"></div></div><div class="flex items-center gap-3 shrink-0"><div class="hidden xl:flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-container-low shrink-0"><span class="w-2 h-2 rounded-full bg-tertiary-fixed animate-ping"></span><span class="font-body-sm text-[12px] text-on-surface font-medium whitespace-nowrap">Dakar Lightning Node (Actif)</span></div><div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-badge text-label-badge font-semibold shadow-sm shrink-0 whitespace-nowrap"><span class="material-symbols-outlined text-[14px]">science</span>Mode Démonstration Regtest</div><div class="flex items-center gap-3 pl-2 border-l border-outline-variant/30 shrink-0"><div class="flex flex-col text-right hidden md:block"><span class="font-body-sm text-body-sm font-semibold text-on-surface leading-tight">M. Diop</span><span class="font-label-badge text-[10px] text-on-surface-variant leading-none">Lead Ops · Super Admin</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shadow-sm shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><div class="fixed top-20 left-[260px] right-0 z-30 bg-secondary-fixed/40 backdrop-blur-md px-space-lg py-2 border-b border-secondary-fixed-dim/40 flex items-center justify-between"><div class="flex items-center gap-2"><span class="material-symbols-outlined text-secondary text-[18px]">warning</span><span class="font-body-sm text-[12px] text-on-secondary-fixed font-medium">Maquette — Données d'illustration · Banc d'essai Regtest (Dakar Bitcoin Hack 2026) — Environnement de démonstration Regtest. Aucun paiement en monnaie réelle.</span></div><span class="px-2 py-0.5 rounded font-label-badge text-[10px] tracking-wider uppercase font-bold bg-secondary text-on-secondary shrink-0 ml-2">BAC À SABLE SÉCURISÉ</span></div><main class="relative pt-[120px] min-h-screen bg-surface w-full px-space-lg py-space-lg"><div class="flex flex-col w-full">
+<!-- Interactive Toast Notification -->
+<div class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-3 px-4 py-3 rounded-xl bg-primary text-on-primary shadow-xl" id="liveToast">
+<span class="material-symbols-outlined text-tertiary-fixed text-[20px]">check_circle</span>
+<span class="font-body-sm text-body-sm font-medium" id="toastMsg">Banc d'essai Regtest synchronisé</span>
+</div>
+<!-- Main Content Layout -->
+<div class="w-full max-w-[1440px] mx-auto flex flex-col gap-6">
+<!-- A. En-tête -->
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2">
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight font-bold">Transactions Lightning Regtest</h1>
+<span class="px-2.5 py-0.5 rounded-full font-label-badge text-label-badge font-bold bg-secondary-fixed text-on-secondary-fixed tracking-wider uppercase">REGTEST LND</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+          Suivi des factures, règlements de test et simulations de paiement SmartPay Africa.
+        </p>
+</div>
+<!-- Action Buttons -->
+<div class="flex items-center flex-wrap gap-2.5">
+<button class="h-10 px-3.5 rounded-lg bg-surface-container-lowest text-on-surface hover:bg-surface-container font-body-sm text-body-sm font-medium shadow-sm transition-all flex items-center gap-2" id="btnRefresh">
+<span class="material-symbols-outlined text-[18px] text-secondary">sync</span>
+<span class="">Actualiser les opérations</span>
+</button>
+<button class="h-10 px-3.5 rounded-lg bg-surface-container-lowest text-on-surface hover:bg-surface-container font-body-sm text-body-sm font-medium shadow-sm transition-all flex items-center gap-2" id="btnExport">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">download</span>
+<span class="">Exporter (CSV)</span>
+</button>
+<button class="h-10 px-4 rounded-lg bg-primary text-on-primary hover:bg-on-surface-variant transition-all font-body-sm text-body-sm font-medium shadow-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+<span class="">Filtres avancés</span>
+</button>
+</div>
+</div>
+<!-- B. Indicateurs principaux (4 cartes KPI) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+<!-- KPI 1 -->
+<div class="p-5 rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between relative overflow-hidden group hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between gap-2">
+<span class="font-body-sm text-body-sm font-medium text-on-surface-variant">Factures Lightning créées</span>
+<span class="px-2 py-0.5 rounded font-label-badge text-label-badge bg-tertiary-fixed/30 text-on-tertiary-fixed font-bold">+34 aujourd'hui</span>
+</div>
+<div class="mt-4 flex items-baseline gap-2">
+<span class="font-balance-num-lg text-balance-num-lg font-bold text-on-surface tracking-tight">1 842</span>
+<span class="font-mono-crypto text-mono-crypto text-on-surface-variant">factures</span>
+</div>
+<div class="mt-3 flex items-center justify-between pt-3 bg-surface-container-low/40 -mx-5 -mb-5 px-5 py-2.5">
+<span class="font-label-badge text-label-badge text-on-surface-variant">Générées en banc d'essai</span>
+<span class="font-label-badge text-[10px] text-secondary font-semibold uppercase">Illustratif</span>
+</div>
+</div>
+<!-- KPI 2 -->
+<div class="p-5 rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between relative overflow-hidden group hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between gap-2">
+<span class="font-body-sm text-body-sm font-medium text-on-surface-variant">Paiements confirmés (Regtest)</span>
+<span class="px-2 py-0.5 rounded font-label-badge text-label-badge bg-tertiary-fixed/30 text-on-tertiary-fixed font-bold">66% succès</span>
+</div>
+<div class="mt-4 flex items-baseline gap-2">
+<span class="font-balance-num-lg text-balance-num-lg font-bold text-on-tertiary-container tracking-tight">1 216</span>
+<span class="font-mono-crypto text-mono-crypto text-on-surface-variant">règlements</span>
+</div>
+<div class="mt-3 flex items-center justify-between pt-3 bg-surface-container-low/40 -mx-5 -mb-5 px-5 py-2.5"><span class="font-label-badge text-label-badge text-on-surface-variant">Règlements Lightning sandbox</span><span class="font-label-badge text-[10px] text-on-tertiary-container font-semibold uppercase">Exemple de règlement Regtest</span></div>
+</div>
+<!-- KPI 3 -->
+<div class="p-5 rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between relative overflow-hidden group hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between gap-2">
+<span class="font-body-sm text-body-sm font-medium text-on-surface-variant">Factures expirées ou échouées</span>
+<span class="px-2 py-0.5 rounded font-label-badge text-label-badge bg-error-container text-on-error-container font-bold">17% d'expiration</span>
+</div>
+<div class="mt-4 flex items-baseline gap-2">
+<span class="font-balance-num-lg text-balance-num-lg font-bold text-error tracking-tight">314</span>
+<span class="font-mono-crypto text-mono-crypto text-on-surface-variant">factures</span>
+</div>
+<div class="mt-3 flex items-center justify-between pt-3 bg-surface-container-low/40 -mx-5 -mb-5 px-5 py-2.5">
+<span class="font-label-badge text-label-badge text-on-surface-variant">Timeouts simulés BOLT11</span>
+<span class="font-label-badge text-[10px] text-error font-semibold uppercase">Rejet / Expiré</span>
+</div>
+</div>
+<!-- KPI 4 -->
+<div class="p-5 rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between relative overflow-hidden group hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between gap-2">
+<span class="font-body-sm text-body-sm font-medium text-on-surface-variant">Devis et simulations non réglés</span>
+<span class="px-2 py-0.5 rounded font-label-badge text-label-badge bg-secondary-fixed text-on-secondary-fixed font-bold">Estimations pures</span>
+</div>
+<div class="mt-4 flex items-baseline gap-2">
+<span class="font-balance-num-lg text-balance-num-lg font-bold text-secondary tracking-tight">312</span>
+<span class="font-mono-crypto text-mono-crypto text-on-surface-variant">devis</span>
+</div>
+<div class="mt-3 flex items-center justify-between pt-3 bg-surface-container-low/40 -mx-5 -mb-5 px-5 py-2.5">
+<span class="font-label-badge text-label-badge text-on-surface-variant">Sans exécution ni règlement</span>
+<span class="font-label-badge text-[10px] text-secondary font-semibold uppercase">Sandbox</span>
+</div>
+</div>
+</div>
+<!-- C. Graphique d'activité sur 7 jours -->
+<div class="p-6 rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-5">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<h2 class="font-headline-sm text-headline-sm font-bold text-on-surface">Volume d'activité du banc d'essai (7 derniers jours)</h2>
+<span class="material-symbols-outlined text-secondary text-[18px]">bolt</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Données d'illustration — Modélisation du trafic sandbox</span>
+</div>
+<!-- Chart Controls & Legend -->
+<div class="flex flex-wrap items-center gap-4">
+<div class="flex items-center gap-3 bg-surface-container-low px-3 py-1.5 rounded-lg">
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 rounded-full bg-secondary-container"></span>
+<span class="font-label-badge text-label-badge text-on-surface font-semibold">Factures Regtest</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 rounded-full bg-on-tertiary-container"></span>
+<span class="font-label-badge text-label-badge text-on-surface font-semibold">Paiements confirmés</span>
+</div>
+</div>
+<div class="flex items-center p-0.5 rounded-lg bg-surface-container-low">
+<button class="px-3 py-1 rounded font-label-badge text-label-badge text-on-surface-variant hover:text-on-surface transition-all">Jour</button>
+<button class="px-3 py-1 rounded font-label-badge text-label-badge bg-surface-container-lowest text-on-surface shadow-xs font-bold">Semaine</button>
+<button class="px-3 py-1 rounded font-label-badge text-label-badge text-on-surface-variant hover:text-on-surface transition-all">Mois</button>
+</div>
+</div>
+</div>
+<!-- High Fidelity SVG Visualization -->
+<div class="w-full h-64 relative mt-2">
+<svg class="w-full h-full overflow-visible" preserveAspectRatio="none" viewBox="0 0 1000 220">
+<defs>
+<linearGradient id="orangeGrad" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#fe9821" stop-opacity="0.32"></stop>
+<stop offset="100%" stop-color="#fe9821" stop-opacity="0.01"></stop>
+</linearGradient>
+<linearGradient id="greenGrad" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#009756" stop-opacity="0.25"></stop>
+<stop offset="100%" stop-color="#009756" stop-opacity="0.01"></stop>
+</linearGradient>
+</defs>
+<!-- Horizontal Grid Lines -->
+<line stroke="#f0f3ff" stroke-dasharray="4 4" stroke-width="1.5" x1="0" x2="1000" y1="30" y2="30"></line>
+<line stroke="#f0f3ff" stroke-dasharray="4 4" stroke-width="1.5" x1="0" x2="1000" y1="80" y2="80"></line>
+<line stroke="#f0f3ff" stroke-dasharray="4 4" stroke-width="1.5" x1="0" x2="1000" y1="130" y2="130"></line>
+<line stroke="#f0f3ff" stroke-width="1.5" x1="0" x2="1000" y1="180" y2="180"></line>
+<!-- Filled Areas -->
+<!-- X-Coords: Lun: 40, Mar: 190, Mer: 345, Jeu: 500, Ven: 655, Sam: 810, Dim: 960 -->
+<!-- Factures Y scale (max ~350): Lun 142(134), Mar 180(114), Mer 210(98), Jeu 195(106), Ven 260(72), Sam 310(45), Dim 245(80) -->
+<polygon fill="url(#orangeGrad)" points="40,180 40,134 190,114 345,98 500,106 655,72 810,45 960,80 960,180"></polygon>
+<!-- Paiements Y scale: Lun 98(152), Mar 125(140), Mer 145(130), Jeu 130(138), Ven 185(110), Sam 220(92), Dim 165(120) -->
+<polygon fill="url(#greenGrad)" points="40,180 40,152 190,140 345,130 500,138 655,110 810,92 960,120 960,180"></polygon>
+<!-- Factures Orange Curve -->
+<polyline fill="none" points="40,134 190,114 345,98 500,106 655,72 810,45 960,80" stroke="#fe9821" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></polyline>
+<!-- Paiements Green Curve -->
+<polyline fill="none" points="40,152 190,140 345,130 500,138 655,110 810,92 960,120" stroke="#009756" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></polyline>
+<!-- Data Points Orange -->
+<circle cx="40" cy="134" fill="#fe9821" r="4.5" stroke="#ffffff" stroke-width="2"></circle>
+<circle cx="190" cy="114" fill="#fe9821" r="4.5" stroke="#ffffff" stroke-width="2"></circle>
+<circle cx="345" cy="98" fill="#fe9821" r="4.5" stroke="#ffffff" stroke-width="2"></circle>
+<circle cx="500" cy="106" fill="#fe9821" r="4.5" stroke="#ffffff" stroke-width="2"></circle>
+<circle cx="655" cy="72" fill="#fe9821" r="4.5" stroke="#ffffff" stroke-width="2"></circle>
+<circle cx="810" cy="45" fill="#fe9821" r="5" stroke="#ffffff" stroke-width="2.5"></circle>
+<circle cx="960" cy="80" fill="#fe9821" r="4.5" stroke="#ffffff" stroke-width="2"></circle>
+<!-- Data Points Green -->
+<circle cx="40" cy="152" fill="#009756" r="3.5" stroke="#ffffff" stroke-width="1.5"></circle>
+<circle cx="190" cy="140" fill="#009756" r="3.5" stroke="#ffffff" stroke-width="1.5"></circle>
+<circle cx="345" cy="130" fill="#009756" r="3.5" stroke="#ffffff" stroke-width="1.5"></circle>
+<circle cx="500" cy="138" fill="#009756" r="3.5" stroke="#ffffff" stroke-width="1.5"></circle>
+<circle cx="655" cy="110" fill="#009756" r="3.5" stroke="#ffffff" stroke-width="1.5"></circle>
+<circle cx="810" cy="92" fill="#009756" r="4" stroke="#ffffff" stroke-width="2"></circle>
+<circle cx="960" cy="120" fill="#009756" r="3.5" stroke="#ffffff" stroke-width="1.5"></circle>
+<!-- Value Pill Highlight at Peak (Samedi) -->
+<g transform="translate(775, 12)">
+<rect fill="#141b2c" height="24" rx="5" width="70"></rect>
+<text fill="#ffffff" font-family="Inter" font-size="10.5" font-weight="600" text-anchor="middle" x="35" y="16">310 / 220</text>
+</g>
+</svg>
+<!-- Dynamic Day Labels -->
+<div class="flex items-center justify-between text-on-surface-variant font-mono-crypto text-body-sm pt-2">
+<div class="text-center w-16">
+<span class="block font-semibold">Lun</span>
+<span class="text-[10px] text-outline">142 / 98</span>
+</div>
+<div class="text-center w-16">
+<span class="block font-semibold">Mar</span>
+<span class="text-[10px] text-outline">180 / 125</span>
+</div>
+<div class="text-center w-16">
+<span class="block font-semibold">Mer</span>
+<span class="text-[10px] text-outline">210 / 145</span>
+</div>
+<div class="text-center w-16">
+<span class="block font-semibold">Jeu</span>
+<span class="text-[10px] text-outline">195 / 130</span>
+</div>
+<div class="text-center w-16">
+<span class="block font-semibold">Ven</span>
+<span class="text-[10px] text-outline">260 / 185</span>
+</div>
+<div class="text-center w-16">
+<span class="block font-bold text-secondary">Sam</span>
+<span class="text-[10px] text-secondary font-medium">310 / 220</span>
+</div>
+<div class="text-center w-16">
+<span class="block font-semibold">Dim</span>
+<span class="text-[10px] text-outline">245 / 165</span>
+</div>
+</div>
+</div>
+</div>
+<!-- D. Tableau des opérations -->
+<div class="p-6 rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-4">
+<!-- Filter Bar -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-center">
+<!-- Search -->
+<div class="md:col-span-5 relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">search</span>
+<input class="w-full pl-9 pr-3 py-2 bg-surface-container-low rounded-lg font-body-sm text-body-sm text-on-surface placeholder:text-on-surface-variant outline-none focus:bg-surface-container-lowest transition-all" id="txSearch" placeholder="Rechercher par hash, ID ou référence..." type="text">
+</div>
+<!-- Filter Selects -->
+<div class="md:col-span-7 flex flex-wrap sm:flex-nowrap items-center gap-2.5">
+<select class="w-full sm:w-auto px-3 py-2 bg-surface-container-low rounded-lg font-body-sm text-body-sm text-on-surface outline-none cursor-pointer" id="typeFilter">
+<option value="all">Tous les types</option>
+<option value="facture">Facture Lightning Regtest</option>
+<option value="marchand">Paiement marchand de test</option>
+<option value="p2p">Transfert P2P de test</option>
+<option value="devis">Devis transfrontalier simulé</option>
+<option value="conversion">Simulation de conversion</option>
+</select>
+<select class="w-full sm:w-auto px-3 py-2 bg-surface-container-low rounded-lg font-body-sm text-body-sm text-on-surface outline-none cursor-pointer" id="statusFilter">
+<option value="all">Tous les statuts</option>
+<option value="regle">Réglé sur Regtest</option>
+<option value="attente">En attente sur Regtest</option>
+<option value="expire">Expiré</option>
+<option value="echec">Échec de test</option>
+<option value="simulation">Simulation uniquement</option>
+<option value="non_regle">Devis non réglé</option>
+</select>
+<select class="w-full sm:w-auto px-3 py-2 bg-surface-container-low rounded-lg font-body-sm text-body-sm text-on-surface outline-none cursor-pointer"><option>Tous corridors (SN, CI, CG)</option><option>Sénégal (SN)</option><option>Côte d'Ivoire (CI)</option><option>Congo (CG)</option></select>
+</div>
+</div>
+<!-- Responsive Table Container -->
+<div class="overflow-x-auto w-full -mx-6 px-6">
+<table class="w-full text-left border-collapse min-w-[1100px]">
+<thead>
+<tr class="bg-surface-container-low/70 text-on-surface-variant font-label-badge text-label-badge uppercase tracking-wider">
+<th class="py-3 px-4 rounded-l-lg">Date &amp; Heure</th>
+<th class="py-3 px-4">Référence / Hash</th>
+<th class="py-3 px-4">Type d'opération</th>
+<th class="py-3 px-4">Origine</th>
+<th class="py-3 px-4">Destination</th>
+<th class="py-3 px-4 text-right">Montant (sats)</th>
+<th class="py-3 px-4 text-right">Contre-valeur FCFA</th>
+<th class="py-3 px-4 text-center">Statut</th>
+<th class="py-3 px-4 rounded-r-lg text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y-0 text-on-surface font-body-sm text-body-sm">
+<!-- Row 1: Réglé -->
+<tr class="hover:bg-surface-container-low/40 transition-colors">
+<td class="py-3.5 px-4 font-mono-crypto text-body-sm whitespace-nowrap">
+<span class="text-on-surface font-medium block">24 Fév 2026</span>
+<span class="text-outline text-[11px]">14:32:08</span>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-1.5 font-mono-crypto text-mono-crypto text-on-surface">
+<span class="bg-surface-container px-2 py-0.5 rounded text-[12px]">lnbc_regtest_9f2...a1</span>
+<button class="text-outline hover:text-on-surface" onclick="navigator.clipboard.writeText('lnbc_regtest_9f273ad901a1'); showToast('Hash copié dans le presse-papier');" title="Copier le hash">
+<span class="material-symbols-outlined text-[15px]">content_copy</span>
+</button>
+</div>
+</td>
+<td class="py-3.5 px-4 whitespace-nowrap">
+<span class="inline-flex items-center gap-1.5 font-medium text-on-surface">
+<span class="material-symbols-outlined text-secondary text-[16px]">bolt</span>
+                  Facture Lightning Regtest
+                </span>
+</td>
+<td class="py-3.5 px-4 whitespace-nowrap text-on-surface-variant font-medium">Terminal POS Almadies</td>
+<td class="py-3.5 px-4 whitespace-nowrap text-on-surface-variant font-medium">Nœud Dakar #1</td>
+<td class="py-3.5 px-4 text-right whitespace-nowrap">
+<span class="font-mono-crypto font-bold text-on-surface">45 000 <span class="text-secondary font-semibold">sats</span></span>
+</td>
+<td class="py-3.5 px-4 text-right whitespace-nowrap text-on-surface-variant font-mono-crypto">
+                ~12 500 FCFA <span class="text-[10px] text-outline">ind.</span>
+</td>
+<td class="py-3.5 px-4 text-center whitespace-nowrap"><span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full font-label-badge text-label-badge font-semibold bg-tertiary-fixed/30 text-on-tertiary-fixed"><span class="material-symbols-outlined text-[13px] font-bold">check</span>Réglé sur Regtest (Exemple)</span></td>
+<td class="py-3.5 px-4 text-right whitespace-nowrap">
+<button class="px-2.5 py-1 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-body-sm text-[12px] font-medium transition-all" onclick="openDrawer('lnbc_regtest_9f2...a1', 'Facture Lightning Regtest', '45 000 sats', '~12 500 FCFA', 'Réglé sur Regtest', 'Terminal POS Almadies', 'Nœud Dakar #1')">
+                  Voir détail
+                </button>
+</td>
+</tr>
+<!-- Row 2: En attente -->
+<tr class="hover:bg-surface-container-low/40 transition-colors">
+<td class="py-3.5 px-4 font-mono-crypto text-body-sm whitespace-nowrap">
+<span class="text-on-surface font-medium block">24 Fév 2026</span>
+<span class="text-outline text-[11px]">14:28:15</span>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-1.5 font-mono-crypto text-mono-crypto text-on-surface">
+<span class="bg-surface-container px-2 py-0.5 rounded text-[12px]">lnbc_regtest_c41...8b</span>
+<button class="text-outline hover:text-on-surface" onclick="navigator.clipboard.writeText('lnbc_regtest_c4109de128b'); showToast('Hash copié');">
+<span class="material-symbols-outlined text-[15px]">content_copy</span>
+</button>
+</div>
+</td>
+<td class="py-3.5 px-4 whitespace-nowrap">
+<span class="inline-flex items-center gap-1.5 font-medium text-on-surface">
+<span class="material-symbols-outlined text-on-surface-variant text-[16px]">storefront</span>
+                  Paiement marchand de test
+                </span>
+</td>
+<td class="py-3.5 px-4 whitespace-nowrap text-on-surface-variant font-medium">Utilisateur SN (Dakar)</td>
+<td class="py-3.5 px-4 whitespace-nowrap text-on-surface-variant font-medium">Épicerie Bacongo</td>
+<td class="py-3.5 px-4 text-right whitespace-nowrap">
+<span class="font-mono-crypto font-bold text-on-surface">18 500 <span class="text-secondary font-semibold">sats</span></span>
+</td>
+<td class="py-3.5 px-4 text-right whitespace-nowrap text-on-surface-variant font-mono-crypto">
+                ~5 140 FCFA <span class="text-[10px] text-outline">ind.</span>
+</td>
+<td class="py-3.5 px-4 text-center whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full font-label-badge text-label-badge font-semibold bg-surface-container-high text-on-surface">
+<span class="material-symbols-outlined text-[13px] animate-spin">progress_activity</span>
+                  En attente sur Regtest
+                </span>
+</td>
+<td class="py-3.5 px-4 text-right whitespace-nowrap">
+<button class="px-2.5 py-1 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-body-sm text-[12px] font-medium transition-all" onclick="openDrawer('lnbc_regtest_c41...8b', 'Paiement marchand de test', '18 500 sats', '~5 140 FCFA', 'En attente sur Regtest', 'Utilisateur SN (Dakar)', 'Épicerie Bacongo')">
+                  Voir détail
+                </button>
+</td>
+</tr>
+<!-- Row 3: Expiré -->
+<tr class="hover:bg-surface-container-low/40 transition-colors">
+<td class="py-3.5 px-4 font-mono-crypto text-body-sm whitespace-nowrap">
+<span class="text-on-surface font-medium block">24 Fév 2026</span>
+<span class="text-outline text-[11px]">13:45:00</span>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-1.5 font-mono-crypto text-mono-crypto text-on-surface">
+<span class="bg-surface-container px-2 py-0.5 rounded text-[12px]">lnbc_regtest_7a1...ff</span>
+<button class="text-outline hover:text-on-surface" onclick="navigator.clipboard.writeText('lnbc_regtest_7a12bc99ff'); showToast('Hash copié');">
+<span class="material-symbols-outlined text-[15px]">content_copy</span>
+</button>
+</div>
+</td>
+<td class="py-3.5 px-4 whitespace-nowrap">
+<span class="inline-flex items-center gap-1.5 font-medium text-on-surface">
+<span class="material-symbols-outlined text-outline text-[16px]">timer_off</span>
+                  Facture Lightning Regtest
+                </span>
+</td>
+<td class="py-3.5 px-4 whitespace-nowrap text-on-surface-variant font-medium">Bot de test #04</td>
+<td class="py-3.5 px-4 whitespace-nowrap text-on-surface-variant font-medium">Sandbox Dakar</td>
+<td class="py-3.5 px-4 text-right whitespace-nowrap">
+<span class="font-mono-crypto font-bold text-on-surface">120 000 <span class="text-secondary font-semibold">sats</span></span>
+</td>
+<td class="py-3.5 px-4 text-right whitespace-nowrap text-on-surface-variant font-mono-crypto">
+                ~33 300 FCFA <span class="text-[10px] text-outline">ind.</span>
+</td>
+<td class="py-3.5 px-4 text-center whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full font-label-badge text-label-badge font-semibold bg-surface-variant text-on-surface-variant">
+<span class="material-symbols-outlined text-[13px]">schedule</span>
+                  Expiré
+                </span>
+</td>
+<td class="py-3.5 px-4 text-right whitespace-nowrap">
+<button class="px-2.5 py-1 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-body-sm text-[12px] font-medium transition-all" onclick="openDrawer('lnbc_regtest_7a1...ff', 'Facture Lightning Regtest', '120 000 sats', '~33 300 FCFA', 'Expiré', 'Bot de test #04', 'Sandbox Dakar')">
+                  Voir détail
+                </button>
+</td>
+</tr>
+<!-- Row 4: Échec de test -->
+<tr class="hover:bg-surface-container-low/40 transition-colors">
+<td class="py-3.5 px-4 font-mono-crypto text-body-sm whitespace-nowrap">
+<span class="text-on-surface font-medium block">24 Fév 2026</span>
+<span class="text-outline text-[11px]">12:15:33</span>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-1.5 font-mono-crypto text-mono-crypto text-on-surface">
+<span class="bg-surface-container px-2 py-0.5 rounded text-[12px]">lnbc_regtest_3e4...d2</span>
+<button class="text-outline hover:text-on-surface" onclick="navigator.clipboard.writeText('lnbc_regtest_3e439001d2'); showToast('Hash copié');">
+<span class="material-symbols-outlined text-[15px]">content_copy</span>
+</button>
+</div>
+</td>
+<td class="py-3.5 px-4 whitespace-nowrap">
+<span class="inline-flex items-center gap-1.5 font-medium text-on-surface">
+<span class="material-symbols-outlined text-error text-[16px]">sync_problem</span>
+                  Transfert P2P de test
+                </span>
+</td>
+<td class="py-3.5 px-4 whitespace-nowrap text-on-surface-variant font-medium">Client CI (Abidjan)</td>
+<td class="py-3.5 px-4 whitespace-nowrap text-on-surface-variant font-medium">Destinataire CG (Brazzaville)</td>
+<td class="py-3.5 px-4 text-right whitespace-nowrap">
+<span class="font-mono-crypto font-bold text-on-surface">5 000 <span class="text-secondary font-semibold">sats</span></span>
+</td>
+<td class="py-3.5 px-4 text-right whitespace-nowrap text-on-surface-variant font-mono-crypto">
+                ~1 380 FCFA <span class="text-[10px] text-outline">ind.</span>
+</td>
+<td class="py-3.5 px-4 text-center whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full font-label-badge text-label-badge font-semibold bg-error-container text-on-error-container">
+<span class="material-symbols-outlined text-[13px]">cancel</span>
+                  Échec de test
+                </span>
+</td>
+<td class="py-3.5 px-4 text-right whitespace-nowrap">
+<button class="px-2.5 py-1 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-body-sm text-[12px] font-medium transition-all" onclick="openDrawer('lnbc_regtest_3e4...d2', 'Transfert P2P de test', '5 000 sats', '~1 380 FCFA', 'Échec de test', 'Client CI (Abidjan)', 'Destinataire CG (Brazzaville)')">
+                  Voir détail
+                </button>
+</td>
+</tr>
+<!-- Row 5: Simulation uniquement -->
+<tr class="hover:bg-surface-container-low/40 transition-colors">
+<td class="py-3.5 px-4 font-mono-crypto text-body-sm whitespace-nowrap">
+<span class="text-on-surface font-medium block">24 Fév 2026</span>
+<span class="text-outline text-[11px]">11:50:22</span>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-1.5 font-mono-crypto text-mono-crypto text-on-surface">
+<span class="bg-surface-container px-2 py-0.5 rounded text-[12px]">sim_quote_xof_87a</span>
+<button class="text-outline hover:text-on-surface" onclick="navigator.clipboard.writeText('sim_quote_xof_87a'); showToast('ID Devis copié');">
+<span class="material-symbols-outlined text-[15px]">content_copy</span>
+</button>
+</div>
+</td>
+<td class="py-3.5 px-4 whitespace-nowrap">
+<span class="inline-flex items-center gap-1.5 font-medium text-on-surface">
+<span class="material-symbols-outlined text-on-surface-variant text-[16px]">swap_horiz</span>
+                  Simulation de conversion
+                </span>
+</td>
+<td class="py-3.5 px-4 whitespace-nowrap text-on-surface-variant font-medium">Banc d'essai Sandbox</td>
+<td class="py-3.5 px-4 whitespace-nowrap text-on-surface-variant font-medium">Passerelle XOF/BTC</td>
+<td class="py-3.5 px-4 text-right whitespace-nowrap">
+<span class="font-mono-crypto font-bold text-on-surface">250 000 <span class="text-secondary font-semibold">sats</span></span>
+</td>
+<td class="py-3.5 px-4 text-right whitespace-nowrap text-on-surface-variant font-mono-crypto">
+                ~69 450 FCFA <span class="text-[10px] text-outline">ind.</span>
+</td>
+<td class="py-3.5 px-4 text-center whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full font-label-badge text-label-badge font-semibold bg-surface-container-high text-on-surface">
+<span class="material-symbols-outlined text-[13px]">tune</span>
+                  Simulation uniquement
+                </span>
+</td>
+<td class="py-3.5 px-4 text-right whitespace-nowrap">
+<button class="px-2.5 py-1 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-body-sm text-[12px] font-medium transition-all" onclick="openDrawer('sim_quote_xof_87a', 'Simulation de conversion', '250 000 sats', '~69 450 FCFA', 'Simulation uniquement', 'Banc d\'essai Sandbox', 'Passerelle XOF/BTC')">
+                  Voir détail
+                </button>
+</td>
+</tr>
+<!-- Row 6: Devis non réglé -->
+<tr class="hover:bg-surface-container-low/40 transition-colors">
+<td class="py-3.5 px-4 font-mono-crypto text-body-sm whitespace-nowrap">
+<span class="text-on-surface font-medium block">24 Fév 2026</span>
+<span class="text-outline text-[11px]">10:04:19</span>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-1.5 font-mono-crypto text-mono-crypto text-on-surface">
+<span class="bg-surface-container px-2 py-0.5 rounded text-[12px]">corridor_quote_004</span>
+<button class="text-outline hover:text-on-surface" onclick="navigator.clipboard.writeText('corridor_quote_004'); showToast('Référence copiée');">
+<span class="material-symbols-outlined text-[15px]">content_copy</span>
+</button>
+</div>
+</td>
+<td class="py-3.5 px-4 whitespace-nowrap">
+<span class="inline-flex items-center gap-1.5 font-medium text-on-surface">
+<span class="material-symbols-outlined text-secondary text-[16px]">public</span>
+                  Devis transfrontalier simulé
+                </span>
+</td>
+<td class="py-3.5 px-4 whitespace-nowrap text-on-surface-variant font-medium">Compte Pro Dakar</td>
+<td class="py-3.5 px-4 whitespace-nowrap text-on-surface-variant font-medium">Bénéficiaire Pointe-Noire (CG)</td>
+<td class="py-3.5 px-4 text-right whitespace-nowrap">
+<span class="font-mono-crypto font-bold text-on-surface">80 000 <span class="text-secondary font-semibold">sats</span></span>
+</td>
+<td class="py-3.5 px-4 text-right whitespace-nowrap text-on-surface-variant font-mono-crypto">
+                ~22 220 FCFA <span class="text-[10px] text-outline">ind.</span>
+</td>
+<td class="py-3.5 px-4 text-center whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full font-label-badge text-label-badge font-semibold bg-secondary-fixed text-on-secondary-fixed">
+<span class="material-symbols-outlined text-[13px]">hourglass_empty</span>
+                  Devis non réglé
+                </span>
+</td>
+<td class="py-3.5 px-4 text-right whitespace-nowrap">
+<button class="px-2.5 py-1 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-body-sm text-[12px] font-medium transition-all" onclick="openDrawer('corridor_quote_004', 'Devis transfrontalier simulé', '80 000 sats', '~22 220 FCFA', 'Devis non réglé', 'Compte Pro Dakar', 'Bénéficiaire Cotonou (BJ)')">
+                  Voir détail
+                </button>
+</td>
+</tr>
+<!-- Row 7: Réglé standard -->
+<tr class="hover:bg-surface-container-low/40 transition-colors">
+<td class="py-3.5 px-4 font-mono-crypto text-body-sm whitespace-nowrap">
+<span class="text-on-surface font-medium block">24 Fév 2026</span>
+<span class="text-outline text-[11px]">09:12:44</span>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-1.5 font-mono-crypto text-mono-crypto text-on-surface">
+<span class="bg-surface-container px-2 py-0.5 rounded text-[12px]">lnbc_regtest_1d9...0e</span>
+<button class="text-outline hover:text-on-surface" onclick="navigator.clipboard.writeText('lnbc_regtest_1d910fe0e'); showToast('Hash copié');">
+<span class="material-symbols-outlined text-[15px]">content_copy</span>
+</button>
+</div>
+</td>
+<td class="py-3.5 px-4 whitespace-nowrap">
+<span class="inline-flex items-center gap-1.5 font-medium text-on-surface">
+<span class="material-symbols-outlined text-secondary text-[16px]">bolt</span>
+                  Facture Lightning Regtest
+                </span>
+</td>
+<td class="py-3.5 px-4 whitespace-nowrap text-on-surface-variant font-medium">Utilisateur SN (Thiès)</td>
+<td class="py-3.5 px-4 whitespace-nowrap text-on-surface-variant font-medium">Nœud Dakar #1</td>
+<td class="py-3.5 px-4 text-right whitespace-nowrap">
+<span class="font-mono-crypto font-bold text-on-surface">10 000 <span class="text-secondary font-semibold">sats</span></span>
+</td>
+<td class="py-3.5 px-4 text-right whitespace-nowrap text-on-surface-variant font-mono-crypto">
+                ~2 770 FCFA <span class="text-[10px] text-outline">ind.</span>
+</td>
+<td class="py-3.5 px-4 text-center whitespace-nowrap"><span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full font-label-badge text-label-badge font-semibold bg-tertiary-fixed/30 text-on-tertiary-fixed"><span class="material-symbols-outlined text-[13px] font-bold">check</span>Réglé sur Regtest (Exemple)</span></td>
+<td class="py-3.5 px-4 text-right whitespace-nowrap">
+<button class="px-2.5 py-1 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-body-sm text-[12px] font-medium transition-all" onclick="openDrawer('lnbc_regtest_1d9...0e', 'Facture Lightning Regtest', '10 000 sats', '~2 770 FCFA', 'Réglé sur Regtest', 'Utilisateur SN (Thiès)', 'Nœud Dakar #1')">
+                  Voir détail
+                </button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination SaaS -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-3">
+<span class="font-body-sm text-body-sm text-on-surface-variant">
+          Affichage de <span class="font-bold text-on-surface">1</span> à <span class="font-bold text-on-surface">7</span> sur <span class="font-bold text-on-surface">1 842</span> opérations de démonstration
+        </span>
+<div class="flex items-center gap-1">
+<button class="w-8 h-8 rounded-lg bg-surface-container text-on-surface hover:bg-surface-container-high flex items-center justify-center transition-all disabled:opacity-40" disabled="">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</button>
+<button class="w-8 h-8 rounded-lg bg-primary text-on-primary font-body-sm text-body-sm font-bold flex items-center justify-center shadow-xs">
+            1
+          </button>
+<button class="w-8 h-8 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-body-sm text-body-sm font-medium flex items-center justify-center transition-all">
+            2
+          </button>
+<button class="w-8 h-8 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-body-sm text-body-sm font-medium flex items-center justify-center transition-all">
+            3
+          </button>
+<span class="px-1.5 text-on-surface-variant font-mono-crypto">...</span>
+<button class="w-8 h-8 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-body-sm text-body-sm font-medium flex items-center justify-center transition-all">
+            264
+          </button>
+<button class="w-8 h-8 rounded-lg bg-surface-container text-on-surface hover:bg-surface-container-high flex items-center justify-center transition-all">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- E. Encadré de sécurité & conformité -->
+<div class="p-4 rounded-xl bg-secondary-fixed/50 flex items-start gap-3.5 shadow-xs">
+<div class="w-8 h-8 rounded-full bg-secondary text-on-secondary flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[18px]">gshield</span>
+</div>
+<div class="flex flex-col gap-0.5">
+<span class="font-headline-sm text-[14px] font-bold text-on-secondary-fixed leading-snug">Note de conformité et sécurité</span>
+<p class="font-body-sm text-body-sm text-on-secondary-fixed font-medium leading-relaxed">
+          Les transactions Regtest utilisent exclusivement des bitcoins de test sans valeur monétaire. Les devis et simulations de transfert n'entraînent aucun règlement réel. Les tests d'intégration API Django et LND sont isolés.
+        </p>
+</div>
+</div>
+</div>
+<!-- Detail Drawer Modal (Inspection Sandbox) -->
+<div class="fixed inset-0 z-50 pointer-events-none transition-all duration-300" id="detailDrawer">
+<!-- Backdrop -->
+<div class="absolute inset-0 bg-primary/40 backdrop-blur-sm opacity-0 transition-opacity duration-300" id="drawerBackdrop" onclick="closeDrawer()"></div>
+<!-- Slide-over panel -->
+<div class="absolute right-0 top-0 h-full w-full max-w-md bg-surface-container-lowest shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col justify-between overflow-y-auto" id="drawerPanel">
+<div class="p-6 flex flex-col gap-6">
+<!-- Header -->
+<div class="flex items-center justify-between pb-4">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-lg bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">receipt</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Détail de la simulation</h3>
+<span class="font-mono-crypto text-[11px] text-on-surface-variant">Sandbox Node LND #01</span>
+</div>
+</div>
+<button class="w-8 h-8 rounded-full bg-surface-container hover:bg-surface-container-high flex items-center justify-center text-on-surface" onclick="closeDrawer()">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Banner Test Indicator -->
+<div class="p-3 rounded-lg bg-secondary-fixed/40 flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[18px]">science</span>
+<span class="font-label-badge text-[11px] font-semibold text-on-secondary-fixed">Enregistrement Regtest isolé — Non diffusable</span>
+</div>
+<!-- Dynamic Content Fields -->
+<div class="space-y-4">
+<div class="p-3.5 rounded-lg bg-surface-container-low flex flex-col gap-1">
+<span class="font-label-badge text-label-badge text-on-surface-variant uppercase">Identifiant / Préimage</span>
+<span class="font-mono-crypto text-mono-crypto font-bold text-on-surface break-all" id="drawerHash">--</span>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<div class="p-3 rounded-lg bg-surface-container-low flex flex-col">
+<span class="font-label-badge text-label-badge text-on-surface-variant">Type</span>
+<span class="font-body-sm text-body-sm font-bold text-on-surface mt-0.5" id="drawerType">--</span>
+</div>
+<div class="p-3 rounded-lg bg-surface-container-low flex flex-col">
+<span class="font-label-badge text-label-badge text-on-surface-variant">Statut</span>
+<span class="font-body-sm text-body-sm font-bold text-on-surface mt-0.5" id="drawerStatus">--</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<div class="p-3.5 rounded-lg bg-surface-container-low flex flex-col">
+<span class="font-label-badge text-label-badge text-on-surface-variant">Montant simulé</span>
+<span class="font-mono-crypto text-body-md font-bold text-secondary mt-0.5" id="drawerAmount">--</span>
+</div>
+<div class="p-3.5 rounded-lg bg-surface-container-low flex flex-col">
+<span class="font-label-badge text-label-badge text-on-surface-variant">Équivalent Indicatif</span>
+<span class="font-mono-crypto text-body-md font-bold text-on-surface mt-0.5" id="drawerFiat">--</span>
+</div>
+</div>
+<div class="p-3 rounded-lg bg-surface-container-low flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="font-label-badge text-label-badge text-on-surface-variant">Entité Émettrice</span>
+<span class="font-body-sm text-body-sm font-semibold text-on-surface" id="drawerSender">--</span>
+</div>
+<div class="flex items-center justify-between pt-2">
+<span class="font-label-badge text-label-badge text-on-surface-variant">Entité Réceptrice</span>
+<span class="font-body-sm text-body-sm font-semibold text-on-surface" id="drawerReceiver">--</span>
+</div>
+</div>
+<div class="p-3.5 rounded-lg bg-surface-container-high/60 flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<span class="font-mono-crypto text-[11px] font-bold text-on-surface">BOLT11 Payload Raw (Banc Regtest)</span>
+<span class="font-label-badge text-[10px] text-tertiary-fixed font-bold bg-primary px-1.5 py-0.5 rounded">HEX</span>
+</div>
+<p class="font-mono-crypto text-[10px] text-on-surface-variant leading-relaxed break-all">
+              lnbcrt1000u1pn83k7spp5e96x82t2n...q4d4qgq9qgq9qgqyyssqq50z5p7w30w37c7674728190013h8a
+            </p>
+</div>
+</div>
+</div>
+<!-- Drawer Footer Actions -->
+<div class="p-6 bg-surface-container-low flex items-center justify-end gap-3">
+<button class="px-4 py-2 rounded-lg bg-surface-container hover:bg-surface-container-high font-body-sm text-body-sm font-medium text-on-surface" onclick="closeDrawer()">
+          Fermer
+        </button>
+<button class="px-4 py-2 rounded-lg bg-secondary text-on-secondary hover:bg-secondary-container transition-all font-body-sm text-body-sm font-semibold shadow-sm" onclick="showToast('Règlement simulé relancé en sandbox'); closeDrawer();">
+          Relancer test
+        </button>
+</div>
+</div>
+</div>
+<!-- Inline Micro-interactions Script -->
+<script>
+    // Toast notification trigger
+    function showToast(message) {
+      const toast = document.getElementById('liveToast');
+      const toastMsg = document.getElementById('toastMsg');
+      if (toast && toastMsg) {
+        toastMsg.textContent = message;
+        toast.classList.remove('opacity-0', 'translate-y-24', 'pointer-events-none');
+        toast.classList.add('opacity-100', 'translate-y-0');
+        setTimeout(() => {
+          toast.classList.remove('opacity-100', 'translate-y-0');
+          toast.classList.add('opacity-0', 'translate-y-24', 'pointer-events-none');
+        }, 3200);
+      }
+    }
+
+    // Drawer Logic
+    function openDrawer(hash, type, sats, fiat, status, sender, receiver) {
+      document.getElementById('drawerHash').innerText = hash;
+      document.getElementById('drawerType').innerText = type;
+      document.getElementById('drawerAmount').innerText = sats;
+      document.getElementById('drawerFiat').innerText = fiat;
+      document.getElementById('drawerStatus').innerText = status;
+      document.getElementById('drawerSender').innerText = sender;
+      document.getElementById('drawerReceiver').innerText = receiver;
+
+      const drawer = document.getElementById('detailDrawer');
+      const backdrop = document.getElementById('drawerBackdrop');
+      const panel = document.getElementById('drawerPanel');
+
+      drawer.classList.remove('pointer-events-none');
+      backdrop.classList.remove('opacity-0');
+      backdrop.classList.add('opacity-100');
+      panel.classList.remove('translate-x-full');
+      panel.classList.add('translate-x-0');
+    }
+
+    function closeDrawer() {
+      const drawer = document.getElementById('detailDrawer');
+      const backdrop = document.getElementById('drawerBackdrop');
+      const panel = document.getElementById('drawerPanel');
+
+      backdrop.classList.remove('opacity-100');
+      backdrop.classList.add('opacity-0');
+      panel.classList.remove('translate-x-0');
+      panel.classList.add('translate-x-full');
+
+      setTimeout(() => {
+        drawer.classList.add('pointer-events-none');
+      }, 300);
+    }
+
+    // Refresh simulation trigger
+    document.getElementById('btnRefresh')?.addEventListener('click', function() {
+      this.classList.add('opacity-70');
+      const icon = this.querySelector('.material-symbols-outlined');
+      if (icon) icon.classList.add('animate-spin');
+
+      setTimeout(() => {
+        this.classList.remove('opacity-70');
+        if (icon) icon.classList.remove('animate-spin');
+        showToast('Synchronisation du nœud Regtest réussie (1 842 factures)');
+      }, 800);
+    });
+
+    // Export CSV trigger
+    document.getElementById('btnExport')?.addEventListener('click', function() {
+      showToast('Export CSV des transactions de démonstration généré');
+    });
+
+    // Real-time table search simulation
+    document.getElementById('txSearch')?.addEventListener('input', function(e) {
+      const term = e.target.value.toLowerCase();
+      const rows = document.querySelectorAll('tbody tr');
+      rows.forEach(row => {
+        const text = row.innerText.toLowerCase();
+        row.style.display = text.includes(term) ? '' : 'none';
+      });
+    });
+  </script>
+</div></main></div>
+
+</body></html>
