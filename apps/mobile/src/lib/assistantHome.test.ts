@@ -13,7 +13,9 @@ import {
   ASSISTANT_START_LABEL,
   ASSISTANT_SUGGESTIONS,
   ASSISTANT_TOPICS,
+  assistantAccountLine,
   assistantGreeting,
+  maskAccountEmail,
   assistantHomeCopyHasForbiddenClaim,
   assistantUsesPaymentsListOnly,
   canShowPersonalLastOperation,
@@ -107,11 +109,23 @@ describe("accueil Assistant IA M33", () => {
     assert.equal(ASSISTANT_START_HINT.includes("Disponible prochainement"), false);
     const copy = visibleAssistantHomeCopy({
       firstName: "Awa",
+      email: "awa@smartpay.local",
       lastOperation: lastOperationTeaser(payment({ description: "Lab Bob" })),
     });
+    assert.match(copy, /Compte connecté · Awa · aw\*\*\*@smartpay\.local/);
+    assert.equal(copy.includes("awa@smartpay.local"), false);
     assert.equal(assistantHomeCopyHasForbiddenClaim(copy), false);
     assert.equal(copy.includes("#SN-8924"), false);
     assert.equal(copy.includes("25 000 FCFA"), false);
+  });
+
+  it("masque l'e-mail du compte connecté sans inventer d'identité", () => {
+    assert.equal(maskAccountEmail("user@smartpay.local"), "us***@smartpay.local");
+    assert.equal(maskAccountEmail("a@smartpay.local"), "a***@smartpay.local");
+    assert.equal(assistantAccountLine({ email: "user@smartpay.local" }), "Compte connecté · us***@smartpay.local");
+    assert.match(assistantAccountLine({ email: "awa@smartpay.local", firstName: "Awa" }) ?? "", /Awa/);
+    assert.equal(assistantAccountLine({ email: "" }), null);
+    assert.equal((assistantAccountLine({ email: "user@smartpay.local" }) ?? "").includes("user@"), false);
   });
 
   it("retombe sur le sens du paiement si la description est vide", () => {

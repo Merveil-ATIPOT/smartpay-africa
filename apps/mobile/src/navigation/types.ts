@@ -1,6 +1,8 @@
 import type { NavigatorScreenParams } from "@react-navigation/native";
 import type { PaymentPreview } from "@smartpay/contracts";
 
+import type { AcademyQuizAttemptDetail } from "../lib/academy";
+
 export type MerchantTabParamList = {
   MerchantHome: undefined;
   MerchantSalesAnalytics: undefined;
@@ -53,4 +55,17 @@ export type AppStackParamList = {
   Merchant: NavigatorScreenParams<MerchantStackParamList> | undefined;
   AssistantHome: undefined;
   AssistantChat: { conversationId: string; draftQuestion?: string };
+  AssistantExplain: { paymentId: string };
+  AcademyHome: undefined;
+  AcademyProgress: undefined;
+  AcademyCourse: { courseSlug: string };
+  AcademyModule: { courseSlug: string; moduleSlug: string };
+  AcademyLesson: { courseSlug: string; moduleSlug: string; lessonSlug: string };
+  AcademyQuiz: { courseSlug: string; moduleSlug: string };
+  AcademyQuizResult: {
+    courseSlug: string;
+    moduleSlug: string;
+    quizId: string;
+    attempt: AcademyQuizAttemptDetail;
+  };
 };

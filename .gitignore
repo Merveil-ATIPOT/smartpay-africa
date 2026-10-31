@@ -54,6 +54,16 @@ infrastructure/lightning-regtest/data/
 *.log
 *.cookie
 
+# Local dumps and backups (Django migrations stay versioned as .py)
+*.dump
+*.bak
+*.sql
+*.sql.gz
+backups/
+*.tmp
+*.orig
+*~
+
 # Generated
 apps/api/staticfiles/
 apps/api/media/

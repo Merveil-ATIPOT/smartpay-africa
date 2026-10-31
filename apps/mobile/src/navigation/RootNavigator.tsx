@@ -14,7 +14,15 @@ import { WelcomeScreen } from "../screens/WelcomeScreen";
 import { TransferAmountScreen } from "../screens/TransferAmountScreen";
 import { TransferResultScreen } from "../screens/TransferResultScreen";
 import { TransferReviewScreen } from "../screens/TransferReviewScreen";
+import { AcademyCourseScreen } from "../screens/AcademyCourseScreen";
+import { AcademyHomeScreen } from "../screens/AcademyHomeScreen";
+import { AcademyProgressScreen } from "../screens/AcademyProgressScreen";
+import { AcademyLessonScreen } from "../screens/AcademyLessonScreen";
+import { AcademyModuleScreen } from "../screens/AcademyModuleScreen";
+import { AcademyQuizResultScreen } from "../screens/AcademyQuizResultScreen";
+import { AcademyQuizScreen } from "../screens/AcademyQuizScreen";
 import { AssistantChatScreen } from "../screens/AssistantChatScreen";
+import { AssistantExplainScreen } from "../screens/AssistantExplainScreen";
 import { AssistantHomeScreen } from "../screens/AssistantHomeScreen";
 import { MerchantNavigator } from "./MerchantNavigator";
 import { TabNavigator } from "./TabNavigator";
@@ -50,6 +58,14 @@ export function RootNavigator() {
           <Stack.Screen name="Merchant" component={MerchantNavigator} />
           <Stack.Screen name="AssistantHome" component={AssistantHomeScreen} />
           <Stack.Screen name="AssistantChat" component={AssistantChatScreen} />
+          <Stack.Screen name="AssistantExplain" component={AssistantExplainScreen} />
+          <Stack.Screen name="AcademyHome" component={AcademyHomeScreen} />
+          <Stack.Screen name="AcademyProgress" component={AcademyProgressScreen} />
+          <Stack.Screen name="AcademyCourse" component={AcademyCourseScreen} />
+          <Stack.Screen name="AcademyModule" component={AcademyModuleScreen} />
+          <Stack.Screen name="AcademyLesson" component={AcademyLessonScreen} />
+          <Stack.Screen name="AcademyQuiz" component={AcademyQuizScreen} />
+          <Stack.Screen name="AcademyQuizResult" component={AcademyQuizResultScreen} />
         </>
       ) : (
         <>

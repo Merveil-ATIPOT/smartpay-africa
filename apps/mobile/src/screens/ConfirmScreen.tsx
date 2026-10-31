@@ -7,6 +7,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import type { Payment } from "@smartpay/contracts";
 
 import { Badge, ErrorBanner, GhostButton, ModeBanner, PrimaryButton } from "../components/ui";
+import { CONFIRM_CANCEL_LABEL, CONFIRM_DONE_LABEL, CONFIRM_SUCCESS_TITLE, confirmExitIsDone } from "../lib/confirmExit";
 import { ConfirmLock, newIdempotencyKey } from "../lib/confirmLock";
 import { FCFA_DISCLAIMER, formatSats, remainingLabel, shortenInvoice } from "../lib/format";
 import { assertNotExpired, isPayerSelfInvoice } from "../lib/invoice";
@@ -37,10 +38,33 @@ export function ConfirmScreen({ navigation, route }: Props) {
       .catch(() => setLightningConnected(false));
   }, []);
 
+  useEffect(() => {
+    return navigation.addListener("beforeRemove", (event) => {
+      if (!confirmExitIsDone(payment)) {
+        return;
+      }
+      if (event.data.action.type !== "GO_BACK" && event.data.action.type !== "POP") {
+        return;
+      }
+      event.preventDefault();
+      navigation.navigate("Tabs", { screen: "Home" });
+    });
+  }, [navigation, payment]);
+
   const amountSats = Number(amount);
   const selfInvoice = isPayerSelfInvoice(preview.warnings);
   const canPay = Number.isInteger(amountSats) && amountSats > 0 && !busy && !selfInvoice;
   const state = payment ? uiPaymentState(payment) : null;
+  const done = confirmExitIsDone(payment);
+  const paid = Boolean(payment && isLightningSuccess(payment));
+
+  function leaveConfirm() {
+    if (done) {
+      navigation.navigate("Tabs", { screen: "Home" });
+      return;
+    }
+    navigation.goBack();
+  }
   const expires = remainingLabel(preview.expires_at ?? null);
 
   const destinationLabel = useMemo(() => {
@@ -86,7 +110,7 @@ export function ConfirmScreen({ navigation, route }: Props) {
     <SafeAreaView style={styles.safe} edges={["top"]}>
       <ScrollView contentContainerStyle={styles.content}>
         <View style={styles.nav}>
-          <Pressable onPress={() => navigation.goBack()} accessibilityRole="button">
+          <Pressable onPress={leaveConfirm} accessibilityRole="button" accessibilityLabel={done ? CONFIRM_DONE_LABEL : "Retour"}>
             <Ionicons name="chevron-back" size={22} color={colors.navy} />
           </Pressable>
           <Text style={styles.navTitle}>Détails de transaction</Text>
@@ -162,9 +186,12 @@ export function ConfirmScreen({ navigation, route }: Props) {
         {error ? <ErrorBanner message={error} /> : null}
 
         {payment ? (
-          <View style={[styles.result, isLightningSuccess(payment) ? styles.resultOk : styles.resultWait]}>
-            <Text style={styles.resultTitle}>{statusLabel(state ?? "unknown")}</Text>
+          <View style={[styles.result, paid || done ? styles.resultOk : styles.resultWait]}>
+            <Text style={styles.resultTitle}>{paid || done ? CONFIRM_SUCCESS_TITLE : statusLabel(state ?? "unknown")}</Text>
             <Text style={styles.resultBody}>{settlementCaption(payment)}</Text>
+            {paid ? (
+              <Text style={styles.resultBody}>Le bouton de paiement reste inactif pour éviter un second envoi.</Text>
+            ) : null}
             {payment.failure_reason ? <Text style={styles.resultBody}>{payment.failure_reason}</Text> : null}
           </View>
         ) : null}
@@ -176,7 +203,7 @@ export function ConfirmScreen({ navigation, route }: Props) {
           disabled={!canPay || Boolean(payment && state !== "failed")}
           loading={busy}
         />
-        <GhostButton label="Annuler la transaction" onPress={() => navigation.goBack()} />
+        <GhostButton label={done ? CONFIRM_DONE_LABEL : CONFIRM_CANCEL_LABEL} onPress={leaveConfirm} />
       </ScrollView>
     </SafeAreaView>
   );

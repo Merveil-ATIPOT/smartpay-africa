@@ -10,6 +10,11 @@ import { SmartPayLogo } from "../components/SmartPayLogo";
 import { Badge, EmptyState, ErrorBanner, GhostButton, LoadingBlock, PrimaryButton } from "../components/ui";
 import { useAuth } from "../hooks/useAuth";
 import {
+  ACADEMY_CARD_CTA,
+  ACADEMY_CARD_DESCRIPTION,
+  ACADEMY_CARD_TITLE,
+} from "../lib/academy";
+import {
   ASSISTANT_BANNER_BADGE,
   ASSISTANT_BANNER_TEXT,
   ASSISTANT_FOOTER_NOTE,
@@ -17,6 +22,7 @@ import {
   ASSISTANT_HISTORY_ERROR,
   ASSISTANT_HISTORY_RETRY,
   ASSISTANT_HISTORY_TITLE,
+  assistantAccountLine,
   ASSISTANT_GENIUS_DESCRIPTION,
   ASSISTANT_GENIUS_NAME,
   ASSISTANT_GENIUS_STATUS,
@@ -127,6 +133,7 @@ export function AssistantHomeScreen({ navigation }: Props) {
   );
 
   const teaser = latest ? lastOperationTeaser(latest) : null;
+  const accountLine = assistantAccountLine({ email: user?.email, firstName: user?.first_name });
 
   return (
     <SafeAreaView style={styles.safe} edges={["top"]}>
@@ -163,7 +170,21 @@ export function AssistantHomeScreen({ navigation }: Props) {
           </View>
         </View>
 
+        <View style={styles.academyCard}>
+          <View style={styles.academyIcon}>
+            <Ionicons name="school" size={20} color={colors.orange} />
+          </View>
+          <Text style={styles.academyTitle}>{ACADEMY_CARD_TITLE}</Text>
+          <Text style={styles.academyCopy}>{ACADEMY_CARD_DESCRIPTION}</Text>
+          <PrimaryButton
+            label={ACADEMY_CARD_CTA}
+            onPress={() => navigation.navigate("AcademyHome")}
+            icon="arrow-forward"
+          />
+        </View>
+
         <Text style={styles.sectionTitle}>{ASSISTANT_HISTORY_TITLE}</Text>
+        {accountLine ? <Text style={styles.historyAccount}>{accountLine}</Text> : null}
         {historyLoading ? <LoadingBlock label="Chargement de vos conversations…" /> : null}
         {historyError ? <ErrorBanner message={historyError} /> : null}
         {historyError ? (
@@ -333,6 +354,25 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
   },
   bannerText: { color: colors.navy, fontSize: 13, lineHeight: 18 },
+  academyCard: {
+    backgroundColor: colors.white,
+    borderRadius: 20,
+    padding: spacing.md,
+    gap: 10,
+    borderWidth: 1,
+    borderColor: colors.stitchPeach,
+    ...shadow.card,
+  },
+  academyIcon: {
+    width: 40,
+    height: 40,
+    borderRadius: 12,
+    backgroundColor: colors.amberBg,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  academyTitle: { color: colors.navy, fontWeight: "800", fontSize: 18 },
+  academyCopy: { color: colors.muted, fontSize: 14, lineHeight: 20 },
   hero: {
     backgroundColor: colors.stitchNavy,
     borderRadius: 20,
@@ -384,6 +424,7 @@ const styles = StyleSheet.create({
   },
   historyTitle: { color: colors.navy, fontWeight: "700", fontSize: 14 },
   historyMeta: { color: colors.muted, fontSize: 11, marginTop: 4 },
+  historyAccount: { color: colors.muted, fontSize: 12, marginTop: -8 },
   sectionHead: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: 8 },
   sectionTitle: { color: colors.navy, fontWeight: "700", fontSize: 16, flex: 1 },
   sectionMeta: { color: colors.orange, fontSize: 12, fontWeight: "600" },

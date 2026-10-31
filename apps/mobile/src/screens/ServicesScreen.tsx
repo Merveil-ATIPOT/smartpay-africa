@@ -46,9 +46,9 @@ export function ServicesScreen() {
           onPress={() => parent?.navigate("AssistantHome")}
           accessibilityRole="button"
         >
-          <Badge label="Pédagogie · M33" tone="orange" />
+          <Badge label="Pédagogie" tone="orange" />
           <Text style={styles.name}>Assistant IA</Text>
-          <Text style={styles.meta}>Accueil · conversation bientôt</Text>
+          <Text style={styles.meta}>Questions · SmartPay Academy</Text>
         </Pressable>
         <View style={[styles.card, styles.cardOff]}>
           <Badge label="Hors phase" tone="muted" />

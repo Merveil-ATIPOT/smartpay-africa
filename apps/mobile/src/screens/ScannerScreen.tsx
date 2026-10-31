@@ -1,11 +1,11 @@
 import { Ionicons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useIsFocused, useNavigation } from "@react-navigation/native";
 import type { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { CameraView, useCameraPermissions } from "expo-camera";
 import * as Clipboard from "expo-clipboard";
 import { LinearGradient } from "expo-linear-gradient";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   Pressable,
   ScrollView,
@@ -28,6 +28,12 @@ import {
   parseBolt11AmountSats,
   type WalletProviderName,
 } from "../lib/invoice";
+import {
+  nextSuppressedOnFocus,
+  scannedInvoiceKey,
+  shouldClearSuppressForTab,
+  shouldIgnoreBarcode,
+} from "../lib/scanResume";
 import type { AppStackParamList, TabParamList } from "../navigation/types";
 import { previewPayment } from "../services/payments";
 import { fetchHealth, fetchWallet } from "../services/wallet";
@@ -35,6 +41,7 @@ import { colors, radius, shadow, spacing } from "../theme";
 
 export function ScannerScreen() {
   const tabs = useNavigation<BottomTabNavigationProp<TabParamList>>();
+  const focused = useIsFocused();
   const [permission, requestPermission] = useCameraPermissions();
   const [manual, setManual] = useState("");
   const [mockAmount, setMockAmount] = useState("");
@@ -45,6 +52,8 @@ export function ScannerScreen() {
   const [health, setHealth] = useState<HealthResponse | null>(null);
   const [lastPreview, setLastPreview] = useState<string | null>(null);
   const lock = useRef(false);
+  const suppressedInvoice = useRef<string | null>(null);
+  const returnedFromPreview = useRef(false);
 
   useEffect(() => {
     void fetchWallet()
@@ -75,6 +84,36 @@ export function ScannerScreen() {
     );
   }
 
+  useFocusEffect(
+    useCallback(() => {
+      suppressedInvoice.current = nextSuppressedOnFocus(
+        returnedFromPreview.current,
+        suppressedInvoice.current,
+      );
+      returnedFromPreview.current = false;
+    }, []),
+  );
+
+  useEffect(() => {
+    const parent = tabs.getParent<NativeStackNavigationProp<AppStackParamList>>();
+    if (!parent) {
+      return;
+    }
+    return parent.addListener("state", () => {
+      const parentState = parent.getState();
+      const current = parentState.routes[parentState.index]?.name;
+      if (current !== "Tabs") {
+        return;
+      }
+      const tabState = tabs.getState();
+      const tab = tabState.routes[tabState.index]?.name;
+      if (shouldClearSuppressForTab(tab)) {
+        returnedFromPreview.current = false;
+        suppressedInvoice.current = null;
+      }
+    });
+  }, [tabs]);
+
   async function openPreview(raw: string) {
     if (lock.current || busy) {
       return;
@@ -104,6 +143,8 @@ export function ScannerScreen() {
         amountSats: amountHint,
       });
       setLastPreview(`${preview.amount_sats || "?"} sats · aperçu uniquement`);
+      suppressedInvoice.current = scannedInvoiceKey(encoded);
+      returnedFromPreview.current = true;
       const parent = tabs.getParent<NativeStackNavigationProp<AppStackParamList>>();
       parent?.navigate("Confirm", { encodedInvoice: encoded, preview });
     } catch (err) {
@@ -151,6 +192,15 @@ export function ScannerScreen() {
               enableTorch={torch}
               barcodeScannerSettings={{ barcodeTypes: ["qr"] }}
               onBarcodeScanned={({ data }) => {
+                if (
+                  shouldIgnoreBarcode({
+                    focused,
+                    scanned: data,
+                    suppressed: suppressedInvoice.current,
+                  })
+                ) {
+                  return;
+                }
                 void openPreview(data);
               }}
             />

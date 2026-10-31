@@ -1,5 +1,7 @@
 import type { Payment, UserRole } from "@smartpay/contracts";
 
+import { ACADEMY_CARD_CTA, ACADEMY_CARD_DESCRIPTION, ACADEMY_CARD_TITLE } from "./academy";
+
 import { formatSats } from "./format";
 import { statusLabel, uiPaymentState } from "./paymentStatus";
 
@@ -34,6 +36,7 @@ export const ASSISTANT_HISTORY_TITLE = "Mes conversations";
 export const ASSISTANT_HISTORY_EMPTY = "Aucune conversation enregistrée pour ce compte.";
 export const ASSISTANT_HISTORY_RETRY = "Réessayer";
 export const ASSISTANT_HISTORY_ERROR = "Impossible de charger vos conversations.";
+export const ASSISTANT_HISTORY_ACCOUNT_PREFIX = "Compte connecté";
 export const ASSISTANT_FOOTER_NOTE =
   "L'assistant n'initie aucun paiement, transfert ou facture Lightning.";
 
@@ -111,6 +114,34 @@ const FORBIDDEN_ASSISTANT_CLAIMS = [
   /\bmtn\b/i,
 ];
 
+export function maskAccountEmail(email: string): string {
+  const trimmed = email.trim();
+  const at = trimmed.indexOf("@");
+  if (at <= 0 || at === trimmed.length - 1) {
+    return trimmed ? "•••" : "";
+  }
+  const local = trimmed.slice(0, at);
+  const domain = trimmed.slice(at + 1);
+  const visible = local.slice(0, Math.min(2, local.length));
+  return `${visible}***@${domain}`;
+}
+
+export function assistantAccountLine(input: {
+  email?: string | null;
+  firstName?: string | null;
+}): string | null {
+  const email = (input.email ?? "").trim();
+  if (!email) {
+    return null;
+  }
+  const masked = maskAccountEmail(email);
+  const name = (input.firstName ?? "").trim();
+  if (name) {
+    return `${ASSISTANT_HISTORY_ACCOUNT_PREFIX} · ${name} · ${masked}`;
+  }
+  return `${ASSISTANT_HISTORY_ACCOUNT_PREFIX} · ${masked}`;
+}
+
 export function assistantGreeting(firstName: string | null | undefined): string {
   const name = (firstName ?? "").trim();
   if (!name) {
@@ -165,8 +196,10 @@ export function assistantUsesPaymentsListOnly(path: string): boolean {
 
 export function visibleAssistantHomeCopy(input: {
   firstName?: string | null;
+  email?: string | null;
   lastOperation?: LastOperationTeaser | null;
 }): string {
+  const account = assistantAccountLine({ email: input.email, firstName: input.firstName });
   const parts = [
     ASSISTANT_HOME_TITLE,
     ASSISTANT_REGTEST_BADGE,
@@ -188,12 +221,16 @@ export function visibleAssistantHomeCopy(input: {
     ASSISTANT_LAST_OP_ADMIN_TITLE,
     ASSISTANT_LAST_OP_ADMIN_SUBTITLE,
     ASSISTANT_HISTORY_TITLE,
+    ...(account ? [account] : []),
     ASSISTANT_HISTORY_EMPTY,
     ASSISTANT_HISTORY_RETRY,
     ASSISTANT_HISTORY_ERROR,
     ASSISTANT_START_LABEL,
     ASSISTANT_START_HINT,
     ASSISTANT_FOOTER_NOTE,
+    ACADEMY_CARD_TITLE,
+    ACADEMY_CARD_DESCRIPTION,
+    ACADEMY_CARD_CTA,
   ];
   if (input.lastOperation) {
     parts.push(
