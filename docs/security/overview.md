@@ -1,33 +1,82 @@
-# Sécurité — P02
+# Security — SmartPay Africa
 
-## Principes
+This document describes the **laboratory** security model. It is **not** a claim of PCI, AML, or e-money compliance, and it is **not** a production hardening guide.
 
-- Aucun secret Lightning (macaroon, seed, clé privée, préimage) n'est stocké en base applicative ni renvoyé au mobile / navigateur.
-- `LND_MACAROON_PATH` et `LND_TLS_CERT_PATH` désignent des **fichiers** sous `infrastructure/lightning-regtest/secrets/` (gitignoré).
-- REST LND Alice/Bob est publié uniquement sur `127.0.0.1`. RPC Bitcoin et gRPC LND ne sont pas exposés.
-- JWT + permissions DRF inchangées : authentifié, propriétaire, rôle admin.
-- Journalisation sans macaroon ni `r_preimage` / `payment_preimage`.
-- Réseau Bitcoin forcé à `regtest`. Un paiement Mock ne peut pas être `is_lightning_settled=true`.
-- Un HTTP 200 LND n'est jamais traité comme un règlement.
+Secret **values** are not listed here. Configure them in a local `.env` and in gitignored LND files.
 
-## Laboratoire
+## Intended use
 
-Les mots de passe RPC/wallet `changeme-regtest-*` sont des placeholders de labo, pas des secrets d'exploitation. Ils ne doivent jamais servir hors Regtest.
+- Local developer machine or a trusted hackathon LAN
+- Bitcoin **Regtest**
+- Placeholder lab passwords in `.env.example` (`change-me-*` / `changeme-*`) — replace them locally; never reuse them outside Regtest
 
-`scripts/lightning-lab.ps1 reset` exige `-Confirm` et **ne touche pas** au volume PostgreSQL `smartpay_pgdata`.
+Do not publish the API, PostgreSQL, or LND REST on the public Internet.
 
-## Contrôles d'accès
+## Secrets
 
-- Endpoints privés : `IsAuthenticated`.
-- Détail paiement : `IsOwnerOrAdmin` puis réconciliation.
-- Liste filtrée sur le propriétaire, sauf admin.
+| Item | Where it should live | Must not |
+| --- | --- | --- |
+| `DJANGO_SECRET_KEY`, `JWT_SIGNING_KEY` | `.env` (gitignored) | Git, mobile, admin UI |
+| Postgres password | `.env` / Compose | Frontend |
+| LND macaroons / TLS | `infrastructure/lightning-regtest/secrets/` (gitignored) | Database, API JSON, logs |
+| Invoice preimage | LND only | Application models / clients |
 
-## Audit npm (P02)
+`LND_MACAROON_PATH` and `LND_TLS_CERT_PATH` are **file paths**, not file contents.
 
-20 vulnérabilités détectées, presque toutes transitives **Expo 52** (`tar` critique via `@expo/cli`). Le correctif amont proposé est Expo 57 (majeur). Non appliqué en aveugle. `npm audit fix` sans `--force` uniquement.
+`.gitignore` also excludes `*.dump`, `*.sql`, `*.bak`, `*.macaroon`, `*.pem`, `*.key`, `.env`.
 
-## Restes
+Django `production.py` sets cookie/HSTS flags but is **not deployed** and does not refuse insecure placeholders. Default settings load `config.settings.development`.
 
-- Pas de WAF, HSM, MFA, rotation automatique des macaroons.
-- Certificats TLS LND auto-signés du laboratoire.
-- Rate limiting DRF simple hors tests.
+## Authentication and permissions
+
+- Default DRF permission: `IsAuthenticated` + JWT (and session for browsable admin).
+- Register: public, throttled, always `individual`.
+- Payments list: owner; admin may see all. Detail: `IsOwnerOrAdmin`, then reconcile.
+- Academy progress: `IsAcademyOwner` — **no admin exception**.
+- Assistant conversations: owner only.
+- Admin JSON APIs: `IsAdminRole`.
+- Health, register, token, schema/docs: unauthenticated.
+
+Logout on mobile and admin clears client storage only. Refresh tokens remain valid until expiry (default 7 days). There is no `token_blacklist` app.
+
+## Lightning
+
+- Network forced to `regtest` in lab settings.
+- Mock payments cannot be `is_lightning_settled=true`.
+- Settlement requires LND lookup, not HTTP 200 from `sendpayment`.
+- Alice → Alice invoices are rejected in `create_outgoing_payment`.
+- REST LND is bound to `127.0.0.1`. Overlay mounts secrets `:ro`.
+
+## Known laboratory risks
+
+These are documented so they are not mistaken for production guarantees.
+
+1. **`confirm` default `true`** on `POST /payments/` — omitting the field still pays.
+2. **Duplicate `payment_hash` lookup is not owner-scoped** — a second account might retrieve another user's Lightning payment row.
+3. **`POST /transfers/{id}/confirm/`** is available on the API while the mobile flag `TRANSFER_CONFIRM_ENABLED` is `false`.
+4. **Lab Bob invoice** is available to any authenticated user when the flag is on.
+5. **`/api/schema/` and `/api/docs/`** are public.
+6. **DEBUG** defaults to true in development. Tracebacks can leak settings on the LAN.
+7. **API `0.0.0.0:8000`** is required for a physical phone; **Postgres `0.0.0.0:5433`** is wider than necessary.
+8. JWT signing key in a typical local lab may be shorter than SimpleJWT's recommended HMAC length — tokens still work; this is not production crypto.
+9. Admin JWT sits in `sessionStorage` (readable under XSS).
+10. Logging aims to redact macaroon/preimage keys; timeout paths may still include a BOLT11 in a REST path.
+
+## Access control (product)
+
+- Endpoints that mutate payments or progress require a user.
+- GET Academy catalogue does not write.
+- Assistant tools list is empty: the engine cannot call payment services.
+- Seed commands (`seed_dev`, `seed_academy`) are manual and refused when `DEBUG` is false (`seed_academy` allows `--force`).
+
+## Logging
+
+Application logs should carry IDs, amounts, and statuses — not JWT, macaroon hex, or preimages. Review logs before sharing a terminal capture.
+
+## Dependency note
+
+Expo 52 pulls transitive npm advisories (including `tar` via `@expo/cli`). A jump to a newer Expo is a major upgrade and was not applied blindly. `npm audit fix` without `--force` only.
+
+## What is out of scope
+
+WAF, HSM, MFA, automated macaroon rotation, public TLS termination, KYC, and financial licensing.
