@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     "smartpay.transfers.apps.TransfersConfig",
     "smartpay.exchange_rates.apps.ExchangeRatesConfig",
     "smartpay.ai_assistant.apps.AiAssistantConfig",
+    "smartpay.academy.apps.AcademyConfig",
     "smartpay.audit.apps.AuditConfig",
 ]
 
@@ -116,6 +117,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Inscription publique : quota par IP. Ex. AUTH_REGISTER_THROTTLE=5/hour
 AUTH_REGISTER_THROTTLE_RATE = env("AUTH_REGISTER_THROTTLE", "5/hour")
 AUTH_AI_MESSAGE_THROTTLE_RATE = env("AUTH_AI_MESSAGE_THROTTLE", "20/min")
+AUTH_ACADEMY_QUIZ_THROTTLE_RATE = env("AUTH_ACADEMY_QUIZ_THROTTLE", "20/min")
 
 LANGUAGE_CODE = "fr-fr"
 TIME_ZONE = "UTC"
@@ -158,6 +160,7 @@ REST_FRAMEWORK = {
         "anon": "30/min",
         "register": AUTH_REGISTER_THROTTLE_RATE,
         "ai_message": AUTH_AI_MESSAGE_THROTTLE_RATE,
+        "academy_quiz": AUTH_ACADEMY_QUIZ_THROTTLE_RATE,
     },
     "EXCEPTION_HANDLER": "smartpay.core.exceptions.smartpay_exception_handler",
 }

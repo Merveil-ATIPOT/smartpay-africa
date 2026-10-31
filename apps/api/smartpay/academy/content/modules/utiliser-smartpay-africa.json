@@ -1,0 +1,147 @@
+{
+  "slug": "utiliser-smartpay-africa",
+  "title": "Utiliser SmartPay Africa",
+  "objectives": "Repérer les écrans réels de l'application, distinguer démonstration Regtest et simulation Mobile Money, et connaître les limites du MVP. Ne pas inventer une fonction absente.",
+  "order": 5,
+  "is_published": true,
+  "lessons": [
+    {
+      "slug": "decouvrir-le-portefeuille-smartpay",
+      "title": "Découvrir le portefeuille SmartPay Africa",
+      "difficulty": "intro",
+      "duration_minutes": 8,
+      "order": 1,
+      "is_published": true,
+      "body_md": "## Objectifs\n\nVous saurez quels écrans existent aujourd'hui et que le portefeuille affiché est un laboratoire **Regtest**.\n\n## Ce qui est présent\n\nL'application mobile montre notamment :\n\n- un **accueil** avec un solde de démonstration ;\n- **Recevoir**, pour afficher une facture Lightning de laboratoire ;\n- **Scanner**, pour lire un QR ;\n- **Confirmer**, avant un envoi Lightning de test ;\n- **Activité**, pour l'historique des opérations du compte ;\n- **Services** : Assistant IA, SmartPay Academy, un parcours de transfert en préparation, une démo marchande locale.\n\n## Réseau\n\nLe fournisseur de paiement du laboratoire est Lightning **Regtest**. Les unités n'ont **aucune valeur de marché**. Ce n'est pas Mainnet.\n\n## Ce qui n'est pas un coffre personnel Mainnet\n\nOuvrir SmartPay n'ouvre pas un compte Bitcoin réel. Academy n'est pas un gestionnaire de phrase secrète.\n\n## Exemple concret\n\nLe compte laboratoire peut afficher 2 500 sats après un paiement de test Alice vers Bob. C'est une ligne d'historique Regtest, pas un dépôt en francs CFA.\n\n## Définitions\n\n- **Regtest** : réseau local de test.\n- **MVP** : version minimale utile, incomplète.\n- **Compte laboratoire** : utilisateur de démonstration.\n\n## Résumé\n\nSmartPay montre un portefeuille de démo. Les écrans listés existent. Cette leçon n'exécute aucun paiement.",
+      "exercises": [
+        {
+          "type": "identify",
+          "prompt": "Citez trois écrans réellement présents. Le solde affiché a-t-il un cours en francs CFA ?",
+          "content": {
+            "hint": "Accueil, Recevoir, Scanner, Confirmer, Activité. Regtest : pas de cours."
+          },
+          "order": 1
+        }
+      ]
+    },
+    {
+      "slug": "factures-et-qr-codes",
+      "title": "Comprendre les factures et les QR codes",
+      "difficulty": "base",
+      "duration_minutes": 7,
+      "order": 2,
+      "is_published": true,
+      "body_md": "## Objectifs\n\nVous relirez le parcours Recevoir → Scanner → Confirmer sans le confondre avec un virement bancaire.\n\n## Recevoir\n\n**Recevoir** prépare une facture Lightning de laboratoire (montant, description, QR). Ce n'est pas une facture fiscale d'État.\n\n## Scanner\n\n**Scanner** décode un QR. S'il s'agit d'une facture Lightning, l'application propose d'aller vers la confirmation. Un QR inconnu n'est pas « payé » tout seul.\n\n## Confirmer\n\n**Confirmer** affiche le montant et demande un avis. Un appui lance, dans le lab, un paiement Lightning Regtest. Relire le statut plutôt que d'appuyer deux fois.\n\n## Exemple concret\n\nBob crée 2 500 sats. Alice scanne, confirme. Le serveur renvoie un statut. Academy n'est pas dans ce circuit de paiement.\n\n## Définitions\n\n- **QR** : image de la facture.\n- **Confirmation d'écran** : avis utilisateur, distinct d'une confirmation de bloc.\n\n## Résumé\n\nRecevoir montre. Scanner lit. Confirmer envoie en lab. Aucune facture n'est créée par cette leçon.",
+      "exercises": [
+        {
+          "type": "identify",
+          "prompt": "Dans quel ordre se suivent Recevoir, Scanner et Confirmer pour un paiement de démonstration ? Qui décide du statut final : l'écran ou le serveur ?",
+          "content": {
+            "hint": "Recevoir puis Scanner puis Confirmer. Le statut vient du serveur."
+          },
+          "order": 1
+        }
+      ]
+    },
+    {
+      "slug": "suivre-un-paiement-et-historique",
+      "title": "Suivre un paiement et son historique",
+      "difficulty": "base",
+      "duration_minutes": 7,
+      "order": 3,
+      "is_published": true,
+      "body_md": "## Objectifs\n\nVous utiliserez **Activité** et, si besoin, l'explication de l'assistant, sans inventer un statut.\n\n## Activité\n\nL'écran **Activité** liste les opérations du **compte connecté**. Un autre compte ne voit pas vos lignes. C'est une isolation normale.\n\n## Statuts\n\nUne ligne peut être en cours, réussie ou échouée. Le texte s'appuie sur l'API. On ne proclame pas un succès parce que l'animation a bougé.\n\n## Assistant\n\nDepuis certaines lignes, l'**Assistant IA** peut ouvrir une explication. Il lit le paiement déjà connu. Il ne paie pas, ne crée pas de facture, n'annule rien.\n\n## Exemple concret\n\nLe compte id 2 peut voir un paiement de 2 500 sats. Le compte d'un autre utilisateur ne le liste pas. Academy a sa propre progression, séparée.\n\n## Définitions\n\n- **Historique** : liste des opérations du propriétaire.\n- **Isolation** : chaque compte ne voit que les siennes.\n\n## Résumé\n\nActivité montre l'historique du compte. L'assistant explique. Cette leçon ne crée aucune opération.",
+      "exercises": [
+        {
+          "type": "reflection",
+          "prompt": "Pourquoi l'historique d'un compte n'apparaît-il pas chez un autre utilisateur ? L'assistant peut-il confirmer un paiement à la place du serveur ?",
+          "content": {
+            "hint": "Isolation par propriétaire. L'assistant lit, il n'exécute pas."
+          },
+          "order": 1
+        }
+      ]
+    },
+    {
+      "slug": "simulations-mobile-money-et-limites-mvp",
+      "title": "Comprendre les simulations Mobile Money et les limites du MVP",
+      "difficulty": "base",
+      "duration_minutes": 8,
+      "order": 4,
+      "is_published": true,
+      "body_md": "## Objectifs\n\nVous séparerez clairement : Lightning Regtest, simulation de transfert, démo marchande, et ce qui n'existe pas encore.\n\n## Lightning de démonstration\n\nScanner / Recevoir / Confirmer : paiements Lightning **Regtest**. Démonstration de laboratoire. Pas de bitcoin réel.\n\n## Transfert Direct (préparation)\n\nDans **Services**, Transfert Direct prépare un parcours (pays, bénéficiaire, montant, devis, résultat). Le confirm d'exécution vers Wave, Orange Money ou MTN **n'est pas un virement réel**. Aucune API de ces opérateurs n'est appelée. Un écran 200 n'est pas un dépôt FCFA.\n\n## Démo marchande\n\nUn parcours marchand local existe en **démo**. Il n'est pas un encaissement Lightning réel.\n\n## Non disponibles aujourd'hui\n\n- **Payer Boutique** : hors phase.\n- **Robinet / Faucet** : maquette, non branché.\n- Aucun dépôt Wave, Orange Money ou MTN.\n- Aucune conversion FCFA réelle.\n- Aucun partenariat opérateur annoncé par cette formation.\n\n## Exemple concret\n\nChoisir un corridor Sénégal → Côte d'Ivoire dans le transfert montre un **devis de simulation**. Cela n'autorise pas un envoi d'argent réel et n'invente pas un taux de change de marché.\n\n## Définitions\n\n- **Simulation** : écran pédagogique, sans exécution financière réelle.\n- **MVP** : périmètre volontairement incomplet.\n\n## Résumé\n\nRegtest ≠ Mainnet. Simulation Mobile Money ≠ transfert exécuté. N'inventez pas une fonction absente de l'application.",
+      "exercises": [
+        {
+          "type": "identify",
+          "prompt": "Classez : A) paiement Lightning Regtest ; B) devis de transfert Direct ; C) dépôt Orange Money réel. Lesquels existent comme démo ? Lequel n'est pas exécuté ?",
+          "content": {
+            "hint": "A et B sont des démos / simulations. C n'est pas exécuté par SmartPay."
+          },
+          "order": 1
+        }
+      ]
+    }
+  ],
+  "quiz": {
+    "content_version": 1,
+    "pass_score": 70,
+    "is_published": true,
+    "questions": [
+      {
+        "prompt": "Le portefeuille montré dans SmartPay Africa aujourd'hui est surtout :",
+        "explanation": "Un laboratoire Regtest. Les unités n'ont pas de valeur de marché.",
+        "order": 1,
+        "options": [
+          { "label": "Un compte Mainnet où les BTC s'achètent et se vendent", "is_correct": false, "order": 1 },
+          { "label": "Un portefeuille de démonstration sur Bitcoin Regtest", "is_correct": true, "order": 2 },
+          { "label": "Un compte Orange Money officiel", "is_correct": false, "order": 3 },
+          { "label": "Un coffre qui stocke votre phrase secrète dans Academy", "is_correct": false, "order": 4 }
+        ]
+      },
+      {
+        "prompt": "Quel enchaînement correspond au paiement Lightning de démo ?",
+        "explanation": "Recevoir montre la facture, Scanner la lit, Confirmer demande l'avis avant l'envoi de laboratoire.",
+        "order": 2,
+        "options": [
+          { "label": "Academy → quiz → dépôt FCFA", "is_correct": false, "order": 1 },
+          { "label": "Recevoir, puis Scanner, puis Confirmer", "is_correct": true, "order": 2 },
+          { "label": "Faucet, puis boutique, puis Mainnet", "is_correct": false, "order": 3 },
+          { "label": "Transfert Direct, puis Wave réel", "is_correct": false, "order": 4 }
+        ]
+      },
+      {
+        "prompt": "L'écran Activité affiche :",
+        "explanation": "Les opérations du compte connecté uniquement. L'isolation est normale.",
+        "order": 3,
+        "options": [
+          { "label": "Toutes les opérations de tous les utilisateurs", "is_correct": false, "order": 1 },
+          { "label": "L'historique du compte connecté", "is_correct": true, "order": 2 },
+          { "label": "Les notes de quiz des autres apprenants", "is_correct": false, "order": 3 },
+          { "label": "Un cours officiel du bitcoin", "is_correct": false, "order": 4 }
+        ]
+      },
+      {
+        "prompt": "Le parcours Transfert Direct dans Services :",
+        "explanation": "Il prépare un devis de simulation. Il n'appelle pas Wave, Orange Money ou MTN et n'exécute pas de dépôt FCFA.",
+        "order": 4,
+        "options": [
+          { "label": "Verse réellement des francs CFA chez un opérateur", "is_correct": false, "order": 1 },
+          { "label": "Prépare une simulation ; aucun dépôt Mobile Money réel", "is_correct": true, "order": 2 },
+          { "label": "Remplace Lightning Regtest sur Mainnet", "is_correct": false, "order": 3 },
+          { "label": "Est une autorisation réglementaire officielle", "is_correct": false, "order": 4 }
+        ]
+      },
+      {
+        "prompt": "Quelle limite du MVP est exacte aujourd'hui ?",
+        "explanation": "Payer Boutique n'est pas disponible. Le faucet n'est pas branché. Pas d'API Wave / Orange / MTN.",
+        "order": 5,
+        "options": [
+          { "label": "Payer Boutique encaisse déjà en Lightning Mainnet", "is_correct": false, "order": 1 },
+          { "label": "Payer Boutique et le faucet ne sont pas des encaissements réels disponibles", "is_correct": true, "order": 2 },
+          { "label": "SmartPay convertit officiellement en francs CFA", "is_correct": false, "order": 3 },
+          { "label": "Academy déclenche LND à chaque leçon", "is_correct": false, "order": 4 }
+        ]
+      }
+    ]
+  }
+}

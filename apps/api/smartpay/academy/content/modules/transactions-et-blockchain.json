@@ -1,0 +1,147 @@
+{
+  "slug": "transactions-et-blockchain",
+  "title": "Transactions Bitcoin et blockchain",
+  "objectives": "Décrire une transaction, expliquer UTXO et frais, distinguer mempool et confirmations, et lire un exemple simple sans prétendre à une finalité absolue.",
+  "order": 3,
+  "is_published": true,
+  "lessons": [
+    {
+      "slug": "comment-fonctionne-une-transaction",
+      "title": "Comment fonctionne une transaction Bitcoin ?",
+      "difficulty": "base",
+      "duration_minutes": 8,
+      "order": 1,
+      "is_published": true,
+      "body_md": "## Objectifs\n\nVous pourrez dire ce qu'une transaction annonce, qui la signe, et pourquoi le réseau la relais avant de l'ancrer.\n\n## Une transaction, en substance\n\nUne **transaction** désigne des unités déjà reçues et indique de nouvelles destinations. Elle est signée par le secret qui contrôle ces unités. Sans signature valide, les nœuds la refusent.\n\n## Diffusion\n\nUne fois créée, elle est **relayée**. Les nœuds la voient. Elle n'est pas encore dans un bloc. C'est l'attente.\n\n## Ce qu'elle n'est pas\n\nCe n'est pas un virement bancaire interne à SmartPay. Ce n'est pas un ordre que Academy peut annuler. Le laboratoire Regtest sert à observer le parcours, pas à déplacer de l'argent réel.\n\n## Exemple concret\n\nAwa signe un envoi de 2 500 sats vers Ibrahima. Les nœuds vérifient la signature et que les unités n'ont pas déjà été dépensées. Puis un mineur peut l'inclure dans un bloc de test.\n\n## Définitions\n\n- **Entrées** : unités que l'on dépense.\n- **Sorties** : nouvelles affectations.\n- **Signature** : autorisation.\n\n## Résumé\n\nLa transaction dit quoi dépenser et vers où. Le réseau vérifie, puis un bloc peut l'ancrer. Aucun paiement n'est demandé ici.",
+      "exercises": [
+        {
+          "type": "reflection",
+          "prompt": "Qu'est-ce qu'une transaction Bitcoin annonce, et pourquoi une signature est-elle nécessaire ?",
+          "content": {
+            "hint": "Elle dépense des unités déjà reçues. La signature prouve l'autorisation."
+          },
+          "order": 1
+        }
+      ]
+    },
+    {
+      "slug": "adresses-utxo-et-frais",
+      "title": "Adresses, UTXO et frais de réseau",
+      "difficulty": "base",
+      "duration_minutes": 8,
+      "order": 2,
+      "is_published": true,
+      "body_md": "## Objectifs\n\nVous expliquerez qu'on dépense des sorties non dépensées (UTXO), et qu'un frais de réseau rémunère l'inclusion dans un bloc.\n\n## Adresse\n\nL'**adresse** est la destination visible. Recevoir, c'est créer une nouvelle sortie contrôlée par cette adresse.\n\n## UTXO\n\nUn **UTXO** (unspent transaction output) est une sortie pas encore dépensée. Votre « solde » est la somme de vos UTXO. On ne coupe pas un UTXO en silence : on le dépense en entier, et l'on crée souvent une sortie de **monnaie** vers soi-même.\n\n## Frais de réseau\n\nLa différence entre ce que l'on consomme et ce que l'on crée comme sorties devient **frais**. Ces frais encouragent l'inclusion dans un bloc quand le réseau est occupé. Ce n'est pas un tarif SmartPay, ni un cours en francs CFA.\n\n## Exemple concret\n\nAwa a un UTXO de 10 000 sats. Elle envoie 2 500 sats et paie 200 sats de frais. Il reste 7 300 sats en monnaie vers elle. Chiffres de laboratoire, sans valeur de marché.\n\n## Définitions\n\n- **UTXO** : sortie encore disponible.\n- **Monnaie** : sortie de retour vers l'émetteur.\n- **Frais** : part non créée en sortie, pour les mineurs.\n\n## Résumé\n\nOn dépense des UTXO. L'adresse reçoit une nouvelle sortie. Les frais aident l'inclusion. Academy n'invente aucun tarif réel.",
+      "exercises": [
+        {
+          "type": "identify",
+          "prompt": "Awa dépense 10 000 sats, envoie 2 500 et paie 200 de frais. Combien revient en monnaie ? Ces chiffres ont-ils un cours ?",
+          "content": {
+            "hint": "10 000 − 2 500 − 200 = 7 300 sats. Exemple pédagogique, sans marché."
+          },
+          "order": 1
+        }
+      ]
+    },
+    {
+      "slug": "mempool-blocs-et-confirmations",
+      "title": "Mempool, blocs et confirmations",
+      "difficulty": "base",
+      "duration_minutes": 8,
+      "order": 3,
+      "is_published": true,
+      "body_md": "## Objectifs\n\nVous distinguerez mempool, bloc et confirmation, et vous éviterez de parler d'une finalité absolue.\n\n## Mempool\n\nLe **mempool** est l'ensemble des transactions vues, pas encore dans un bloc. Une transaction y est **en attente**.\n\n## Blocs\n\nUn **bloc** regroupe des transactions valides et s'enchaîne au précédent. L'inclusion donne une première **confirmation**.\n\n## Confirmations suivantes\n\nChaque bloc ajouté ensuite renforce l'ancrage. En pratique, plus il y a de confirmations, plus une réécriture devient coûteuse. Cela n'est pas une promesse magique d'irréversibilité absolue : c'est une **irréversibilité pratique** qui grandit avec le temps et le travail du réseau.\n\n## En attente, confirmée, pratiquement ancrée\n\n- En attente : dans le mempool, ou pas encore vue partout.\n- Confirmée : dans au moins un bloc accepté.\n- Plus ancrée : plusieurs blocs au-dessus.\n\n## Exemple concret\n\nEn laboratoire, 2 500 sats peuvent passer de « en attente » à « confirmé » quand un bloc de test est produit. Sur Mainnet, attendre plusieurs confirmations est une prudence, pas une garantie théorique parfaite.\n\n## Définitions\n\n- **Mempool** : file d'attente des transactions.\n- **Confirmation** : présence dans un bloc accepté.\n- **Irréversibilité pratique** : de plus en plus difficile à défaire, sans finalité absolue.\n\n## Résumé\n\nLe mempool attend. Le bloc ancre. Les confirmations renforcent. On ne promet pas une finalité parfaite.",
+      "exercises": [
+        {
+          "type": "identify",
+          "prompt": "Classez : A) vue mais hors bloc ; B) dans un bloc ; C) plusieurs blocs au-dessus. Où est l'attente ? Où commence la confirmation ?",
+          "content": {
+            "hint": "A = mempool / attente. B = première confirmation. C = ancrage plus fort."
+          },
+          "order": 1
+        }
+      ]
+    },
+    {
+      "slug": "lire-et-verifier-une-transaction",
+      "title": "Lire et vérifier une transaction",
+      "difficulty": "base",
+      "duration_minutes": 7,
+      "order": 4,
+      "is_published": true,
+      "body_md": "## Objectifs\n\nVous saurez quels champs lire sur un écran ou un explorateur, et ce qu'il ne faut pas inventer.\n\n## Quoi lire\n\n- Le **montant** et l'unité (souvent des sats).\n- Les **adresses** ou identifiants de sorties.\n- Le **statut** : attente ou confirmée.\n- Le **nombre de confirmations** s'il est affiché.\n- Les **frais**, s'ils apparaissent.\n\n## Vérifier, ce n'est pas deviner\n\nOn compare ce que l'écran montre avec ce que l'on a voulu envoyer. On ne déclare pas un paiement « réussi » parce qu'un écran a cligné. Sur SmartPay, le statut vient du **serveur** de laboratoire, pas d'une invention de l'assistant.\n\n## Identifiants\n\nUn identifiant de transaction permet de la retrouver. Ce n'est pas une phrase secrète. On ne le confond pas avec un secret de signature.\n\n## Exemple concret\n\nL'historique Android peut montrer 2 500 sats, un statut et une heure. C'est une lecture. En Regtest, cela reste une démonstration. L'assistant IA explique ; il ne confirme pas un règlement à la place de l'API.\n\n## Définitions\n\n- **Statut** : attente, succès, échec selon le serveur.\n- **Explorateur** : outil qui lit la chaîne.\n- **Identifiant** : référence publique de la transaction.\n\n## Résumé\n\nLire montant, destination, statut et confirmations. Vérifier sans inventer. Aucune opération réseau n'est lancée par cette leçon.",
+      "exercises": [
+        {
+          "type": "reflection",
+          "prompt": "Quels trois éléments liriez-vous pour vérifier un envoi de 2 500 sats ? Pourquoi un écran seul ne suffit-il pas à proclamer une finalité absolue ?",
+          "content": {
+            "hint": "Montant, destination, statut ou confirmations. L'ancrage grandit ; il n'est pas magique."
+          },
+          "order": 1
+        }
+      ]
+    }
+  ],
+  "quiz": {
+    "content_version": 1,
+    "pass_score": 70,
+    "is_published": true,
+    "questions": [
+      {
+        "prompt": "Une transaction Bitcoin sert surtout à :",
+        "explanation": "Elle dépense des unités déjà reçues et crée de nouvelles sorties, avec une signature valide.",
+        "order": 1,
+        "options": [
+          { "label": "Effacer l'historique du réseau à la demande", "is_correct": false, "order": 1 },
+          { "label": "Désigner des unités à dépenser et de nouvelles destinations, avec une signature", "is_correct": true, "order": 2 },
+          { "label": "Créer un cours officiel en francs CFA", "is_correct": false, "order": 3 },
+          { "label": "Ouvrir un compte bancaire SmartPay", "is_correct": false, "order": 4 }
+        ]
+      },
+      {
+        "prompt": "Qu'est-ce qu'un UTXO ?",
+        "explanation": "C'est une sortie de transaction pas encore dépensée. Le solde est la somme de ces sorties.",
+        "order": 2,
+        "options": [
+          { "label": "Un tarif SmartPay en francs CFA", "is_correct": false, "order": 1 },
+          { "label": "Une sortie pas encore dépensée", "is_correct": true, "order": 2 },
+          { "label": "Un bloc déjà oublié par le réseau", "is_correct": false, "order": 3 },
+          { "label": "Une phrase secrète d'Academy", "is_correct": false, "order": 4 }
+        ]
+      },
+      {
+        "prompt": "Où se trouve une transaction en attente, avant d'être dans un bloc ?",
+        "explanation": "Elle est typiquement dans le mempool : vue, pas encore ancrée.",
+        "order": 3,
+        "options": [
+          { "label": "Dans le mempool", "is_correct": true, "order": 1 },
+          { "label": "Définitivement effacée", "is_correct": false, "order": 2 },
+          { "label": "Convertie en dépôt Wave", "is_correct": false, "order": 3 },
+          { "label": "Dans le quiz Academy uniquement", "is_correct": false, "order": 4 }
+        ]
+      },
+      {
+        "prompt": "Que signifie « irréversibilité pratique » ici ?",
+        "explanation": "Plus il y a de blocs au-dessus, plus une réécriture est coûteuse. Ce n'est pas une finalité absolue promise.",
+        "order": 4,
+        "options": [
+          { "label": "Une garantie théorique parfaite dès la première seconde", "is_correct": false, "order": 1 },
+          { "label": "Un ancrage de plus en plus difficile à défaire, sans finalité absolue", "is_correct": true, "order": 2 },
+          { "label": "Un remboursement automatique par SmartPay", "is_correct": false, "order": 3 },
+          { "label": "L'annulation silencieuse par un administrateur", "is_correct": false, "order": 4 }
+        ]
+      },
+      {
+        "prompt": "Pour vérifier une transaction, on s'appuie surtout sur :",
+        "explanation": "Montant, destination et statut ou confirmations. On n'invente pas un succès.",
+        "order": 5,
+        "options": [
+          { "label": "Un sentiment, sans regarder le statut", "is_correct": false, "order": 1 },
+          { "label": "Montant, destination, et statut ou confirmations", "is_correct": true, "order": 2 },
+          { "label": "La publication d'une clé privée", "is_correct": false, "order": 3 },
+          { "label": "Un taux de change inventé par Academy", "is_correct": false, "order": 4 }
+        ]
+      }
+    ]
+  }
+}

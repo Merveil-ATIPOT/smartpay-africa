@@ -1,0 +1,39 @@
+{
+  "slug": "bitcoin-lightning-smartpay",
+  "title": "Bitcoin et Lightning avec SmartPay Africa",
+  "summary": "Formation gratuite de démonstration. Vous découvrez Bitcoin, les unités, la blockchain et les réseaux de test. SmartPay Academy utilise uniquement Bitcoin Regtest : aucun paiement réel n'est déclenché.",
+  "content_version": 2,
+  "is_published": true,
+  "modules": [
+    {
+      "slug": "decouvrir-bitcoin",
+      "file": "modules/decouvrir-bitcoin.json",
+      "import": false
+    },
+    {
+      "slug": "portefeuilles-et-securite",
+      "file": "modules/portefeuilles-et-securite.json",
+      "import": false
+    },
+    {
+      "slug": "transactions-et-blockchain",
+      "file": "modules/transactions-et-blockchain.json",
+      "import": true
+    },
+    {
+      "slug": "lightning-network",
+      "file": "modules/lightning-network.json",
+      "import": true
+    },
+    {
+      "slug": "utiliser-smartpay-africa",
+      "file": "modules/utiliser-smartpay-africa.json",
+      "import": true
+    },
+    {
+      "slug": "bitcoin-et-paiements-en-afrique",
+      "file": "modules/bitcoin-et-paiements-en-afrique.json",
+      "import": true
+    }
+  ]
+}

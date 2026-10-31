@@ -1,0 +1,147 @@
+{
+  "slug": "bitcoin-et-paiements-en-afrique",
+  "title": "Bitcoin et paiements en Afrique",
+  "objectives": "Situer des usages possibles, parler des transferts transfrontaliers sans prétendre qu'ils sont opérationnels dans SmartPay, nommer risques et prudence réglementaire.",
+  "order": 6,
+  "is_published": true,
+  "lessons": [
+    {
+      "slug": "usages-bitcoin-et-lightning",
+      "title": "Usages possibles de Bitcoin et Lightning",
+      "difficulty": "intro",
+      "duration_minutes": 8,
+      "order": 1,
+      "is_published": true,
+      "body_md": "## Objectifs\n\nVous citerez des usages possibles (échange, épargne personnelle, petits paiements) sans les présenter comme des promesses de gain.\n\n## Usages souvent évoqués\n\n- Envoyer de la valeur à distance quand les rails classiques sont lents ou chers.\n- Recevoir un paiement international sans passer par autant d'intermédiaires.\n- Payer un petit montant via Lightning.\n- Apprendre et expérimenter, comme dans SmartPay Academy.\n\n## Ce que ce n'est pas\n\nCe n'est pas un **rendement** annoncé. Ce n'est pas un placement promis comme sûr. Le cours peut monter ou baisser. Cette formation n'encourage pas à miser de l'argent réel.\n\n## Contexte africain, exemples illustratifs\n\nUne famille entre Dakar et Abidjan, un artisan payé par un client à l'étranger, un étudiant qui teste un laboratoire : ce sont des **illustrations**. Elles ne décrivent pas un service SmartPay déjà en production Mainnet.\n\n## Exemple concret\n\nAwa à Dakar et Ibrahima à Abidjan parlent d'un envoi. Dans Academy, ils apprennent le vocabulaire. Ils n'exécutent pas un transfert réel via SmartPay.\n\n## Définitions\n\n- **Usage possible** : scénario, pas une offre commerciale.\n- **Laboratoire** : apprentissage sans cours.\n\n## Résumé\n\nDes usages existent en discussion. SmartPay Africa, aujourd'hui, forme et démontre en Regtest. Aucun gain n'est promis.",
+      "exercises": [
+        {
+          "type": "reflection",
+          "prompt": "Citez un usage possible et une chose que cette formation ne promet pas (gain, cours, partenariat).",
+          "content": {
+            "hint": "Usage : petit paiement ou envoi à distance. Pas de rendement, pas de Mainnet SmartPay."
+          },
+          "order": 1
+        }
+      ]
+    },
+    {
+      "slug": "paiements-transfrontaliers",
+      "title": "Paiements transfrontaliers et transferts de fonds",
+      "difficulty": "base",
+      "duration_minutes": 8,
+      "order": 2,
+      "is_published": true,
+      "body_md": "## Objectifs\n\nVous expliquerez l'intérêt théorique d'un envoi transfrontalier, et vous affirmerez clairement que SmartPay **n'exécute pas** aujourd'hui un transfert d'argent réel.\n\n## Le besoin\n\nBeaucoup de familles envoient de l'argent d'un pays à un autre. Les circuits classiques peuvent prendre du temps, demander des pièces, ou coûter cher. Bitcoin et Lightning sont parfois cités comme un rail alternatif.\n\n## Ce que SmartPay fait aujourd'hui\n\nLe parcours **Transfert Direct** prépare un **devis simulé** (pays, opérateur affiché, montant). Il n'appelle pas Wave, Orange Money, MTN. Il n'effectue pas de dépôt FCFA. Il n'a pas de taux de change de marché. Il n'a pas d'autorisation réglementaire présentée ici.\n\n## Lightning Regtest n'est pas un corridor\n\nUn paiement Alice → Bob en laboratoire n'est pas un envoi Dakar → Abidjan réel.\n\n## Exemple concret\n\nL'écran peut montrer un corridor pédagogique Sénégal → Côte d'Ivoire. Lisez « simulation ». Ce n'est pas un partenariat opérateur, ni un virement exécuté.\n\n## Définitions\n\n- **Transfrontalier** : d'un pays vers un autre.\n- **Devis simulé** : calcul d'écran, sans marché.\n- **Exécution réelle** : argent réellement reçu — absente ici.\n\n## Résumé\n\nLe besoin existe. SmartPay ne le satisfait pas encore par un transfert opérationnel. N'inventez ni frais ni autorisation.",
+      "exercises": [
+        {
+          "type": "identify",
+          "prompt": "Un devis Sénégal → Côte d'Ivoire dans SmartPay est-il un transfert exécuté ? Un paiement Regtest Alice → Bob est-il un corridor réel ?",
+          "content": {
+            "hint": "Les deux sont des démonstrations. Aucun dépôt FCFA, aucun corridor Mainnet."
+          },
+          "order": 1
+        }
+      ]
+    },
+    {
+      "slug": "risques-volatilite-fraude",
+      "title": "Risques, volatilité, fraude et protection des utilisateurs",
+      "difficulty": "base",
+      "duration_minutes": 8,
+      "order": 3,
+      "is_published": true,
+      "body_md": "## Objectifs\n\nVous nommerez volatilité, fraude, erreur de destinataire et fausses promesses, et vous appliquerez des gestes de protection simples.\n\n## Volatilité\n\nLe prix d'un bitcoin en francs CFA **change**. Un montant en sats n'a pas un pouvoir d'achat fixe. En Regtest, il n'y a même pas de cours.\n\n## Fraudes fréquentes\n\n- Quelqu'un demande votre phrase secrète « pour aider ».\n- Un faux support promet un remboursement contre un secret.\n- Une offre annonce un gain sûr.\n- Un QR ou une adresse substituée.\n\n## Protection\n\nVérifier le montant et la destination. Ne jamais envoyer un secret. Se méfier des rendements annoncés. Sur SmartPay, rester dans le lab : pas d'argent réel.\n\n## Exemple concret\n\nUn message dit : « Votre compte Academy sera bloqué, envoyez vos mots. » C'est une fraude. Academy ne demande jamais cela.\n\n## Définitions\n\n- **Volatilité** : le prix bouge.\n- **Ingénierie sociale** : on vous pousse à livrer un secret.\n- **Promesse trompeuse** : gain sûr, partenariat inventé.\n\n## Résumé\n\nLes risques sont humains autant que techniques. Aucun secret, aucun rendement. Cette leçon ne déclenche aucun paiement.",
+      "exercises": [
+        {
+          "type": "reflection",
+          "prompt": "Donnez un exemple de fraude (demande de secret ou gain sûr) et la réponse à y apporter.",
+          "content": {
+            "hint": "Refuser le secret. Ignorer le rendement annoncé. Vérifier dans l'application officielle."
+          },
+          "order": 1
+        }
+      ]
+    },
+    {
+      "slug": "reglementation-et-adoption-responsable",
+      "title": "Réglementation, conformité et adoption responsable",
+      "difficulty": "base",
+      "duration_minutes": 7,
+      "order": 4,
+      "is_published": true,
+      "body_md": "## Objectifs\n\nVous retiendrez que les règles varient selon les pays, que SmartPay n'affiche ici aucune licence, et qu'une adoption responsable commence par comprendre avant de risquer de l'argent.\n\n## Les règles dépendent des pays\n\nUn usage acceptable à un endroit peut être encadré ou interdit ailleurs. Cette leçon **n'invente** ni texte de loi, ni agrément, ni partenariat public.\n\n## Conformité, en mots simples\n\nLes prestataires réels doivent souvent connaître leur client, surveiller des flux, déclarer certaines opérations. SmartPay Academy est une **formation de démonstration**, pas un établissement déclaré dans ce cours.\n\n## Adoption responsable\n\n- Apprendre d'abord (c'est le rôle d'Academy).\n- Ne pas miser l'argent du ménage sur un cours.\n- Distinguer démo Regtest et argent réel.\n- Vérifier les règles locales avant tout usage hors laboratoire.\n\n## Exemple concret\n\nTerminer le module 1 à 40 % puis recommencer le quiz est une adoption pédagogique. Convertir un solde Regtest en « je suis riche en CFA » ne l'est pas.\n\n## Définitions\n\n- **Réglementation** : règles publiques d'un pays.\n- **Conformité** : respect de ces règles par un prestataire.\n- **Adoption responsable** : comprendre, puis décider sans se ruiner.\n\n## Résumé\n\nPas de licence inventée. Pas de partenariat inventé. Apprendre en lab, puis vérifier la loi locale. Aucun paiement ici.",
+      "exercises": [
+        {
+          "type": "reflection",
+          "prompt": "Pourquoi cette formation ne peut-elle pas affirmer qu'un transfert transfrontalier SmartPay est déjà autorisé et opérationnel ?",
+          "content": {
+            "hint": "Le produit simule. Aucune licence ni opérateur réel n'est déclaré ici."
+          },
+          "order": 1
+        }
+      ]
+    }
+  ],
+  "quiz": {
+    "content_version": 1,
+    "pass_score": 70,
+    "is_published": true,
+    "questions": [
+      {
+        "prompt": "Cette formation présente les usages de Bitcoin comme :",
+        "explanation": "Des possibilités à comprendre, sans promesse de rendement ni de placement sûr.",
+        "order": 1,
+        "options": [
+          { "label": "Un placement à rendement fixe", "is_correct": false, "order": 1 },
+          { "label": "Des usages possibles, sans promesse de gain", "is_correct": true, "order": 2 },
+          { "label": "Un partenariat officiel déjà signé", "is_correct": false, "order": 3 },
+          { "label": "Un cours SmartPay en francs CFA", "is_correct": false, "order": 4 }
+        ]
+      },
+      {
+        "prompt": "Les transferts transfrontaliers dans SmartPay Africa aujourd'hui :",
+        "explanation": "Le parcours est une simulation de devis. Il n'exécute pas un envoi d'argent réel.",
+        "order": 2,
+        "options": [
+          { "label": "Sont opérationnels vers Wave et Orange Money", "is_correct": false, "order": 1 },
+          { "label": "Restent une simulation ; aucun dépôt réel n'est exécuté", "is_correct": true, "order": 2 },
+          { "label": "Remplacent déjà tous les corridors bancaires", "is_correct": false, "order": 3 },
+          { "label": "Ont un taux de change officiel publié ici", "is_correct": false, "order": 4 }
+        ]
+      },
+      {
+        "prompt": "Quelle conduite face à quelqu'un qui promet un gain sûr contre votre phrase secrète ?",
+        "explanation": "C'est une fraude classique. Il faut refuser et ne jamais envoyer de secret.",
+        "order": 3,
+        "options": [
+          { "label": "Envoyer la phrase pour « débloquer » le compte", "is_correct": false, "order": 1 },
+          { "label": "Refuser : ni secret, ni rendement annoncé", "is_correct": true, "order": 2 },
+          { "label": "Publier la phrase pour obtenir de l'aide", "is_correct": false, "order": 3 },
+          { "label": "La coller dans Academy pour valider", "is_correct": false, "order": 4 }
+        ]
+      },
+      {
+        "prompt": "La volatilité signifie surtout que :",
+        "explanation": "Le prix en monnaie locale peut monter ou baisser. En Regtest, il n'y a pas de cours.",
+        "order": 4,
+        "options": [
+          { "label": "Le prix en francs CFA peut changer ; Regtest n'a pas de cours", "is_correct": true, "order": 1 },
+          { "label": "SmartPay garantit un prix fixe", "is_correct": false, "order": 2 },
+          { "label": "Les blocs n'existent plus", "is_correct": false, "order": 3 },
+          { "label": "Academy verse un salaire en sats", "is_correct": false, "order": 4 }
+        ]
+      },
+      {
+        "prompt": "Sur la réglementation, cette leçon affirme :",
+        "explanation": "Les règles varient. SmartPay n'invente ici ni licence ni partenariat public.",
+        "order": 5,
+        "options": [
+          { "label": "SmartPay possède toutes les licences d'Afrique de l'Ouest", "is_correct": false, "order": 1 },
+          { "label": "Les règles varient ; aucune licence n'est inventée dans ce cours", "is_correct": true, "order": 2 },
+          { "label": "Aucun pays n'a jamais encadré un paiement", "is_correct": false, "order": 3 },
+          { "label": "Un quiz réussi vaut agrément officiel", "is_correct": false, "order": 4 }
+        ]
+      }
+    ]
+  }
+}

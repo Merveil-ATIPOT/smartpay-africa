@@ -1,0 +1,147 @@
+{
+  "slug": "lightning-network",
+  "title": "Lightning Network",
+  "objectives": "Expliquer pourquoi Lightning existe, ce qu'est un canal, comment une facture BOLT11 sert à payer, et quels limites (frais, routage, échecs) restent. Aucune opération réelle n'est lancée.",
+  "order": 4,
+  "is_published": true,
+  "lessons": [
+    {
+      "slug": "pourquoi-lightning-network",
+      "title": "Pourquoi Lightning Network ?",
+      "difficulty": "base",
+      "duration_minutes": 8,
+      "order": 1,
+      "is_published": true,
+      "body_md": "## Objectifs\n\nVous distinguerez un paiement **on-chain** (écrit dans un bloc Bitcoin) d'un paiement **Lightning**, plus adapté aux petits montants fréquents.\n\n## La limite on-chain\n\nChaque transaction on-chain concurrence les autres pour entrer dans un bloc. Les frais et le délai peuvent être trop élevés pour un café ou un tout petit envoi.\n\n## L'idée Lightning\n\n**Lightning Network** permet des paiements Bitcoin hors de chaque bloc, en s'appuyant sur des **canaux** déjà ouverts. Le règlement détaillé n'écrit pas une ligne de blockchain à chaque café. On ancre surtout l'ouverture et la fermeture du canal.\n\n## Ce que Lightning n'est pas\n\nCe n'est pas une autre monnaie. Les unités restent des bitcoins (souvent affichées en sats). Ce n'est pas un dépôt Mobile Money. Ce n'est pas Mainnet dans SmartPay Academy.\n\n## Exemple concret\n\nPayer 2 500 sats plusieurs fois on-chain coûterait du temps et des frais à chaque fois. Lightning vise à répéter de petits paiements après avoir ouvert un canal. En Regtest, c'est une démo de laboratoire.\n\n## Définitions\n\n- **On-chain** : inscrit dans un bloc Bitcoin.\n- **Lightning** : paiements via canaux, hors de chaque bloc.\n- **Sats** : petite unité, souvent affichée sur Lightning.\n\n## Résumé\n\nLightning allège les petits paiements Bitcoin. Academy l'explique ; cette leçon ne déclenche aucun paiement.",
+      "exercises": [
+        {
+          "type": "reflection",
+          "prompt": "Pourquoi répéter un tout petit paiement uniquement on-chain peut-il être peu pratique ? Lightning change-t-il l'unité (BTC / sats) ?",
+          "content": {
+            "hint": "Frais et délai par bloc. Lightning reste du bitcoin, souvent en sats."
+          },
+          "order": 1
+        }
+      ]
+    },
+    {
+      "slug": "canaux-et-liquidite",
+      "title": "Canaux de paiement et liquidité",
+      "difficulty": "base",
+      "duration_minutes": 8,
+      "order": 2,
+      "is_published": true,
+      "body_md": "## Objectifs\n\nVous décrirez un canal comme une relation de capacité entre deux participants, et la liquidité comme la part encore envoyable dans un sens.\n\n## Canal\n\nUn **canal** ouvre une capacité partagée. Tant qu'il est ouvert, les deux côtés peuvent se payer en déplaçant cette capacité, sans une transaction on-chain à chaque fois.\n\n## Liquidité\n\nLa **liquidité** est la capacité encore disponible dans une direction. Si tout est déjà du côté du destinataire, on ne peut plus pousser dans ce sens sans rééquilibrer ou fermer.\n\n## Ouverture et fermeture\n\nOuvrir ou fermer un canal s'ancre en général on-chain. Le quotidien du canal est Lightning.\n\n## SmartPay et cette leçon\n\nNous n'ouvrons aucun canal depuis Academy. Le laboratoire peut déjà avoir des nœuds de test. L'exercice reste une lecture.\n\n## Exemple concret\n\nAlice et Bob ont un canal de démonstration. Alice peut envoyer 2 500 sats si sa liquidité sortante le permet. Si elle a déjà tout envoyé, le paiement échoue pour manque de liquidité, pas parce que Bitcoin a disparu.\n\n## Définitions\n\n- **Canal** : lien de capacité entre deux nœuds.\n- **Liquidité** : capacité encore utilisable dans un sens.\n- **Fermeture** : retour on-chain de l'état final.\n\n## Résumé\n\nLe canal porte la capacité. La liquidité limite le sens du paiement. Aucun canal n'est créé par cette leçon.",
+      "exercises": [
+        {
+          "type": "identify",
+          "prompt": "Si Alice n'a plus de liquidité sortante vers Bob, que se passe-t-il pour un nouvel envoi Lightning ? Est-ce que les bitcoins on-chain d'Alice disparaissent ?",
+          "content": {
+            "hint": "Le paiement Lightning peut échouer. Les unités on-chain ne s'effacent pas pour autant."
+          },
+          "order": 1
+        }
+      ]
+    },
+    {
+      "slug": "factures-bolt11-et-paiements",
+      "title": "Factures BOLT11 et paiements Lightning",
+      "difficulty": "base",
+      "duration_minutes": 8,
+      "order": 3,
+      "is_published": true,
+      "body_md": "## Objectifs\n\nVous reconnaîtrez une facture Lightning (souvent **BOLT11**) et le parcours : afficher ou scanner, confirmer, lire le statut.\n\n## Facture BOLT11\n\nUne **facture BOLT11** est un texte encodé (souvent un QR) qui indique un montant, une destination Lightning et des conditions (délai, description). Ce n'est pas une clé secrète.\n\n## Payer\n\nLe payeur **décode** la facture, vérifie le montant, puis son nœud tente le paiement via un ou plusieurs canaux. Le succès se lit dans un **statut**, pas dans un espoir.\n\n## Dans SmartPay Africa\n\nL'écran **Recevoir** peut montrer une facture de laboratoire. L'écran **Scanner** lit un QR. L'écran **Confirmer** demande un avis avant d'envoyer. Tout cela, dans le projet actuel, vise **Regtest** : démonstration, pas Mainnet.\n\n## Exemple concret\n\nBob affiche une facture de 2 500 sats. Alice scanne, lit le montant, confirme. Le statut passe à réussi ou échoué selon le serveur. Academy n'exécute pas cette opération à votre place.\n\n## Définitions\n\n- **BOLT11** : format usuel de facture Lightning.\n- **QR** : image scannable de la facture.\n- **Statut** : résultat renvoyé par le serveur.\n\n## Résumé\n\nLa facture décrit le paiement. Le scan et la confirmation sont des étapes. Cette leçon ne lance aucun paiement.",
+      "exercises": [
+        {
+          "type": "reflection",
+          "prompt": "Quelles informations une facture BOLT11 porte-t-elle ? Pourquoi ce n'est pas une phrase secrète ?",
+          "content": {
+            "hint": "Montant, destination, conditions. C'est une demande de paiement, pas un secret de signature."
+          },
+          "order": 1
+        }
+      ]
+    },
+    {
+      "slug": "frais-routage-echecs-securite",
+      "title": "Frais, routage, échecs et sécurité",
+      "difficulty": "base",
+      "duration_minutes": 8,
+      "order": 4,
+      "is_published": true,
+      "body_md": "## Objectifs\n\nVous citerez routage, frais Lightning, causes d'échec fréquentes, et précautions simples.\n\n## Routage\n\nSi Alice et Bob n'ont pas de canal direct, le paiement peut passer par d'autres nœuds. C'est le **routage**. Chaque saut a besoin de liquidité.\n\n## Frais Lightning\n\nDes **frais** de relais peuvent s'ajouter, distincts des frais on-chain d'ouverture ou de fermeture. Academy n'affiche pas un barème commercial inventé.\n\n## Échecs fréquents\n\n- Facture expirée.\n- Liquidité insuffisante sur le chemin.\n- Nœud injoignable.\n- Montant qui ne correspond pas à ce que l'on voulait.\n\nUn échec n'est pas « Bitcoin a disparu ». C'est souvent un chemin ou une facture.\n\n## Sécurité de base\n\nVérifier le montant avant de confirmer. Ne pas payer deux fois la même facture par impatience. Ne jamais donner un secret de signature. En Regtest, l'enjeu n'a pas de cours ; l'habitude reste bonne.\n\n## Exemple concret\n\nAlice relance trop vite la même facture : le serveur peut refuser un doublon. Mieux vaut lire le statut. L'assistant IA n'exécute pas le paiement.\n\n## Définitions\n\n- **Routage** : chemin via d'autres nœuds.\n- **Expiration** : la facture n'est plus valable.\n- **Échec de chemin** : pas assez de liquidité ou nœud absent.\n\n## Résumé\n\nLe routage dépend de la liquidité. Les échecs sont fréquents et lisibles. Aucune opération n'est déclenchée ici.",
+      "exercises": [
+        {
+          "type": "identify",
+          "prompt": "Citez deux raisons d'échec Lightning qui ne signifient pas « les bitcoins ont été effacés de la blockchain ».",
+          "content": {
+            "hint": "Facture expirée, liquidité, nœud injoignable. L'on-chain reste distinct."
+          },
+          "order": 1
+        }
+      ]
+    }
+  ],
+  "quiz": {
+    "content_version": 1,
+    "pass_score": 70,
+    "is_published": true,
+    "questions": [
+      {
+        "prompt": "Lightning Network sert surtout à :",
+        "explanation": "Permettre des paiements Bitcoin fréquents via des canaux, sans une écriture de bloc à chaque petit envoi.",
+        "order": 1,
+        "options": [
+          { "label": "Remplacer le bitcoin par une monnaie SmartPay", "is_correct": false, "order": 1 },
+          { "label": "Faire des paiements Bitcoin via des canaux, hors de chaque bloc", "is_correct": true, "order": 2 },
+          { "label": "Convertir automatiquement en francs CFA", "is_correct": false, "order": 3 },
+          { "label": "Supprimer toute notion de frais", "is_correct": false, "order": 4 }
+        ]
+      },
+      {
+        "prompt": "La liquidité d'un canal, c'est surtout :",
+        "explanation": "La capacité encore envoyable dans une direction. Sans liquidité sortante, le paiement Lightning peut échouer.",
+        "order": 2,
+        "options": [
+          { "label": "Le cours officiel du bitcoin", "is_correct": false, "order": 1 },
+          { "label": "La capacité encore utilisable dans un sens", "is_correct": true, "order": 2 },
+          { "label": "Le mot de passe Academy", "is_correct": false, "order": 3 },
+          { "label": "Un dépôt Wave déjà versé", "is_correct": false, "order": 4 }
+        ]
+      },
+      {
+        "prompt": "Une facture BOLT11 est :",
+        "explanation": "Un texte ou QR qui décrit un paiement Lightning. Ce n'est pas un secret de signature.",
+        "order": 3,
+        "options": [
+          { "label": "Une phrase secrète à coller dans Academy", "is_correct": false, "order": 1 },
+          { "label": "Une demande de paiement Lightning encodée, souvent en QR", "is_correct": true, "order": 2 },
+          { "label": "Un bloc Bitcoin complet", "is_correct": false, "order": 3 },
+          { "label": "Un tarif réglementaire inventé", "is_correct": false, "order": 4 }
+        ]
+      },
+      {
+        "prompt": "Dans SmartPay Africa aujourd'hui, Scanner et Confirmer servent à :",
+        "explanation": "Lire une facture et demander confirmation d'un paiement de démonstration Regtest, pas un paiement Mainnet.",
+        "order": 4,
+        "options": [
+          { "label": "Envoyer de l'argent réel sur le réseau principal", "is_correct": false, "order": 1 },
+          { "label": "Parcourir une démonstration Lightning en Regtest", "is_correct": true, "order": 2 },
+          { "label": "Ouvrir un compte Orange Money officiel", "is_correct": false, "order": 3 },
+          { "label": "Publier votre clé privée", "is_correct": false, "order": 4 }
+        ]
+      },
+      {
+        "prompt": "Un paiement Lightning échoue. Que faut-il en conclure d'abord ?",
+        "explanation": "Souvent facture, liquidité ou nœud. Ce n'est pas automatiquement la disparition des unités on-chain.",
+        "order": 5,
+        "options": [
+          { "label": "Toute la blockchain a été effacée", "is_correct": false, "order": 1 },
+          { "label": "Il faut d'abord lire la cause : expiration, liquidité, nœud, montant", "is_correct": true, "order": 2 },
+          { "label": "Il faut renvoyer votre phrase secrète au support", "is_correct": false, "order": 3 },
+          { "label": "Academy a prélevé des francs CFA", "is_correct": false, "order": 4 }
+        ]
+      }
+    ]
+  }
+}

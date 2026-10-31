@@ -1,0 +1,147 @@
+{
+  "slug": "decouvrir-bitcoin",
+  "title": "Découvrir Bitcoin",
+  "objectives": "Comprendre ce qu'est Bitcoin, distinguer le réseau de l'unité BTC, lire une quantité en satoshis, expliquer simplement une transaction, et savoir pourquoi SmartPay Africa utilise Regtest.",
+  "order": 1,
+  "is_published": true,
+  "lessons": [
+    {
+      "slug": "quest-ce-que-bitcoin",
+      "title": "Qu'est-ce que Bitcoin ?",
+      "difficulty": "intro",
+      "duration_minutes": 8,
+      "order": 1,
+      "is_published": true,
+      "body_md": "## Objectifs\n\nÀ la fin de cette leçon, vous pourrez expliquer Bitcoin avec vos mots, distinguer le réseau de l'unité, et citer le rôle des participants.\n\n## Origine\n\nBitcoin apparaît en 2008 dans un texte public signé Satoshi Nakamoto. Le réseau démarre en 2009. L'idée n'est pas de créer une banque, mais un système où des personnes peuvent se transférer de la valeur sans passer par un intermédiaire unique.\n\n## Objectif du système\n\nBitcoin cherche à permettre des échanges électroniques pair à pair. Les règles sont publiques. Personne n'a le droit, à lui seul, de créer des unités en dehors des règles, ni d'annuler silencieusement l'historique.\n\n## Trois mots à ne pas mélanger\n\n**Bitcoin** désigne souvent le projet et le protocole.\n\n**Le réseau Bitcoin** est l'ensemble des ordinateurs qui suivent les mêmes règles, relaient les messages et vérifient l'historique.\n\n**Le BTC** est l'unité de compte utilisée sur ce réseau, comme on dirait « un euro » pour une monnaie.\n\n## Décentralisation\n\nUn système centralisé a un acteur qui décide. Un réseau décentralisé répartit la vérification. Dans Bitcoin, beaucoup de participants indépendants contrôlent que les règles sont respectées. Cela ne rend pas le système magique : cela évite qu'un seul guichet puisse réécrire l'histoire à lui seul.\n\n## Qui participe ?\n\n- Les **utilisateurs** créent des transactions.\n- Les **nœuds** relaient et vérifient.\n- Les **mineurs** proposent de nouveaux blocs selon les règles.\n\nVous n'avez pas besoin de tout faire. Sur SmartPay Academy, vous apprenez d'abord à lire ce qui se passe.\n\n## Exemple simple\n\nImaginez un cahier public. Chacun peut proposer une ligne : « Awa envoie 2 500 unités à Ibrahima ». Les participants vérifient que Awa avait bien ces unités, puis la ligne est ajoutée à l'historique. Personne ne peut effacer la page à lui seul.\n\n## Définitions\n\n- **Protocole** : règles communes du réseau.\n- **Pair à pair** : échange direct, sans guichet unique.\n- **Historique** : enchaînement des transactions acceptées.\n\n## Résumé\n\nBitcoin est un réseau public de transfert de valeur. Le BTC est son unité. La décentralisation signifie que la vérification est partagée. Cette leçon ne demande aucun paiement et aucune clé secrète.",
+      "exercises": [
+        {
+          "type": "reflection",
+          "prompt": "En une ou deux phrases, quel problème Bitcoin cherche-t-il à résoudre ? Distinguez le réseau Bitcoin et l'unité BTC.",
+          "content": {
+            "hint": "Pensez à un échange électronique sans intermédiaire unique. Le réseau vérifie. Le BTC compte."
+          },
+          "order": 1
+        }
+      ]
+    },
+    {
+      "slug": "btc-et-satoshis",
+      "title": "BTC et satoshis",
+      "difficulty": "intro",
+      "duration_minutes": 7,
+      "order": 2,
+      "is_published": true,
+      "body_md": "## Objectifs\n\nVous saurez convertir un montant entre BTC et satoshis, et comprendre pourquoi Lightning affiche souvent des sats.\n\n## L'unité BTC\n\nLe **BTC** est l'unité principale. Dire « 1 BTC » revient à parler d'une unité entière du réseau Bitcoin.\n\n## Le satoshi\n\nLe **satoshi**, ou **sat**, est la plus petite unité usuelle. On ne coupe pas un satoshi en morceaux dans cet apprentissage.\n\n## La relation fixe\n\n**1 BTC = 100 000 000 sats.**\n\nC'est une convention du protocole, pas un taux de change. Elle ne dépend pas d'un marché.\n\n## Conversions simples\n\n- 1 BTC = 100 000 000 sats\n- 0,01 BTC = 1 000 000 sats\n- 2 500 sats = 0,00002500 BTC\n\nPour passer des sats au BTC, on divise par 100 000 000. Pour l'inverse, on multiplie.\n\n## Pourquoi Lightning parle en sats\n\nLightning sert souvent à des montants plus petits qu'un BTC entier. Afficher 2 500 sats est plus lisible que 0,00002500 BTC. L'unité ne change pas la nature du réseau : ce sont toujours des unités Bitcoin.\n\n## Exemple Regtest : 2 500 sats\n\nDans le laboratoire SmartPay Africa, un paiement de démonstration peut afficher **2 500 sats**. Ce montant aide à lire un écran. Sur **Regtest**, ces unités n'ont **aucune valeur de marché**. Ce n'est pas un paiement réel, et cela n'achète rien.\n\n## Définitions\n\n- **BTC** : unité entière.\n- **Satoshi / sat** : 1 / 100 000 000 BTC.\n- **Regtest** : réseau local de test, sans cours.\n\n## Résumé\n\nUn BTC contient 100 millions de sats. Lightning utilise souvent les sats pour la lisibilité. Un exemple de 2 500 sats en Regtest reste pédagogique : aucun argent réel n'est en jeu.",
+      "exercises": [
+        {
+          "type": "identify",
+          "prompt": "Convertissez 2 500 sats en BTC, puis 0,01 BTC en sats. Aucune transaction n'est demandée.",
+          "content": {
+            "hint": "1 BTC = 100 000 000 sats. 2 500 / 100 000 000 = 0,00002500 BTC. 0,01 × 100 000 000 = 1 000 000 sats."
+          },
+          "order": 1
+        }
+      ]
+    },
+    {
+      "slug": "blockchain-et-transactions",
+      "title": "Blockchain et transactions",
+      "difficulty": "base",
+      "duration_minutes": 8,
+      "order": 3,
+      "is_published": true,
+      "body_md": "## Objectifs\n\nVous pourrez décrire une blockchain comme un historique de blocs, et distinguer une transaction en attente d'une transaction confirmée.\n\n## Qu'est-ce qu'une blockchain ?\n\nUne **blockchain** est une chaîne de **blocs**. Chaque bloc contient un lot de **transactions** et un lien vers le bloc précédent. On peut remonter l'histoire, mais on ne peut pas facilement réécrire une page du milieu sans que les autres s'en aperçoivent.\n\n## Blocs et transactions\n\nUne **transaction** dit, en substance, qui envoie quelles unités à qui. Un **bloc** regroupe plusieurs transactions acceptées ensemble. Le réseau n'invente pas un roman : il ajoute des pages numérotées.\n\n## Validation et confirmation\n\nAvant d'être dans un bloc, une transaction est souvent **en attente** : elle a été vue, pas encore inscrite. Quand elle entre dans un bloc accepté, elle reçoit une première **confirmation**. D'autres blocs ensuite renforcent cet ancrage.\n\n## Rôle des mineurs\n\nLes **mineurs** proposent de nouveaux blocs. Ils ne « votent » pas un prix. Ils rassemblent des transactions valides et suivent les règles du protocole. Si un bloc casse les règles, les nœuds le refusent.\n\n## Frais de réseau\n\nUn **frais de réseau** rémunère le travail de mise en bloc. Un frais plus élevé peut aider une transaction à être choisie plus vite quand le réseau est occupé. Le frais n'est pas un tarif SmartPay : c'est une mécanique du réseau Bitcoin.\n\n## En attente ou confirmée\n\n- **En attente** : annoncée, pas encore dans un bloc accepté.\n- **Confirmée** : incluse dans au moins un bloc accepté.\n\nUne transaction en attente n'est pas « perdue » par magie, mais elle n'est pas encore ancrée.\n\n## Ce que cette leçon n'aborde pas\n\nNous n'entrons pas dans le détail des UTXO. L'essentiel ici : historique, blocs, attentes, confirmations.\n\n## Exemple concret\n\nVous envoyez 2 500 sats en laboratoire. L'écran peut d'abord dire « en attente », puis « confirmé » quand un bloc de test l'inclut. Sur Regtest, cela reste une démonstration.\n\n## Résumé\n\nLa blockchain enchaîne des blocs de transactions. Les mineurs proposent des blocs. Les confirmations ancrent une transaction. En attente n'est pas la même chose que confirmé.",
+      "exercises": [
+        {
+          "type": "identify",
+          "prompt": "Classez ces deux situations : A) la transaction est visible mais pas encore dans un bloc ; B) elle apparaît dans un bloc accepté. Laquelle est en attente ? Laquelle est confirmée ?",
+          "content": {
+            "hint": "A = en attente. B = confirmée. Le bloc accepté ancre la transaction."
+          },
+          "order": 1
+        }
+      ]
+    },
+    {
+      "slug": "mainnet-testnet-regtest",
+      "title": "Mainnet, Testnet et Regtest",
+      "difficulty": "base",
+      "duration_minutes": 7,
+      "order": 4,
+      "is_published": true,
+      "body_md": "## Objectifs\n\nVous saurez distinguer Mainnet, Testnet et Regtest, et expliquer pourquoi SmartPay Africa forme sur Regtest.\n\n## Le réseau principal : Mainnet\n\nLe **Mainnet** est le réseau Bitcoin public où les BTC ont une valeur d'échange réelle. Une erreur sur Mainnet peut coûter de l'argent réel. Academy n'y envoie aucun paiement.\n\n## Les environnements de test\n\nPour apprendre sans risque, on utilise des réseaux de test. Les unités y suivent des règles voisines, mais elles ne s'échangent pas comme de l'argent réel.\n\n## Trois environnements\n\n**Mainnet** : réseau réel, unités avec cours.\n\n**Testnet** : réseau public de test. Utile aux développeurs. Les unités de test ne doivent pas être vendues comme de l'argent.\n\n**Regtest** : réseau de régression local. On le contrôle dans un laboratoire. On peut créer des blocs de test. Les unités n'ont **aucune valeur de marché**.\n\n## Pourquoi SmartPay Africa utilise Regtest\n\nLe hackathon et la formation ont besoin d'un laboratoire reproductible. Regtest permet d'afficher des factures, des statuts et des montants en sats **sans toucher au Bitcoin réel**. C'est un bac à sable.\n\n## Aucune valeur marchande en Regtest\n\nUn solde Regtest de 2 500 sats n'est pas convertible en francs CFA. Personne ne doit l'acheter ni le vendre. Si un écran montre un paiement, lisez « démonstration de laboratoire ».\n\n## Démonstration et paiement réel\n\nUne **démonstration** montre le parcours : scanner, confirmer, statut. Un **paiement réel** déplace de la valeur sur Mainnet. SmartPay Academy et le laboratoire Regtest restent du côté démonstration.\n\n## Définitions\n\n- **Mainnet** : Bitcoin réel.\n- **Testnet** : test public.\n- **Regtest** : test local contrôlé.\n\n## Résumé\n\nMainnet a une valeur réelle. Testnet et Regtest servent à apprendre. SmartPay Africa utilise Regtest pour former sans paiement réel. N'envoyez jamais une phrase secrète, ici ou ailleurs.",
+      "exercises": [
+        {
+          "type": "reflection",
+          "prompt": "Pourquoi un montant de 2 500 sats affiché dans SmartPay Academy n'a-t-il aucune valeur marchande ? En une phrase, quelle est la différence entre une démonstration Regtest et un paiement Mainnet ?",
+          "content": {
+            "hint": "Regtest est un laboratoire local. Mainnet déplace de la valeur réelle. Academy reste pédagogique."
+          },
+          "order": 1
+        }
+      ]
+    }
+  ],
+  "quiz": {
+    "content_version": 1,
+    "pass_score": 70,
+    "is_published": true,
+    "questions": [
+      {
+        "prompt": "Que décrit le mieux Bitcoin dans cette formation ?",
+        "explanation": "Bitcoin est un réseau public de transfert de valeur, pair à pair. Ce n'est ni une banque unique, ni une entreprise, ni une mine d'or.",
+        "order": 1,
+        "options": [
+          { "label": "Une banque centrale unique qui valide chaque paiement", "is_correct": false, "order": 1 },
+          { "label": "Un réseau décentralisé de transfert de valeur, avec le BTC comme unité", "is_correct": true, "order": 2 },
+          { "label": "Une application SmartPay obligatoire pour envoyer de l'argent", "is_correct": false, "order": 3 },
+          { "label": "Un placement garanti qui produit un rendement fixe", "is_correct": false, "order": 4 }
+        ]
+      },
+      {
+        "prompt": "Quelle égalité est correcte ?",
+        "explanation": "1 BTC vaut toujours 100 000 000 sats. Ce n'est pas un prix de marché, c'est une unité du protocole.",
+        "order": 2,
+        "options": [
+          { "label": "1 BTC = 1 000 sats", "is_correct": false, "order": 1 },
+          { "label": "1 BTC = 100 000 sats", "is_correct": false, "order": 2 },
+          { "label": "1 BTC = 100 000 000 sats", "is_correct": true, "order": 3 },
+          { "label": "1 sat = 100 000 000 BTC", "is_correct": false, "order": 4 }
+        ]
+      },
+      {
+        "prompt": "Une blockchain Bitcoin, c'est surtout :",
+        "explanation": "C'est une chaîne de blocs qui enregistrent des transactions. Ce n'est pas un compte bancaire SmartPay ni un graphique de cours.",
+        "order": 3,
+        "options": [
+          { "label": "Un historique de blocs contenant des transactions enchaînées", "is_correct": true, "order": 1 },
+          { "label": "Un tableau de bord qui invente vos notes de quiz", "is_correct": false, "order": 2 },
+          { "label": "Un contrat secret connu seulement de SmartPay", "is_correct": false, "order": 3 },
+          { "label": "Un taux de change officiel en francs CFA", "is_correct": false, "order": 4 }
+        ]
+      },
+      {
+        "prompt": "Que signifie qu'une transaction est confirmée ?",
+        "explanation": "Elle a été incluse dans un bloc accepté par le réseau. En attente, elle a été vue mais pas encore ancrée dans un bloc.",
+        "order": 4,
+        "options": [
+          { "label": "Un agent a signé un papier en agence", "is_correct": false, "order": 1 },
+          { "label": "Elle a été incluse dans au moins un bloc accepté", "is_correct": true, "order": 2 },
+          { "label": "L'écran mobile a affiché un pourcentage de formation", "is_correct": false, "order": 3 },
+          { "label": "Le montant Regtest a été converti en argent réel", "is_correct": false, "order": 4 }
+        ]
+      },
+      {
+        "prompt": "Quelle phrase est juste à propos de Regtest dans SmartPay Africa ?",
+        "explanation": "Regtest est un laboratoire local. Les unités n'ont pas de valeur de marché. Le Mainnet est le réseau réel. Academy n'effectue pas de paiement Mainnet.",
+        "order": 5,
+        "options": [
+          { "label": "Regtest est le réseau principal où les BTC s'achètent et se vendent", "is_correct": false, "order": 1 },
+          { "label": "Un satoshi Regtest a le même cours qu'un satoshi Mainnet", "is_correct": false, "order": 2 },
+          { "label": "Regtest sert de laboratoire : les unités n'ont aucune valeur marchande", "is_correct": true, "order": 3 },
+          { "label": "Testnet et Mainnet sont le même réseau, seul le nom change", "is_correct": false, "order": 4 }
+        ]
+      }
+    ]
+  }
+}

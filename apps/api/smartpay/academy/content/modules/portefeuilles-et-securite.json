@@ -1,0 +1,147 @@
+{
+  "slug": "portefeuilles-et-securite",
+  "title": "Portefeuilles Bitcoin et sécurité",
+  "objectives": "Comprendre ce qu'est un portefeuille, distinguer secret de signature et adresse, expliquer une sauvegarde, et comparer garde personnelle et garde par un prestataire. Ne jamais saisir un secret réel.",
+  "order": 2,
+  "is_published": true,
+  "lessons": [
+    {
+      "slug": "quest-ce-qu-un-portefeuille-bitcoin",
+      "title": "Qu'est-ce qu'un portefeuille Bitcoin ?",
+      "difficulty": "intro",
+      "duration_minutes": 8,
+      "order": 1,
+      "is_published": true,
+      "body_md": "## Objectifs\n\nVous pourrez expliquer qu'un portefeuille ne « contient » pas les bitcoins comme une poche, et décrire son rôle : créer des adresses et signer des transactions.\n\n## Ce que le portefeuille n'est pas\n\nLes unités Bitcoin restent enregistrées sur la **blockchain**. Le portefeuille n'est pas un coffre qui stocke des pièces. C'est un outil qui garde des **secrets de signature** et montre un solde calculé à partir de l'historique public.\n\n## Ce que le portefeuille fait\n\n- Il dérive des **adresses** que vous pouvez montrer.\n- Il prépare une transaction.\n- Il **signe** avec un secret que vous ne devez pas partager.\n- Il lit le réseau pour afficher un solde.\n\n## Analogie simple\n\nL'adresse ressemble à un numéro de compte que l'on peut donner. Le secret de signature ressemble à la clé qui autorise un envoi. Perdre le secret, c'est perdre le contrôle. Le montrer à un inconnu, c'est lui donner le contrôle.\n\n## Exemple concret\n\nAwa ouvre une application. Elle voit 2 500 sats. Ces 2 500 sats sont des unités inscrites sur le réseau, pas des fichiers dans le téléphone. Si Awa change de téléphone sans sauvegarde, l'application vide n'efface pas la blockchain : c'est Awa qui a perdu l'accès.\n\n## Définitions\n\n- **Portefeuille** : logiciel ou matériel qui gère adresses et signatures.\n- **Solde affiché** : lecture de l'historique, pas un tiroir local.\n- **Signature** : preuve que l'envoi est autorisé.\n\n## Résumé\n\nLe portefeuille contrôle l'accès. La blockchain enregistre les unités. Cette leçon ne demande aucun secret et aucun paiement.",
+      "exercises": [
+        {
+          "type": "reflection",
+          "prompt": "En une phrase, où sont enregistrées les unités Bitcoin ? Quel rôle reste au portefeuille ?",
+          "content": {
+            "hint": "La blockchain enregistre. Le portefeuille signe et lit le solde."
+          },
+          "order": 1
+        }
+      ]
+    },
+    {
+      "slug": "cles-privees-publiques-adresses",
+      "title": "Clés privées, clés publiques et adresses",
+      "difficulty": "base",
+      "duration_minutes": 8,
+      "order": 2,
+      "is_published": true,
+      "body_md": "## Objectifs\n\nVous distinguerez secret de signature, clé publique et adresse, et vous saurez lequel ne se partage jamais.\n\n## Trois notions liées\n\nLa **clé privée** est un secret de signature. Elle autorise les envois. Elle ne se dicte pas, ne se photographie pas, ne se colle pas dans un chat.\n\nLa **clé publique** se calcule à partir de ce secret. Elle sert à vérifier une signature, pas à dépenser.\n\nUne **adresse** est une forme partageable, dérivée de la clé publique. On peut l'afficher pour recevoir.\n\n## Sens unique\n\nOn va du secret vers la clé publique, puis vers l'adresse. On ne remonte pas en sens inverse de façon pratique. Donner une adresse n'est pas donner le secret.\n\n## Ce que SmartPay Academy ne demande jamais\n\nAucun exercice ne vous demande de taper, coller ou envoyer un secret. Si un écran ou une personne le réclame, refusez.\n\n## Exemple concret\n\nIbrahima envoie à Awa une adresse pour 2 500 sats de démonstration. Awa peut la lire. Elle ne voit pas le secret d'Ibrahima. Si quelqu'un obtient ce secret, il peut créer une transaction à la place d'Ibrahima.\n\n## Définitions\n\n- **Clé privée** : secret de signature.\n- **Clé publique** : donnée de vérification.\n- **Adresse** : identifiant de réception partageable.\n\n## Résumé\n\nL'adresse se montre. Le secret se protège. Academy n'enregistre aucun secret et n'en demande aucun.",
+      "exercises": [
+        {
+          "type": "identify",
+          "prompt": "Parmi adresse, clé publique et clé privée, laquelle peut-on montrer pour recevoir ? Laquelle ne se partage jamais ?",
+          "content": {
+            "hint": "Adresse : montrable. Clé privée : jamais partagée."
+          },
+          "order": 1
+        }
+      ]
+    },
+    {
+      "slug": "sauvegarde-et-bonnes-pratiques",
+      "title": "Sauvegarde, phrase de récupération et bonnes pratiques",
+      "difficulty": "base",
+      "duration_minutes": 8,
+      "order": 3,
+      "is_published": true,
+      "body_md": "## Objectifs\n\nVous expliquerez pourquoi une sauvegarde existe, ce qu'est une phrase de récupération, et quelles pratiques évitent la perte ou la divulgation.\n\n## Pourquoi sauvegarder\n\nUn téléphone se casse, se vole ou s'efface. Sans sauvegarde, l'accès aux unités peut être perdu. La blockchain ne « rembourse » pas une sauvegarde oubliée.\n\n## Phrase de récupération\n\nBeaucoup de portefeuilles proposent une **phrase de récupération** : une liste de mots qui permet de reconstruire les secrets. Qui possède cette liste possède le contrôle. Ce n'est pas un mot de passe SmartPay, et Academy ne la génère pas.\n\n## Bonnes pratiques\n\n- Écrire la liste hors ligne, dans un lieu sûr, si vous créez un vrai portefeuille plus tard.\n- Ne jamais la photographier pour un cloud public.\n- Ne jamais la coller dans un site, un chat ou un « support » inconnu.\n- Vérifier l'application officielle avant d'ouvrir un portefeuille réel.\n\n## Ce que cette formation ne fait pas\n\nNous n'affichons pas de liste de mots. Nous ne vous demandons pas d'en inventer une ici. L'exercice reste une réflexion.\n\n## Exemple concret\n\nFatou change de téléphone. Si sa phrase est sur un papier lisible uniquement par elle, elle peut rouvrir le même portefeuille. Si elle l'a envoyée à un inconnu « pour l'aider », l'inconnu peut vider le compte.\n\n## Définitions\n\n- **Sauvegarde** : copie qui restaure l'accès.\n- **Phrase de récupération** : liste de mots équivalente aux secrets.\n- **Divulgation** : le secret devient connu d'un tiers.\n\n## Résumé\n\nLa sauvegarde protège contre la perte. La divulgation donne le contrôle à quelqu'un d'autre. N'entrez jamais une phrase réelle dans Academy.",
+      "exercises": [
+        {
+          "type": "reflection",
+          "prompt": "Citez deux risques : perdre la sauvegarde, et la montrer à un inconnu. Pourquoi Academy ne vous demande-t-elle aucune liste de mots ?",
+          "content": {
+            "hint": "Perte = plus d'accès. Divulgation = vol possible. Academy est pédagogique."
+          },
+          "order": 1
+        }
+      ]
+    },
+    {
+      "slug": "custodial-et-non-custodial",
+      "title": "Portefeuilles custodial et non-custodial",
+      "difficulty": "base",
+      "duration_minutes": 7,
+      "order": 4,
+      "is_published": true,
+      "body_md": "## Objectifs\n\nVous distinguerez garde personnelle et garde par un prestataire, et vous saurez ce que SmartPay Africa démontre aujourd'hui.\n\n## Garde personnelle (non-custodial)\n\nVous contrôlez les secrets. Personne ne peut bloquer un envoi à votre place, mais personne ne peut non plus récupérer une phrase perdue. La responsabilité est la vôtre.\n\n## Garde par un prestataire (custodial)\n\nUn service détient les secrets. Vous avez souvent un compte et un mot de passe. Le prestataire peut geler un compte, ou le perdre. C'est plus proche d'un solde chez un tiers.\n\n## Ce n'est pas un jugement moral\n\nLes deux modèles existent. Le choix dépend du risque que l'on accepte : autonomie contre dépendance à un tiers.\n\n## SmartPay Africa aujourd'hui\n\nDans le laboratoire, l'application montre un portefeuille de **démonstration Regtest**. Les unités n'ont pas de cours. Academy n'est pas une banque et ne conserve pas vos secrets personnels. Les leçons n'ouvrent pas un compte Mainnet.\n\n## Exemple concret\n\nUn service custodial peut dire « mot de passe oublié, on réinitialise ». Un portefeuille non-custodial ne le peut pas : sans sauvegarde, l'accès est perdu. Sur SmartPay, un solde Regtest de 2 500 sats reste une démo.\n\n## Définitions\n\n- **Non-custodial** : vous tenez les secrets.\n- **Custodial** : un prestataire les tient.\n- **Regtest** : réseau de test, sans valeur de marché.\n\n## Résumé\n\nGarde personnelle = contrôle et responsabilité. Garde par un tiers = dépendance. SmartPay Academy enseigne ; elle ne vous demande aucun secret réel.",
+      "exercises": [
+        {
+          "type": "identify",
+          "prompt": "Qui peut réinitialiser l'accès si les secrets sont perdus : un portefeuille non-custodial, ou un prestataire custodial ? SmartPay Academy stocke-t-elle votre phrase réelle ?",
+          "content": {
+            "hint": "Non-custodial : pas de réinitialisation magique. Academy : aucun secret réel."
+          },
+          "order": 1
+        }
+      ]
+    }
+  ],
+  "quiz": {
+    "content_version": 1,
+    "pass_score": 70,
+    "is_published": true,
+    "questions": [
+      {
+        "prompt": "Où sont réellement enregistrées les unités Bitcoin ?",
+        "explanation": "Elles figurent dans l'historique de la blockchain. Le portefeuille affiche un solde et signe, il n'est pas un tiroir de pièces.",
+        "order": 1,
+        "options": [
+          { "label": "Uniquement dans la mémoire du téléphone, hors réseau", "is_correct": false, "order": 1 },
+          { "label": "Sur la blockchain ; le portefeuille contrôle l'accès et la signature", "is_correct": true, "order": 2 },
+          { "label": "Dans un coffre SmartPay Academy obligatoire", "is_correct": false, "order": 3 },
+          { "label": "Chez une banque centrale unique", "is_correct": false, "order": 4 }
+        ]
+      },
+      {
+        "prompt": "Que peut-on montrer pour recevoir, et que ne partage-t-on jamais ?",
+        "explanation": "Une adresse peut être montrée. La clé privée est un secret de signature : la divulguer donne le contrôle des unités.",
+        "order": 2,
+        "options": [
+          { "label": "On montre la clé privée et on cache l'adresse", "is_correct": false, "order": 1 },
+          { "label": "On montre l'adresse ; on ne partage jamais la clé privée", "is_correct": true, "order": 2 },
+          { "label": "Adresse et clé privée sont identiques", "is_correct": false, "order": 3 },
+          { "label": "SmartPay exige la clé privée pour ouvrir Academy", "is_correct": false, "order": 4 }
+        ]
+      },
+      {
+        "prompt": "À quoi sert une phrase de récupération ?",
+        "explanation": "C'est une liste de mots qui reconstruit les secrets. Qui la possède contrôle le portefeuille. Academy n'en demande aucune.",
+        "order": 3,
+        "options": [
+          { "label": "C'est le mot de passe public de SmartPay", "is_correct": false, "order": 1 },
+          { "label": "Elle permet de reconstruire les secrets du portefeuille", "is_correct": true, "order": 2 },
+          { "label": "Elle sert uniquement à payer les frais de réseau", "is_correct": false, "order": 3 },
+          { "label": "Elle remplace le cours du bitcoin", "is_correct": false, "order": 4 }
+        ]
+      },
+      {
+        "prompt": "Quelle phrase décrit un portefeuille non-custodial ?",
+        "explanation": "Vous tenez les secrets. Personne ne peut réinitialiser l'accès à votre place si la sauvegarde est perdue.",
+        "order": 4,
+        "options": [
+          { "label": "Un prestataire détient les secrets et peut geler le compte", "is_correct": false, "order": 1 },
+          { "label": "Vous contrôlez les secrets ; une sauvegarde perdue n'est pas récupérable par un guichet", "is_correct": true, "order": 2 },
+          { "label": "Academy conserve toutes les phrases des apprenants", "is_correct": false, "order": 3 },
+          { "label": "Les unités existent seulement si l'écran est allumé", "is_correct": false, "order": 4 }
+        ]
+      },
+      {
+        "prompt": "Que doit faire un apprenant si on lui demande de coller sa phrase réelle dans Academy ?",
+        "explanation": "Academy n'a jamais besoin d'un secret réel. Une telle demande est anormale. Il faut refuser.",
+        "order": 5,
+        "options": [
+          { "label": "La coller pour valider le module", "is_correct": false, "order": 1 },
+          { "label": "Refuser : Academy n'a pas besoin d'un secret réel", "is_correct": true, "order": 2 },
+          { "label": "L'envoyer à n'importe quel support par message", "is_correct": false, "order": 3 },
+          { "label": "La photographier puis la publier", "is_correct": false, "order": 4 }
+        ]
+      }
+    ]
+  }
+}
