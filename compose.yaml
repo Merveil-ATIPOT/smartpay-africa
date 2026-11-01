@@ -13,8 +13,10 @@ services:
       POSTGRES_USER: ${POSTGRES_USER:-smartpay}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change-me-local-only}
     ports:
-      # 5433 sur l'hôte pour éviter le conflit avec PostgreSQL local (port 5432).
-      - "5433:5432"
+      # Hôte 5433 pour éviter le conflit avec un PostgreSQL local (5432).
+      # Bind localhost uniquement. Le réseau Docker interne `postgres:5432` est inchangé.
+      # Recréer le service postgres plus tard pour appliquer (ne pas le faire dans P06.4B).
+      - "127.0.0.1:5433:5432"
     volumes:
       - smartpay_pgdata:/var/lib/postgresql/data
     healthcheck:

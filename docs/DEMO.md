@@ -51,6 +51,8 @@ Expect `database: up`. With the default compose file, `payment_provider` is usua
 
 Do **not** run `docker compose down -v` if you must keep volume `smartpay_pgdata`.
 
+Compose now lists Postgres as `127.0.0.1:5433:5432`. Recreating the postgres container is required before that bind takes effect. **Do not recreate it during a live demonstration.** Docker-internal `postgres:5432` does not depend on the host bind.
+
 ## D. Configure Django for Lightning
 
 **STATE-CHANGING (containers / env only, no invoice):** attach the running API to the Lightning network without recreating PostgreSQL volumes:

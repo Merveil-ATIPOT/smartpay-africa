@@ -7,7 +7,7 @@ from datetime import timedelta
 from django.conf import settings
 from django.db import transaction
 from django.utils import timezone
-from rest_framework.exceptions import ValidationError
+from rest_framework.exceptions import APIException, ValidationError
 
 from smartpay.audit.models import AuditLog
 from smartpay.payments.models import Payment, PaymentInvoice
@@ -17,6 +17,12 @@ from smartpay.payments.reconciliation import reconcile_payment
 from smartpay.payments.state import transition
 
 logger = logging.getLogger("smartpay.payments")
+
+
+class PaymentHashConflict(APIException):
+    status_code = 409
+    default_detail = "Cette facture Lightning est déjà associée à un autre compte."
+    default_code = "payment_hash_conflict"
 
 
 def _client_ip(request) -> str | None:
@@ -151,12 +157,25 @@ def create_outgoing_payment(
                 }
             )
         payment_hash = decoded.payment_hash
-        duplicate = Payment.objects.filter(
-            provider_reference=payment_hash,
-            settlement_mode=Payment.SettlementMode.LIGHTNING_REGTEST,
-        ).exclude(provider_reference="").first()
-        if duplicate:
-            return reconcile_payment(duplicate), False
+        if payment_hash:
+            owned_duplicate = Payment.objects.filter(
+                owner=user,
+                provider_reference=payment_hash,
+                settlement_mode=Payment.SettlementMode.LIGHTNING_REGTEST,
+            ).exclude(provider_reference="").first()
+            if owned_duplicate:
+                return reconcile_payment(owned_duplicate), False
+            foreign_duplicate = (
+                Payment.objects.filter(
+                    provider_reference=payment_hash,
+                    settlement_mode=Payment.SettlementMode.LIGHTNING_REGTEST,
+                )
+                .exclude(provider_reference="")
+                .exclude(owner=user)
+                .exists()
+            )
+            if foreign_duplicate:
+                raise PaymentHashConflict()
         if decoded.expiry_seconds:
             expires_at = timezone.now() + timedelta(seconds=decoded.expiry_seconds)
 

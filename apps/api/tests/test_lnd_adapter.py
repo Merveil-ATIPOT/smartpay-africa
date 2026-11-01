@@ -230,7 +230,7 @@ def test_lnd_unavailable_on_pay(auth_client, settings, monkeypatch):
     monkeypatch.setattr("smartpay.payments.services.get_payment_provider", lambda: fake)
     response = auth_client.post(
         "/api/v1/payments/",
-        {"amount_sats": 1000, "encoded_invoice": "lnbcrt1x", "idempotency_key": "k-lnd"},
+        {"amount_sats": 1000, "encoded_invoice": "lnbcrt1x", "idempotency_key": "k-lnd", "confirm": True},
         format="json",
     )
     assert response.status_code == status.HTTP_400_BAD_REQUEST

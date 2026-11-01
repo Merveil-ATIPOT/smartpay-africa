@@ -201,6 +201,8 @@ TRANSFER_CREDIT_DISCLAIMER = (
     "Crédit Mobile Money simulé. Aucun opérateur réel n'a été contacté. "
     "Aucun SMS n'a été envoyé. Ceci n'est pas un paiement bancaire."
 )
+# Confirm corridor : désactivé par défaut (MVP hackathon). Ne pas activer sans revue.
+TRANSFER_CONFIRM_ENABLED = env_bool("TRANSFER_CONFIRM_ENABLED", False)
 
 def _abs_secret_path(raw: str | None) -> str:
     if not raw:
@@ -224,6 +226,11 @@ LND_BOB_REST_URL = env("LND_BOB_REST_URL", "")
 LND_BOB_MACAROON_PATH = _abs_secret_path(env("LND_BOB_MACAROON_PATH", ""))
 LND_BOB_TLS_CERT_PATH = _abs_secret_path(env("LND_BOB_TLS_CERT_PATH", ""))
 LAB_COUNTERPARTY_ENABLED = env_bool("LAB_COUNTERPARTY_ENABLED", False)
+# Comptes autorisés à émettre une facture Bob (plus les administrateurs).
+LAB_COUNTERPARTY_ALLOW_EMAILS = [
+    item.lower()
+    for item in env_list("LAB_COUNTERPARTY_ALLOW_EMAILS", env("DEV_USER_EMAIL", "") or "")
+]
 
 LOGGING = {
     "version": 1,

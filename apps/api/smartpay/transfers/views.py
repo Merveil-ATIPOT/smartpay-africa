@@ -1,5 +1,6 @@
+from django.conf import settings
 from rest_framework import status
-from rest_framework.exceptions import NotFound, ValidationError
+from rest_framework.exceptions import NotFound, PermissionDenied, ValidationError
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -200,10 +201,18 @@ class TransferPaymentPreviewView(APIView):
         return self.get(request, transfer_id)
 
 
+TRANSFER_CONFIRM_DISABLED_DETAIL = (
+    "La confirmation de transfert n'est pas disponible dans ce MVP. "
+    "Le catalogue et le devis restent accessibles. Aucun paiement Lightning n'est déclenché."
+)
+
+
 class TransferConfirmView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request, transfer_id):
+        if not getattr(settings, "TRANSFER_CONFIRM_ENABLED", False):
+            raise PermissionDenied(TRANSFER_CONFIRM_DISABLED_DETAIL)
         transfer = get_owned_transfer(request.user, transfer_id)
         key = resolve_idempotency_key(request, (request.data or {}).get("idempotency_key", ""))
         transfer = confirm_execution(

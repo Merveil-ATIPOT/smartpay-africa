@@ -1,6 +1,8 @@
 from datetime import timedelta
+from unittest.mock import MagicMock
 
 import pytest
+from django.test import override_settings
 from django.utils import timezone
 from rest_framework import status
 from rest_framework.exceptions import ValidationError
@@ -231,6 +233,31 @@ def test_no_credit_without_settlement(user):
 
 
 @pytest.mark.django_db
+def test_transfer_confirm_disabled_does_not_call_execution(auth_client, user, monkeypatch):
+    transfer = _ready_transfer(user)
+    payments_before = Payment.objects.count()
+    credits_before = SimulatedMobileMoneyCredit.objects.count()
+    spy = MagicMock(side_effect=AssertionError("confirm_execution ne doit pas être appelé"))
+    monkeypatch.setattr("smartpay.transfers.views.confirm_execution", spy)
+    blocked = auth_client.post(
+        f"/api/v1/transfers/{transfer.id}/confirm/",
+        {},
+        format="json",
+        HTTP_IDEMPOTENCY_KEY="blocked",
+    )
+    assert blocked.status_code == status.HTTP_403_FORBIDDEN
+    assert "pas disponible" in str(blocked.data).lower()
+    spy.assert_not_called()
+    transfer.refresh_from_db()
+    assert transfer.status == READY
+    assert Payment.objects.count() == payments_before
+    assert SimulatedMobileMoneyCredit.objects.count() == credits_before
+    catalog = auth_client.get("/api/v1/transfers/destinations/")
+    assert catalog.status_code == status.HTTP_200_OK
+
+
+@pytest.mark.django_db
+@override_settings(TRANSFER_CONFIRM_ENABLED=True)
 def test_isolation_and_mock_provider_does_not_pay(auth_client, user, other_user, api_client):
     transfer = _ready_transfer(user)
     listed = auth_client.get(f"/api/v1/transfers/{transfer.id}/preview-payment/")

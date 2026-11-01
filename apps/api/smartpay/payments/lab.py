@@ -2,7 +2,7 @@
 
 from django.conf import settings
 from rest_framework import status
-from rest_framework.exceptions import NotFound, ValidationError
+from rest_framework.exceptions import NotFound, PermissionDenied, ValidationError
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -17,12 +17,25 @@ LAB_WARNING = (
 )
 
 
+def can_create_lab_counterparty_invoice(user) -> bool:
+    if not user or not getattr(user, "is_authenticated", False):
+        return False
+    if getattr(user, "is_admin_role", False):
+        return True
+    allowed = {item.lower() for item in getattr(settings, "LAB_COUNTERPARTY_ALLOW_EMAILS", [])}
+    return (getattr(user, "email", "") or "").lower() in allowed
+
+
 class LabCounterpartyInvoiceView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
         if not getattr(settings, "LAB_COUNTERPARTY_ENABLED", False):
             raise NotFound("Contrepartie laboratoire non activée.")
+        if not can_create_lab_counterparty_invoice(request.user):
+            raise PermissionDenied(
+                "Seuls un compte laboratoire autorisé ou un administrateur peuvent créer une facture Bob."
+            )
         provider = get_lab_counterparty_provider()
         if provider is None:
             raise ValidationError({"lab": "Nœud Bob non configuré."})

@@ -42,7 +42,7 @@ class PaymentListCreateView(APIView):
                 raise ValidationError({"merchant_id": "Commerçant introuvable."}) from exc
             if merchant.owner_id != request.user.id and not request.user.is_admin_role:
                 raise PermissionDenied("Ce commerçant ne vous appartient pas.")
-        if data.get("confirm") is False:
+        if data.get("confirm") is not True:
             raise ValidationError({"confirm": "Un paiement LND exige une confirmation explicite (confirm=true)."})
         idempotency_key = resolve_idempotency_key(request, data.get("idempotency_key", ""))
         payment, created = create_outgoing_payment(

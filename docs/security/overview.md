@@ -25,7 +25,7 @@ Do not publish the API, PostgreSQL, or LND REST on the public Internet.
 
 `.gitignore` also excludes `*.dump`, `*.sql`, `*.bak`, `*.macaroon`, `*.pem`, `*.key`, `.env`.
 
-Django `production.py` sets cookie/HSTS flags but is **not deployed** and does not refuse insecure placeholders. Default settings load `config.settings.development`.
+Django `production.py` is **not deployed**. It now refuses placeholder `SECRET_KEY` / JWT keys and an empty or wildcard `ALLOWED_HOSTS`. Development still uses explicit local placeholders. This stack is **not** Internet-ready.
 
 ## Authentication and permissions
 
@@ -35,7 +35,8 @@ Django `production.py` sets cookie/HSTS flags but is **not deployed** and does n
 - Academy progress: `IsAcademyOwner` — **no admin exception**.
 - Assistant conversations: owner only.
 - Admin JSON APIs: `IsAdminRole`.
-- Health, register, token, schema/docs: unauthenticated.
+- Health, register, token: unauthenticated.
+- `/api/schema/` and `/api/docs/`: open only when `DEBUG=true`; otherwise admin JWT.
 
 Logout on mobile and admin clears client storage only. Refresh tokens remain valid until expiry (default 7 days). There is no `token_blacklist` app.
 
@@ -51,13 +52,13 @@ Logout on mobile and admin clears client storage only. Refresh tokens remain val
 
 These are documented so they are not mistaken for production guarantees.
 
-1. **`confirm` default `true`** on `POST /payments/` — omitting the field still pays.
-2. **Duplicate `payment_hash` lookup is not owner-scoped** — a second account might retrieve another user's Lightning payment row.
-3. **`POST /transfers/{id}/confirm/`** is available on the API while the mobile flag `TRANSFER_CONFIRM_ENABLED` is `false`.
-4. **Lab Bob invoice** is available to any authenticated user when the flag is on.
-5. **`/api/schema/` and `/api/docs/`** are public.
+1. **`confirm` is required** on `POST /payments/` (`true` only). The mobile client already sends `confirm: true`.
+2. **Lightning `payment_hash` is owner-scoped** — another account receives HTTP 409, not the row.
+3. **`POST /transfers/{id}/confirm/`** is refused while `TRANSFER_CONFIRM_ENABLED` is false (default). Turning the flag on in a lab `.env` would re-enable Alice→Bob plus a simulated Mobile Money credit. Do not enable it for the hackathon demo.
+4. **Lab Bob invoice** requires `LAB_COUNTERPARTY_ENABLED` and either an admin or an e-mail in `LAB_COUNTERPARTY_ALLOW_EMAILS` (defaults to `DEV_USER_EMAIL`). Ordinary registered users are refused before LND is called.
+5. **`/api/schema/` and `/api/docs/`** are public only in `DEBUG`.
 6. **DEBUG** defaults to true in development. Tracebacks can leak settings on the LAN.
-7. **API `0.0.0.0:8000`** is required for a physical phone; **Postgres `0.0.0.0:5433`** is wider than necessary.
+7. **API `0.0.0.0:8000`** remains required for a physical phone. Compose now **declares** Postgres as `127.0.0.1:5433:5432`. That bind is **not active** until the postgres service is recreated later; do not recreate it during a live demo.
 8. JWT signing key in a typical local lab may be shorter than SimpleJWT's recommended HMAC length — tokens still work; this is not production crypto.
 9. Admin JWT sits in `sessionStorage` (readable under XSS).
 10. Logging aims to redact macaroon/preimage keys; timeout paths may still include a BOLT11 in a REST path.

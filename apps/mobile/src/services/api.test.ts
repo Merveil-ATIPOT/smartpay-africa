@@ -1,6 +1,8 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 
+import { readFileSync } from "node:fs";
+
 import { ConfirmLock } from "../lib/confirmLock";
 import { ApiError, isTransportError, messageFromBody, userFacingRequestError } from "./errors";
 
@@ -25,6 +27,12 @@ describe("flux preview puis confirm", () => {
       calls.some((item) => item.includes("/payments/") && !item.includes("preview")),
       false,
     );
+  });
+
+  it("M15 envoie confirm: true explicitement", () => {
+    const source = readFileSync("src/services/payments.ts", "utf8");
+    assert.match(source, /confirm:\s*true/);
+    assert.equal(/confirm:\s*false/.test(source), false);
   });
 
   it("un HTTP 200 preview n'est pas un règlement", () => {

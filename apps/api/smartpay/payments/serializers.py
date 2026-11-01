@@ -100,4 +100,4 @@ class CreatePaymentSerializer(serializers.Serializer):
     merchant_id = serializers.IntegerField(required=False)
     idempotency_key = serializers.CharField(max_length=64, required=False, allow_blank=True, default="")
     encoded_invoice = serializers.CharField(required=False, allow_blank=True, default="")
-    confirm = serializers.BooleanField(required=False, default=True)
+    confirm = serializers.BooleanField(required=True)

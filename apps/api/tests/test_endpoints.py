@@ -103,7 +103,7 @@ def test_preview_rejects_bolt11_when_provider_is_mock(auth_client):
 
 @pytest.mark.django_db
 def test_create_payment_idempotent(auth_client):
-    payload = {"amount_sats": 4200, "description": "frais scolarité"}
+    payload = {"amount_sats": 4200, "description": "frais scolarité", "confirm": True}
     first = auth_client.post(
         "/api/v1/payments/",
         payload,
@@ -125,7 +125,11 @@ def test_create_payment_idempotent(auth_client):
 
 @pytest.mark.django_db
 def test_create_payment_requires_idempotency_key(auth_client):
-    response = auth_client.post("/api/v1/payments/", {"amount_sats": 100}, format="json")
+    response = auth_client.post(
+        "/api/v1/payments/",
+        {"amount_sats": 100, "confirm": True},
+        format="json",
+    )
     assert response.status_code == status.HTTP_400_BAD_REQUEST
 
 
@@ -133,7 +137,7 @@ def test_create_payment_requires_idempotency_key(auth_client):
 def test_list_and_retrieve_payment(auth_client):
     created = auth_client.post(
         "/api/v1/payments/",
-        {"amount_sats": 900, "idempotency_key": "abc"},
+        {"amount_sats": 900, "idempotency_key": "abc", "confirm": True},
         format="json",
     )
     listed = auth_client.get("/api/v1/payments/")
