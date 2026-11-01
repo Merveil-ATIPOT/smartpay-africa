@@ -16,7 +16,7 @@ import {
   canOpenActivityExplanation,
 } from "../lib/activityExplain";
 import { formatSats } from "../lib/format";
-import { statusLabel, uiPaymentState } from "../lib/paymentStatus";
+import { displayPaymentStatus } from "../lib/paymentStatus";
 import { useAuth } from "../hooks/useAuth";
 import type { AppStackParamList, TabParamList } from "../navigation/types";
 import { listPayments } from "../services/payments";
@@ -78,7 +78,7 @@ export function ActivityScreen() {
         }
       >
         <Text style={styles.title}>Activité</Text>
-        <Text style={styles.sub}>Historique réel GET /payments/. Aucune transaction Stitch fictive.</Text>
+        <Text style={styles.sub}>Historique des opérations de ce compte</Text>
         {!personal ? <Text style={styles.adminNote}>{ACTIVITY_ADMIN_NOTE}</Text> : null}
         {loading ? <LoadingBlock /> : null}
         {error ? <ErrorBanner message={error} /> : null}
@@ -86,7 +86,6 @@ export function ActivityScreen() {
           <EmptyState title="Aucune activité" subtitle="Les paiements de ce compte s'afficheront ici." />
         ) : null}
         {items.map((item) => {
-          const state = uiPaymentState(item);
           const incoming = item.direction === "incoming";
           const params = personal ? activityExplainParams(item) : null;
           return (
@@ -101,12 +100,12 @@ export function ActivityScreen() {
               <View style={{ flex: 1 }}>
                 <Text style={styles.name}>{item.description || (incoming ? "Entrant" : "Sortant")}</Text>
                 <Text style={styles.meta}>
-                  {statusLabel(state)} · {item.settlement_mode === "mock" ? "MOCK" : "REGTEST"}
+                  {displayPaymentStatus(item)} · {item.settlement_mode === "mock" ? "MOCK" : "REGTEST"}
                 </Text>
               </View>
               <Text style={[styles.amount, incoming && { color: colors.green }]}>
                 {incoming ? "+" : "-"}
-                {formatSats(item.amount_sats)}
+                {formatSats(item.amount_sats)} sats
               </Text>
               {params ? <Ionicons name="chevron-forward" size={16} color={colors.muted} /> : null}
             </Pressable>

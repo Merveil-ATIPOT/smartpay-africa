@@ -32,8 +32,8 @@ describe("localisation et corridors P0", () => {
 describe("accueil Particulier", () => {
   it("ne présente pas le canal Alice comme un solde personnel", () => {
     assert.equal(walletBalanceLabel("lnd_regtest"), LND_DEMO_NODE_BALANCE_LABEL);
-    assert.match(LND_DEMO_NODE_BALANCE_LABEL, /nœud de démonstration/i);
-    assert.match(LND_DEMO_NODE_BALANCE_LABEL, /Regtest/);
+    assert.match(LND_DEMO_NODE_BALANCE_LABEL, /laboratoire/i);
+    assert.match(LND_DEMO_NODE_BALANCE_LABEL, /pas un portefeuille personnel/i);
     assert.equal(walletBalanceLabel("mock"), MOCK_BALANCE_LABEL);
   });
 

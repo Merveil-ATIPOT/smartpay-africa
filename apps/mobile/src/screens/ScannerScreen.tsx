@@ -255,7 +255,7 @@ export function ScannerScreen() {
 
           <View style={styles.hintPill}>
             <Ionicons name="flash" size={16} color={colors.stitchOrange} />
-            <Text style={styles.hintText}>Pointez vers un code BOLT11, LNURL ou PayRequest</Text>
+            <Text style={styles.hintText}>Pointez vers un code de facture Lightning (BOLT11)</Text>
           </View>
 
           {lastPreview ? (
@@ -295,7 +295,7 @@ export function ScannerScreen() {
               <Text style={styles.actionTitle} numberOfLines={1}>
                 Importer image
               </Text>
-              <Text style={styles.actionSub}>Non disponible P03</Text>
+              <Text style={styles.actionSub}>Non disponible</Text>
             </View>
           </View>
         </View>
@@ -345,14 +345,14 @@ export function ScannerScreen() {
             style={styles.amountInput}
           />
           <Text style={styles.fine}>
-            Valider appelle POST /payments/preview/ uniquement. Aucun paiement n'est envoyé ici.
+            Vérification de la facture. Aucun paiement n'est effectué à cette étape.
           </Text>
         </View>
 
         <View style={styles.trust}>
           <Ionicons name="shield-checkmark" size={16} color={colors.stitchGreen} />
           <Text style={styles.trustText}>
-            Règlement instantané cryptographique sans intermédiaire bancaire
+            Paiement de démonstration sur Bitcoin Regtest · aucun argent réel
           </Text>
         </View>
       </ScrollView>

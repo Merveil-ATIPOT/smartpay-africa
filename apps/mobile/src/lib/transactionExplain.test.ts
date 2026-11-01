@@ -133,7 +133,7 @@ describe("moteur d'explication M35", () => {
       failure_reason: "no_route",
     });
     const explained = explainPayment(item);
-    assert.equal(explained.status_label, "Échec");
+    assert.equal(explained.status_label, "Échoué");
     assert.match(section(item, "status").body, /no_route/);
     assert.match(section(item, "advice").body, /no_route/);
     assert.match(section(item, "advice").body, /L'assistant ne peut pas payer/);

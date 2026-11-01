@@ -221,7 +221,7 @@ export function ReceiveScreen({ navigation }: Props) {
             <Text style={styles.generateText}>{busy ? "Création…" : "Générer la facture"}</Text>
           </Pressable>
           <Text style={styles.aliceHint}>
-            Cette facture est émise par Alice (votre nœud). Elle ne sert pas au test Alice → Bob.
+            Cette facture est émise par le nœud partagé du laboratoire. Ce n'est pas un portefeuille personnel.
           </Text>
         </View>
 
@@ -229,8 +229,8 @@ export function ReceiveScreen({ navigation }: Props) {
           <View style={styles.labCard}>
             <Text style={styles.labTitle}>Laboratoire Alice → Bob</Text>
             <Text style={styles.labBody}>
-              Facture émise par Bob, pas par votre portefeuille. Saisissez 2500 via Montant libre, générez,
-              puis collez-la dans Scanner (M13) et validez avant M15.
+              Facture du destinataire laboratoire. Accès réservé aux comptes autorisés. Si votre compte n'est
+              pas autorisé, la création sera refusée. Aucun portefeuille personnel n'est créé.
             </Text>
             <Pressable style={styles.labBtn} onPress={() => void onLabBobInvoice()} disabled={labBusy}>
               <Text style={styles.labBtnText}>
@@ -314,7 +314,7 @@ export function ReceiveScreen({ navigation }: Props) {
         ) : (
           <View style={styles.qrPlaceholder}>
             <Text style={styles.placeholder}>
-              Le QR affichera la facture réellement renvoyée par Django, jamais une facture fictive.
+              Le QR affichera la facture réelle du laboratoire, jamais une facture fictive.
             </Text>
           </View>
         )}
@@ -328,12 +328,12 @@ export function ReceiveScreen({ navigation }: Props) {
               <Text style={styles.lnurlKicker}>Votre adresse permanente</Text>
             </View>
             <View style={styles.lnurlOff}>
-              <Text style={styles.lnurlOffText}>LNURL non implémenté P03</Text>
+              <Text style={styles.lnurlOffText}>LNURL non disponible</Text>
             </View>
           </View>
           <View style={styles.lnurlBox}>
             <View style={{ flex: 1 }}>
-              <Text style={styles.lnurlTitle}>Non disponible en P03</Text>
+              <Text style={styles.lnurlTitle}>Non disponible</Text>
               <Text style={styles.lnurlBody}>
                 Les adresses user@domaine de la maquette ne sont pas branchées. Utilisez la facture BOLT11 ci-dessus.
               </Text>

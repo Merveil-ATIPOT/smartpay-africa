@@ -13,7 +13,7 @@ describe("B3 ne déclenche pas confirm", () => {
   });
 
   it("bloque confirm avant tout appel réseau", () => {
-    assert.throws(() => assertTransferConfirmAllowed(), /n'est pas autorisé/);
+    assert.throws(() => assertTransferConfirmAllowed(), /Aucun paiement Lightning/);
   });
 
   it("protège le bouton final contre un double appui", () => {

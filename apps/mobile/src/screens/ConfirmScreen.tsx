@@ -7,7 +7,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import type { Payment } from "@smartpay/contracts";
 
 import { Badge, ErrorBanner, GhostButton, ModeBanner, PrimaryButton } from "../components/ui";
-import { CONFIRM_CANCEL_LABEL, CONFIRM_DONE_LABEL, CONFIRM_SUCCESS_TITLE, confirmExitIsDone } from "../lib/confirmExit";
+import { CONFIRM_CANCEL_LABEL, CONFIRM_DONE_LABEL, confirmExitIsDone } from "../lib/confirmExit";
 import { ConfirmLock, newIdempotencyKey } from "../lib/confirmLock";
 import { FCFA_DISCLAIMER, formatSats, remainingLabel, shortenInvoice } from "../lib/format";
 import { assertNotExpired, isPayerSelfInvoice } from "../lib/invoice";
@@ -166,7 +166,7 @@ export function ConfirmScreen({ navigation, route }: Props) {
             value={preview.settlement_mode === "mock" ? "MOCK" : "LIGHTNING REGTEST"}
           />
           <Text style={styles.note}>
-            Les données ci-dessus viennent de POST /payments/preview/. Un aperçu n'est jamais un règlement.
+            Vérification de la facture. Aucun paiement n'est effectué à cette étape.
           </Text>
         </View>
 
@@ -187,7 +187,9 @@ export function ConfirmScreen({ navigation, route }: Props) {
 
         {payment ? (
           <View style={[styles.result, paid || done ? styles.resultOk : styles.resultWait]}>
-            <Text style={styles.resultTitle}>{paid || done ? CONFIRM_SUCCESS_TITLE : statusLabel(state ?? "unknown")}</Text>
+            <Text style={styles.resultTitle}>
+              {paid ? "Paiement confirmé sur le réseau de démonstration" : statusLabel(state ?? "unknown")}
+            </Text>
             <Text style={styles.resultBody}>{settlementCaption(payment)}</Text>
             {paid ? (
               <Text style={styles.resultBody}>Le bouton de paiement reste inactif pour éviter un second envoi.</Text>

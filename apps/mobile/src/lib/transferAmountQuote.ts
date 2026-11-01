@@ -1,4 +1,4 @@
-export const DJANGO_QUOTE_BADGE = "Devis Django";
+export const DJANGO_QUOTE_BADGE = "Devis de démonstration · taux fictif";
 export const LOCAL_QUOTE_BADGE = "Estimation locale — non validée";
 
 export type LocalQuoteAmounts = {

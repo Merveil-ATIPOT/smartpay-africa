@@ -132,7 +132,7 @@ export function TransferResultScreen({ navigation, route }: Props) {
     return (
       <SafeAreaView style={styles.safe} edges={["top"]}>
         <TransferHeader onBack={goHome} title="Résultat" />
-        <LoadingBlock label="Lecture du résultat Django…" />
+        <LoadingBlock label="Lecture du résultat…" />
       </SafeAreaView>
     );
   }
@@ -169,13 +169,13 @@ export function TransferResultScreen({ navigation, route }: Props) {
           {error ? <ErrorBanner message={error} /> : null}
           <View style={styles.card}>
             <Text style={styles.stamp}>
-              {confirmed ? "Preuve LND requise · HTTP 200 insuffisant" : DEMO_PROOF_STAMP}
+              {confirmed ? "Démonstration · non valable comme preuve de paiement" : DEMO_PROOF_STAMP}
             </Text>
             <Row label="Référence" value={result.public_reference} />
             <Row label="Statut du transfert" value={transferStatusLabel(result.status)} />
             <Row label="Statut Lightning" value={confirmed ? "Confirmé Alice/Bob" : "Non confirmé"} />
-            <Row label="Alice" value={result.alice_status || "n/a"} />
-            <Row label="Bob" value={result.bob_status || "n/a"} />
+            <Row label="Nœud de paiement" value={result.alice_status || "n/a"} />
+            <Row label="Nœud destinataire" value={result.bob_status || "n/a"} />
             <Row
               label="Mobile Money"
               value={
@@ -191,10 +191,10 @@ export function TransferResultScreen({ navigation, route }: Props) {
             <Row label="Montant" value={`${formatSats(result.amount_local)} FCFA`} />
             <Row label="Lightning" value={`${formatSats(result.invoice_amount_sats)} sats`} />
             <Row
-              label="Frais LND réels"
+              label="Frais réseau"
               value={result.lnd_fee_sats_paid == null ? "Non disponibles" : `${result.lnd_fee_sats_paid} sat`}
             />
-            <Row label="Frais démo B1" value={`${result.demo_fee_sats} sat`} />
+            <Row label="Frais de démonstration" value={`${result.demo_fee_sats} sat`} />
             <Row label="Date" value={stamp} />
             {result.simulated_credit_reference ? (
               <Row label="Réf. crédit simulé" value={result.simulated_credit_reference} />
@@ -226,7 +226,7 @@ export function TransferResultScreen({ navigation, route }: Props) {
           <PrimaryButton label="Retour à l'accueil" icon="home" onPress={goHome} />
           <GhostButton label="Nouveau parcours" onPress={() => navigation.navigate("TransferDestination")} />
           <TransferFooterNote>
-            Un HTTP 200 n'est jamais une preuve de paiement. lightning_confirmed={String(result.lightning_confirmed)}.
+            Un affichage de succès n'est jamais une preuve de paiement réel.
           </TransferFooterNote>
         </ScrollView>
       </SafeAreaView>
@@ -295,9 +295,8 @@ export function TransferResultScreen({ navigation, route }: Props) {
         <PrimaryButton label="Retour à l'accueil" icon="home" onPress={goHome} />
         <GhostButton label="Modifier le parcours" onPress={() => navigation.navigate("TransferDestination")} />
         <TransferFooterNote>
-          Cette référence {preview.localReference} n'est pas un identifiant de transaction serveur ni un payment hash
-          LND. Lightning exécuté : {String(preview.lightningExecuted)}. Crédit Mobile Money :{" "}
-          {String(preview.mobileMoneyCredited)}.
+          Cette référence {preview.localReference} n'est pas un identifiant de paiement. Aucun paiement Lightning
+          n'a été exécuté. Aucun crédit Mobile Money réel.
         </TransferFooterNote>
       </ScrollView>
     </SafeAreaView>

@@ -18,9 +18,8 @@ export function ServicesScreen() {
     <SafeAreaView style={styles.safe} edges={["top"]}>
       <Text style={styles.title}>Services</Text>
       <Text style={styles.sub}>
-        Le transfert M22–M26 utilise les API Django pour le catalogue, le devis et le résultat. Aucun POST confirm
-        pendant B3. Les paiements Lightning du Scanner / Recevoir restent inchangés. Aucune API Wave, Orange Money ou
-        MTN n'est appelée.
+        Transfert Direct : simulation. Aucun paiement réel. Les paiements Lightning du Scanner et de Recevoir
+        restent inchangés. Aucun opérateur Wave, Orange Money ou MTN n'est contacté.
       </Text>
       <View style={styles.grid}>
         <Pressable
@@ -28,9 +27,9 @@ export function ServicesScreen() {
           onPress={() => parent?.navigate("TransferDestination")}
           accessibilityRole="button"
         >
-          <Badge label="API Django · B3" tone="orange" />
+          <Badge label="Simulation" tone="orange" />
           <Text style={styles.name}>Transfert Direct</Text>
-          <Text style={styles.meta}>Préparation serveur · paiement Lightning bloqué</Text>
+          <Text style={styles.meta}>Préparation enregistrée · aucun paiement Lightning</Text>
         </Pressable>
         <Pressable
           style={styles.card}
@@ -39,7 +38,7 @@ export function ServicesScreen() {
         >
           <Badge label="Démo locale" tone="orange" />
           <Text style={styles.name}>{MERCHANT_DEMO_ENTRY_LABEL}</Text>
-          <Text style={styles.meta}>M28–M32 · aucun paiement Lightning</Text>
+          <Text style={styles.meta}>Démonstration · aucun paiement Lightning</Text>
         </Pressable>
         <Pressable
           style={styles.card}
@@ -58,7 +57,7 @@ export function ServicesScreen() {
         <View style={[styles.card, styles.cardOff]}>
           <Badge label="Maquette" tone="muted" />
           <Text style={styles.name}>Robinet Faucet</Text>
-          <Text style={styles.meta}>Non branché à LND</Text>
+          <Text style={styles.meta}>Non branché</Text>
         </View>
       </View>
     </SafeAreaView>

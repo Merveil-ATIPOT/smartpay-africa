@@ -168,7 +168,7 @@ export function BeneficiaryScreen({ navigation }: Props) {
             </Pressable>
           </View>
           <DemoBanner
-            badge={draft.mode === "backend" ? "Mode API Django · sans paiement B3" : "Mode démonstration locale"}
+            badge={draft.mode === "backend" ? "Simulation · aucun paiement réel" : "Mode démonstration locale"}
             message="Vérification du format et de la cohérence des informations. Aucun compte Mobile Money réel n'est interrogé."
           />
 

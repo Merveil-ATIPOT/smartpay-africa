@@ -304,7 +304,7 @@ export function AssistantHomeScreen({ navigation }: Props) {
           <View style={styles.lastOp}>
             <View style={styles.lastOpTop}>
               <View style={{ flex: 1 }}>
-                <Text style={styles.lastOpKicker}>Liste GET /payments/ · ce compte</Text>
+                <Text style={styles.lastOpKicker}>Dernière opération de ce compte</Text>
                 <Text style={styles.lastOpTitle}>{teaser.title}</Text>
                 <Text style={styles.lastOpMeta}>
                   {teaser.statusLine} · {teaser.when}

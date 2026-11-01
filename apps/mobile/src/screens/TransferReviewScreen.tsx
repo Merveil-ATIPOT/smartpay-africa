@@ -123,7 +123,7 @@ export function TransferReviewScreen({ navigation }: Props) {
         <TransferHeader onBack={() => navigation.goBack()} title={backend ? "Transfert" : "Transfert démo"} />
         <TransferStepper step={4} />
         <DemoBanner
-          badge={backend ? "Mode API Django · paiement bloqué B3" : "Mode démonstration locale"}
+          badge={backend ? "Prévisualisation du transfert" : "Mode démonstration locale"}
           message={
             backend
               ? TRANSFER_CONFIRM_BLOCKED_MESSAGE
@@ -147,33 +147,42 @@ export function TransferReviewScreen({ navigation }: Props) {
           {draft.publicReference ? <Text style={styles.muted}>Référence : {draft.publicReference}</Text> : null}
         </View>
         <View style={styles.card}>
-          <Row label="Montant FCFA" value={`${formatSats(quote.amountFcfa)} FCFA`} />
+          <Row
+            label={`Montant ${corridor?.currency ?? "FCFA"}`}
+            value={`${formatSats(quote.amountFcfa)} ${corridor?.currency ?? "FCFA"}`}
+          />
           <Row label="Équivalent sats (devis)" value={`${formatSats(quote.amountSats)} sats`} />
           <Row label="Frais de démonstration" value={`${quote.feeSats} sat`} />
           <Row label="Total indicatif" value={`${formatSats(quote.totalSats)} sats`} />
         </View>
         {backend ? (
           <View style={styles.card}>
-            <Text style={styles.kicker}>Conditions d'exécution (preview)</Text>
-            {loading ? <LoadingBlock label="Lecture du preview Django…" /> : null}
+            <Text style={styles.kicker}>Prévisualisation du transfert</Text>
+            {loading ? <LoadingBlock label="Lecture de la prévisualisation…" /> : null}
             {previewPay ? (
               <>
-                <Row label="Peut exécuter" value={previewPay.can_execute ? "Oui (B3 : non lancé)" : "Non"} />
-                <Row label="Solde canal" value={`${formatSats(previewPay.channel_balance_sats)} sats`} />
-                <Row label="Alice" value={previewPay.lightning_connected ? "Connectée" : "Injoignable"} />
                 <Row
-                  label="Frais LND estimés"
+                  label="Paiement"
+                  value={previewPay.can_execute ? "Aucun paiement Lightning n'est effectué" : "Non lancé"}
+                />
+                <Row label="Solde du laboratoire" value={`${formatSats(previewPay.channel_balance_sats)} sats`} />
+                <Row label="Nœud de paiement" value={previewPay.lightning_connected ? "Connecté" : "Injoignable"} />
+                <Row
+                  label="Frais réseau estimés"
                   value={
                     previewPay.lnd_fee_estimate_available
                       ? `${previewPay.lnd_fee_sats_estimated} sats`
-                      : "Non disponibles (plafond 50 sats)"
+                      : "Non disponibles"
                   }
                 />
-                {previewPay.warnings.map((item) => (
-                  <Text key={item} style={styles.muted}>
-                    {item}
-                  </Text>
-                ))}
+                {previewPay.warnings
+                  .map((item) => publicTransferWarning(item))
+                  .filter((item): item is string => Boolean(item))
+                  .map((item) => (
+                    <Text key={item} style={styles.muted}>
+                      {item}
+                    </Text>
+                  ))}
               </>
             ) : null}
           </View>
@@ -199,12 +208,25 @@ export function TransferReviewScreen({ navigation }: Props) {
         </Pressable>
         <TransferFooterNote>
           {backend
-            ? "Ce bouton n'appelle pas POST /confirm/. Aucun send_payment LND, aucun crédit Mobile Money réel."
-            : "Ce bouton n'appelle aucun endpoint de paiement. Aucune preuve LND, aucun payment hash et aucun règlement confirmé ne sont créés."}
+            ? "Aucun paiement Lightning n'est effectué. Aucun crédit Mobile Money réel."
+            : "Aucun paiement n'est lancé. Ceci n'est pas une preuve de règlement."}
         </TransferFooterNote>
       </ScrollView>
     </SafeAreaView>
   );
+}
+
+function publicTransferWarning(text: string): string | null {
+  if (/B1|B3|Django|POST |GET |send_payment|can_execute|LND/i.test(text)) {
+    if (/paiement Lightning/i.test(text)) {
+      return "Aucun paiement Lightning n'est effectué.";
+    }
+    if (/frais/i.test(text)) {
+      return "Frais de démonstration, distincts des frais réseau.";
+    }
+    return null;
+  }
+  return text;
 }
 
 function Row({ label, value }: { label: string; value: string }) {

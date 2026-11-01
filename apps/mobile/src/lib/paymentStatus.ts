@@ -50,10 +50,12 @@ export function uiPaymentState(payment: Payment): UiPaymentState {
   return "unknown";
 }
 
+export const LIGHTNING_SUCCESS_LABEL = "Paiement confirmé sur le réseau de démonstration";
+
 export function statusLabel(state: UiPaymentState): string {
   switch (state) {
     case "confirmed":
-      return "Règlement Lightning Regtest confirmé";
+      return LIGHTNING_SUCCESS_LABEL;
     case "mock_receipt":
       return "Accusé Mock — pas un règlement Lightning";
     case "processing":
@@ -61,10 +63,21 @@ export function statusLabel(state: UiPaymentState): string {
     case "pending":
       return "En attente";
     case "failed":
-      return "Échec";
+      return "Échoué";
     default:
       return "Statut inconnu — non confirmé par le serveur";
   }
+}
+
+/** Libellé d'historique : réutilise les statuts existants, sans changer uiPaymentState. */
+export function displayPaymentStatus(payment: Payment): string {
+  if (payment.status === "expired" || payment.lightning_status === "expired") {
+    return "Expiré";
+  }
+  if (payment.status === "failed" || payment.lightning_status === "failed") {
+    return "Échoué";
+  }
+  return statusLabel(uiPaymentState(payment));
 }
 
 export function shouldStopPolling(payment: Payment): boolean {
@@ -89,7 +102,7 @@ export function shouldStopPolling(payment: Payment): boolean {
 
 export function settlementCaption(payment: Payment): string {
   if (isLightningSuccess(payment)) {
-    return "Règlement Lightning Regtest confirmé par lookup LND côté serveur.";
+    return LIGHTNING_SUCCESS_LABEL;
   }
   if (payment.settlement_mode === "mock") {
     return "Fournisseur Mock : accusé simulé. Ceci n'est PAS une transaction Lightning settled.";

@@ -3,6 +3,8 @@ import { describe, it } from "node:test";
 import type { Payment } from "@smartpay/contracts";
 
 import {
+  LIGHTNING_SUCCESS_LABEL,
+  displayPaymentStatus,
   httpOkIsSettlement,
   isLightningSuccess,
   settlementCaption,
@@ -69,6 +71,25 @@ describe("règlement", () => {
     });
     assert.equal(isLightningSuccess(settled), true);
     assert.equal(uiPaymentState(settled), "confirmed");
+    assert.equal(settlementCaption(settled), LIGHTNING_SUCCESS_LABEL);
+    assert.equal(displayPaymentStatus(settled), LIGHTNING_SUCCESS_LABEL);
+  });
+
+  it("distingue un statut expiré d'un échec sans changer uiPaymentState", () => {
+    const expired = payment({
+      settlement_mode: "lightning_regtest",
+      status: "expired",
+      lightning_status: "expired",
+    });
+    const failed = payment({
+      settlement_mode: "lightning_regtest",
+      status: "failed",
+      lightning_status: "failed",
+    });
+    assert.equal(uiPaymentState(expired), "failed");
+    assert.equal(uiPaymentState(failed), "failed");
+    assert.equal(displayPaymentStatus(expired), "Expiré");
+    assert.equal(displayPaymentStatus(failed), "Échoué");
   });
 
   it("classe failed et unknown", () => {

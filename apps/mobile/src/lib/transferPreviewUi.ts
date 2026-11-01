@@ -12,7 +12,7 @@ export const QUOTED_PREPARATION_MESSAGE =
 export const EXPIRED_QUOTE_MESSAGE = "Devis expiré. Revenez au montant pour le renouveler.";
 export const INSUFFICIENT_BALANCE_MESSAGE = "Solde de canal insuffisant pour le montant principal.";
 export const ALREADY_EXECUTED_MESSAGE = "Ce transfert a déjà une exécution. Ouvrez l'écran résultat en consultation.";
-export const ALICE_UNREACHABLE_MESSAGE = "Alice est injoignable. Ce n'est pas un paiement refusé.";
+export const ALICE_UNREACHABLE_MESSAGE = "Le nœud de paiement est injoignable. Ce n'est pas un paiement refusé.";
 
 export type PreviewBanner = {
   tone: "info" | "error";
@@ -100,6 +100,6 @@ export function classifyPreviewBanner(
 
   return {
     tone: "error",
-    message: `Le preview indique can_execute=false (statut ${preview.status}).`,
+    message: "La prévisualisation indique que le paiement ne peut pas être lancé.",
   };
 }

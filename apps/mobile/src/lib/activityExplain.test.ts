@@ -69,7 +69,7 @@ describe("ouverture M35 depuis Activité", () => {
     const incoming = payment({ direction: "incoming", amount_sats: 900 });
     assert.match(`${"-"}${formatSats(item.amount_sats)}`.replace(/\s/g, " "), /-2 500/);
     assert.match(`${"+"}${formatSats(incoming.amount_sats)}`.replace(/\s/g, " "), /\+900/);
-    assert.equal(statusLabel(uiPaymentState(item)), "Règlement Lightning Regtest confirmé");
+    assert.equal(statusLabel(uiPaymentState(item)), "Paiement confirmé sur le réseau de démonstration");
     assert.equal(activityExplainParams(item)?.paymentId, item.id);
   });
 

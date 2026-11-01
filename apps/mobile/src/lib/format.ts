@@ -3,7 +3,7 @@ import type { CountryCode } from "@smartpay/contracts";
 export const FCFA_DISCLAIMER =
   "Conversion FCFA : non disponible. Aucun taux de marché n'est fourni dans ce MVP.";
 
-export const LND_DEMO_NODE_BALANCE_LABEL = "Solde du nœud de démonstration · Regtest";
+export const LND_DEMO_NODE_BALANCE_LABEL = "Solde partagé du laboratoire · pas un portefeuille personnel";
 export const MOCK_BALANCE_LABEL = "Solde Mock — pas un canal Lightning";
 export const OFFICIAL_LOGO_ASSET = "Logo_SmartPay_Africa.png";
 

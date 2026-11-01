@@ -51,14 +51,14 @@ export function classifyInvoice(raw: string): {
     return {
       kind: "address",
       encoded,
-      error: "Les adresses Lightning (user@domaine) ne sont pas supportées en P03.",
+      error: "Les adresses Lightning (user@domaine) ne sont pas encore disponibles.",
     };
   }
   if (lower.startsWith("lnurl") || lower.startsWith("lnurl1")) {
     return {
       kind: "lnurl",
       encoded,
-      error: "LNURL n'est pas supporté en P03. Utilisez une facture BOLT11.",
+      error: "LNURL n'est pas encore disponible. Utilisez une facture BOLT11.",
     };
   }
   if (lower.startsWith("lnbcrt")) {

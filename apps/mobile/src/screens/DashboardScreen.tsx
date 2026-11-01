@@ -19,7 +19,7 @@ import type { HealthResponse, Payment, WalletConnection } from "@smartpay/contra
 import { Badge, BrandMark, EmptyState, ErrorBanner, LoadingBlock, ModeBanner } from "../components/ui";
 import { useAuth } from "../hooks/useAuth";
 import { countryLine, FCFA_DISCLAIMER, formatSats, greetingName, walletBalanceLabel } from "../lib/format";
-import { statusLabel, uiPaymentState } from "../lib/paymentStatus";
+import { displayPaymentStatus } from "../lib/paymentStatus";
 import type { AppStackParamList, TabParamList } from "../navigation/types";
 import { listPayments } from "../services/payments";
 import { fetchHealth, fetchWallet } from "../services/wallet";
@@ -47,7 +47,7 @@ export function DashboardScreen() {
       setHealth(nextHealth);
       setPayments(nextPayments.slice(0, 8));
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Impossible de charger le portefeuille.");
+      setError(err instanceof Error ? err.message : "Impossible de charger le solde du laboratoire.");
     } finally {
       setLoading(false);
       setRefreshing(false);
@@ -88,13 +88,13 @@ export function DashboardScreen() {
         <Text style={styles.city}>{countryLine(user?.country ?? "SN")}</Text>
         <ModeBanner provider={provider} lightningConnected={wallet?.is_lightning_connected} />
 
-        {loading ? <LoadingBlock label="Chargement du portefeuille…" /> : null}
+        {loading ? <LoadingBlock label="Chargement du solde…" /> : null}
         {error ? <ErrorBanner message={error} /> : null}
 
         {wallet ? (
           <LinearGradient colors={["#101828", "#1D2939"]} style={styles.wallet}>
             <View style={styles.walletTop}>
-              <Text style={styles.walletKicker}>Portefeuille Lightning Bitcoin</Text>
+              <Text style={styles.walletKicker}>Nœud Lightning de démonstration</Text>
               <Badge
                 label={wallet.is_lightning_connected ? "Connecté" : isLnd ? "Hors ligne" : "Mock"}
                 tone={wallet.is_lightning_connected ? "green" : "muted"}
@@ -123,7 +123,7 @@ export function DashboardScreen() {
             ))}
           </LinearGradient>
         ) : !loading ? (
-          <EmptyState title="Portefeuille indisponible" subtitle="Réessayez ou vérifiez l'API Django." />
+          <EmptyState title="Nœud indisponible" subtitle="Réessayez. Vérifiez la connexion." />
         ) : null}
 
         <View style={styles.actions}>
@@ -151,8 +151,7 @@ export function DashboardScreen() {
           </Pressable>
         </View>
         <Text style={styles.corridor}>
-          Sénégal SN · Côte d'Ivoire CI · Congo-Brazzaville CG. Le parcours M22–M26 parle à Django. Le paiement
-          Lightning international n'est pas relancé depuis ces écrans.
+          Sénégal · Côte d'Ivoire · Congo-Brazzaville. Simulation uniquement. Aucun envoi réel depuis cet écran.
         </Text>
 
         <View style={styles.sectionHead}>
@@ -165,7 +164,6 @@ export function DashboardScreen() {
           <EmptyState title="Aucune transaction" subtitle="Les paiements réels de ce compte apparaîtront ici." />
         ) : (
           payments.map((item) => {
-            const state = uiPaymentState(item);
             const incoming = item.direction === "incoming";
             return (
               <View key={item.id} style={styles.tx}>
@@ -176,7 +174,7 @@ export function DashboardScreen() {
                   <Text style={styles.txTitle} numberOfLines={1}>
                     {item.description || (incoming ? "Facture reçue" : "Paiement sortant")}
                   </Text>
-                  <Text style={styles.txMeta}>{statusLabel(state)}</Text>
+                  <Text style={styles.txMeta}>{displayPaymentStatus(item)}</Text>
                 </View>
                 <Text style={[styles.txAmount, incoming && { color: colors.green }]}>
                   {incoming ? "+" : "-"}

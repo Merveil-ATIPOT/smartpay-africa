@@ -16,7 +16,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { DemoBanner, TransferFooterNote, TransferHeader, TransferStepper } from "../components/TransferChrome";
 import { Badge, ErrorBanner, LoadingBlock, PrimaryButton } from "../components/ui";
 import { useTransferDraft } from "../hooks/useTransferDraft";
-import { formatSats } from "../lib/format";
+import { formatSats, LND_DEMO_NODE_BALANCE_LABEL, MOCK_BALANCE_LABEL } from "../lib/format";
 import {
   resolveAmountQuoteDisplay,
   type ServerQuoteSnapshot,
@@ -44,6 +44,9 @@ const CHIPS = [10_000, 25_000, 50_000];
 export function TransferAmountScreen({ navigation }: Props) {
   const { draft, setAmount, setAvailableSats, attachServer } = useTransferDraft();
   const corridor = getCorridor(draft.destinationCode);
+  const sourceCorridor = getCorridor(draft.sourceCountry || "SN");
+  const sourceCurrency = sourceCorridor?.currency ?? "XOF";
+  const destCurrency = corridor?.currency ?? "XAF";
   const [raw, setRaw] = useState(draft.amountFcfa > 0 ? String(draft.amountFcfa) : "50000");
   const [available, setAvailable] = useState(draft.availableSats);
   const [walletLabel, setWalletLabel] = useState("Solde portefeuille");
@@ -72,7 +75,7 @@ export function TransferAmountScreen({ navigation }: Props) {
       setAvailable(sats);
       setAvailableSats(sats);
       setWalletLabel(
-        wallet.provider === "lnd_regtest" ? "Solde canal LND Regtest" : "Solde Mock — pas un canal Lightning",
+        wallet.provider === "lnd_regtest" ? LND_DEMO_NODE_BALANCE_LABEL : MOCK_BALANCE_LABEL,
       );
     } catch (err) {
       setLoadError(err instanceof Error ? err.message : "Solde indisponible.");
@@ -192,12 +195,18 @@ export function TransferAmountScreen({ navigation }: Props) {
           <TransferHeader onBack={() => navigation.goBack()} />
           <TransferStepper step={3} />
           <DemoBanner
-            badge={draft.mode === "backend" ? "Devis Django · taux fictif" : "Mode démonstration locale"}
+            badge={draft.mode === "backend" ? "Devis de démonstration · taux fictif" : "Mode démonstration locale"}
             message={DEMO_RATE_DISCLAIMER}
           />
 
           <View style={styles.amountCard}>
-            <Text style={styles.label}>Vous envoyez ({corridor?.currency ?? "FCFA"})</Text>
+            <Text style={styles.label}>
+              Vous envoyez ({sourceCurrency}
+              {sourceCorridor && corridor
+                ? ` · ${sourceCorridor.name} → ${corridor.name} (${destCurrency})`
+                : ""}
+              )
+            </Text>
             <View style={styles.amountRow}>
               <TextInput
                 keyboardType="number-pad"
@@ -206,7 +215,7 @@ export function TransferAmountScreen({ navigation }: Props) {
                 style={styles.amountInput}
                 placeholder="0"
               />
-              <Text style={styles.unit}>FCFA</Text>
+              <Text style={styles.unit}>{sourceCurrency}</Text>
             </View>
             <Text style={styles.satsEq}>{formatSats(amountSats)} sats</Text>
             <Badge label={quoteView.badge} tone={quoteView.source === "django" ? "green" : "muted"} />
@@ -232,11 +241,11 @@ export function TransferAmountScreen({ navigation }: Props) {
           </View>
 
           <View style={styles.card}>
-            <Row label="Frais de démonstration" value={`${feeSats} sat`} hint="pas une estimation LND" />
-            <Row label="Passerelle Mobile Money" value="0 FCFA" hint="simulation, 0 % affiché" />
+            <Row label="Frais de démonstration" value={`${feeSats} sat`} hint="pas des frais réseau réels" />
+            <Row label="Passerelle Mobile Money" value={`0 ${destCurrency}`} hint="simulation, 0 % affiché" />
             <Row
               label="Destinataire reçoit"
-              value={`${formatSats(Number.isInteger(amountFcfa) ? amountFcfa : 0)} FCFA`}
+              value={`${formatSats(Number.isInteger(amountFcfa) ? amountFcfa : 0)} ${destCurrency}`}
               hint={`${displayPhone(draft)}`}
             />
             {quoteView.showExpiry && quoteView.expiresAt ? (
@@ -268,7 +277,7 @@ export function TransferAmountScreen({ navigation }: Props) {
           />
           <TransferFooterNote>
             {draft.mode === "backend"
-              ? `Total indicatif ${formatSats(totalSats)} sats (principal + 1 sat de démo). Les frais réseau LND sont distincts et plafonnés à 50 sats.`
+              ? `Total indicatif ${formatSats(totalSats)} sats (principal + 1 sat de démo). Les frais réseau restent indicatifs.`
               : "Aucun débit Lightning n'est effectué ici. Le total sera recalculé à l'étape suivante avec le même modèle."}
           </TransferFooterNote>
         </ScrollView>

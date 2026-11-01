@@ -109,10 +109,10 @@ export function DestinationCountryScreen({ navigation }: Props) {
       <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
         <TransferHeader onBack={() => navigation.goBack()} title={backend ? "Transfert" : "Transfert démo"} />
         <DemoBanner
-          badge={backend ? "Mode API Django · sans paiement B3" : "Mode démonstration locale"}
+          badge={backend ? "Simulation · aucun paiement réel" : "Mode démonstration locale"}
           message={
             backend
-              ? "Catalogue Django. Les passerelles Mobile Money restent simulées. Aucun paiement Lightning n'est lancé ici."
+              ? "Les passerelles Mobile Money restent simulées. Aucun paiement Lightning n'est lancé ici."
               : "Les passerelles Mobile Money sont simulées. Aucun fonds fiduciaire réel n'est engagé. Le réseau Lightning affiché reste Bitcoin Regtest."
           }
         />
@@ -198,7 +198,7 @@ export function DestinationCountryScreen({ navigation }: Props) {
         {consultError ? <ErrorBanner message={consultError} /> : null}
         <TransferFooterNote>
           {backend
-            ? "Aucun POST confirm. Le transfert SPA déjà réglé ne peut pas être réutilisé pour un paiement."
+            ? "Aucun paiement n'est lancé ici. Un transfert déjà réglé ne peut pas être réutilisé."
             : "Simulation locale uniquement. Aucun paiement Lightning ni crédit Mobile Money n'est déclenché à cette étape."}
         </TransferFooterNote>
       </ScrollView>
