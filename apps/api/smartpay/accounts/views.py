@@ -4,18 +4,60 @@ from rest_framework.exceptions import NotFound
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework_simplejwt.exceptions import TokenError
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.views import TokenObtainPairView
 
 from smartpay.accounts.admin_directory import directory_summary, filter_directory
 from smartpay.accounts.models import User
 from smartpay.accounts.serializers import (
     AdminUserSerializer,
+    LogoutSerializer,
     MeSerializer,
     RegisterCreatedSerializer,
     RegisterSerializer,
 )
-from smartpay.accounts.throttling import RegisterRateThrottle
+from smartpay.accounts.throttling import (
+    LoginRateThrottle,
+    LogoutRateThrottle,
+    RegisterRateThrottle,
+)
 from smartpay.core.pagination import SmartPayPagination
 from smartpay.core.permissions import IsAdminRole
+
+
+class LoginTokenObtainPairView(TokenObtainPairView):
+    """Login JWT inchangé, avec quota dédié. N'applique pas le throttle au refresh."""
+
+    throttle_classes = [LoginRateThrottle]
+
+
+class LogoutView(APIView):
+    """Révoque un refresh token SimpleJWT. N'invalide pas l'access déjà émis."""
+
+    permission_classes = [AllowAny]
+    authentication_classes = []
+    throttle_classes = [LogoutRateThrottle]
+
+    @extend_schema(
+        request=LogoutSerializer,
+        responses={204: None, 400: None},
+        auth=None,
+        description=(
+            "Révoque le refresh token. 204 si le champ est présent, y compris "
+            "jeton déjà révoqué, expiré ou invalide. 400 si refresh absent ou vide. "
+            "L'access token déjà émis reste valable jusqu'à expiration."
+        ),
+    )
+    def post(self, request):
+        serializer = LogoutSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        raw = serializer.validated_data["refresh"]
+        try:
+            RefreshToken(raw).blacklist()
+        except TokenError:
+            pass
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class MeView(APIView):

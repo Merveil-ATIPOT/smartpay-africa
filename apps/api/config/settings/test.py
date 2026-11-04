@@ -2,6 +2,13 @@
 
 from .base import *  # noqa: F403
 
+# Garde-fou : si base n'inclut plus token_blacklist, les tests SQLite l'ajoutent.
+if "rest_framework_simplejwt.token_blacklist" not in INSTALLED_APPS:  # noqa: F405
+    INSTALLED_APPS = [  # noqa: F405
+        *INSTALLED_APPS,  # noqa: F405
+        "rest_framework_simplejwt.token_blacklist",
+    ]
+
 DEBUG = False
 SECRET_KEY = "test-secret-key-not-for-production"
 PASSWORD_HASHERS = ["django.contrib.auth.hashers.MD5PasswordHasher"]
@@ -31,11 +38,15 @@ EMAIL_BACKEND = "django.core.mail.backends.locmem.EmailBackend"
 # Les vues sans throttle_classes restent libres. RegisterView a un throttle dédié :
 # quota élevé ici pour ne pas faire échouer la suite, testé à part avec override.
 AUTH_REGISTER_THROTTLE_RATE = "1000/min"
+AUTH_LOGIN_THROTTLE_RATE = "1000/min"
+AUTH_LOGOUT_THROTTLE_RATE = "1000/min"
 AUTH_AI_MESSAGE_THROTTLE_RATE = "1000/min"
 AUTH_ACADEMY_QUIZ_THROTTLE_RATE = "1000/min"
 REST_FRAMEWORK["DEFAULT_THROTTLE_CLASSES"] = ()  # noqa: F405
 REST_FRAMEWORK["DEFAULT_THROTTLE_RATES"] = {  # noqa: F405
     "register": AUTH_REGISTER_THROTTLE_RATE,
+    "login": AUTH_LOGIN_THROTTLE_RATE,
+    "logout": AUTH_LOGOUT_THROTTLE_RATE,
     "ai_message": AUTH_AI_MESSAGE_THROTTLE_RATE,
     "academy_quiz": AUTH_ACADEMY_QUIZ_THROTTLE_RATE,
 }

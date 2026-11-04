@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "rest_framework_simplejwt",
+    "rest_framework_simplejwt.token_blacklist",
     "corsheaders",
     "drf_spectacular",
     "smartpay.core.apps.CoreConfig",
@@ -116,6 +117,10 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Inscription publique : quota par IP. Ex. AUTH_REGISTER_THROTTLE=5/hour
 AUTH_REGISTER_THROTTLE_RATE = env("AUTH_REGISTER_THROTTLE", "5/hour")
+# Connexion publique : quota par REMOTE_ADDR. Ex. AUTH_LOGIN_THROTTLE=10/min
+AUTH_LOGIN_THROTTLE_RATE = env("AUTH_LOGIN_THROTTLE", "10/min")
+# Déconnexion publique : quota dédié, distinct du login. Ex. AUTH_LOGOUT_THROTTLE=20/min
+AUTH_LOGOUT_THROTTLE_RATE = env("AUTH_LOGOUT_THROTTLE", "20/min")
 AUTH_AI_MESSAGE_THROTTLE_RATE = env("AUTH_AI_MESSAGE_THROTTLE", "20/min")
 AUTH_ACADEMY_QUIZ_THROTTLE_RATE = env("AUTH_ACADEMY_QUIZ_THROTTLE", "20/min")
 
@@ -159,6 +164,8 @@ REST_FRAMEWORK = {
         "user": "120/min",
         "anon": "30/min",
         "register": AUTH_REGISTER_THROTTLE_RATE,
+        "login": AUTH_LOGIN_THROTTLE_RATE,
+        "logout": AUTH_LOGOUT_THROTTLE_RATE,
         "ai_message": AUTH_AI_MESSAGE_THROTTLE_RATE,
         "academy_quiz": AUTH_ACADEMY_QUIZ_THROTTLE_RATE,
     },

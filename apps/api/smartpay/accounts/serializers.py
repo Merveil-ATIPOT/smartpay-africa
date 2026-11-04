@@ -57,6 +57,12 @@ class AdminUserSerializer(serializers.ModelSerializer):
         read_only_fields = fields
 
 
+class LogoutSerializer(serializers.Serializer):
+    """Corps de déconnexion. Le jeton n'est jamais renvoyé ni journalisé."""
+
+    refresh = serializers.CharField(allow_blank=False, trim_whitespace=True, write_only=True)
+
+
 class RegisterCreatedSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
