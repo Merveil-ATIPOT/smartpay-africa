@@ -38,7 +38,7 @@ Django `production.py` is **not deployed**. It now refuses placeholder `SECRET_K
 - Health, register, token: unauthenticated.
 - `/api/schema/` and `/api/docs/`: open only when `DEBUG=true`; otherwise admin JWT.
 
-Logout on mobile and admin clears client storage only. Refresh tokens remain valid until expiry (default 7 days). There is no `token_blacklist` app.
+Logout accepts a refresh token on `POST /api/v1/auth/logout/` and blacklists it via SimpleJWT `token_blacklist` (clients also clear local storage). Access tokens already issued remain valid until expiry (default 30 minutes). Refresh lifetime remains 7 days unless configured otherwise.
 
 ## Lightning
 
@@ -58,7 +58,7 @@ These are documented so they are not mistaken for production guarantees.
 4. **Lab Bob invoice** requires `LAB_COUNTERPARTY_ENABLED` and either an admin or an e-mail in `LAB_COUNTERPARTY_ALLOW_EMAILS` (defaults to `DEV_USER_EMAIL`). Ordinary registered users are refused before LND is called.
 5. **`/api/schema/` and `/api/docs/`** are public only in `DEBUG`.
 6. **DEBUG** defaults to true in development. Tracebacks can leak settings on the LAN.
-7. **API `0.0.0.0:8000`** remains required for a physical phone. Compose now **declares** Postgres as `127.0.0.1:5433:5432`. That bind is **not active** until the postgres service is recreated later; do not recreate it during a live demo.
+7. **API `0.0.0.0:8000`** remains required for a physical phone on LAN. Compose binds Postgres as `127.0.0.1:5433:5432` (do not publish Postgres publicly). Do not recreate volumes during a live demo.
 8. JWT signing key in a typical local lab may be shorter than SimpleJWT's recommended HMAC length — tokens still work; this is not production crypto.
 9. Admin JWT sits in `sessionStorage` (readable under XSS).
 10. Logging aims to redact macaroon/preimage keys; timeout paths may still include a BOLT11 in a REST path.

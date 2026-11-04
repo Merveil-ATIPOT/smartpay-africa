@@ -60,15 +60,17 @@ If the UX holds, a later product could help people **see** a Lightning settlemen
 
 ## 9. Current limits
 
-Regtest; shared Alice wallet; simulated Mobile Money; no per-user LND; no production deploy; assistant is not generative; admin dashboard fixtures; transfer confirm blocked on mobile. Full list: [MVP_LIMITATIONS.md](MVP_LIMITATIONS.md).
+Regtest only (no Mainnet); shared Alice wallet; simulated Mobile Money (no Wave / Orange Money / MTN APIs); no per-user LND; no public cloud deploy in this MVP; assistant is deterministic (not generative); admin home dashboard is partly illustrative; international transfer confirm is blocked in the mobile app; JWT logout blacklists refresh tokens (access tokens expire naturally). Full list: [MVP_LIMITATIONS.md](MVP_LIMITATIONS.md).
+
+Lightning Alice → Bob settlement evidence (documentation only, do not re-run for this note): [p04-lightning-e2e.md](p04-lightning-e2e.md).
 
 ## 10. Next steps
 
-- Choose a license ([LICENSE_DECISION.md](LICENSE_DECISION.md))
-- Publish a GitHub remote after a secrets review
+- Publish a GitHub remote after a secrets review (no automatic publish from agents)
+- Optional: choose a license later ([LICENSE_DECISION.md](LICENSE_DECISION.md)); until then default copyright applies
 - Optional static landing page (not in this repo)
-- Optional short demo video
-- Technical follow-ups: OpenAPI sync, `confirm` default, owner-scoped payment hash, transfer confirm flag on the server
+- Optional short demo video and runtime screenshots for Devpost
+- Technical follow-ups: OpenAPI sync, transfer confirm flag discipline, HTTPS/APK if needed for remote evaluators
 
 ## 11. Links to complete
 

@@ -237,7 +237,7 @@ After a successful Alice → Bob confirm:
 - Simulated Mobile Money
 - Merchant QR is `smartpay-demo:…`, not BOLT11
 - Assistant is not a large language model
-- JWT logout does not revoke refresh tokens on the server
+- JWT logout blacklists the refresh token on the server; access tokens already issued remain valid until expiry
 - PowerShell scripts are the supported automation; there is no Make/bash demo wrapper
 - Live OpenAPI (`/api/schema/`) is ahead of `packages/contracts/openapi/openapi.yaml` (Academy, AI, admin, token routes missing from the YAML)
 

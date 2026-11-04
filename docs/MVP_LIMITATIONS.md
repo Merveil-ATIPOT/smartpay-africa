@@ -36,7 +36,7 @@ Honest constraints of the SmartPay Africa laboratory. None of this is a regulato
 ## Auth and sessions
 
 - Register is always `individual`.
-- Logout is **local**. Refresh tokens are not revoked.
+- Logout revokes the **refresh** token server-side (`POST /api/v1/auth/logout/` + SimpleJWT `token_blacklist`). Clients also clear local storage. Access tokens already issued remain usable until expiry (default 30 minutes).
 - “Forgot password” is announced as unavailable.
 
 ## Development posture

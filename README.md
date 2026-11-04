@@ -32,7 +32,7 @@ Around that core, the app includes a deterministic FAQ assistant, SmartPay Acade
 
 | Area | Status | What it actually does |
 | --- | --- | --- |
-| JWT auth | **Operational** | Register (always `individual`), login, refresh. Logout is local only. |
+| JWT auth | **Operational** | Register (always `individual`), login, refresh. Logout calls `POST /api/v1/auth/logout/` to blacklist the **refresh** token (SimpleJWT `token_blacklist`). Access tokens already issued remain valid until they expire (~30 minutes). |
 | Wallet screen | **Operational (lab)** | Shows the **shared Alice node** channel balance when `PAYMENT_PROVIDER=lnd_regtest`, or a labeled Mock balance. Not a personal LND wallet per user. |
 | Receive invoice | **Operational on Regtest** | `POST /api/v1/payments/invoices/` returns `lnbcrt…` (or `mockln1…` in Mock). |
 | Scanner | **Operational** | Preview only. No payment is sent from this screen. |
