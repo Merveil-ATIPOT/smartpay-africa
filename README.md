@@ -1,10 +1,22 @@
 # SmartPay Africa
 
-SmartPay Africa is a **laboratory MVP** built for [Dakar Bitcoin Hack 2026](docs/HACKATHON_SUBMISSION.md). It explores how Bitcoin Lightning can make cross-border payment flows easier to understand and to demonstrate for users in Senegal, Congo-Brazzaville, and Côte d'Ivoire.
+SmartPay Africa is a **laboratory MVP** built for [Dakar Bitcoin Hack 2026](https://devpost.com/software/smartpay-africa). It explores how Bitcoin Lightning can make cross-border payment flows easier to understand and to demonstrate for users in Senegal, Congo-Brazzaville, and Côte d'Ivoire.
 
 This repository is a **Regtest demonstration**, not a production financial platform. It does not move real bitcoin, real CFA francs, or real Mobile Money.
 
-**Evaluator guide:** [docs/DEMO.md](docs/DEMO.md)
+| Resource | Link |
+| --- | --- |
+| Demo video | [YouTube](https://youtu.be/yC8v8iJtbFc) |
+| Hackathon submission | [Devpost — SmartPay Africa](https://devpost.com/software/smartpay-africa) |
+| Evaluator guide | [docs/DEMO.md](docs/DEMO.md) |
+| Limitations | [docs/MVP_LIMITATIONS.md](docs/MVP_LIMITATIONS.md) |
+| Submission notes | [docs/HACKATHON_SUBMISSION.md](docs/HACKATHON_SUBMISSION.md) |
+
+## Screenshots (Android runtime)
+
+Place real Expo Go captures of the running app under `docs/demo/screens/` (for example wallet, scanner, Academy, merchant). Do **not** treat Stitch HTML under `docs/stitch/` as runtime screenshots — those files are design mockups only.
+
+No runtime Android screenshots are committed in this repository yet.
 
 ## The Problem
 
@@ -195,7 +207,11 @@ These items are **not** in the MVP:
 
 ## Hackathon
 
-Built for **Dakar Bitcoin Hack 2026**. Submission notes (not official Devpost rules): [docs/HACKATHON_SUBMISSION.md](docs/HACKATHON_SUBMISSION.md).
+Built for **Dakar Bitcoin Hack 2026**.
+
+- Devpost: [smartpay-africa](https://devpost.com/software/smartpay-africa)
+- Demo video: [youtu.be/yC8v8iJtbFc](https://youtu.be/yC8v8iJtbFc)
+- Working notes (not official rules): [docs/HACKATHON_SUBMISSION.md](docs/HACKATHON_SUBMISSION.md)
 
 ## Documentation
 

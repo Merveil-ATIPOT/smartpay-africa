@@ -66,22 +66,21 @@ Lightning Alice → Bob settlement evidence (documentation only, do not re-run f
 
 ## 10. Next steps
 
-- Publish a GitHub remote after a secrets review (no automatic publish from agents)
 - Optional: choose a license later ([LICENSE_DECISION.md](LICENSE_DECISION.md)); until then default copyright applies
 - Optional static landing page (not in this repo)
-- Optional short demo video and runtime screenshots for Devpost
+- Add runtime Android screenshots under `docs/demo/screens/` (do not use Stitch mockups as live captures)
 - Technical follow-ups: OpenAPI sync, transfer confirm flag discipline, HTTPS/APK if needed for remote evaluators
 
-## 11. Links to complete
+## 11. Public links
 
-Replace the placeholders when those assets exist. Do not invent URLs.
-
-| Asset | Status in this repo | URL |
+| Asset | Status | URL |
 | --- | --- | --- |
-| GitHub | No `git remote` in the documented local clone | _to add_ |
-| Landing page | Not present (admin ≠ marketing) | _to add_ |
-| Demo video | Not present | _to add_ |
+| GitHub | Public | https://github.com/Merveil-ATIPOT/smartpay-africa |
+| Devpost | Submitted | https://devpost.com/software/smartpay-africa |
+| Demo video | Published | https://youtu.be/yC8v8iJtbFc |
+| Landing page | Not present (admin ≠ marketing) | — |
 | Live production | Not deployed | — |
+| Runtime screenshots | Folder reserved: `docs/demo/screens/` | not committed yet |
 | This documentation | [README](../README.md), [DEMO](DEMO.md) | relative |
 
 ## Official requirements to verify
