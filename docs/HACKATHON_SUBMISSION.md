@@ -80,7 +80,7 @@ Lightning Alice → Bob settlement evidence (documentation only, do not re-run f
 | Demo video | Published | https://youtu.be/yC8v8iJtbFc |
 | Landing page | Not present (admin ≠ marketing) | — |
 | Live production | Not deployed | — |
-| Runtime screenshots | Folder reserved: `docs/demo/screens/` | not committed yet |
+| Runtime screenshots | 8 Expo Go captures in `docs/demo/screens/` | see README gallery |
 | This documentation | [README](../README.md), [DEMO](DEMO.md) | relative |
 
 ## Official requirements to verify

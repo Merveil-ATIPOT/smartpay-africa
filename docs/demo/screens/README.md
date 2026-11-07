@@ -1,12 +1,16 @@
 # Runtime Android screenshots
 
-Add real Expo Go captures of the running SmartPay Africa app here (PNG or JPEG).
+Eight real Expo Go captures from the SmartPay Africa Regtest lab (1080×2392 JPEG).
 
-Do not copy Stitch mockups from `docs/stitch/` into this folder. Those files are design references, not proof of the live demo.
+| File | Caption |
+| --- | --- |
+| `01-accueil.jpg` | Accueil — shared Alice lab node |
+| `02-scanner-lightning.jpg` | Scanner Lightning — invoice preview only |
+| `03-historique.jpg` | Activity / payment history |
+| `04-academy.jpg` | SmartPay Academy catalogue |
+| `05-academy-progression.jpg` | Academy progress |
+| `06-assistant.jpg` | Pedagogical assistant (deterministic FAQ) |
+| `07-transferts-simules.jpg` | Simulated transfer corridors (not live remittance) |
+| `08-profil.jpg` | Profile — lab account |
 
-Suggested names (optional):
-
-- `wallet.png`
-- `scanner.png`
-- `academy.png`
-- `merchant.png`
+Do not copy Stitch mockups from `docs/stitch/` into this folder.

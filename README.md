@@ -12,11 +12,58 @@ This repository is a **Regtest demonstration**, not a production financial platf
 | Limitations | [docs/MVP_LIMITATIONS.md](docs/MVP_LIMITATIONS.md) |
 | Submission notes | [docs/HACKATHON_SUBMISSION.md](docs/HACKATHON_SUBMISSION.md) |
 
-## Screenshots (Android runtime)
+## SmartPay Africa — Android MVP Screenshots
 
-Place real Expo Go captures of the running app under `docs/demo/screens/` (for example wallet, scanner, Academy, merchant). Do **not** treat Stitch HTML under `docs/stitch/` as runtime screenshots — those files are design mockups only.
+Real Expo Go captures from the running Regtest lab (not Stitch mockups). Demo video: [YouTube](https://youtu.be/yC8v8iJtbFc) · Submission: [Devpost](https://devpost.com/software/smartpay-africa).
 
-No runtime Android screenshots are committed in this repository yet.
+<table>
+  <tr>
+    <td align="center" width="25%">
+      <img src="docs/demo/screens/01-accueil.jpg" alt="Accueil SmartPay Africa" width="220" /><br />
+      <strong>1. Accueil</strong><br />
+      <sub>Nœud Alice partagé · Regtest</sub>
+    </td>
+    <td align="center" width="25%">
+      <img src="docs/demo/screens/02-scanner-lightning.jpg" alt="Scanner Lightning" width="220" /><br />
+      <strong>2. Scanner Lightning</strong><br />
+      <sub>Prévisualisation de facture · pas un paiement</sub>
+    </td>
+    <td align="center" width="25%">
+      <img src="docs/demo/screens/03-historique.jpg" alt="Historique des opérations" width="220" /><br />
+      <strong>3. Historique</strong><br />
+      <sub>Opérations du compte · étiquettes REGTEST</sub>
+    </td>
+    <td align="center" width="25%">
+      <img src="docs/demo/screens/04-academy.jpg" alt="SmartPay Academy" width="220" /><br />
+      <strong>4. SmartPay Academy</strong><br />
+      <sub>Formation Bitcoin / Lightning</sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="25%">
+      <img src="docs/demo/screens/05-academy-progression.jpg" alt="Progression Academy" width="220" /><br />
+      <strong>5. Progression Academy</strong><br />
+      <sub>Leçons et quiz · aucun paiement</sub>
+    </td>
+    <td align="center" width="25%">
+      <img src="docs/demo/screens/06-assistant.jpg" alt="Assistant pédagogique" width="220" /><br />
+      <strong>6. Assistant pédagogique</strong><br />
+      <sub>FAQ déterministe · mode conseil</sub>
+    </td>
+    <td align="center" width="25%">
+      <img src="docs/demo/screens/07-transferts-simules.jpg" alt="Transfert international simulé" width="220" /><br />
+      <strong>7. Transfert simulé</strong><br />
+      <sub>Corridors de démo · aucun envoi réel</sub>
+    </td>
+    <td align="center" width="25%">
+      <img src="docs/demo/screens/08-profil.jpg" alt="Profil utilisateur" width="220" /><br />
+      <strong>8. Profil</strong><br />
+      <sub>Compte lab · démo marchand locale</sub>
+    </td>
+  </tr>
+</table>
+
+Sources: [`docs/demo/screens/`](docs/demo/screens/). Stitch HTML under `docs/stitch/` remains design reference only.
 
 ## The Problem
 
