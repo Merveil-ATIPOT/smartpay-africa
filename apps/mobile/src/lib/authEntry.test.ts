@@ -14,6 +14,7 @@ import {
   UNTOUCHED_TRANSFER_ROUTES,
   WELCOME_TAGLINE,
   demoEmailPrefill,
+  loginFieldErrors,
   loginUserFacingError,
   showDevAuthTools,
 } from "./authEntry";
@@ -69,5 +70,19 @@ describe("entrée M01 / M02 / M05", () => {
     assert.equal(network.toLowerCase().includes("macaroon"), false);
     const denied = loginUserFacingError(new ApiError(401, "Identifiants incorrects."));
     assert.equal(denied, "Identifiants incorrects.");
+    const missing = {
+      detail: {
+        email: ["Ce champ est obligatoire."],
+        password: ["Ce champ est obligatoire."],
+      },
+    };
+    assert.deepEqual(loginFieldErrors(missing), {
+      email: "Ce champ est obligatoire.",
+      password: "Ce champ est obligatoire.",
+    });
+    const shown = loginUserFacingError(new ApiError(400, "Erreur API (400).", missing));
+    assert.match(shown, /E-mail : Ce champ est obligatoire/);
+    assert.match(shown, /Mot de passe : Ce champ est obligatoire/);
+    assert.equal(shown.toLowerCase().includes("password"), false);
   });
 });

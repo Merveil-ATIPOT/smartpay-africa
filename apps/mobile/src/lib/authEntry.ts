@@ -1,4 +1,4 @@
-import { userFacingRequestError } from "../services/errors";
+import { ApiError, userFacingRequestError } from "../services/errors";
 
 /** Compte seed mobile. Aucun mot de passe n'est stocké ici. */
 export const DEMO_USER_EMAIL = "user@smartpay.local";
@@ -51,6 +51,64 @@ export function demoEmailPrefill(dev = readDevFlag()): string {
   return dev ? DEMO_USER_EMAIL : "";
 }
 
+const LOGIN_FIELD_LABELS = {
+  email: "E-mail",
+  password: "Mot de passe",
+} as const;
+
+export type LoginFieldKey = keyof typeof LOGIN_FIELD_LABELS;
+
+function detailRecord(body: unknown): Record<string, unknown> | null {
+  if (!body || typeof body !== "object") {
+    return null;
+  }
+  const record = body as Record<string, unknown>;
+  const detail = record.detail;
+  if (detail && typeof detail === "object" && !Array.isArray(detail)) {
+    return detail as Record<string, unknown>;
+  }
+  return record;
+}
+
+function firstText(value: unknown): string | null {
+  if (typeof value === "string" && value.trim()) {
+    return value.trim();
+  }
+  if (Array.isArray(value)) {
+    for (const item of value) {
+      if (typeof item === "string" && item.trim()) {
+        return item.trim();
+      }
+    }
+  }
+  return null;
+}
+
+/** Erreurs de champs renvoyées par Django, sans valeur saisie. */
+export function loginFieldErrors(body: unknown): Partial<Record<LoginFieldKey, string>> {
+  const detail = detailRecord(body);
+  if (!detail) {
+    return {};
+  }
+  const errors: Partial<Record<LoginFieldKey, string>> = {};
+  for (const key of Object.keys(LOGIN_FIELD_LABELS) as LoginFieldKey[]) {
+    const text = firstText(detail[key]);
+    if (text) {
+      errors[key] = text;
+    }
+  }
+  return errors;
+}
+
 export function loginUserFacingError(error: unknown): string {
+  if (error instanceof ApiError) {
+    const fields = loginFieldErrors(error.body);
+    const parts = (Object.keys(LOGIN_FIELD_LABELS) as LoginFieldKey[])
+      .filter((key) => fields[key])
+      .map((key) => `${LOGIN_FIELD_LABELS[key]} : ${fields[key]}`);
+    if (parts.length > 0) {
+      return parts.join(" ");
+    }
+  }
   return userFacingRequestError(error, LOGIN_FALLBACK_ERROR);
 }

@@ -39,4 +39,8 @@ export const STORAGE_KEYS = {
   access: "smartpay.jwt.access",
   refresh: "smartpay.jwt.refresh",
   apiBase: "smartpay.api.base",
+  /** "user" = URL choisie dans l'app. Absent = ancienne valeur, cédée à EXPO_PUBLIC_API_URL. */
+  apiBaseSource: "smartpay.api.base.source",
 } as const;
+
+export const API_BASE_SOURCE_USER = "user";

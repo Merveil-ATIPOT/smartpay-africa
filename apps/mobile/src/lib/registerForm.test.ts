@@ -197,15 +197,24 @@ describe("erreurs d'inscription", () => {
 
   it("traduit HTTP 429 et une coupure réseau", () => {
     assert.equal(registerUserFacingError(new ApiError(429, "throttled")), REGISTER_THROTTLE_MESSAGE);
-    assert.equal(registerUserFacingError(new ApiError(0, "Réseau injoignable")), REGISTER_UNAVAILABLE_MESSAGE);
-    assert.equal(registerUserFacingError(new ApiError(503, "down")), REGISTER_UNAVAILABLE_MESSAGE);
+    assert.equal(
+      registerUserFacingError(
+        new ApiError(0, "Réseau injoignable vers http://192.168.1.3:8000. Vérifiez Django."),
+      ),
+      "Réseau injoignable vers http://192.168.1.3:8000. Vérifiez Django.",
+    );
+    assert.equal(
+      registerUserFacingError(new ApiError(503, "down")),
+      `${REGISTER_UNAVAILABLE_MESSAGE} (HTTP 503)`,
+    );
+    assert.match(registerUserFacingError(new ApiError(403, "forbidden")), /403/);
   });
 
   it("ne montre pas de secret ni de stack", () => {
     const hidden = registerUserFacingError(
       new ApiError(500, "Traceback (most recent call last)", { detail: "macaroon abc jwt xyz" }),
     );
-    assert.equal(hidden, REGISTER_UNAVAILABLE_MESSAGE);
+    assert.equal(hidden, `${REGISTER_UNAVAILABLE_MESSAGE} (HTTP 500)`);
     assert.equal(hidden.toLowerCase().includes("macaroon"), false);
     assert.equal(hidden.toLowerCase().includes("jwt"), false);
   });

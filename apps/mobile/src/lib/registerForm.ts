@@ -253,8 +253,18 @@ export function registerUserFacingError(error: unknown): string {
     if (error.status === 429) {
       return REGISTER_THROTTLE_MESSAGE;
     }
-    if (error.status === 0 || error.status >= 500) {
-      return REGISTER_UNAVAILABLE_MESSAGE;
+    if (error.status === 0) {
+      // Conserve l'URL appelée (sans secret) pour distinguer une vieille IP SecureStore.
+      return sanitizeRegisterMessage(error.message, REGISTER_UNAVAILABLE_MESSAGE);
+    }
+    if (error.status >= 500) {
+      return `${REGISTER_UNAVAILABLE_MESSAGE} (HTTP ${error.status})`;
+    }
+    if (error.status === 403) {
+      return sanitizeRegisterMessage(
+        messageFromBody(error.body, "Inscription refusée (HTTP 403)."),
+        "Inscription refusée (HTTP 403).",
+      );
     }
     const fromBody = messageFromBody(error.body, error.message);
     return sanitizeRegisterMessage(fromBody, REGISTER_FALLBACK_ERROR);

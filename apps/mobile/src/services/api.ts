@@ -1,9 +1,10 @@
 import Constants from "expo-constants";
 import { Platform } from "react-native";
 
-import { defaultApiUrl, rewriteLoopbackToLan } from "../lib/env";
+import { defaultApiUrl, resolveApiBaseUrl, rewriteLoopbackToLan } from "../lib/env";
+import { ANDROID_LAN_HINT, fetchWithTimeout } from "../lib/httpTimeout";
 import { ApiError, messageFromBody } from "./errors";
-import { STORAGE_KEYS, storageDelete, storageGet, storageSet } from "./storage";
+import { API_BASE_SOURCE_USER, STORAGE_KEYS, storageDelete, storageGet, storageSet } from "./storage";
 
 type TokenPair = { access: string; refresh: string };
 
@@ -21,22 +22,41 @@ export function createApiClient(deps: {
   }
 
   async function getBaseUrl(): Promise<string> {
-    const override = await storageGet(STORAGE_KEYS.apiBase);
+    const [override, source] = await Promise.all([
+      storageGet(STORAGE_KEYS.apiBase),
+      storageGet(STORAGE_KEYS.apiBaseSource),
+    ]);
     const metro = metroHost();
-    if (override) {
-      return rewriteLoopbackToLan(override.replace(/\/$/, ""), metro);
+    const resolved = resolveApiBaseUrl({
+      override,
+      explicit: source === API_BASE_SOURCE_USER,
+      envUrl: defaultApiUrl(deps.platform ?? "ios"),
+      metroHost: metro,
+    });
+    if (resolved.replacedStaleOverride && !resolved.persistReplacement) {
+      await Promise.all([
+        storageDelete(STORAGE_KEYS.apiBase),
+        storageDelete(STORAGE_KEYS.apiBaseSource),
+      ]);
+    } else if (resolved.persistReplacement) {
+      await storageSet(STORAGE_KEYS.apiBase, resolved.base);
+      await storageSet(STORAGE_KEYS.apiBaseSource, API_BASE_SOURCE_USER);
     }
-    return rewriteLoopbackToLan(defaultApiUrl(deps.platform ?? "ios"), metro);
+    return resolved.base;
   }
 
   async function setApiBaseUrl(url: string): Promise<void> {
     const clean = url.trim().replace(/\/$/, "");
     if (!clean) {
-      await storageDelete(STORAGE_KEYS.apiBase);
+      await Promise.all([
+        storageDelete(STORAGE_KEYS.apiBase),
+        storageDelete(STORAGE_KEYS.apiBaseSource),
+      ]);
       return;
     }
     const rewritten = rewriteLoopbackToLan(clean, metroHost());
     await storageSet(STORAGE_KEYS.apiBase, rewritten);
+    await storageSet(STORAGE_KEYS.apiBaseSource, API_BASE_SOURCE_USER);
   }
 
   async function getTokens(): Promise<Partial<TokenPair>> {
@@ -103,6 +123,8 @@ export function createApiClient(deps: {
     } = {},
   ): Promise<T> {
     const base = await getBaseUrl();
+    const method = options.method ?? "GET";
+    const requestUrl = `${base}${path}`;
     const headers: Record<string, string> = {
       Accept: "application/json",
       ...(options.body !== undefined ? { "Content-Type": "application/json" } : {}),
@@ -115,26 +137,30 @@ export function createApiClient(deps: {
       }
     }
     let response: Response;
+    const timeoutMs = options.timeoutMs ?? 12_000;
+    const platform = deps.platform ?? "ios";
     try {
-      const controller = new AbortController();
-      const timer = setTimeout(() => controller.abort(), options.timeoutMs ?? 12_000);
-      try {
-        response = await fetchImpl(`${base}${path}`, {
-          method: options.method ?? "GET",
+      response = await fetchWithTimeout(
+        fetchImpl,
+        requestUrl,
+        {
+          method,
           headers,
           body: options.body !== undefined ? JSON.stringify(options.body) : undefined,
-          signal: controller.signal,
-        });
-      } finally {
-        clearTimeout(timer);
-      }
+        },
+        timeoutMs,
+        platform,
+      );
     } catch (error) {
       const aborted = error instanceof Error && error.name === "AbortError";
+      if (typeof __DEV__ !== "undefined" && __DEV__) {
+        console.info("[smartpay-api]", method, requestUrl, aborted ? "timeout" : "network");
+      }
       throw new ApiError(
         0,
         aborted
-          ? `Délai dépassé vers ${base}. Sur un téléphone, l'API doit être http://IP_LAN:8000 (pas localhost).`
-          : `Réseau injoignable vers ${base}. Vérifiez Django, le Wi-Fi et le pare-feu (port 8000).`,
+          ? `Délai dépassé vers ${base}. ${ANDROID_LAN_HINT}`
+          : `Réseau injoignable vers ${base}. ${ANDROID_LAN_HINT}`,
       );
     }
 

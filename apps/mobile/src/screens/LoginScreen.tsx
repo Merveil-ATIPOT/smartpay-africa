@@ -27,12 +27,14 @@ import {
   LOGIN_PASSWORD_PLACEHOLDER,
   LOGIN_TITLE,
   demoEmailPrefill,
+  loginFieldErrors,
   loginUserFacingError,
   showDevAuthTools,
 } from "../lib/authEntry";
 import { canSubmitLogin, loginFieldsAfterRegister, loginPasswordAutoFill } from "../lib/registerForm";
 import type { AppStackParamList } from "../navigation/types";
 import { api } from "../services/api";
+import { ApiError } from "../services/errors";
 import { colors, spacing } from "../theme";
 
 type Props = NativeStackScreenProps<AppStackParamList, "Login">;
@@ -48,8 +50,11 @@ export function LoginScreen({ navigation, route }: Props) {
   const [password, setPassword] = useState<string>(() => postRegister?.password ?? "");
   const [showPassword, setShowPassword] = useState(false);
   const [apiUrl, setApiUrl] = useState("");
+  const [loadedApiUrl, setLoadedApiUrl] = useState("");
   const [showDev, setShowDev] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [emailError, setEmailError] = useState<string | null>(null);
+  const [passwordError, setPasswordError] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(() => postRegister?.notice ?? null);
   const [loading, setLoading] = useState(false);
   const allowPasswordAutofill = loginPasswordAutoFill(fromRegister);
@@ -68,23 +73,44 @@ export function LoginScreen({ navigation, route }: Props) {
     if (!devTools) {
       return;
     }
-    void api.getBaseUrl().then(setApiUrl);
+    void api.getBaseUrl().then((url) => {
+      setApiUrl(url);
+      setLoadedApiUrl(url);
+    });
   }, [devTools]);
 
   async function onSubmit() {
     setError(null);
+    setEmailError(null);
+    setPasswordError(null);
     setNotice(null);
     setLoading(true);
     try {
-      if (devTools && apiUrl.trim()) {
-        await api.setApiBaseUrl(apiUrl);
+      const nextUrl = apiUrl.trim().replace(/\/$/, "");
+      const previousUrl = loadedApiUrl.trim().replace(/\/$/, "");
+      if (devTools && nextUrl && nextUrl !== previousUrl) {
+        await api.setApiBaseUrl(nextUrl);
+        setLoadedApiUrl(nextUrl);
       }
       await login(email, password);
     } catch (err) {
-      setError(loginUserFacingError(err));
+      const fields = err instanceof ApiError ? loginFieldErrors(err.body) : {};
+      if (fields.email || fields.password) {
+        setEmailError(fields.email ?? null);
+        setPasswordError(fields.password ?? null);
+      } else {
+        setError(loginUserFacingError(err));
+      }
     } finally {
       setLoading(false);
     }
+  }
+
+  async function resetApiUrl() {
+    await api.setApiBaseUrl("");
+    const url = await api.getBaseUrl();
+    setApiUrl(url);
+    setLoadedApiUrl(url);
   }
 
   return (
@@ -127,6 +153,7 @@ export function LoginScreen({ navigation, route }: Props) {
                 style={styles.input}
               />
             </View>
+            {emailError ? <Text style={styles.fieldError}>{emailError}</Text> : null}
 
             <Text style={styles.label}>Mot de passe</Text>
             <View style={styles.inputWrap}>
@@ -152,6 +179,7 @@ export function LoginScreen({ navigation, route }: Props) {
                 <Ionicons name={showPassword ? "eye-off-outline" : "eye-outline"} size={20} color={colors.muted} />
               </Pressable>
             </View>
+            {passwordError ? <Text style={styles.fieldError}>{passwordError}</Text> : null}
 
             <Text style={styles.forgot}>
               Mot de passe oublié ? {FORGOT_PASSWORD_PENDING_MESSAGE}
@@ -208,15 +236,19 @@ export function LoginScreen({ navigation, route }: Props) {
                       keyboardType="url"
                       value={apiUrl}
                       onChangeText={setApiUrl}
-                      placeholder="http://192.168.x.x:8000"
+                      placeholder="http://IP_LAN:PORT"
                       placeholderTextColor={colors.muted}
                       style={styles.input}
                     />
                   </View>
                   <Text style={styles.devHint}>
-                    Sur un téléphone, localhost ne fonctionne pas : utilisez l'IP LAN du PC (QR
-                    Expo), port 8000.
+                    Une adresse enregistrée ici reste active après redémarrage. Sinon
+                    l'application utilise EXPO_PUBLIC_API_URL. Le port Metro (8084) n'est pas
+                    l'API.
                   </Text>
+                  <Pressable accessibilityRole="button" onPress={() => void resetApiUrl()}>
+                    <Text style={styles.devActionTitle}>Réinitialiser l'adresse API</Text>
+                  </Pressable>
                 </View>
               ) : null}
             </View>
@@ -255,6 +287,7 @@ const styles = StyleSheet.create({
   },
   input: { flex: 1, color: colors.navy, fontSize: 14, minHeight: 48 },
   forgot: { color: colors.stitchOnVariant, fontSize: 12, lineHeight: 18 },
+  fieldError: { color: colors.stitchOrange, fontSize: 12, lineHeight: 16 },
   signupRow: {
     flexDirection: "row",
     justifyContent: "center",
